@@ -1,0 +1,183 @@
+﻿<UserControl x:Class="KioskApp.Ek.Cart.CartView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cart="using:KioskApp.Ek.Cart"
+             xmlns:controls="using:KioskApp.Controls"
+             xmlns:promoCode="using:KioskApp.Ek.Cart.PromoCode"
+             mc:Ignorable="d"
+             d:DesignHeight="800"
+             d:DesignWidth="1600"
+             Loaded="CartView_OnLoaded"
+             Unloaded="CartView_OnUnloaded">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!--SUMMARY-->
+        <controls:LeftContentPanel>
+
+            <StackPanel Margin="88 91 88 0">
+
+                <TextBlock Text="У Вас в корзине"
+                           HorizontalAlignment="Center"
+                           Foreground="White"
+                           FontFamily="{StaticResource UbuntuFontFamily}"
+                           FontSize="30" />
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0 23 0 0">
+                    <Image Source="/Themes/Assets/Images/Cart/CartWidgetEmpty.png"
+                           Stretch="None"
+                           VerticalAlignment="Center" />
+                    <TextBlock Margin="12 0 0 0"
+                               VerticalAlignment="Center"
+                               Foreground="White"
+                               FontFamily="{StaticResource UbuntuMediumFontFamily}"
+                               FontSize="18">
+                        <Run Text="{x:Bind Cart.TotalQuantity, Mode=OneWay}" />
+                        <Run Text="товаров" />
+                    </TextBlock>
+                </StackPanel>
+
+                <Rectangle Fill="#635aa0"
+                           Height="1"
+                           Margin="0 9 0 0" />
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0 29 0 0">
+                    <TextBlock Text="{x:Bind Cart.TotalPriceString, Mode=OneWay}"
+                               Foreground="White"
+                               FontSize="68"
+                               FontFamily="{StaticResource UbuntuBoldFontFamily}" />
+                    <TextBlock Text="грн"
+                               VerticalAlignment="Top"
+                               Margin="5 1 0 0"
+                               Foreground="White"
+                               FontSize="39"
+                               FontFamily="{StaticResource UbuntuBoldFontFamily}" />
+                </StackPanel>
+
+                <Rectangle Fill="#635aa0"
+                           Height="1"
+                           Margin="0 42 0 0" />
+
+                <promoCode:PromoCodePresenter PromoCode="{x:Bind Cart.PromoCode, Mode=TwoWay}" />
+
+                <TextBlock Text="Вы можете"
+                           Foreground="White"
+                           FontFamily="{StaticResource UbuntuFontFamily}"
+                           FontSize="30"
+                           HorizontalAlignment="Center"
+                           Margin="0 111 0 0" />
+
+                <StackPanel Margin="81 0 81 0">
+                    <Button Style="{StaticResource OrangeButtonStyle}"
+                            Height="60"
+                            Margin="0 35 0 0"
+                            Command="{x:Bind EkContext.GoToCheckoutCommand, Mode=OneWay}">
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center">
+                            <Image Source="/Themes/Assets/Images/Buttons/Checkout.png"
+                                   Stretch="None"
+                                   VerticalAlignment="Center" />
+                            <TextBlock Text="Оформить заказ"
+                                       VerticalAlignment="Center"
+                                       Margin="5 0 0 0" />
+                        </StackPanel>
+                    </Button>
+
+                    <TextBlock Text="или"
+                               Foreground="#acb8ff"
+                               FontFamily="{StaticResource UbuntuLightFontFamily}"
+                               FontSize="18"
+                               HorizontalAlignment="Center"
+                               Margin="0 14 0 18" />
+
+                    <Button Style="{StaticResource WhiteOutlineButtonStyle}"
+                            Command="{x:Bind EkContext.ContinueShoppingCommand, Mode=OneWay}">
+                        <TextBlock Text="Продолжить покупки" />
+                    </Button>
+
+                </StackPanel>
+
+            </StackPanel>
+
+        </controls:LeftContentPanel>
+
+        <!--PRODUCTS-->
+        <controls:RightContentPanel Grid.Column="1">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <!--header-->
+                <controls:RightContentHeaderPanel Height="51">
+                    <StackPanel Orientation="Horizontal">
+                        <controls:RightContentHeaderBackButton Command="{x:Bind EkContext.ContinueShoppingCommand, Mode=OneWay}" />
+                        <TextBlock Text="Товары в корзине"
+                                   Style="{StaticResource RightContentHeaderStyle}" />
+                    </StackPanel>
+                </controls:RightContentHeaderPanel>
+
+                <!--items-->
+                <!--MaxHeight = 1080 - 78 (app header) - 51 (view header) - 120 (view footer)-->
+                <Grid Grid.Row="1"
+                      MaxHeight="831">
+                    <ListView ItemsSource="{x:Bind Cart.Products, Mode=OneWay}"
+                              Style="{StaticResource ProductsListViewStyle}"
+                              Padding="72 30 72 15">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="cart:CartProduct">
+                                <cart:CartProductPresenter CartProduct="{x:Bind}"
+                                                           Margin="0 0 0 15" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+
+                <!--footer-->
+                <controls:RightContentHeaderPanel Grid.Row="2"
+                                                  Background="#dcdeff">
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Padding="0 30 0 30">
+                        <Button Content="Продолжить покупки"
+                                Margin="0 0 93 0"
+                                Style="{StaticResource CheckoutBackButtonStyle}"
+                                MinWidth="350"
+                                Command="{x:Bind EkContext.ContinueShoppingCommand, Mode=OneWay}" />
+                        <Button Style="{StaticResource OrangeButtonStyle}"
+                                Height="60"
+                                MinWidth="350"
+                                Command="{x:Bind EkContext.GoToCheckoutCommand, Mode=OneWay}">
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center">
+                                <Image Source="/Themes/Assets/Images/Buttons/Checkout.png"
+                                       Stretch="None"
+                                       VerticalAlignment="Center" />
+                                <TextBlock Text="Оформить заказ"
+                                           VerticalAlignment="Center"
+                                           Margin="5 0 0 0" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </controls:RightContentHeaderPanel>
+
+            </Grid>
+
+        </controls:RightContentPanel>
+
+    </Grid>
+</UserControl>

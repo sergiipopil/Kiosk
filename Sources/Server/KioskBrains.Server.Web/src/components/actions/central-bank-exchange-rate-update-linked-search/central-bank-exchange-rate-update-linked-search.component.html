@@ -1,0 +1,53 @@
+<base-frame [isLoading]="isLoading">
+  <div body>
+
+    <search-linked-layout>
+
+      <div results-area>
+        <div *ngIf="viewModel.records && viewModel.records.length > 0">
+          <div class="table-responsive">
+            <table class="search-table">
+              <thead table-header-component [fields]="fields"
+                     [orderBy]="requestModel.metadata.orderBy"
+                     [orderDirection]="requestModel.metadata.orderDirection"
+                     [onSortingChange]="onSortingChange.bind(this)">
+              </thead>
+              <tbody>
+                <tr role="row" *ngFor="let record of viewModel.records; let i = index" [class]="i%2 === 0? 'even':'odd'">
+                  <td>
+                    <a routerLink="/central-bank-exchange-rate-update-details" [queryParams]="{id:record.id, _t:'modal'}">Details</a>
+                  </td>
+                  <td>
+                    {{record.startTime | date2:'yyyy-MM-dd HH:mm:ss'}}
+                  </td>
+                  <td>
+                    {{record.rate}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div *ngIf="viewModel.records && viewModel.records.length === 0 && !isLoading"
+             class="no-records-message">
+          Search returned no results
+        </div>
+      </div>
+
+      <div footer-area>
+        <command-panel>
+          <command-group>
+            <button routerLink="/central-bank-exchange-rate-update-details" [queryParams]="{centralBankExchangeRateId: requestModel.centralBankExchangeRateId, _t:'modal'}" class="btn btn-sm btn-complete">Add Rate</button>
+          </command-group>
+        </command-panel>
+        <paging-component *ngIf="viewModel.records && viewModel.records.length > 0"
+                          [total]="viewModel.total"
+                          [paging]="requestModel.metadata"
+                          (onStartChange)="onStartChange($event)">
+        </paging-component>
+      </div>
+
+    </search-linked-layout>
+
+  </div>
+</base-frame>

@@ -1,0 +1,40 @@
+in case of Installation: custom settings - everything is off
+
+- install/upgrade to Pro/Enterprise
+- disable UAC
+- set Windows mode to Sideload apps
+- disable auto-updates - Group Policy Editor > Computer Configuration > Administrative Templates > Windows Components > Windows Update > Configure Automatic Updates (Disabled)
+- logon screen:
+-- Computer Configuration > Windows Settings > Security Settings > Local Policies > Security Options > Shutdown: Allow system to be shut down without having to log on (Disabled)
+-- Group Policy Editor > Computer Configuration > Administrative Templates > System > Logon > Turn off app notifications on the lock screen (Enabled)
+-- Group Policy Editor > Computer Configuration > Administrative Templates > System > Logon > Do not display network selection UI (Enabled)
+- disable the hardware power button
+-- go to Power Options > Choose what the power button does, change the setting to Do nothing, and then Save changes.
+
+- disable Antivirus - Computer Configuration > Administrative Templates > Windows Components > Windows Defender Antivirus > Turn off Windows Defender Antivirus (Enabled)
+
+- create new user Kiosk (without password) as regular user
+- configure Kiosk user to login automatically HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsNT\CurrentVersion\Winlogon
+-- AutoAdminLogon - set value as 1
+-- DefaultUserName - Kiosk
+-- DefaultPassword - remove (no password)
+- sign in under Kiosk user
+- Power Settings - all to Never
+- disable bluetooth and location
+- check time settings (auto time, manual time zone, check service Windows Time)
+- set Tablet Mode only (doesn't show app icons in Tablet Mode)
+- turn off all notifications
+- insert USB-dongle, select "No Actions"
+
+- copy Kiosk folder to C:/
+- create symlink to Kiosk folder from Pictures folder (create-symbolic-link.bat as admin)
+- set correct serial key C:/Kiosk/kiosk.key (without any hidden symbols)
+- install certificate to Machine/Trusted Root Certification Authorities
+- install KioskApp (double click on KioskApp.appx)
+- setup KioskAutoUpdater (via Computer\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run)
+-- sometimes Unblock is needed (Properties of KioskAutoUpdater.exe)
+
+- return to Admin User
+- set password for Admin User - Ek#1
+- configure 2 displays correctly
+- set Assigned Access for Kiosk user and restart

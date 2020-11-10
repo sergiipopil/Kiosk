@@ -1,0 +1,64 @@
+@import "../../../theme/scss/var";
+
+.form-control-container {
+  margin-bottom: 15px;
+  min-width: 100px;
+
+  label {
+    font-size: 13px;
+    margin-bottom: 2px;
+    display: flex;
+
+    > [label-extension] > [label-extension] {
+      display: flex;
+
+      &:before {
+        content: "\00a0"; // non breaking space
+      }
+    }
+  }
+}
+
+/* show asterisk symbol for required controls */
+[required] > .form-control-container,
+[required] > form-control-container > .form-control-container {
+
+  label {
+
+    &:after {
+      content: "*";
+      margin-left: 4px;
+      color: $color-danger;
+    }
+  }
+}
+
+/* invalid controls */
+.ng-touched > .form-control-container,
+.ng-touched > form-control-container > .form-control-container {
+
+  input, textarea, select:not(.select2-hidden-accessible) {
+
+    &.invalid {
+      background-color: rgba($color-danger, .10);
+      border-color: $color-danger !important;
+    }
+  }
+
+  select.select2-hidden-accessible.invalid + .select2-container {
+
+    .select2-selection {
+      background-color: rgba($color-danger, .10);
+      border-color: $color-danger !important;
+    }
+  }
+}
+
+/* hide messages for untouched controls */
+.ng-untouched > .form-control-container,
+.ng-untouched > form-control-container > .form-control-container {
+
+  validation-messages {
+    display: none;
+  }
+}

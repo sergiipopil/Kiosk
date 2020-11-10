@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Azure.Search" Version="7.0.0-preview" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\KioskBrains.Common.EK\KioskBrains.Common.EK.csproj" />
+    <ProjectReference Include="..\..\Clients\KioskBrains.Clients.ElitUa\KioskBrains.Clients.ElitUa.csproj" />
+    <ProjectReference Include="..\..\Clients\KioskBrains.Clients.OmegaAutoBiz\KioskBrains.Clients.OmegaAutoBiz.csproj" />
+    <ProjectReference Include="..\..\Clients\KioskBrains.Clients.TecDocWs\KioskBrains.Clients.TecDocWs.csproj" />
+    <ProjectReference Include="..\..\KioskBrains.Server.Common\KioskBrains.Server.Common.csproj" />
+    <ProjectReference Include="..\KioskBrains.Server.EK.Common\KioskBrains.Server.EK.Common.csproj" />
+  </ItemGroup>
+
+</Project>

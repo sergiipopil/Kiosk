@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="KioskApp.Ek.Catalog.SearchStatePresenter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:KioskApp.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+
+    <Grid>
+
+        <Grid Visibility="{x:Bind Searching, Mode=OneWay, Converter={StaticResource BooleanToVisibilityReversedConverter}}"
+              Padding="0 0 0 42">
+
+            <Image Source="/Themes/Assets/Images/Catalog/LoupeBackground2.png"
+                   Stretch="None"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   Margin="56 100 0 0" />
+
+            <Grid Visibility="{x:Bind TermIsRequired, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Visibility="{x:Bind IsManualSearchRun, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Style="{StaticResource SearchStateMessageStyle}">
+                    <Run Text="Введите" />
+                    <Run Text="{x:Bind TermName, Mode=OneWay}"
+                         Foreground="#383e91" />
+                    <LineBreak />
+                    <Run Text="и нажмите кнопку" />
+                    <Run Text="поиск"
+                         Foreground="#383e91" /><Run Text="." />
+                </TextBlock>
+                <TextBlock Visibility="{x:Bind IsManualSearchRun, Mode=OneWay, Converter={StaticResource BooleanToVisibilityReversedConverter}}"
+                           Style="{StaticResource SearchStateMessageStyle}">
+                    <Run Text="Введите" />
+                    <Run Text="{x:Bind TermName, Mode=OneWay}"
+                         Foreground="#383e91" /><Run Text="." />
+                </TextBlock>
+            </Grid>
+
+            <Grid Visibility="{x:Bind NoResults, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Visibility="{x:Bind ShowAnotherSections, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                           Style="{StaticResource SearchStateMessageStyle}">
+                    <Run Text="Ничего" />
+                    <Run Text="не найдено"
+                         Foreground="#383e91" /><Run Text="." />
+                    <LineBreak />
+                    <Run Text="Повторите поиск" />
+                    <Run Text="{x:Bind WithAnotherTermPhrase, Mode=OneWay}"
+                         Foreground="#383e91" />
+                    <LineBreak />
+                    <Run Text="или попробуйте найти в" />
+                    <Run Text="другом разделе"
+                         Foreground="#383e91" /><Run Text="." />
+                </TextBlock>
+                <TextBlock Visibility="{x:Bind ShowAnotherSections, Mode=OneWay, Converter={StaticResource BooleanToVisibilityReversedConverter}}"
+                           Style="{StaticResource SearchStateMessageStyle}">
+                    <Run Text="Ничего" />
+                    <Run Text="не найдено"
+                         Foreground="#383e91" /><Run Text="." />
+                    <LineBreak />
+                    <Run Text="Повторите поиск" />
+                    <Run Text="{x:Bind WithAnotherTermPhrase, Mode=OneWay}"
+                         Foreground="#383e91" /><Run Text="." />
+                </TextBlock>
+            </Grid>
+
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Visibility="{x:Bind Error, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Text="Ошибка!"
+                           Style="{StaticResource SearchStateMessageStyle}"
+                           Foreground="#383e91" />
+                <Button Content="Повторить"
+                        Style="{StaticResource OrangeButtonStyle}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        MinWidth="200"
+                        HorizontalAlignment="Center"
+                        Margin="0 10 0 0"
+                        Command="{x:Bind RetryOnErrorCommand, Mode=OneWay}" />
+            </StackPanel>
+
+        </Grid>
+
+        <controls:LoadingControl Visibility="{x:Bind Searching, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                 Text="Поиск..."
+                                 Size="Large"
+                                 ShowOverlay="False" />
+
+    </Grid>
+</UserControl>

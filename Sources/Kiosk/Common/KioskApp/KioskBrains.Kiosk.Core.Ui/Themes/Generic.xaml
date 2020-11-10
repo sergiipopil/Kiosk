@@ -1,0 +1,274 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="using:KioskBrains.Kiosk.Core.Ui.Controls"
+                    xmlns:virtualKeyboard="using:KioskBrains.Kiosk.Core.Ui.VirtualKeyboard">
+
+    <Style x:Key="InternalInputTextBoxStyle"
+           TargetType="TextBox">
+        <Setter Property="IsEnabled"
+                Value="False" />
+        <Setter Property="Padding"
+                Value="0" />
+        <Setter Property="MinWidth"
+                Value="0" />
+        <Setter Property="BorderThickness"
+                Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Grid>
+                        <ScrollViewer x:Name="ContentElement"
+                                      HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}"
+                                      HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                      VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}"
+                                      VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                      IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}"
+                                      IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}"
+                                      IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}"
+                                      Margin="{TemplateBinding BorderThickness}"
+                                      Padding="{TemplateBinding Padding}"
+                                      IsTabStop="False"
+                                      AutomationProperties.AccessibilityView="Raw"
+                                      ZoomMode="Disabled" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="controls:TextInput">
+        <Setter Property="MinWidth"
+                Value="{ThemeResource TextControlThemeMinWidth}" />
+        <Setter Property="MinHeight"
+                Value="{ThemeResource TextControlThemeMinHeight}" />
+        <Setter Property="Foreground"
+                Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
+        <Setter Property="Background"
+                Value="{ThemeResource SystemControlBackgroundAltHighBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{ThemeResource SystemControlForegroundChromeDisabledLowBrush}" />
+        <Setter Property="BorderThickness"
+                Value="{ThemeResource TextControlBorderThemeThickness}" />
+        <Setter Property="FontFamily"
+                Value="{ThemeResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontSize"
+                Value="{ThemeResource ControlContentThemeFontSize}" />
+        <Setter Property="Padding"
+                Value="{ThemeResource TextControlThemePadding}" />
+        <Setter Property="BlinkingCursorStyle">
+            <Setter.Value>
+                <Style TargetType="controls:BlinkingCursorControl">
+                    <Setter Property="VerticalAlignment"
+                            Value="Stretch" />
+                    <Setter Property="Width"
+                            Value="2" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:TextInput">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="IsVirtualKeyboardTarget">
+                                    <VisualState.StateTriggers>
+                                        <!--TODO: for some reason it causes UI 'Unspecified error' when is used without VirtualKeyboard-->
+                                        <StateTrigger IsActive="{Binding Path=(virtualKeyboard:VirtualKeyboard.IsTarget), RelativeSource={RelativeSource TemplatedParent}}" />
+                                    </VisualState.StateTriggers>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BlinkingCursorControl"
+                                                                       Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <Grid HorizontalAlignment="Left">
+                                <!--aligned to right to show the end of input when the text can't be displayed entirely-->
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Right">
+                                    <TextBox Text="{TemplateBinding Text}"
+                                             Style="{StaticResource InternalInputTextBoxStyle}"
+                                             FontSize="{TemplateBinding FontSize}"
+                                             FontFamily="{TemplateBinding FontFamily}"
+                                             FontWeight="{TemplateBinding FontWeight}"
+                                             FontStyle="{TemplateBinding FontStyle}"
+                                             CharacterSpacing="{TemplateBinding CharacterSpacing}"
+                                             Foreground="{TemplateBinding Foreground}"
+                                             Margin="{TemplateBinding TextMargin}" />
+                                    <controls:BlinkingCursorControl x:Name="BlinkingCursorControl"
+                                                                    Visibility="Collapsed"
+                                                                    Style="{TemplateBinding BlinkingCursorStyle}"
+                                                                    Fill="{TemplateBinding Foreground}" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="controls:CurrencyInput">
+        <Setter Property="MinWidth"
+                Value="{ThemeResource TextControlThemeMinWidth}" />
+        <Setter Property="MinHeight"
+                Value="{ThemeResource TextControlThemeMinHeight}" />
+        <Setter Property="Foreground"
+                Value="{ThemeResource SystemControlForegroundBaseHighBrush}" />
+        <Setter Property="Background"
+                Value="{ThemeResource SystemControlBackgroundAltHighBrush}" />
+        <Setter Property="BorderBrush"
+                Value="{ThemeResource SystemControlForegroundChromeDisabledLowBrush}" />
+        <Setter Property="BorderThickness"
+                Value="{ThemeResource TextControlBorderThemeThickness}" />
+        <Setter Property="FontFamily"
+                Value="{ThemeResource ContentControlThemeFontFamily}" />
+        <Setter Property="FontSize"
+                Value="{ThemeResource ControlContentThemeFontSize}" />
+        <Setter Property="Padding"
+                Value="{ThemeResource TextControlThemePadding}" />
+        <Setter Property="BlinkingCursorStyle">
+            <Setter.Value>
+                <Style TargetType="controls:BlinkingCursorControl">
+                    <Setter Property="VerticalAlignment"
+                            Value="Stretch" />
+                    <Setter Property="Width"
+                            Value="2" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:CurrencyInput">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="IsVirtualKeyboardTarget">
+                                    <VisualState.StateTriggers>
+                                        <StateTrigger IsActive="{Binding Path=(virtualKeyboard:VirtualKeyboard.IsTarget), RelativeSource={RelativeSource TemplatedParent}}" />
+                                    </VisualState.StateTriggers>
+                                    <Storyboard>
+                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BlinkingCursorControl"
+                                                                       Storyboard.TargetProperty="Visibility">
+                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                <DiscreteObjectKeyFrame.Value>
+                                                    <Visibility>Visible</Visibility>
+                                                </DiscreteObjectKeyFrame.Value>
+                                            </DiscreteObjectKeyFrame>
+                                        </ObjectAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="{TemplateBinding TextMargin}">
+                                    <Run Text="{Binding Path=CurrencySymbol, RelativeSource={RelativeSource TemplatedParent}}" /><Run Text="{Binding Path=Text, RelativeSource={RelativeSource TemplatedParent}}" />
+                                </TextBlock>
+                                <controls:BlinkingCursorControl x:Name="BlinkingCursorControl"
+                                                                Visibility="Collapsed"
+                                                                Style="{TemplateBinding BlinkingCursorStyle}"
+                                                                Fill="{TemplateBinding Foreground}" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="DefaultVirtualKeyButtonStyle"
+           TargetType="Button">
+        <Setter Property="FontSize"
+                Value="44" />
+        <Setter Property="Margin"
+                Value="5" />
+        <Setter Property="Height"
+                Value="64" />
+        <Setter Property="Width"
+                Value="64" />
+        <Setter Property="Foreground"
+                Value="Blue" />
+    </Style>
+
+    <Style x:Key="DefaultVirtualTextKeyButtonStyle"
+           TargetType="Button"
+           BasedOn="{StaticResource DefaultVirtualKeyButtonStyle}">
+        <Setter Property="Padding"
+                Value="0 -4 0 0" />
+    </Style>
+
+    <Style x:Key="DefaultVirtualSpecialKeyButtonStyle"
+           TargetType="Button"
+           BasedOn="{StaticResource DefaultVirtualKeyButtonStyle}">
+        <Setter Property="Foreground"
+                Value="DarkRed" />
+    </Style>
+
+    <Style x:Key="DefaultVirtualPlaceholderKeyButtonStyle"
+           TargetType="Button"
+           BasedOn="{StaticResource DefaultVirtualKeyButtonStyle}">
+        <Setter Property="IsEnabled"
+                Value="False" />
+    </Style>
+
+    <DataTemplate x:Key="DefaultVirtualTextKeyButtonContentTemplate">
+        <TextBlock Text="{Binding Value}" />
+    </DataTemplate>
+
+    <virtualKeyboard:VirtualSpecialKeyToGlyphConverter x:Key="VirtualSpecialKeyToGlyphConverter" />
+
+    <DataTemplate x:Key="DefaultVirtualSpecialKeyButtonContentTemplate">
+        <controls:FontIconFixed FontFamily="Segoe MDL2 Assets"
+                                Glyph="{Binding Converter={StaticResource VirtualSpecialKeyToGlyphConverter}}" />
+    </DataTemplate>
+
+    <virtualKeyboard:BasicVirtualKeyButtonStyleSelector x:Key="DefaultVirtualKeyButtonStyleSelector"
+                                                        Text="{StaticResource DefaultVirtualTextKeyButtonStyle}"
+                                                        Special="{StaticResource DefaultVirtualSpecialKeyButtonStyle}"
+                                                        Control="{StaticResource DefaultVirtualKeyButtonStyle}"
+                                                        Placeholder="{StaticResource DefaultVirtualPlaceholderKeyButtonStyle}" />
+
+    <virtualKeyboard:BasicVirtualKeyButtonContentTemplateSelector x:Key="DefaultVirtualKeyButtonContentTemplateSelector"
+                                                                  Text="{StaticResource DefaultVirtualTextKeyButtonContentTemplate}"
+                                                                  Special="{StaticResource DefaultVirtualSpecialKeyButtonContentTemplate}"
+                                                                  Control="{StaticResource DefaultVirtualTextKeyButtonContentTemplate}"
+                                                                  Placeholder="{StaticResource DefaultVirtualTextKeyButtonContentTemplate}" />
+
+    <Style TargetType="virtualKeyboard:VirtualKeyboardControl">
+        <Setter Property="KeyButtonStyleSelector"
+                Value="{StaticResource DefaultVirtualKeyButtonStyleSelector}" />
+        <Setter Property="KeyButtonContentTemplateSelector"
+                Value="{StaticResource DefaultVirtualKeyButtonContentTemplateSelector}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="virtualKeyboard:VirtualKeyboardControl">
+
+                    <ContentPresenter HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch"
+                                      Background="{TemplateBinding Background}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      Padding="{TemplateBinding Padding}" />
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

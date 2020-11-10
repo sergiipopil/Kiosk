@@ -1,0 +1,13 @@
+﻿.group-title {
+  margin: 5px -30px 15px -30px;
+  text-transform: uppercase;
+  padding: 5px 30px;
+  font-weight: 500;
+  color: #0090d9;
+  font-family: 'Montserrat';
+  font-size: 10.5px;
+}
+
+:host:first-child .group-title {
+  margin-top: 20px;
+}

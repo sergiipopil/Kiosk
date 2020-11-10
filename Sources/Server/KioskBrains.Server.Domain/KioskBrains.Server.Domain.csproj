@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20181203121732_CentralBankExchangeRateUpdate.cs" />
+    <Compile Remove="Migrations\20190213165335_ek-transactions.cs" />
+    <Compile Remove="Migrations\20190213165407_ek_transactions.cs" />
+    <Compile Remove="Migrations\20190213165523_ek_transactions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.0" />
+    <PackageReference Include="Dapper" Version="1.50.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Azure.Search" Version="7.0.0-preview" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.1.0" />
+    <PackageReference Include="Viber.Bot" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\KioskBrains.Common.EK\KioskBrains.Common.EK.csproj" />
+    <ProjectReference Include="..\..\Common\KioskBrains.Common\KioskBrains.Common.csproj" />
+    <ProjectReference Include="..\Clients\KioskBrains.Clients.AllegroPl\KioskBrains.Clients.AllegroPl.csproj" />
+    <ProjectReference Include="..\Clients\KioskBrains.Clients.OmegaAutoBiz\KioskBrains.Clients.OmegaAutoBiz.csproj" />
+    <ProjectReference Include="..\Clients\KioskBrains.Clients.TecDocWs\KioskBrains.Clients.TecDocWs.csproj" />
+    <ProjectReference Include="..\EK\KioskBrains.Clients.Ek4Car\KioskBrains.Clients.Ek4Car.csproj" />
+    <ProjectReference Include="..\EK\KioskBrains.Server.EK.Common\KioskBrains.Server.EK.Common.csproj" />
+    <ProjectReference Include="..\KioskBrains.Server.Common\KioskBrains.Server.Common.csproj" />
+    <ProjectReference Include="..\KioskBrains.Waf\KioskBrains.Waf.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="KioskApp.Controls.SoonFlyout"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Image Source="/Themes/Assets/Images/SoonFlyoutArrow.png"
+               Stretch="None"
+               VerticalAlignment="Center"
+               Margin="1 0 -1 0"
+               Canvas.ZIndex="1" />
+
+        <toolkitControls:DropShadowPanel Grid.Column="1"
+                                         Color="#121426"
+                                         ShadowOpacity="0.6"
+                                         BlurRadius="15">
+            <Grid Padding="37 29 37 29"
+                  Background="#dbdeff">
+                <TextBlock HorizontalAlignment="Left"
+                           FontFamily="{StaticResource UbuntuFontFamily}"
+                           FontSize="16"
+                           LineHeight="24"
+                           Foreground="#6b7bd0"
+                           VerticalAlignment="Center">
+                    <Run Text="Данный раздел временно недоступен." />
+                    <LineBreak />
+                    <Run Text="Работа восстановится в ближайшее время." />
+                </TextBlock>
+            </Grid>
+        </toolkitControls:DropShadowPanel>
+
+    </Grid>
+</UserControl>

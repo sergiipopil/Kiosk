@@ -1,0 +1,14 @@
+<div class="form-control-container"
+     *ngIf="control">
+  <label *ngIf="control.label"
+         [attr.for]="control.controlId">
+    {{control.label}}
+    <ng-content select="[label-extension]"></ng-content>
+  </label>
+
+  <ng-content></ng-content>
+
+  <validation-messages *ngIf="!control.hideValidationMessages && control.invalid | async"
+                       [messages]="control.failures | async">
+  </validation-messages>
+</div>

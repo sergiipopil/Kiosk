@@ -1,0 +1,24 @@
+<base-frame hideHeader="true">
+    <div (keyup.enter)="doLogin()" body>
+
+        <div class="header-image-container">
+            <img height="40" src="assets/logos/logo.svg">
+        </div>
+
+        <div class="form-container">
+            <p class="banner">
+                Welcome
+            </p>
+            <div class="error" *ngIf="error">
+                {{error}}
+            </div>
+            <text-input name="userName" placeholder="Login" [(ngModel)]="userName">
+            </text-input>
+            <div class="form-field-container">
+                <input [(ngModel)]="password" placeholder="Password" type="password" class="form-control" />
+            </div>
+            <button (click)="doLogin()" class="btn btn-complete btn-sm">Login</button>
+        </div>
+
+    </div>
+</base-frame>

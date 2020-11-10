@@ -1,0 +1,12 @@
+<base-frame [modalSize]="'small'">
+  <div header>
+    {{header}}
+  </div>
+  <div class="message" body>
+    {{message}}
+  </div>
+  <div footer>
+    <button class="btn btn-sm btn-default" (click)="yesClick()">Yes</button>
+    <button class="btn btn-sm btn-default" (click)="noClick()">No</button>
+  </div>
+</base-frame>

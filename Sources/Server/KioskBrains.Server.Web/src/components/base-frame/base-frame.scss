@@ -1,0 +1,40 @@
+.base-frame-container {
+  padding: 20px 30px;
+  margin: 0 -30px;
+  background: #ffffff;
+  position: relative;
+
+  .header-container {
+    display: none;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #0090d9;
+    font-family: 'Montserrat';
+    font-size: 10.5px;
+  }
+
+  .body-container {
+    min-height: 100px;
+  }
+}
+
+:host-context(.modal) {
+
+  .base-frame-container {
+    margin: 0 auto;
+
+    &.modal-size-default {
+      max-width: 1200px;
+    }
+
+    &.modal-size-small {
+      max-width: 520px;
+    }
+
+    .header-container {
+      display: block;
+      margin: -20px -30px 20px -30px;
+      padding: 10px 30px;
+    }
+  }
+}

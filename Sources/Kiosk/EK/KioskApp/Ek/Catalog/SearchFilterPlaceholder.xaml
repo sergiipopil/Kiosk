@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="KioskApp.Ek.Catalog.SearchFilterPlaceholder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:KioskBrains.Kiosk.Core.Ui.Controls"
+             xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="71"
+             d:DesignWidth="600">
+
+    <Grid>
+        <toolkitControls:DropShadowPanel HorizontalContentAlignment="Stretch"
+                                         Color="#160b29"
+                                         BlurRadius="13"
+                                         ShadowOpacity="0.75">
+            <Grid Background="#dcdeff"
+                  Height="71">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Margin="28 0 0 0"
+                           VerticalAlignment="Center"
+                           FontFamily="{StaticResource UbuntuFontFamily}"
+                           FontSize="26"
+                           Foreground="#907fb0">
+                    <Run Text="{x:Bind PlaceholderText1, Mode=OneWay}" />
+                    <Run Text="{x:Bind PlaceholderText2, Mode=OneWay}"
+                         FontFamily="{StaticResource UbuntuBoldFontFamily}"
+                         Foreground="#524593" />
+                </TextBlock>
+                <Image Grid.Column="1"
+                       Source="/Themes/Assets/Images/Catalog/InputLoupe.png"
+                       Stretch="None"
+                       VerticalAlignment="Top"
+                       Margin="10 18 18 0" />
+            </Grid>
+        </toolkitControls:DropShadowPanel>
+    </Grid>
+</UserControl>

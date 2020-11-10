@@ -1,0 +1,9 @@
+﻿<ol class="breadcrumb">
+  <ng-template [ngIf]="parentBreadcrumbNodes">
+    <li *ngFor="let parentBreadcrumbNode of parentBreadcrumbNodes" class="breadcrumb-item">
+      <a *ngIf="!parentBreadcrumbNode.containerOnly" routerLink="{{parentBreadcrumbNode.path}}">{{parentBreadcrumbNode.title}}</a>
+      <a *ngIf="parentBreadcrumbNode.containerOnly">{{parentBreadcrumbNode.title}}</a>
+    </li>
+  </ng-template>
+  <li *ngIf="activeBreadcrumbNode" class="breadcrumb-item active">{{activeBreadcrumbNode.title}}</li>
+</ol>

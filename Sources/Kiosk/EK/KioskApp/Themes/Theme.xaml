@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ThemeParts/Brushes.xaml" />
+        <ResourceDictionary Source="ThemeParts/FontFamilies.xaml" />
+        <ResourceDictionary Source="ThemeParts/Styles/Backgrounds.xaml" />
+        <ResourceDictionary Source="ThemeParts/Styles/Buttons.xaml" />
+        <ResourceDictionary Source="ThemeParts/Styles/Flyouts.xaml" />
+        <ResourceDictionary Source="ThemeParts/Styles/GridViews.xaml" />
+        <ResourceDictionary Source="ThemeParts/Styles/Inputs.xaml" />
+        <ResourceDictionary Source="ThemeParts/Styles/ListViews.xaml" />
+        <ResourceDictionary Source="ThemeParts/Styles/Separators.xaml" />
+        <ResourceDictionary Source="ThemeParts/Styles/Shadows.xaml" />
+        <ResourceDictionary Source="ThemeParts/Styles/TextBlocks.xaml" />
+        <ResourceDictionary Source="ThemeParts/Styles/VirtualKeyboards.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

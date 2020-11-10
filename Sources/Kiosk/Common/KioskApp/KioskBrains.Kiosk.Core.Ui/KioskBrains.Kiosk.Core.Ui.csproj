@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{57090504-F8D1-4660-8425-FBEFFA59322F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KioskBrains.Kiosk.Core.Ui</RootNamespace>
+    <AssemblyName>KioskBrains.Kiosk.Core.Ui</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.16299.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <PlatformTarget>ARM</PlatformTarget>
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Controls\ArcControl\Arc.cs" />
+    <Compile Include="Controls\ArcControl\ArcHelper.cs" />
+    <Compile Include="Controls\BlinkingCursorControl.xaml.cs">
+      <DependentUpon>BlinkingCursorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CurrencyInput.cs" />
+    <Compile Include="Controls\FontIconFixed.cs" />
+    <Compile Include="Controls\IntegerInput.cs" />
+    <Compile Include="Controls\TextInput.cs" />
+    <Compile Include="Controls\VirtualKeyboardTargetBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VirtualKeyboard\BasicVirtualKeyButtonStyleSelector.cs" />
+    <Compile Include="VirtualKeyboard\BasicVirtualKeyButtonContentTemplateSelector.cs" />
+    <Compile Include="VirtualKeyboard\IVirtualKeyButtonStyleSelector.cs" />
+    <Compile Include="VirtualKeyboard\IVirtualKeyboardControlTarget.cs" />
+    <Compile Include="VirtualKeyboard\Keys\VirtualKey.cs" />
+    <Compile Include="VirtualKeyboard\Keys\VirtualKeyTypeEnum.cs" />
+    <Compile Include="VirtualKeyboard\Keys\VirtualSpecialKeyTypeEnum.cs" />
+    <Compile Include="VirtualKeyboard\Layouts\CommonControlCommands.cs" />
+    <Compile Include="VirtualKeyboard\Layouts\IVirtualKeyboardLayoutProvider.cs" />
+    <Compile Include="VirtualKeyboard\Layouts\Numbers\DigitsLayoutProvider.cs" />
+    <Compile Include="VirtualKeyboard\Layouts\Text\RussianLettersProvider.cs" />
+    <Compile Include="VirtualKeyboard\Layouts\Text\UkrainianLettersProvider.cs" />
+    <Compile Include="VirtualKeyboard\Layouts\Text\UsLettersProvider.cs" />
+    <Compile Include="VirtualKeyboard\Layouts\Text\SymbolLayoutProviderBase.cs" />
+    <Compile Include="VirtualKeyboard\Layouts\VirtualKeyboardLayout.cs" />
+    <Compile Include="VirtualKeyboard\Layouts\VirtualKeyboardLayoutProviderBase.cs" />
+    <Compile Include="VirtualKeyboard\Layouts\VirtualKeyboardLayoutRow.cs" />
+    <Compile Include="VirtualKeyboard\VirtualKeyboard.cs" />
+    <Compile Include="VirtualKeyboard\VirtualKeyboardControl.cs" />
+    <Compile Include="VirtualKeyboard\VirtualKeyboardLayoutTypeEnum.cs" />
+    <Compile Include="VirtualKeyboard\VirtualKeyToButtonStyleConverter.cs" />
+    <Compile Include="VirtualKeyboard\VirtualSpecialKeyToGlyphConverter.cs" />
+    <EmbeddedResource Include="Properties\KioskBrains.Kiosk.Core.Ui.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.1.9</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Common\KioskBrains.Common\KioskBrains.Common.csproj">
+      <Project>{9268c7e0-2b6a-41f0-81b5-a334a8195e87}</Project>
+      <Name>KioskBrains.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KioskBrains.Kiosk.Core\KioskBrains.Kiosk.Core.csproj">
+      <Project>{71b602fd-1226-47e5-968c-92b50cf75de2}</Project>
+      <Name>KioskBrains.Kiosk.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KioskBrains.Kiosk.Helpers\KioskBrains.Kiosk.Helpers.csproj">
+      <Project>{dce1c7a1-c3fc-4a7a-9e25-1bf0f93bafc1}</Project>
+      <Name>KioskBrains.Kiosk.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Controls\BlinkingCursorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controls\ArcControl\readme.txt" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

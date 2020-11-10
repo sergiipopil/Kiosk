@@ -1,0 +1,80 @@
+<base-frame [isLoading]="isLoading">
+  <div body>
+
+    <search-basic-layout [showRightSidebar]="showAdvanced">
+
+      <div header-left-area>
+        <command-panel>
+          <command-group>
+            <button class="btn btn-sm btn-primary"
+                    (click)="doRequest();">
+              Refresh
+            </button>
+            <button routerLink="/central-bank-exchange-rate-details"
+                    class="btn btn-sm btn-complete"
+                    *ngIf="viewModel.isNewAllowed">
+              New Central Bank Rate
+            </button>
+          </command-group>
+        </command-panel>
+      </div>
+
+      <div header-right-area>
+        <global-search-input [(term)]="requestModel.searchTerm" placeholder="Fast Search..." (onSearch)="doRequest();"></global-search-input>
+        <open-sidebar-button [(opened)]="showAdvanced" label="Advanced"></open-sidebar-button>
+      </div>
+
+      <div results-area>
+        <div *ngIf="viewModel.records && viewModel.records.length > 0">
+          <div class="table-responsive">
+            <table class="search-table">
+              <thead table-header-component [fields]="fields"
+                     [orderBy]="requestModel.metadata.orderBy"
+                     [orderDirection]="requestModel.metadata.orderDirection"
+                     [onSortingChange]="onSortingChange.bind(this)">
+              </thead>
+              <tbody>
+              <tr role="row" *ngFor="let record of viewModel.records; let i = index" [class]="i%2 === 0? 'even':'odd'">
+                <td>
+                  <a routerLink="/central-bank-exchange-rate-details" [queryParams]="{id:record.id}">Details</a>
+                </td>
+                <td>
+                  {{record.localCurrencyCode}}
+                </td>
+                <td>
+                  {{record.foreignCurrencyCode}}
+                </td>
+                <td>
+                  {{record.rate}}
+                </td>
+                <td>
+                  {{record.defaultOrder}}
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <paging-component [total]="viewModel.total"
+                            [paging]="requestModel.metadata"
+                            (onStartChange)="onStartChange($event)">
+          </paging-component>
+        </div>
+        <div *ngIf="viewModel.records && viewModel.records.length === 0 && !isLoading"
+             class="no-records-message">
+          Search returned no results
+        </div>
+      </div>
+
+      <div right-sidebar-area>
+        <advanced-search [clearForm]="clearAdvancedSearch.bind(this)" [doSearch]="doAdvancedSearch.bind(this)">
+          <select-input name="localCurrencyCode" label="Local Currency" [(ngModel)]="requestModel.searchStruct.localCurrencyCode" [options]="viewModel.currencies">
+          </select-input>
+          <select-input name="foreignCurrencyCode" label="Foreign Currency" [(ngModel)]="requestModel.searchStruct.foreignCurrencyCode" [options]="viewModel.currencies">
+          </select-input>
+        </advanced-search>
+      </div>
+
+    </search-basic-layout>
+
+  </div>
+</base-frame>

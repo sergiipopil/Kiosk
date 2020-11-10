@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--for some reason only absolute path works-->
+    <FontFamily x:Key="UbuntuFontFamily">/Themes/Assets/Fonts/Ubuntu-Regular.ttf#Ubuntu</FontFamily>
+    <FontFamily x:Key="UbuntuLightFontFamily">/Themes/Assets/Fonts/Ubuntu-Light.ttf#Ubuntu</FontFamily>
+    <FontFamily x:Key="UbuntuMediumFontFamily">/Themes/Assets/Fonts/Ubuntu-Medium.ttf#Ubuntu</FontFamily>
+    <FontFamily x:Key="UbuntuBoldFontFamily">/Themes/Assets/Fonts/Ubuntu-Bold.ttf#Ubuntu</FontFamily>
+    <FontFamily x:Key="PlayFontFamily">/Themes/Assets/Fonts/Play-Regular.ttf#Play</FontFamily>
+    <FontFamily x:Key="PlayBoldFontFamily">/Themes/Assets/Fonts/Play-Bold.ttf#Play</FontFamily>
+
+</ResourceDictionary>

@@ -1,0 +1,12 @@
+﻿th {
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+
+    &:after {
+        opacity: 0.2;
+        display: inline-block;
+        position: absolute;
+    }
+}

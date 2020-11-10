@@ -1,0 +1,66 @@
+<base-frame [isLoading]="isLoading">
+  <div body *ngIf="viewModel">
+
+    <details-basic-layout [isFullWidth]="true">
+
+      <ng-template form-commands-area>
+        <command-panel>
+          <command-group>
+            <button class="btn btn-success"
+                    (click)="save();"
+                    [disabled]="!detailsForm.form.valid">
+              Save
+            </button>
+            <button class="btn btn-success"
+                    (click)="saveAndExit();"
+                    [disabled]="!detailsForm.form.valid">
+              Save &amp; Exit
+            </button>
+            <button class="btn btn-default"
+                    (click)="exit();">
+              Cancel
+            </button>
+          </command-group>
+        </command-panel>
+      </ng-template>
+
+
+      <div form-area>
+        <form #detailsForm="ngForm">
+
+          <notifications [notifications]="notifications"></notifications>
+
+          <div class="form-fields">
+
+            <form-field-group group-title="Main Details">
+              <div class="row">
+                <div class="col-md-4">
+                  <select-input name="localCurrencyCode" label="Local Currency" [(ngModel)]="viewModel.form.localCurrencyCode" [options]="viewModel.currencies" required
+                                [isReadonlyValue]="viewModel.form.id !== null">
+                  </select-input>
+                </div>
+                <div class="col-md-4">
+                  <select-input name="foreignCurrencyCode" label="Foreign Currency" [(ngModel)]="viewModel.form.foreignCurrencyCode" [options]="viewModel.currencies" required
+                                [isReadonlyValue]="viewModel.form.id !== null">
+                  </select-input>
+                </div>
+                <div class="col-md-4">
+                  <number-input name="defaultOrder" label="Default Order" [(ngModel)]="viewModel.form.defaultOrder" required>
+                  </number-input>
+                </div>
+              </div>
+            </form-field-group>
+
+            <form-field-group group-title="Rates" *ngIf="viewModel.form.id">
+              <central-bank-exchange-rate-update-linked-search [requestModel]="{centralBankExchangeRateId: viewModel.form.id}"></central-bank-exchange-rate-update-linked-search>
+            </form-field-group>
+
+          </div>
+
+        </form>
+      </div>
+
+    </details-basic-layout>
+
+  </div>
+</base-frame>

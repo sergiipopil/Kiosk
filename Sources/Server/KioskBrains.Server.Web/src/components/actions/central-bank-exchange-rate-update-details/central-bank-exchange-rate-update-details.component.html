@@ -1,0 +1,50 @@
+<base-frame [isLoading]="isLoading">
+  <div body *ngIf="viewModel">
+
+    <details-basic-layout [isFullWidth]="true">
+
+      <ng-template form-commands-area>
+        <command-panel>
+          <command-group>
+            <button class="btn btn-success" (click)="save();" [disabled]="!detailsForm.form.valid">Save</button>
+            <button class="btn btn-success" (click)="saveAndExit();" [disabled]="!detailsForm.form.valid">Save &amp; Exit</button>
+            <button class="btn btn-default" (click)="exit();">Cancel</button>
+            <button *ngIf="viewModel.form.id" class="btn btn-danger" (click)="delete();">Delete</button>
+          </command-group>
+        </command-panel>
+      </ng-template>
+
+
+      <div form-area>
+        <form #detailsForm="ngForm">
+
+          <notifications [notifications]="notifications"></notifications>
+
+          <div class="form-fields">
+
+            <form-field-group group-title="Main Details">
+              <div class="row">
+                <div class="col-md-4">
+                  <date-input name="startDate" label="Start Date" [(ngModel)]="viewModel.form.startDate" format="yyyy-MM-dd" required>
+                  </date-input>
+                </div>
+                <div class="col-md-4">
+                  <text-input name="startTime" label="Start Time" [(ngModel)]="viewModel.form.startTime" required [maxlength]="8" [pattern]="timeRegEx">
+                  </text-input>
+                </div>
+                <div class="col-md-4">
+                  <number-input name="rate" label="Rate" [(ngModel)]="viewModel.form.rate">
+                  </number-input>
+                </div>
+              </div>
+            </form-field-group>
+
+          </div>
+
+        </form>
+      </div>
+
+    </details-basic-layout>
+
+  </div>
+</base-frame>

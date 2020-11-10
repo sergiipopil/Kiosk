@@ -1,0 +1,27 @@
+<div class="top-form-commands-container">
+
+  <ng-container *ngTemplateOutlet="_formCommandsTemplate"></ng-container>
+
+</div>
+
+<div class="form-container">
+
+  <ng-content select="[form-area]"></ng-content>
+
+</div>
+
+<div class="bottom-form-commands-container">
+
+  <hr class="form-fields-bottom"/>
+
+  <ng-container *ngTemplateOutlet="_formCommandsTemplate"></ng-container>
+
+</div>
+
+<div class="linked-actions-container">
+
+  <hr class="indent-only" />
+
+  <ng-content select="[linked-actions-area]"></ng-content>
+
+</div>

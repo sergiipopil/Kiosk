@@ -1,0 +1,30 @@
+<form-control-container #container [control]="controlInstance">
+  <div label-extension>
+    <ng-content select="[label-extension]"></ng-content>
+  </div>
+
+  <ng-container *ngIf="!isReadonlyValue">
+    <div class="input-group">
+      <span class="input-group-addon">
+        <i class="fa fa-fw fa-percent"></i>
+      </span>
+      <input [(ngModel)]="value"
+             type="text"
+             class="form-control"
+             [ngClass]="{invalid: (invalid | async)}"
+             [id]="controlId"
+             (focusout)="touch();"
+             [attr.maxlength]="maxlength"
+             [textMask]="{mask: numberMask}"
+             [attr.tabindex]="tabindex ? tabindex : null" />
+    </div>
+    <span *ngIf="hint" class="small hint-text">
+        {{hint}}
+    </span>
+  </ng-container>
+
+  <ng-container *ngIf="isReadonlyValue">
+    <span class="readonly-value">{{value | percentageToDisplayValue}}</span>
+  </ng-container>
+
+</form-control-container>

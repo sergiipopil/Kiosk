@@ -1,0 +1,12 @@
+﻿.notification-container {
+  margin-top: 20px;
+  margin-bottom: 0;
+
+  .alert {
+    padding: 15px 35px 15px 15px;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,206 @@
+﻿<UserControl x:Class="KioskApp.Ek.Checkout.Steps.PhoneNumberStepView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:KioskApp.Controls"
+             xmlns:checkout="using:KioskApp.Ek.Checkout"
+             mc:Ignorable="d"
+             d:DesignHeight="800"
+             d:DesignWidth="800">
+
+    <Grid>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!--header-->
+            <controls:RightContentHeaderPanel>
+                <StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
+                                Height="51">
+                        <controls:RightContentHeaderBackButton Click="BackButton_OnClick" />
+                        <TextBlock Text="Ввод номера телефона"
+                                   Style="{StaticResource RightContentHeaderStyle}" />
+                    </StackPanel>
+
+                    <Rectangle Style="{StaticResource RightContentHeaderSeparatorStyle}" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="224" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel HorizontalAlignment="Center">
+                            <checkout:CheckoutValuePresenter Value="{x:Bind Data.PhoneNumber, Mode=OneWay}"
+                                                             Label="Номер телефона"
+                                                             Margin="0 33 0 78" />
+                        </StackPanel>
+
+                        <Image Grid.Column="1"
+                               Source="/Themes/Assets/Images/Checkout/PersonalInfo.png"
+                               Stretch="None"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left" />
+
+                    </Grid>
+
+                </StackPanel>
+            </controls:RightContentHeaderPanel>
+
+            <!--PHONE NUMBER-->
+            <StackPanel Grid.Row="1"
+                        Visibility="{x:Bind IsPhoneNumberStage, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        d:IsHidden="True">
+
+                <TextBlock Style="{StaticResource CheckoutCallToActionStyle}"
+                           Margin="0 42 0 0">
+                    <Run Text="Введите Ваш" />
+                    <Run Text="номер телефона"
+                         FontFamily="{StaticResource PlayBoldFontFamily}" />
+                </TextBlock>
+
+                <TextBlock FontFamily="{StaticResource UbuntuFontFamily}"
+                           FontSize="18"
+                           LineHeight="26"
+                           Foreground="#716bab"
+                           TextAlignment="Center"
+                           Margin="0 26 0 0">
+                    <Run Text="Номер телефона будет использован для связи с Вами." />
+                    <LineBreak />
+                    <Run Text="Также на данный номер будут отправлятся СМС-сообщения," />
+                    <LineBreak />
+                    <Run Text="со статусом оплаты и доставки." />
+                </TextBlock>
+
+                <controls:ValueInput x:Name="PhoneNumberValueInput"
+                                     Value="{x:Bind Data.PhoneNumber, Mode=TwoWay}"
+                                     InputType="Phone"
+                                     Width="320"
+                                     Margin="0 24 0 0" />
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0 69 0 0">
+                    <Button Content="Назад"
+                            Style="{StaticResource CheckoutBackButtonStyle}"
+                            Click="BackButton_OnClick" />
+                    <Button Content="Дальше"
+                            Style="{StaticResource CheckoutNextButtonStyle}"
+                            Margin="93 0 0 0"
+                            Click="NextButton_OnClick" />
+                </StackPanel>
+
+            </StackPanel>
+
+            <!--VERIFICATION CODE-->
+            <Grid Grid.Row="1"
+                  Visibility="{x:Bind IsVerificationCodeStage, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+
+                <!--VERIFICATION CODE INPUT-->
+                <StackPanel Visibility="{x:Bind IsVerificationCodeSendingError, Mode=OneWay, Converter={StaticResource BooleanToVisibilityReversedConverter}}">
+
+                    <TextBlock Style="{StaticResource CheckoutCallToActionStyle}"
+                               Margin="0 42 0 0">
+                        <Run Text="Введите" />
+                        <Run Text="код из СМС"
+                             FontFamily="{StaticResource PlayBoldFontFamily}" />
+                    </TextBlock>
+
+                    <TextBlock FontFamily="{StaticResource UbuntuFontFamily}"
+                               FontSize="18"
+                               LineHeight="26"
+                               Foreground="#716bab"
+                               TextAlignment="Center"
+                               Margin="0 26 0 0">
+                        <Run Text="На указанный Вами номер был выслан СМС с кодом." />
+                        <LineBreak />
+                        <Run Text="Введите" />
+                        <Run Text="6 цифр"
+                             FontFamily="{StaticResource UbuntuBoldFontFamily}" />
+                        <Run Text="из полученного СМС ниже." />
+                        <LineBreak />
+                        <Run Text="" />
+                    </TextBlock>
+
+                    <controls:ValueInput x:Name="VerificationCodeValueInput"
+                                         Value="{x:Bind Data.VerificationCode, Mode=TwoWay}"
+                                         InputType="PhoneVerificationCode"
+                                         Width="320"
+                                         Margin="0 24 0 0" />
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0 69 0 0">
+                        <Button Content="Назад"
+                                Margin="0 0 93 0"
+                                Style="{StaticResource CheckoutBackButtonStyle}"
+                                Click="BackButton_OnClick" />
+                        <Button Content="Дальше"
+                                Style="{StaticResource CheckoutNextButtonStyle}"
+                                Click="NextButton_OnClick" />
+                    </StackPanel>
+
+                </StackPanel>
+
+                <!--VERIFICATION CODE SENDING ERROR-->
+                <StackPanel Visibility="{x:Bind IsVerificationCodeSendingError, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            d:IsHidden="True">
+
+                    <TextBlock Style="{StaticResource CheckoutCallToActionStyle}"
+                               Margin="0 42 0 0">
+                        <Run Text="Произошла ошибка" />
+                        <Run Text="отправки СМС"
+                             FontFamily="{StaticResource PlayBoldFontFamily}" />
+                    </TextBlock>
+
+                    <TextBlock FontFamily="{StaticResource UbuntuFontFamily}"
+                               FontSize="18"
+                               LineHeight="26"
+                               Foreground="#716bab"
+                               TextAlignment="Center"
+                               Margin="0 26 0 0">
+                        <Run Text="Произошла ошибка отправки СМС с кодом." />
+                        <LineBreak />
+                        <Run Text="Номер телефона" />
+                        <Run Text="{x:Bind Data.PhoneNumber, Mode=OneWay}"
+                             FontFamily="{StaticResource UbuntuBoldFontFamily}" />
+                        <Run Text="верен?" />
+                        <LineBreak />
+                        <Run Text="Если да - нажмите &quot;Повторить СМС&quot;." />
+                        <LineBreak />
+                        <Run Text="Если нет - нажмите &quot;Назад&quot; и исправьте номер телефона." />
+                    </TextBlock>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0 69 0 0">
+                        <Button Content="Назад"
+                                Margin="0 0 93 0"
+                                Style="{StaticResource CheckoutBackButtonStyle}"
+                                Click="SendingErrorBackButton_OnClick" />
+                        <Button Content="Повторить СМС"
+                                Style="{StaticResource CheckoutNextButtonStyle}"
+                                Click="SendingErrorRepeatButton_OnClick" />
+                    </StackPanel>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Grid>
+
+        <Grid>
+            <controls:LoadingControl Size="Large"
+                                     Visibility="{x:Bind IsVerificationCodeRequesting, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                     d:IsHidden="True" />
+        </Grid>
+
+    </Grid>
+
+</UserControl>

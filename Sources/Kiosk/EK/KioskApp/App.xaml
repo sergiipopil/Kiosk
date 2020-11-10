@@ -1,0 +1,39 @@
+﻿<Application x:Class="KioskApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="using:KioskApp.Converters"
+             xmlns:controls="using:KioskApp.Controls"
+             xmlns:filters="using:KioskApp.Ek.Filters"
+             xmlns:categories="using:KioskApp.Ek.Catalog.Categories"
+             xmlns:photos="using:KioskApp.Ek.Products.Photos"
+             xmlns:payment="using:KioskApp.Ek.Checkout.Steps.Payment">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <!--theme-->
+                <ResourceDictionary Source="/Themes/Theme.xaml" />
+
+                <!--helpers-->
+                <ResourceDictionary Source="ms-appx:///KioskBrains.Kiosk.Helpers/Ui/Converters/Converters.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+
+            <!--common app converters-->
+            <converters:ComponentStatusCodeToBrushConverter x:Key="ComponentStatusCodeToBrushConverter" />
+            <controls:LanguageSelectorItemStyleConverter x:Key="LanguageSelectorItemStyleConverter" />
+            <filters:BooleanToFilterOptionButtonStyleConverter x:Key="BooleanToFilterOptionButtonStyleConverter" />
+            <controls:BooleanToLeftSidePanelWidthConverter x:Key="BooleanToLeftSidePanelWidthConverter" />
+            <controls:WizardStepStateToButtonStyleConverter x:Key="WizardStepStateToButtonStyleConverter" />
+            <controls:WizardStepStateToShadowVisibilityConverter x:Key="WizardStepStateToShadowVisibilityConverter" />
+            <controls:WizardStepStateToVisibilityConverter x:Key="WizardStepStateToVisibilityConverter" />
+            <categories:SelectedCategoryValueToButtonStyleConverter x:Key="SelectedCategoryValueToButtonStyleConverter" />
+            <categories:BreadcrumbMarginConverter x:Key="BreadcrumbMarginConverter" />
+            <photos:IsSelectedToThumbnailBorderBrushConverter x:Key="IsSelectedToThumbnailBorderBrushConverter" />
+            <payment:IsSelectedToPaymentMethodTabTextStyleConverter x:Key="IsSelectedToPaymentMethodTabTextStyleConverter" />
+
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

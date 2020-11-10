@@ -1,0 +1,98 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--Backgrounds-->
+    <SolidColorBrush x:Key="ContentBackgroundBrush"
+                     Color="#ffffff" />
+    <SolidColorBrush x:Key="LoadingOverlayBrush"
+                     Color="#80ffffff" />
+    <!--alpha 75%-->
+    <SolidColorBrush x:Key="ModalOverlayBrush"
+                     Color="#BF161931" />
+
+    <!--Buttons-->
+    <LinearGradientBrush x:Key="BlueButtonBrush"
+                         StartPoint="0 0"
+                         EndPoint="1 0">
+        <GradientStop Color="#474c7c"
+                      Offset="0" />
+        <GradientStop Color="#6f7dd6"
+                      Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="OrangeButtonBrush"
+                         StartPoint="0 0"
+                         EndPoint="1 0">
+        <GradientStop Color="#e87619"
+                      Offset="0" />
+        <GradientStop Color="#ffb31d"
+                      Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="DarkKeyBrush"
+                         StartPoint="0 0"
+                         EndPoint="1 0">
+        <GradientStop Color="#363951"
+                      Offset="0" />
+        <GradientStop Color="#55576e"
+                      Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="BlackKeyBrush"
+                         StartPoint="0 0"
+                         EndPoint="1 0">
+        <GradientStop Color="#24202d"
+                      Offset="0" />
+        <GradientStop Color="#403a4c"
+                      Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="PressedKeyBrush"
+                         StartPoint="0 0"
+                         EndPoint="0 1">
+        <GradientStop Color="#6f7ed5"
+                      Offset="0" />
+        <GradientStop Color="#acb8fc"
+                      Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="BlueKeyBrush"
+                         StartPoint="0 0"
+                         EndPoint="1 0">
+        <GradientStop Color="#383e90"
+                      Offset="0" />
+        <GradientStop Color="#535aaa"
+                      Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="BlueSideBorderBrush"
+                         StartPoint="0 0"
+                         EndPoint="0 1">
+        <GradientStop Color="#6a5bb6"
+                      Offset="0" />
+        <GradientStop Color="#282e7a"
+                      Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="OrangeSideBorderBrush"
+                         StartPoint="0 0"
+                         EndPoint="0 1">
+        <GradientStop Color="#ffb21d"
+                      Offset="0" />
+        <GradientStop Color="#e87619"
+                      Offset="1" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="InactivityCountDownBrush"
+                         StartPoint="0 0"
+                         EndPoint="0 1">
+        <GradientStop Color="#383f90"
+                      Offset="0" />
+        <GradientStop Color="#524593"
+                      Offset="1" />
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="PaymentMethodTabsBackgroundBrush"
+                     Color="#eeefff" />
+
+</ResourceDictionary>

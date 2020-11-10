@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="KioskApp.Controls.ValueInput"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             xmlns:virtualKeyboard="using:KioskBrains.Kiosk.Core.Ui.VirtualKeyboard"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="762">
+    <UserControl.Resources>
+        <Style TargetType="toolkitControls:DropShadowPanel">
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Stretch" />
+            <Setter Property="Color"
+                    Value="#393e90" />
+            <Setter Property="BlurRadius"
+                    Value="10" />
+            <Setter Property="ShadowOpacity"
+                    Value="0.56" />
+        </Style>
+    </UserControl.Resources>
+
+    <StackPanel>
+
+        <toolkitControls:DropShadowPanel Canvas.ZIndex="1">
+            <StackPanel>
+
+                <!--search input-->
+                <Grid x:Name="InputContainer"
+                      Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <!--input-->
+                    <ContentControl Content="{x:Bind InputControl, Mode=OneWay}"
+                                    HorizontalContentAlignment="Stretch"
+                                    VerticalContentAlignment="Stretch"
+                                    Margin="25 16 5 16" />
+                    <!--input add-on-->
+                    <Grid Grid.Column="1"
+                          VerticalAlignment="Center"
+                          Margin="0 0 18 0">
+                        <Button Style="{StaticResource CancelInputButtonStyle}"
+                                Visibility="{x:Bind Value, Mode=OneWay, Converter={StaticResource IsStringNotEmptyToVisibilityConverter}}"
+                                Click="ClearValue_OnClick">
+                            <Image Source="/Themes/Assets/Images/CancelInput.png"
+                                   Stretch="None" />
+                        </Button>
+                    </Grid>
+                </Grid>
+
+            </StackPanel>
+        </toolkitControls:DropShadowPanel>
+
+        <toolkitControls:DropShadowPanel>
+            <!--keyboard-->
+            <StackPanel Background="#e9eaff">
+                <virtualKeyboard:VirtualKeyboardControl x:Name="VirtualKeyboardControl"
+                                                        Style="{StaticResource VirtualKeyboardStyle}"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Center"
+                                                        Margin="0 15 9 20" />
+            </StackPanel>
+        </toolkitControls:DropShadowPanel>
+
+    </StackPanel>
+</UserControl>

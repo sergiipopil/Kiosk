@@ -1,0 +1,19 @@
+﻿.results-container ::ng-deep {
+
+    .no-records-message {
+      margin-bottom: 0;
+    }  
+}
+
+.footer-container ::ng-deep {
+
+  [footer-area] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    command-panel {
+      margin-top: 20px;
+    }
+  }  
+}

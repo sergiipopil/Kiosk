@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="KioskApp.Ek.Catalog.Categories.CarManufacturerPresenter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+
+    <toolkitControls:DropShadowPanel Style="{StaticResource CategoryPresenterShadowStyle}">
+        <Button Style="{StaticResource CategoryButtonBaseStyle}"
+                Width="162"
+                Height="162"
+                Click="CategoryButton_OnClick">
+            <Grid Padding="10 10 10 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="104" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <toolkitControls:ImageEx Source="{x:Bind ManufacturerLogoUrl, Mode=OneWay}"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         MaxWidth="102"
+                                         MaxHeight="72"
+                                         Stretch="Uniform" />
+
+                <TextBlock Grid.Row="1"
+                           Text="{x:Bind Category.Name, Mode=OneWay}"
+                           TextWrapping="WrapWholeWords"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"
+                           Foreground="#23274d"
+                           FontFamily="{StaticResource UbuntuBoldFontFamily}"
+                           FontSize="16"
+                           LineHeight="20" />
+
+            </Grid>
+        </Button>
+    </toolkitControls:DropShadowPanel>
+
+</UserControl>

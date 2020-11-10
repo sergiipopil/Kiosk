@@ -1,0 +1,10 @@
+﻿<ng-container *ngIf="fields && fields.length > 0">
+      <tr role="row">
+        <th *ngFor="let field of fields" (click)="onSortingChange(field)"
+            [class.sorting]="field.sortable&&orderBy!=field.key"
+            [class.sorting_asc]="orderBy==field.key&&(!orderDirection || orderDirection==0)"
+            [class.sorting_desc]="orderBy==field.key&&orderDirection==1">
+          {{field.displayName}}
+        </th>
+      </tr>
+</ng-container>

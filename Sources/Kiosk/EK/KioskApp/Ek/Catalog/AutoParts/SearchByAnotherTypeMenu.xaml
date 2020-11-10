@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="KioskApp.Ek.Catalog.AutoParts.SearchByAnotherTypeMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:catalog="using:KioskApp.Ek.Catalog"
+             xmlns:autoParts="using:KioskApp.Ek.Catalog.AutoParts"
+             mc:Ignorable="d"
+             d:DesignHeight="100"
+             d:DesignWidth="400">
+
+    <Grid>
+        <ItemsControl ItemsSource="{x:Bind Items, Mode=OneWay}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="autoParts:SearchByAnotherTypeMenuItem">
+                    <Button HorizontalAlignment="Left"
+                            Style="{StaticResource BaseButtonStyle}"
+                            Background="Transparent"
+                            Foreground="#9fa4d4"
+                            FontFamily="{StaticResource UbuntuFontFamily}"
+                            FontSize="24"
+                            Margin="0 0 0 27"
+                            Visibility="{x:Bind IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                            Click="MenuItem_OnClick">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Themes/Assets/Images/Catalog/SearchTypeLoupe.png"
+                                   Stretch="None"
+                                   VerticalAlignment="Center" />
+                            <TextBlock Text="{x:Bind Text, Mode=OneWay}"
+                                       Margin="16 0 0 0"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

@@ -1,0 +1,1005 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{FB29E13F-7AAA-4FA5-B4CD-67E7A9D66622}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KioskApp</RootNamespace>
+    <AssemblyName>KioskApp</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
+    <PackageCertificateKeyFile>
+    </PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>F7981C28E4DDD2CB4FE47CEFFAFEEDB2C4D78527</PackageCertificateThumbprint>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Never</AppxBundle>
+    <AppInstallerUpdateFrequency>0</AppInstallerUpdateFrequency>
+    <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
+    <OutputPath>bin\ARM64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Clients\NovaPoshtaUkraine\NovaPoshtaUkraineClientException.cs" />
+    <Compile Include="Clients\NovaPoshtaUkraine\Models\BaseSearchRequest.cs" />
+    <Compile Include="Clients\NovaPoshtaUkraine\Models\BaseSearchResponse.cs" />
+    <Compile Include="Clients\NovaPoshtaUkraine\Models\WarehouseSearchItem.cs" />
+    <Compile Include="Clients\NovaPoshtaUkraine\Models\WarehouseSearchRequest.cs" />
+    <Compile Include="Clients\NovaPoshtaUkraine\Models\WarehouseSearchResponse.cs" />
+    <Compile Include="Clients\NovaPoshtaUkraine\NovaPoshtaUkraineClient.cs" />
+    <Compile Include="Controls\SoonFlyout.xaml.cs">
+      <DependentUpon>SoonFlyout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\InputErrorFlyoutContent.xaml.cs">
+      <DependentUpon>InputErrorFlyoutContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Keyboards\KeyboardIcons.cs" />
+    <Compile Include="Controls\Keyboards\NameKeyboardLayoutProvider.cs" />
+    <Compile Include="Controls\Keyboards\AddressKeyboardLayoutProvider.cs" />
+    <Compile Include="Controls\Keyboards\SearchByVinCodeKeyboardLayoutProvider.cs" />
+    <Compile Include="Controls\Keyboards\SearchByPartNumberKeyboardLayoutProvider.cs" />
+    <Compile Include="Controls\PhoneNumberInput.cs" />
+    <Compile Include="Controls\RightContentHeaderBackButton.xaml.cs">
+      <DependentUpon>RightContentHeaderBackButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BackgroundWithInnerShadow.xaml.cs">
+      <DependentUpon>BackgroundWithInnerShadow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BooleanToLeftSidePanelWidthConverter.cs" />
+    <Compile Include="Controls\ButtonEx.cs" />
+    <Compile Include="Controls\LeftContentPanel.cs" />
+    <Compile Include="Controls\ValueInput.xaml.cs">
+      <DependentUpon>ValueInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ValueInputTypeEnum.cs" />
+    <Compile Include="Ek\Cart\PromoCode\PromoCodeEntryModal.xaml.cs">
+      <DependentUpon>PromoCodeEntryModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Cart\PromoCode\PromoCodePresenter.xaml.cs">
+      <DependentUpon>PromoCodePresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\AutoParts\AreaTitleAndSwitcher.xaml.cs">
+      <DependentUpon>AreaTitleAndSwitcher.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\Categories\CategorySpecialTypeEnum.cs" />
+    <Compile Include="Ek\Checkout\Steps\Delivery\CourierDataInputEnum.cs" />
+    <Compile Include="Ek\Checkout\Steps\Delivery\CourierDataInputStageView.xaml.cs">
+      <DependentUpon>CourierDataInputStageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\Delivery\DeliveryInfoAddress.cs" />
+    <Compile Include="Ek\Checkout\Steps\Delivery\DeliveryInfoStepStageEnum.cs" />
+    <Compile Include="Ek\Checkout\Steps\Delivery\DeliveryTypeOptionPresenter.xaml.cs">
+      <DependentUpon>DeliveryTypeOptionPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\Delivery\DeliveryTypeSelectionStageView.xaml.cs">
+      <DependentUpon>DeliveryTypeSelectionStageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\Delivery\NovaPoshtaUkraineBranchSelectionStageView.xaml.cs">
+      <DependentUpon>NovaPoshtaUkraineBranchSelectionStageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\Payment\PaymentInfoStepData.cs" />
+    <Compile Include="Ek\Checkout\Steps\Payment\Instructions\WireTransferMethodInstructionsPresenter.xaml.cs">
+      <DependentUpon>WireTransferMethodInstructionsPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\Payment\Instructions\CashInTerminalMethodInstructionsPresenter.xaml.cs">
+      <DependentUpon>CashInTerminalMethodInstructionsPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\Payment\Instructions\CashInBankMethodInstructionsPresenter.xaml.cs">
+      <DependentUpon>CashInBankMethodInstructionsPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\Payment\Instructions\Privat24MethodInstructionsPresenter.xaml.cs">
+      <DependentUpon>Privat24MethodInstructionsPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\Payment\Instructions\CreditCardMethodInstructionsPresenter.xaml.cs">
+      <DependentUpon>CreditCardMethodInstructionsPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\Payment\Instructions\IPaymentMethodInstructionsPresenter.cs" />
+    <Compile Include="Ek\Checkout\Steps\Payment\IsSelectedToPaymentMethodTabTextStyleConverter.cs" />
+    <Compile Include="Ek\Checkout\Steps\Payment\PaymentInfoStepView.xaml.cs">
+      <DependentUpon>PaymentInfoStepView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\Payment\PaymentMethodEnum.cs" />
+    <Compile Include="Ek\Checkout\Steps\Payment\PaymentMethodIcons.cs" />
+    <Compile Include="Ek\Checkout\Steps\Payment\PaymentMethodInfo.cs" />
+    <Compile Include="Ek\Checkout\Steps\Payment\PaymentMethodInstructionsView.xaml.cs">
+      <DependentUpon>PaymentMethodInstructionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\Payment\PaymentMethodOptionBigPresenter.xaml.cs">
+      <DependentUpon>PaymentMethodOptionBigPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\Payment\PaymentMethodOptionTabHeader.xaml.cs">
+      <DependentUpon>PaymentMethodOptionTabHeader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\PhoneNumberHelper.cs" />
+    <Compile Include="Ek\Info\InfoBlockTemplateSelector.cs" />
+    <Compile Include="Ek\Info\InfoBlockTypeEnum.cs" />
+    <Compile Include="Ek\Info\InfoBlock.cs" />
+    <Compile Include="Ek\Info\InfoModal.xaml.cs">
+      <DependentUpon>InfoModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Info\InfoModalHelper.cs" />
+    <Compile Include="Ek\Info\InfoModalTypeEnum.cs" />
+    <Compile Include="Ek\Products\Photos\IsSelectedToThumbnailBorderBrushConverter.cs" />
+    <Compile Include="Ek\Products\Photos\PhotoItem.cs" />
+    <Compile Include="Ek\Products\Photos\ProductPhotosModal.xaml.cs">
+      <DependentUpon>ProductPhotosModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Products\Photos\ProductPhotosPresenter.xaml.cs">
+      <DependentUpon>ProductPhotosPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Products\ProductDetailsModal.xaml.cs">
+      <DependentUpon>ProductDetailsModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Receipt\EscP.cs" />
+    <Compile Include="Ek\Catalog\AutoParts\SearchByCategoryContext.cs" />
+    <Compile Include="Ek\Catalog\Categories\BreadcrumbMarginConverter.cs" />
+    <Compile Include="Ek\Catalog\Categories\CarModelModificationCategoryFeaturePresenter.xaml.cs">
+      <DependentUpon>CarModelModificationCategoryFeaturePresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\Categories\CategoryGroupOperationEnum.cs" />
+    <Compile Include="Ek\Catalog\Categories\CategoryDataTemplateSelector.cs" />
+    <Compile Include="Ek\Catalog\Categories\CarManufacturerPresenter.xaml.cs">
+      <DependentUpon>CarManufacturerPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\Categories\CarModelPresenter.xaml.cs">
+      <DependentUpon>CarModelPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\Categories\CarModelModificationCategoryPresenter.xaml.cs">
+      <DependentUpon>CarModelModificationCategoryPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\Categories\ProductCategoryLeafPresenter.xaml.cs">
+      <DependentUpon>ProductCategoryLeafPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\Categories\CategoryGroupPresenter.xaml.cs">
+      <DependentUpon>CategoryGroupPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\Categories\BreadcrumbCategoryWrapper.cs" />
+    <Compile Include="Ek\Catalog\Categories\SelectedCategoryValueToButtonStyleConverter.cs" />
+    <Compile Include="Controls\WizardStepStateToVisibilityConverter.cs" />
+    <Compile Include="Controls\WizardStepStateToShadowVisibilityConverter.cs" />
+    <Compile Include="Controls\WizardStepStateToButtonStyleConverter.cs" />
+    <Compile Include="CoreExtension\Application\EkSettingsHelper.cs" />
+    <Compile Include="Ek\Receipt\Printer.cs" />
+    <Compile Include="Ek\AdvertisementDisplay\AdvertisementDisplayView.xaml.cs">
+      <DependentUpon>AdvertisementDisplayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\AutoPartsSectionPresenter.xaml.cs">
+      <DependentUpon>AutoPartsSectionPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\Categories\CategorySearchRightView.xaml.cs">
+      <DependentUpon>CategorySearchRightView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\AutoParts\Europe\EuropeSearchLeftView.xaml.cs">
+      <DependentUpon>EuropeSearchLeftView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\AutoParts\Europe\EuropeSearchRightView.xaml.cs">
+      <DependentUpon>EuropeSearchRightView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\AutoParts\Europe\EuropeInitialLeftView.xaml.cs">
+      <DependentUpon>EuropeInitialLeftView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\AutoParts\Europe\EuropeInitialRightView.xaml.cs">
+      <DependentUpon>EuropeInitialRightView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\AutoParts\Europe\EuropeMainView.xaml.cs">
+      <DependentUpon>EuropeMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\Categories\Category.cs" />
+    <Compile Include="Ek\Catalog\Categories\CategoryTypeEnum.cs" />
+    <Compile Include="Ek\Catalog\Categories\SelectedCategoryValuePresenter.xaml.cs">
+      <DependentUpon>SelectedCategoryValuePresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\SearchStatePresenter.xaml.cs">
+      <DependentUpon>SearchStatePresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Products\NextPageLoadingPresenter.xaml.cs">
+      <DependentUpon>NextPageLoadingPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Products\ProductDescriptionPresenter.xaml.cs">
+      <DependentUpon>ProductDescriptionPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Receipt\ReceiptDataProduct.cs" />
+    <Compile Include="Ek\Receipt\ReceiptData.cs" />
+    <Compile Include="Search\CarModelTreeSearchProvider.cs" />
+    <Compile Include="Search\CategorySearchProvider.cs" />
+    <Compile Include="Search\CategorySearchInEuropeProvider.cs" />
+    <Compile Include="Search\ICategorySearchProvider.cs" />
+    <Compile Include="Search\ISearchStateProvider.cs" />
+    <Compile Include="Helpers\BooleanCounter.cs" />
+    <Compile Include="Search\NovaPoshtaUkraineBranch.cs" />
+    <Compile Include="Search\NovaPoshtaUkraineBranchSearchProvider.cs" />
+    <Compile Include="Search\ProductSearchByCategoryProvider.cs" />
+    <Compile Include="Search\SearchStateEnum.cs" />
+    <Compile Include="Ek\Catalog\CarModelModificationPresenter.xaml.cs">
+      <DependentUpon>CarModelModificationPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\CarModelModificationFeaturePresenter.xaml.cs">
+      <DependentUpon>CarModelModificationFeaturePresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\Categories\TopCategoryPresenter.xaml.cs">
+      <DependentUpon>TopCategoryPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Filters\ProductStateFilter.xaml.cs">
+      <DependentUpon>ProductStateFilter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Search\CarModelModification.cs" />
+    <Compile Include="Ek\Catalog\CarModelModificationPresenterPanel.cs" />
+    <Compile Include="Ek\Checkout\CheckoutStepEnum.cs" />
+    <Compile Include="Ek\Checkout\CheckoutValuePresenter.xaml.cs">
+      <DependentUpon>CheckoutValuePresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\CheckoutWizardStep.cs" />
+    <Compile Include="Controls\WizardStepStateEnum.cs" />
+    <Compile Include="Ek\Checkout\CheckoutWizardStepPresenter.xaml.cs">
+      <DependentUpon>CheckoutWizardStepPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\Delivery\DeliveryInfoStepData.cs" />
+    <Compile Include="Ek\Checkout\Steps\OrderConfirmationStepView.xaml.cs">
+      <DependentUpon>OrderConfirmationStepView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\PersonalInfoStepData.cs" />
+    <Compile Include="Ek\Checkout\Steps\Delivery\DeliveryInfoStepView.xaml.cs">
+      <DependentUpon>DeliveryInfoStepView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\PhoneNumberStepStageEnum.cs" />
+    <Compile Include="Ek\Checkout\Steps\PhoneNumberStepView.xaml.cs">
+      <DependentUpon>PhoneNumberStepView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\PersonalInfoStepView.xaml.cs">
+      <DependentUpon>PersonalInfoStepView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\Steps\PhoneNumberStepData.cs" />
+    <Compile Include="Ek\EkContext.cs" />
+    <Compile Include="Ek\OrderCompletion\OrderCompletionView.xaml.cs">
+      <DependentUpon>OrderCompletionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Products\ProductPresenterPanel.cs" />
+    <Compile Include="Controls\RightContentHeaderPanel.cs" />
+    <Compile Include="Controls\RightContentPanel.cs" />
+    <Compile Include="Ek\Cart\CartProduct.cs" />
+    <Compile Include="Ek\Cart\CartView.xaml.cs">
+      <DependentUpon>CartView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Cart\CartWidget.xaml.cs">
+      <DependentUpon>CartWidget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Keyboards\SearchByNameKeyboardLayoutProvider.cs" />
+    <Compile Include="Controls\Keyboards\VirtualKeyButtonContentTemplateSelector.cs" />
+    <Compile Include="Controls\Keyboards\VirtualKeyButtonStyleSelector.cs" />
+    <Compile Include="Controls\LanguageSelectedEventArgs.cs" />
+    <Compile Include="Controls\LanguageSelectorItemStyleConverter.cs" />
+    <Compile Include="Controls\ErrorControl.xaml.cs">
+      <DependentUpon>ErrorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LoadingControlSizeEnum.cs" />
+    <Compile Include="Ek\Cart\Cart.cs" />
+    <Compile Include="Ek\Cart\CartWidgetPanel.cs" />
+    <Compile Include="Ek\Cart\ContinueShoppingWidget.xaml.cs">
+      <DependentUpon>ContinueShoppingWidget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Cart\CartProductPresenter.xaml.cs">
+      <DependentUpon>CartProductPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Checkout\CheckoutView.xaml.cs">
+      <DependentUpon>CheckoutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Filters\BooleanToFilterOptionButtonStyleConverter.cs" />
+    <Compile Include="Ek\Filters\FilterOptionItem.cs" />
+    <Compile Include="Ek\Filters\ProductSortingSelector.xaml.cs">
+      <DependentUpon>ProductSortingSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Filters\SearchInput.xaml.cs">
+      <DependentUpon>SearchInput.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LanguageSelector.xaml.cs">
+      <DependentUpon>LanguageSelector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\LanguageSelectorItem.cs" />
+    <Compile Include="Controls\LoadingControl.xaml.cs">
+      <DependentUpon>LoadingControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MenuPointClickedEventArgs.cs" />
+    <Compile Include="Controls\MenuPointControl.xaml.cs">
+      <DependentUpon>MenuPointControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MenuPointSeparator.xaml.cs">
+      <DependentUpon>MenuPointSeparator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SecondCountdown.xaml.cs">
+      <DependentUpon>SecondCountdown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SecondCountdownStateEnum.cs" />
+    <Compile Include="Converters\ComponentStatusCodeToBrushConverter.cs" />
+    <Compile Include="CoreExtension\Application\InitializationView.xaml.cs">
+      <DependentUpon>InitializationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoreExtension\Application\KioskApplication.cs" />
+    <Compile Include="CoreExtension\Application\KioskApplicationView.xaml.cs">
+      <DependentUpon>KioskApplicationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoreExtension\Application\KioskApplicationViewProvider.cs" />
+    <Compile Include="Ek\Catalog\AutoParts\SearchTypeEnum.cs" />
+    <Compile Include="Ek\Catalog\AutoParts\SearchTypeSelectedEventArgs.cs" />
+    <Compile Include="Ek\Catalog\AutoParts\SearchByAnotherTypeMenu.xaml.cs">
+      <DependentUpon>SearchByAnotherTypeMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Catalog\AutoParts\SearchByAnotherTypeMenuItem.cs" />
+    <Compile Include="Ek\Catalog\SearchFilterPlaceholder.xaml.cs">
+      <DependentUpon>SearchFilterPlaceholder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\EkApplicationView.xaml.cs">
+      <DependentUpon>EkApplicationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoreExtension\Inactivity\InactivityConfirmationModal.xaml.cs">
+      <DependentUpon>InactivityConfirmationModal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoreExtension\Inactivity\InactivityViewProvider.cs" />
+    <Compile Include="CoreExtension\Ui\Modals\ModalContentContainer.xaml.cs">
+      <DependentUpon>ModalContentContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CoreExtension\Ui\Modals\ModalViewProvider.cs" />
+    <Compile Include="Ek\EkApplication.cs" />
+    <Compile Include="Ek\EkProcess.cs" />
+    <Compile Include="Ek\EkProcessStateEnum.cs" />
+    <Compile Include="Ek\Products\ProductKeyFeaturePresenter.xaml.cs">
+      <DependentUpon>ProductKeyFeaturePresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Products\ResultProductPresenter.xaml.cs">
+      <DependentUpon>ResultProductPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Products\ProductResultsView.xaml.cs">
+      <DependentUpon>ProductResultsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ek\Products\ResultCountPresenter.xaml.cs">
+      <DependentUpon>ResultCountPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\NumberStringExtensions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Search\IProductSearchDataSource.cs" />
+    <Compile Include="Search\LoadingCounter.cs" />
+    <Compile Include="Search\PartNumberBrand.cs" />
+    <Compile Include="Search\Product.cs" />
+    <Compile Include="Search\ProductSearchInEuropeProvider.cs" />
+    <Compile Include="Search\ProductSearchInEuropeDataSource.cs" />
+    <Compile Include="Search\ProductSearchInEuropeParameters.cs" />
+    <Compile Include="Search\ProductSearchByVinCodeProvider.cs" />
+    <Compile Include="Search\ProductSearchByPartNumberProvider.cs" />
+    <Compile Include="Search\ProductSearchByNameProvider.cs" />
+    <Compile Include="Search\ProductSearchByNameParameters.cs" />
+    <Compile Include="Search\ProductSearchByNameDataSource.cs" />
+    <Compile Include="Search\SearchProviderBase.cs" />
+    <Compile Include="Search\SearchProviderRequest.cs" />
+    <Compile Include="Search\SelectedCategoryValue.cs" />
+    <Compile Include="Search\ServerApiHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\KioskBrainsInitializationLogo.png" />
+    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Themes\Assets\Images\BackButtonBackground.png" />
+    <Content Include="Themes\Assets\Images\Buttons\Buy.png" />
+    <Content Include="Themes\Assets\Images\Buttons\Checkout.png" />
+    <Content Include="Themes\Assets\Images\Buttons\Delete.png" />
+    <Content Include="Themes\Assets\Images\Cart\CartWidgetEmpty.png" />
+    <Content Include="Themes\Assets\Images\Cart\CartWidget.png" />
+    <Content Include="Themes\Assets\Images\Cart\CartWidgetEmptyBig.png" />
+    <Content Include="Themes\Assets\Images\Cart\Promo\ConfirmButtonIcon.png" />
+    <Content Include="Themes\Assets\Images\Cart\Promo\EnterPromoCodeIcon.png" />
+    <Content Include="Themes\Assets\Images\Cart\Promo\EnteredPromoCodeIcon.png" />
+    <Content Include="Themes\Assets\Images\Catalog\AreaSwitcherArrow.png" />
+    <Content Include="Themes\Assets\Images\Catalog\Categories\CarType_Bus.png" />
+    <Content Include="Themes\Assets\Images\Catalog\Categories\CarType_Car.png" />
+    <Content Include="Themes\Assets\Images\Catalog\Categories\CarType_Moto.png" />
+    <Content Include="Themes\Assets\Images\Catalog\Categories\CarType_Special.png" />
+    <Content Include="Themes\Assets\Images\Catalog\Categories\CarType_Truck.png" />
+    <Content Include="Themes\Assets\Images\Catalog\Categories\CategoryChangeIcon.png" />
+    <Content Include="Themes\Assets\Images\Catalog\Categories\CategoryExpandIcon.png" />
+    <Content Include="Themes\Assets\Images\Catalog\Categories\CategorySelectIcon.png" />
+    <Content Include="Themes\Assets\Images\Catalog\Categories\Europe_AutoParts.png" />
+    <Content Include="Themes\Assets\Images\Catalog\Categories\Europe_Moto.png" />
+    <Content Include="Themes\Assets\Images\Catalog\Categories\Europe_TiresAndRims.png" />
+    <Content Include="Themes\Assets\Images\Catalog\Categories\Europe_Tools.png" />
+    <Content Include="Themes\Assets\Images\Catalog\Categories\SelectedCategoryValueShadow.png" />
+    <Content Include="Themes\Assets\Images\Catalog\InputLoupe.png" />
+    <Content Include="Themes\Assets\Images\Catalog\LoupeBackground2.png" />
+    <Content Include="Themes\Assets\Images\Catalog\PartNumberBrandSelectArrow.png" />
+    <Content Include="Themes\Assets\Images\Catalog\PhotoEnlargeIcon.png" />
+    <Content Include="Themes\Assets\Images\Catalog\SearchTypeLoupe.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Cart.png" />
+    <Content Include="Themes\Assets\Images\Checkout\ChangeValueIcon.png" />
+    <Content Include="Themes\Assets\Images\Checkout\CheckoutWizardStepShadow.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Delivery\Courier.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Delivery\NovaPoshtaUkraine.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Payment\CashInBankBig.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Payment\CashInBankSmall.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Payment\CashInTerminalBig.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Payment\CashInTerminalSmall.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Payment\CreditCardBig.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Payment\CreditCardSmall.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Payment\Privat24Big.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Payment\Privat24Small.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Payment\Temp\CashInBankMethodInstructions.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Payment\Temp\CashInTerminalMethodInstructions.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Payment\Temp\CreditCardMethodInstructions.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Payment\Temp\Privat24MethodInstructions.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Payment\Temp\WireTransferMethodInstructions.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Payment\WireTransferBig.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Payment\WireTransferSmall.png" />
+    <Content Include="Themes\Assets\Images\Checkout\PersonalInfo.png" />
+    <Content Include="Themes\Assets\Images\Checkout\Receipt.png" />
+    <Content Include="Themes\Assets\Images\Checkout\WizardStepActiveIcon.png" />
+    <Content Include="Themes\Assets\Images\Checkout\WizardStepCompletedIcon.png" />
+    <Content Include="Themes\Assets\Images\ErrorFlyoutArrow.png" />
+    <Content Include="Themes\Assets\Images\Keyboard\Backspace.png" />
+    <Content Include="Themes\Assets\Images\Keyboard\Globe.png" />
+    <Content Include="Themes\Assets\Images\Keyboard\Search.png" />
+    <Content Include="Themes\Assets\Images\Logo.png" />
+    <Content Include="Themes\Assets\Images\Catalog\LoupeBackground1.png" />
+    <Content Include="Themes\Assets\Images\Main\NewAutoParts.png" />
+    <Content Include="Themes\Assets\Images\Main\UsedAutoParts.png" />
+    <Content Include="Themes\Assets\Images\Menu\Return.png" />
+    <Content Include="Themes\Assets\Images\Menu\Warranty.png" />
+    <Content Include="Themes\Assets\Images\Menu\Home.png" />
+    <Content Include="Themes\Assets\Images\Menu\Delivery.png" />
+    <Content Include="Themes\Assets\Images\Menu\Instructions.png" />
+    <Content Include="Themes\Assets\Images\Menu\Partnership.png" />
+    <Content Include="Themes\Assets\Images\Menu\ServiceStations.png" />
+    <Content Include="Themes\Assets\Images\Menu\Map.png" />
+    <Content Include="Themes\Assets\Images\SoonFlyoutArrow.png" />
+    <Content Include="Themes\Assets\Images\SupportPhone.png" />
+    <Content Include="Themes\Assets\Images\NextUser.png" />
+    <Content Include="Themes\Assets\Images\CancelInput.png" />
+    <Content Include="Themes\Assets\Images\WizardStepChangeIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Controls\SoonFlyout.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\InputErrorFlyoutContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\RightContentHeaderBackButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\BackgroundWithInnerShadow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ValueInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\AdvertisementDisplay\AdvertisementDisplayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Cart\CartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Cart\CartWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ErrorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Cart\ContinueShoppingWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Cart\CartProductPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Cart\PromoCode\PromoCodeEntryModal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Cart\PromoCode\PromoCodePresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Catalog\AutoPartsSectionPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Catalog\AutoParts\AreaTitleAndSwitcher.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Catalog\Categories\CarManufacturerPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Catalog\Categories\CarModelModificationCategoryFeaturePresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Catalog\Categories\CarModelPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Catalog\Categories\CarModelModificationCategoryPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Catalog\Categories\ProductCategoryLeafPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Catalog\Categories\CategoryGroupPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Catalog\Categories\CategorySearchRightView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Catalog\AutoParts\Europe\EuropeSearchLeftView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Catalog\AutoParts\Europe\EuropeSearchRightView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Catalog\AutoParts\Europe\EuropeInitialLeftView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Catalog\AutoParts\Europe\EuropeInitialRightView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Catalog\AutoParts\Europe\EuropeMainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Catalog\Categories\SelectedCategoryValuePresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Catalog\SearchStatePresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Catalog\CarModelModificationPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Catalog\CarModelModificationFeaturePresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Catalog\Categories\TopCategoryPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Checkout\CheckoutValuePresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Checkout\CheckoutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Checkout\CheckoutWizardStepPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\Delivery\CourierDataInputStageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\Delivery\DeliveryTypeOptionPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\Delivery\DeliveryTypeSelectionStageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\Delivery\NovaPoshtaUkraineBranchSelectionStageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\OrderConfirmationStepView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\Delivery\DeliveryInfoStepView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\Payment\Instructions\WireTransferMethodInstructionsPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\Payment\Instructions\CashInTerminalMethodInstructionsPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\Payment\Instructions\CashInBankMethodInstructionsPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\Payment\Instructions\Privat24MethodInstructionsPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\Payment\Instructions\CreditCardMethodInstructionsPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\Payment\PaymentInfoStepView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\Payment\PaymentMethodInstructionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\Payment\PaymentMethodOptionBigPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\Payment\PaymentMethodOptionTabHeader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\PhoneNumberStepView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Checkout\Steps\PersonalInfoStepView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Filters\ProductSortingSelector.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Filters\ProductStateFilter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Filters\SearchInput.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LanguageSelector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\LoadingControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MenuPointControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\MenuPointSeparator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SecondCountdown.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CoreExtension\Application\InitializationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CoreExtension\Application\KioskApplicationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Catalog\AutoParts\SearchByAnotherTypeMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Catalog\SearchFilterPlaceholder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\EkApplicationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CoreExtension\Inactivity\InactivityConfirmationModal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CoreExtension\Ui\Modals\ModalContentContainer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ek\Info\InfoModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\OrderCompletion\OrderCompletionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Products\NextPageLoadingPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Products\Photos\ProductPhotosModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Products\ProductDescriptionPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Products\ProductDetailsModal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Products\ProductKeyFeaturePresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Products\Photos\ProductPhotosPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Products\ResultProductPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Products\ProductResultsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ek\Products\ResultCountPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Theme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeParts\Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeParts\FontFamilies.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeParts\Styles\GridViews.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeParts\Styles\Buttons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeParts\Styles\Backgrounds.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeParts\Styles\ListViews.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeParts\Styles\Separators.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeParts\Styles\Inputs.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeParts\Styles\Flyouts.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeParts\Styles\Shadows.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeParts\Styles\TextBlocks.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\ThemeParts\Styles\VirtualKeyboards.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.1.9</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>5.1.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="KioskBrains.pfx" />
+    <Content Include="Themes\Assets\Fonts\Play-Regular.ttf" />
+    <Content Include="Themes\Assets\Fonts\Play-Bold.ttf" />
+    <Content Include="Themes\Assets\Fonts\Ubuntu-Regular.ttf" />
+    <Content Include="Themes\Assets\Fonts\Ubuntu-Bold.ttf" />
+    <Content Include="Themes\Assets\Fonts\Ubuntu-Light.ttf" />
+    <Content Include="Themes\Assets\Fonts\Ubuntu-Medium.ttf" />
+    <PRIResource Include="Languages\ru\Resources.resw" />
+    <PRIResource Include="Languages\en\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Include="Languages\uk\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\KioskBrains.Common.EK\KioskBrains.Common.EK.csproj">
+      <Project>{3953C37B-196E-45E3-ACF2-4227420FB918}</Project>
+      <Name>KioskBrains.Common.EK</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\KioskBrains.Common\KioskBrains.Common.csproj">
+      <Project>{9268c7e0-2b6a-41f0-81b5-a334a8195e87}</Project>
+      <Name>KioskBrains.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\KioskApp\KioskBrains.Kiosk.Core.Ui\KioskBrains.Kiosk.Core.Ui.csproj">
+      <Project>{57090504-f8d1-4660-8425-fbeffa59322f}</Project>
+      <Name>KioskBrains.Kiosk.Core.Ui</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\KioskApp\KioskBrains.Kiosk.Core\KioskBrains.Kiosk.Core.csproj">
+      <Project>{71b602fd-1226-47e5-968c-92b50cf75de2}</Project>
+      <Name>KioskBrains.Kiosk.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\KioskApp\KioskBrains.Kiosk.Helpers\KioskBrains.Kiosk.Helpers.csproj">
+      <Project>{dce1c7a1-c3fc-4a7a-9e25-1bf0f93bafc1}</Project>
+      <Name>KioskBrains.Kiosk.Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

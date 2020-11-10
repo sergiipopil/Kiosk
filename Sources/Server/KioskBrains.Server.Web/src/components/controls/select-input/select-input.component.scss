@@ -1,0 +1,67 @@
+.select2-static-html {
+    width: 100%;
+}
+
+select[multiple] {
+    display: none;
+}
+
+:host ::ng-deep .form-control-container {
+    position: relative;
+    width: 100%;
+
+    .select2-static-html {
+
+        & ~ *:not(validation-messages):not(.goto) {
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+    }
+
+    .select2-selection--multiple .select2-selection__rendered {
+        position: relative;
+
+        .select2-selection__clear {
+            color: #888;
+            margin: 0;
+            height: 100%;
+            position: absolute;
+            right: 0px;
+            line-height: 26px;
+        }
+    }
+
+    .select2-selection--single .select2-selection__rendered {
+        margin: -2px 27px 0 0;
+
+        .select2-selection__clear {
+            color: #888;
+        }
+    }
+}
+
+.select-container {
+    display: flex;
+}
+
+.goto {
+    width: 40px;
+    margin-left: 2px;
+
+    &:before {
+        width: 100%;
+        height: 100%;
+        display: block;
+        text-align: center;
+        line-height: 34px;
+        background-color: rgba(2, 117, 216, 1);
+        color: white;
+    }
+
+    &.novalue:before {
+        background-color: rgba(2, 117, 216, 0.5);
+    }
+}

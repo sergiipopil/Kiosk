@@ -1,0 +1,35 @@
+﻿.table-container {
+  padding-top: 20px;
+
+  ::ng-deep {
+
+    .no-records-message {
+      margin-bottom: 0;
+    }
+
+    .form-field-container {
+      margin-bottom: 0;
+    }
+
+    .form-control-container {
+      margin-bottom: 0;
+    }
+
+    td.remove-command {
+      text-align: right;
+    }
+  }
+}
+
+.footer-container ::ng-deep {
+
+  [footer-area] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    command-panel {
+      margin-top: 20px;
+    }
+  }  
+}

@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="KioskApp.CoreExtension.Inactivity.InactivityConfirmationModal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:KioskApp.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="1080"
+             d:DesignWidth="1920">
+
+    <Grid Width="785"
+          Height="761"
+          Background="#dbdeff">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="164" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Вы еще здесь?"
+                   HorizontalAlignment="Center"
+                   Foreground="#383e91"
+                   FontFamily="{StaticResource PlayFontFamily}"
+                   FontSize="50"
+                   Margin="0 68 0 50" />
+
+        <Grid Grid.Row="1"
+              VerticalAlignment="Top">
+            <controls:SecondCountdown x:Name="CountdownElement"
+                                      Seconds="{x:Bind Model.CountdownSeconds}"
+                                      ArcFill="{StaticResource InactivityCountDownBrush}"
+                                      ArcThickness="35"
+                                      ArcRadius="153"
+                                      FontFamily="{StaticResource PlayBoldFontFamily}"
+                                      Foreground="#23274d"
+                                      FontSize="125"
+                                      TextMargin="0 0 0 9"
+                                      RunOut="CountdownElement_OnRunOut" />
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <!--just a button to force a click - modal is closed after any interaction-->
+            <Button Content="{x:Bind ConfirmButtonText, Mode=OneWay}"
+                    Click="YesButton_Click"
+                    Style="{StaticResource BlueButtonStyle}"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Width="260"
+                    Height="60" />
+        </Grid>
+
+    </Grid>
+
+</UserControl>

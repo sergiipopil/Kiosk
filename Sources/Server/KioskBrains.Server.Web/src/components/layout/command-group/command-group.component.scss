@@ -1,0 +1,15 @@
+﻿.command-group {
+  display: flex;
+  justify-content: center;
+
+  ::ng-deep {
+
+    > * {
+      margin-left: 10px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}

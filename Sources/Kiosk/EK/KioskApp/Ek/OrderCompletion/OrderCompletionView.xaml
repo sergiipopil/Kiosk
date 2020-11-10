@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="KioskApp.Ek.OrderCompletion.OrderCompletionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:KioskApp.Controls"
+             xmlns:payment="using:KioskApp.Ek.Checkout.Steps.Payment"
+             mc:Ignorable="d"
+             d:DesignHeight="800"
+             d:DesignWidth="1600">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!--WIZARD-->
+        <controls:LeftContentPanel>
+
+            <StackPanel Margin="88 157 88 0">
+                <TextBlock Text="Ваш заказ оформлен!"
+                           HorizontalAlignment="Center"
+                           Foreground="White"
+                           FontFamily="{StaticResource UbuntuFontFamily}"
+                           FontSize="30" />
+
+                <Rectangle Fill="#635aa0"
+                           Height="1"
+                           Margin="0 18 0 0" />
+
+                <TextBlock Text="Заберите Ваш чек!"
+                           Foreground="#d2cdf6"
+                           FontFamily="{StaticResource UbuntuFontFamily}"
+                           FontSize="18"
+                           HorizontalAlignment="Center"
+                           Margin="0 47 0 0" />
+
+                <Image Source="/Themes/Assets/Images/Checkout/Receipt.png"
+                       Stretch="None"
+                       HorizontalAlignment="Center"
+                       Margin="0 130 0 0" />
+
+            </StackPanel>
+
+        </controls:LeftContentPanel>
+
+        <!--STEP-->
+        <controls:RightContentPanel Grid.Column="1">
+
+            <Grid>
+
+                <payment:PaymentMethodInstructionsView SelectedPaymentMethod="{x:Bind SelectedPaymentMethodInfo, Mode=OneWay}"
+                                                       IsConfirmed="True" />
+
+                <Button Content="Следующий клиент"
+                        Style="{StaticResource OrangeButtonStyle}"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Margin="0 0 0 20"
+                        MinWidth="312"
+                        Height="60"
+                        Command="{x:Bind NextUserCommand, Mode=OneWay}" />
+
+            </Grid>
+
+        </controls:RightContentPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,6 @@
+﻿<div *ngIf="loginStatus && loginStatus.isLoggedIn">
+  <span class="text-master semi-bold">{{loginStatus.name}}</span>
+  <a (click)="logout()" class="header-icon btn-link m-l-10 sm-no-margin d-inline-block logout-icon">
+    <i class="fa fa-sign-out" aria-hidden="true"></i>
+  </a>
+</div>

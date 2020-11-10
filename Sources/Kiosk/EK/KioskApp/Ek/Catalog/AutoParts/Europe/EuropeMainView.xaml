@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="KioskApp.Ek.Catalog.AutoParts.Europe.EuropeMainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:KioskApp.Controls"
+             xmlns:autoParts="using:KioskApp.Ek.Catalog.AutoParts"
+             xmlns:categories="using:KioskApp.Ek.Catalog.Categories"
+             mc:Ignorable="d"
+             d:DesignHeight="900"
+             d:DesignWidth="1700"
+             Loaded="EuropeMainView_OnLoaded"
+             Unloaded="EuropeMainView_OnUnloaded">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!--FILTERS-->
+        <controls:LeftContentPanel Width="{x:Bind IsLeftSidePanelWidthExtended, Mode=OneWay, Converter={StaticResource BooleanToLeftSidePanelWidthConverter}}" />
+        <!--content is outside panel to be able overflow right panel-->
+        <Grid Grid.Column="0"
+              Canvas.ZIndex="1"
+              Margin="85 0 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <autoParts:AreaTitleAndSwitcher IsLocalArea="False" />
+
+            <autoParts:SearchByAnotherTypeMenu Grid.Row="1"
+                                               Margin="0 17 0 0"
+                                               Items="{x:Bind SearchByAnotherTypeMenuItems}"
+                                               Visibility="{x:Bind ShowSearchByAnotherTypeMenu, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                               SearchByAnotherTypeSelected="SearchByAnotherTypeMenu_OnSearchByAnotherTypeSelected" />
+
+            <categories:SelectedCategoryValuePresenter Grid.Row="2"
+                                                       Margin="0 44 0 0"
+                                                       HorizontalAlignment="Left"
+                                                       Placeholder="Выберите категорию..."
+                                                       Value="{x:Bind SelectedCategory, Mode=OneWay}"
+                                                       Visibility="{x:Bind ShowCategorySelection, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+            <ContentControl Grid.Row="3"
+                            Content="{x:Bind LeftView, Mode=OneWay}"
+                            VerticalContentAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch" />
+
+        </Grid>
+
+
+        <!--RESULTS/CATEGORIES-->
+        <controls:RightContentPanel Grid.Column="1">
+            <ContentControl Content="{x:Bind RightView, Mode=OneWay}"
+                            VerticalContentAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch" />
+        </controls:RightContentPanel>
+
+    </Grid>
+</UserControl>

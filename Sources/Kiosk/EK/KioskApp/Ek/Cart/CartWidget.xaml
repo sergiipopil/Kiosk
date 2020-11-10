@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="KioskApp.Ek.Cart.CartWidget"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cart="using:KioskApp.Ek.Cart"
+             mc:Ignorable="d"
+             d:DesignHeight="245"
+             d:DesignWidth="230">
+
+    <Grid>
+
+        <!--NON-EMPTY CART-->
+        <cart:CartWidgetPanel Visibility="{x:Bind EkContext.EkProcess.Cart.IsEmpty, Mode=OneWay, Converter={StaticResource BooleanToVisibilityReversedConverter}}">
+            <Grid Background="White">
+
+                <Grid Margin="15 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="46" />
+                        <RowDefinition Height="3" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center">
+                        <Image Source="/Themes/Assets/Images/Cart/CartWidget.png"
+                               Stretch="None"
+                               VerticalAlignment="Center" />
+                        <TextBlock Margin="12 0 0 0"
+                                   VerticalAlignment="Center"
+                                   Foreground="#23274d"
+                                   FontSize="18"
+                                   FontFamily="{StaticResource UbuntuBoldFontFamily}">
+                            <Run Text="{x:Bind EkContext.EkProcess.Cart.TotalQuantity, Mode=OneWay}" />
+                            <Run Text="товаров" />
+                        </TextBlock>
+                    </StackPanel>
+
+                    <Rectangle Grid.Row="1"
+                               VerticalAlignment="Bottom"
+                               Fill="#c3c4d7"
+                               Height="1"
+                               Margin="5 0" />
+
+                    <Grid Grid.Row="2">
+
+                        <StackPanel Margin="0 0 0 16">
+
+                            <Button Content="Показать товары"
+                                    Style="{StaticResource LinkButtonStyle}"
+                                    HorizontalAlignment="Center"
+                                    Command="{x:Bind EkContext.GoToCartCommand, Mode=OneWay}" />
+
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Center"
+                                        Margin="0 15 0 0">
+                                <TextBlock Text="{x:Bind EkContext.EkProcess.Cart.TotalPriceString, Mode=OneWay}"
+                                           Foreground="#23274d"
+                                           FontSize="42"
+                                           FontFamily="{StaticResource UbuntuBoldFontFamily}" />
+                                <TextBlock Text="грн"
+                                           VerticalAlignment="Top"
+                                           Margin="5 1 0 0"
+                                           Foreground="#23274d"
+                                           FontSize="24"
+                                           FontFamily="{StaticResource UbuntuBoldFontFamily}" />
+                            </StackPanel>
+
+                            <Button Style="{StaticResource OrangeButtonStyle}"
+                                    Margin="0 30 0 0"
+                                    Command="{x:Bind EkContext.GoToCartCommand, Mode=OneWay}">
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center">
+                                    <Image Source="/Themes/Assets/Images/Buttons/Checkout.png"
+                                           Stretch="None"
+                                           VerticalAlignment="Center" />
+                                    <TextBlock Text="Оформить"
+                                               VerticalAlignment="Center"
+                                               Margin="5 0 0 0" />
+                                </StackPanel>
+                            </Button>
+
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+
+            </Grid>
+        </cart:CartWidgetPanel>
+
+        <!--EMPTY CART-->
+        <StackPanel Visibility="{x:Bind EkContext.EkProcess.Cart.IsEmpty, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    d:IsHidden="True"
+                    Margin="0 31 21 0">
+            <TextBlock Text="ваша корзина пуста"
+                       HorizontalAlignment="Center"
+                       Margin="10 0"
+                       FontSize="22"
+                       FontFamily="{StaticResource UbuntuMediumFontFamily}"
+                       Foreground="#50568d"
+                       TextWrapping="WrapWholeWords"
+                       TextAlignment="Center" />
+            <Image Source="/Themes/Assets/Images/Cart/CartWidgetEmptyBig.png"
+                   Stretch="None"
+                   HorizontalAlignment="Left"
+                   Margin="12 -12 0 0" />
+        </StackPanel>
+
+    </Grid>
+
+</UserControl>

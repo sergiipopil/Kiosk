@@ -1,0 +1,34 @@
+.all-option-wrapper-container {
+    display: flex;
+
+    button {
+        transition: none !important;
+        font-size: 10px;
+        font-weight: bold;
+        height: 35px;
+
+        &.active, &:hover {
+            z-index: 1;
+        }
+
+        &:not(.active) {
+            margin-right: -1px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        &:not(.active):not(:hover) {
+            color: rgba(98, 98, 98, 0.47);
+        }
+    }
+
+    ::ng-deep > :not(button) {
+        flex-grow: 1;
+    }
+}
+
+.form-control-container.required label:after {
+    content: "*";
+    margin-left: 4px;
+    color: #f55753;
+}

@@ -1,0 +1,47 @@
+.page-sidebar {
+  z-index: 1001;
+
+  [data-toggle-pin="sidebar"] {
+    margin-left: 12px;
+  }
+
+  .sidebar-header .brand {
+    height: 22px;
+    margin-bottom: 6px;
+  }
+
+  .sidebar-menu {
+
+    .menu-items {
+      padding-top: 30px;
+
+      li {
+
+        &.selected {
+
+          > .icon-thumbnail {
+            color: #fff;
+            background-color: #10cfbd !important;
+          }
+        }
+
+        &.version {
+
+          a {
+            cursor: default;
+            margin-top: 19px;
+            font-size: 10px;
+            opacity: 0.5;
+          }
+
+          &:hover {
+
+            a {
+              color: #788296;
+            }
+          }
+        }
+      }
+    }
+  }
+}

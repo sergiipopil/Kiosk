@@ -1,0 +1,33 @@
+.modal {
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.nonTransparent {
+        background: white;
+    }
+
+    .target-marker {
+        display: none;
+    }
+
+    ::ng-deep {
+        > :not(.target-marker) {
+            flex-grow: 1;
+        }
+    }
+
+    .close-icon {
+        position: absolute;
+        display: none;
+        cursor: pointer;
+        right: 10px;
+        z-index: 500;
+        top: 10px;
+    }
+
+    .show {
+        display: block;
+    }
+}

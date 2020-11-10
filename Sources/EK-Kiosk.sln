@@ -1,0 +1,78 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{585D53A0-56FA-4DB2-A413-B3AF78115498}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KioskBrains.Common", "Common\KioskBrains.Common\KioskBrains.Common.csproj", "{9268C7E0-2B6A-41F0-81B5-A334A8195E87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kiosk", "Kiosk", "{CC40A2B2-3948-4C7A-AE64-F82D3B15D3D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{1071E38A-1A13-40F3-85FC-66930B3631BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrains.Kiosk.Helpers", "Kiosk\Common\KioskApp\KioskBrains.Kiosk.Helpers\KioskBrains.Kiosk.Helpers.csproj", "{DCE1C7A1-C3FC-4A7A-9E25-1BF0F93BAFC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrains.Kiosk.Core", "Kiosk\Common\KioskApp\KioskBrains.Kiosk.Core\KioskBrains.Kiosk.Core.csproj", "{71B602FD-1226-47E5-968C-92B50CF75DE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "KioskApp", "KioskApp", "{0F998CAB-97F3-4E40-9AE3-0E035FF0DB0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskBrains.Kiosk.Core.Ui", "Kiosk\Common\KioskApp\KioskBrains.Kiosk.Core.Ui\KioskBrains.Kiosk.Core.Ui.csproj", "{57090504-F8D1-4660-8425-FBEFFA59322F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EK", "EK", "{399050A5-AC97-4499-94FB-E4C781B1ECCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KioskApp", "Kiosk\EK\KioskApp\KioskApp.csproj", "{FB29E13F-7AAA-4FA5-B4CD-67E7A9D66622}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KioskBrains.Common.EK", "Common\KioskBrains.Common.EK\KioskBrains.Common.EK.csproj", "{3953C37B-196E-45E3-ACF2-4227420FB918}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9268C7E0-2B6A-41F0-81B5-A334A8195E87}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9268C7E0-2B6A-41F0-81B5-A334A8195E87}.Debug|x64.Build.0 = Debug|Any CPU
+		{9268C7E0-2B6A-41F0-81B5-A334A8195E87}.Release|x64.ActiveCfg = Release|Any CPU
+		{9268C7E0-2B6A-41F0-81B5-A334A8195E87}.Release|x64.Build.0 = Release|Any CPU
+		{DCE1C7A1-C3FC-4A7A-9E25-1BF0F93BAFC1}.Debug|x64.ActiveCfg = Debug|x64
+		{DCE1C7A1-C3FC-4A7A-9E25-1BF0F93BAFC1}.Debug|x64.Build.0 = Debug|x64
+		{DCE1C7A1-C3FC-4A7A-9E25-1BF0F93BAFC1}.Release|x64.ActiveCfg = Release|x64
+		{DCE1C7A1-C3FC-4A7A-9E25-1BF0F93BAFC1}.Release|x64.Build.0 = Release|x64
+		{71B602FD-1226-47E5-968C-92B50CF75DE2}.Debug|x64.ActiveCfg = Debug|x64
+		{71B602FD-1226-47E5-968C-92B50CF75DE2}.Debug|x64.Build.0 = Debug|x64
+		{71B602FD-1226-47E5-968C-92B50CF75DE2}.Release|x64.ActiveCfg = Release|x64
+		{71B602FD-1226-47E5-968C-92B50CF75DE2}.Release|x64.Build.0 = Release|x64
+		{57090504-F8D1-4660-8425-FBEFFA59322F}.Debug|x64.ActiveCfg = Debug|x64
+		{57090504-F8D1-4660-8425-FBEFFA59322F}.Debug|x64.Build.0 = Debug|x64
+		{57090504-F8D1-4660-8425-FBEFFA59322F}.Release|x64.ActiveCfg = Release|x64
+		{57090504-F8D1-4660-8425-FBEFFA59322F}.Release|x64.Build.0 = Release|x64
+		{FB29E13F-7AAA-4FA5-B4CD-67E7A9D66622}.Debug|x64.ActiveCfg = Debug|x64
+		{FB29E13F-7AAA-4FA5-B4CD-67E7A9D66622}.Debug|x64.Build.0 = Debug|x64
+		{FB29E13F-7AAA-4FA5-B4CD-67E7A9D66622}.Debug|x64.Deploy.0 = Debug|x64
+		{FB29E13F-7AAA-4FA5-B4CD-67E7A9D66622}.Release|x64.ActiveCfg = Release|x64
+		{FB29E13F-7AAA-4FA5-B4CD-67E7A9D66622}.Release|x64.Build.0 = Release|x64
+		{FB29E13F-7AAA-4FA5-B4CD-67E7A9D66622}.Release|x64.Deploy.0 = Release|x64
+		{3953C37B-196E-45E3-ACF2-4227420FB918}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3953C37B-196E-45E3-ACF2-4227420FB918}.Debug|x64.Build.0 = Debug|Any CPU
+		{3953C37B-196E-45E3-ACF2-4227420FB918}.Release|x64.ActiveCfg = Release|Any CPU
+		{3953C37B-196E-45E3-ACF2-4227420FB918}.Release|x64.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9268C7E0-2B6A-41F0-81B5-A334A8195E87} = {585D53A0-56FA-4DB2-A413-B3AF78115498}
+		{1071E38A-1A13-40F3-85FC-66930B3631BA} = {CC40A2B2-3948-4C7A-AE64-F82D3B15D3D8}
+		{DCE1C7A1-C3FC-4A7A-9E25-1BF0F93BAFC1} = {0F998CAB-97F3-4E40-9AE3-0E035FF0DB0B}
+		{71B602FD-1226-47E5-968C-92B50CF75DE2} = {0F998CAB-97F3-4E40-9AE3-0E035FF0DB0B}
+		{0F998CAB-97F3-4E40-9AE3-0E035FF0DB0B} = {1071E38A-1A13-40F3-85FC-66930B3631BA}
+		{57090504-F8D1-4660-8425-FBEFFA59322F} = {0F998CAB-97F3-4E40-9AE3-0E035FF0DB0B}
+		{399050A5-AC97-4499-94FB-E4C781B1ECCA} = {CC40A2B2-3948-4C7A-AE64-F82D3B15D3D8}
+		{FB29E13F-7AAA-4FA5-B4CD-67E7A9D66622} = {399050A5-AC97-4499-94FB-E4C781B1ECCA}
+		{3953C37B-196E-45E3-ACF2-4227420FB918} = {585D53A0-56FA-4DB2-A413-B3AF78115498}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A1970C20-E7ED-483A-9306-6FA9CECBBD29}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,24 @@
+﻿.header {
+
+  .brand {
+
+    text-align: left;
+    margin-bottom: 6px;
+    line-height: 1;
+
+    img {
+      height: 22px;
+      margin-left: 100px;
+    }
+  }
+
+  .logout-icon {
+    font-size: 18px;
+  }
+}
+
+@media (max-width:991px) {
+  .header .brand img {
+    margin-left: 0;
+  }
+}

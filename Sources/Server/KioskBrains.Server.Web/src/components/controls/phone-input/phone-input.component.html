@@ -1,0 +1,22 @@
+<form-control-container #container [control]="controlInstance">
+  <div label-extension>
+    <ng-content select="[label-extension]"></ng-content>
+  </div>
+
+  <ng-container *ngIf="!isReadonlyValue">
+    <input [(ngModel)]="value"
+           type="text"
+           class="form-control"
+           [ngClass]="{invalid: (invalid | async)}"
+           [id]="controlId"
+           (focusout)="touch();"
+           [textMask]="textMask"
+           [attr.maxlength]="maxlength"
+           [attr.tabindex]="tabindex ? tabindex : null"/>
+  </ng-container>
+
+  <ng-container *ngIf="isReadonlyValue">
+    <span class="readonly-value">{{value}}</span>
+  </ng-container>
+
+</form-control-container>

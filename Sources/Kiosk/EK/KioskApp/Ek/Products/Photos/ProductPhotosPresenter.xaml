@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="KioskApp.Ek.Products.Photos.ProductPhotosPresenter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+
+    <Grid x:Name="RootElement">
+        <Button Style="{StaticResource LinkButtonStyle}"
+                Foreground="#e87619"
+                FontFamily="{StaticResource UbuntuBoldFontFamily}"
+                Padding="0 10"
+                Click="EnlargeButton_OnClick">
+            <StackPanel>
+                <Image Source="/Themes/Assets/Images/Catalog/PhotoEnlargeIcon.png"
+                       Stretch="None"
+                       HorizontalAlignment="Center" />
+                <TextBlock HorizontalAlignment="Center"
+                           Margin="0 4 0 0">
+                    <Run Text="ФОТО (" /><Run Text="{x:Bind PhotoCount, Mode=OneWay}" /><Run Text=")" />
+                </TextBlock>
+            </StackPanel>
+        </Button>
+    </Grid>
+</UserControl>

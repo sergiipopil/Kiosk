@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="KioskApp.Ek.Checkout.Steps.Delivery.DeliveryTypeSelectionStageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:delivery="using:KioskApp.Ek.Checkout.Steps.Delivery"
+             xmlns:controls="using:KioskApp.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--header-->
+        <controls:RightContentHeaderPanel>
+            <StackPanel>
+
+                <StackPanel Orientation="Horizontal"
+                            Height="51">
+                    <controls:RightContentHeaderBackButton Command="{x:Bind BackCommand, Mode=OneWay}" />
+                    <TextBlock Text="Выбор способа доставки"
+                               Style="{StaticResource RightContentHeaderStyle}" />
+                </StackPanel>
+
+            </StackPanel>
+        </controls:RightContentHeaderPanel>
+
+        <!--content-->
+        <Grid Grid.Row="1">
+
+            <StackPanel VerticalAlignment="Top"
+                        Margin="0 195 0 0">
+                <TextBlock Style="{StaticResource CheckoutCallToActionStyle}"
+                           Margin="0 42 0 0">
+                    <Run Text="Выберите способ" />
+                    <Run Text="доставки"
+                         FontFamily="{StaticResource PlayBoldFontFamily}" />
+                </TextBlock>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0 63 0 0"
+                            HorizontalAlignment="Center">
+                    <delivery:DeliveryTypeOptionPresenter DeliveryType="DeliveryServiceStore"
+                                                          Text1="Самовывоз из отделения"
+                                                          Text2="Новой Почты"
+                                                          Icon="/Themes/Assets/Images/Checkout/Delivery/NovaPoshtaUkraine.png"
+                                                          VerticalAlignment="Top"
+                                                          Selected="DeliveryTypeOptionPresenter_OnSelected" />
+
+                    <delivery:DeliveryTypeOptionPresenter DeliveryType="Courier"
+                                                          Text1="Доставка курьером"
+                                                          Text2="по Вашему адресу"
+                                                          Icon="/Themes/Assets/Images/Checkout/Delivery/Courier.png"
+                                                          VerticalAlignment="Top"
+                                                          Selected="DeliveryTypeOptionPresenter_OnSelected" />
+                </StackPanel>
+            </StackPanel>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

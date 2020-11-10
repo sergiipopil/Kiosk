@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="KioskApp.Ek.Catalog.AutoParts.Europe.EuropeInitialRightView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             xmlns:categories="using:KioskApp.Ek.Catalog.Categories"
+             xmlns:controls="using:KioskApp.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="800"
+             d:DesignWidth="800">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Margin="0 120 0 0">
+            <TextBlock Foreground="#3b328d"
+                       FontFamily="{StaticResource PlayFontFamily}"
+                       FontSize="60"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center">
+                <Run Text="Выберите" />
+                <Run Text="категорию"
+                     FontFamily="{StaticResource PlayBoldFontFamily}" />
+            </TextBlock>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              Margin="91 67 50 0">
+            <toolkitControls:WrapPanel Orientation="Horizontal"
+                                       VerticalAlignment="Top"
+                                       HorizontalSpacing="28"
+                                       VerticalSpacing="28">
+
+                <categories:TopCategoryPresenter Title="Запчасти легковые и грузовые"
+                                                 Icon="/Themes/Assets/Images/Catalog/Categories/Europe_AutoParts.png"
+                                                 Tag="620"
+                                                 Click="TopCategoryPresenter_OnClick" />
+
+                <categories:TopCategoryPresenter Title="Шины и диски"
+                                                 Icon="/Themes/Assets/Images/Catalog/Categories/Europe_TiresAndRims.png"
+                                                 Tag="99193"
+                                                 Click="TopCategoryPresenter_OnClick" />
+
+                <categories:TopCategoryPresenter Title="Инструменты и оборудование для СТО"
+                                                 Icon="/Themes/Assets/Images/Catalog/Categories/Europe_Tools.png"
+                                                 Tag="18554"
+                                                 Click="TopCategoryPresenter_OnClick" />
+
+                <categories:TopCategoryPresenter Title="Запчасти и аксессуары для мотоциклов"
+                                                 Icon="/Themes/Assets/Images/Catalog/Categories/Europe_Moto.png"
+                                                 Tag="156"
+                                                 Click="TopCategoryPresenter_OnClick" />
+
+                <categories:TopCategoryPresenter Title="Запчасти для спецтехники"
+                                                 Icon="/Themes/Assets/Images/Catalog/Categories/CarType_Special.png"
+                                                 Tag="99022"
+                                                 Click="TopCategoryPresenter_OnClick" />
+
+            </toolkitControls:WrapPanel>
+        </Grid>
+    </Grid>
+</UserControl>

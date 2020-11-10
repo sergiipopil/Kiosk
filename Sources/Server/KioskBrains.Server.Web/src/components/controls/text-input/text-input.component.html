@@ -1,0 +1,31 @@
+<form-control-container #container [control]="controlInstance">
+  <div label-extension>
+    <ng-content select="[label-extension]"></ng-content>
+  </div>
+  <ng-container *ngIf="!isReadonlyValue">
+    <input *ngIf="!multiline"
+           [(ngModel)]="value"
+           type="text"
+           class="form-control"
+           [ngClass]="{invalid: (invalid | async)}"
+           [id]="controlId"
+           (focusout)="touch();"
+           [attr.placeholder]="placeholder"
+           [attr.maxlength]="maxlength"
+           [attr.tabindex]="tabindex ? tabindex : null" />
+
+    <textarea *ngIf="multiline"
+              [(ngModel)]="value"
+              class="form-control"
+              [ngClass]="{invalid: (invalid | async)}"
+              [id]="controlId"
+              (focusout)="touch();"
+              [attr.placeholder]="placeholder"
+              [attr.maxlength]="maxlength"
+              [attr.tabindex]="tabindex ? tabindex : null">
+    </textarea>
+  </ng-container>
+  <ng-container *ngIf="isReadonlyValue">
+    <span class="readonly-value">{{value}}</span>
+  </ng-container>
+</form-control-container>

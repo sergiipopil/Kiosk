@@ -1,0 +1,6 @@
+﻿{  
+  "ServerUri": "https://insert_domain_name_here",
+  "UpdateCheckInterval": "00:15",
+  "MaxNotReadyForUpdateLockDuration": "01:00",
+  "ReadyForUpdateCheckInterval": "00:00:10"
+}

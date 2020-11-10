@@ -1,0 +1,43 @@
+@import "../../../theme/scss/_var.scss";
+
+.state-container {
+  margin: -3px;
+
+  .state-row-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  ::ng-deep {
+
+    .state-component-container {
+      margin: 3px;
+      padding: 3px 5px;
+
+      &.status-0 {
+        background: $color-master-lighter;
+      }
+
+      &.status-1 {
+        background: $color-success-lighter;
+      }
+
+      &.status-2 {
+        background: $color-warning-lighter;
+      }
+
+      &.status-3 {
+        background: $color-danger-lighter;
+      }
+
+      &.status-5 {
+        background: $color-master-lighter;
+      }
+
+      &.status-info {
+        background: $color-complete-lighter;
+      }
+    }
+  }
+}

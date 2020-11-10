@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="KioskApp.Ek.Checkout.Steps.OrderConfirmationStepView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:KioskApp.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="800"
+             d:DesignWidth="800">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--header-->
+        <controls:RightContentHeaderPanel>
+            <StackPanel>
+
+                <StackPanel Orientation="Horizontal"
+                            Height="51">
+                    <controls:RightContentHeaderBackButton Command="{x:Bind WizardBackCommand, Mode=OneWay}" />
+                    <TextBlock Text="Подтверждение заказа"
+                               Style="{StaticResource RightContentHeaderStyle}" />
+                </StackPanel>
+
+            </StackPanel>
+        </controls:RightContentHeaderPanel>
+
+        <!--inputs-->
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Center">
+            <TextBlock Foreground="#3b328d"
+                       FontFamily="{StaticResource PlayFontFamily}"
+                       FontSize="40"
+                       HorizontalAlignment="Center">
+                <Run Text="Подтвердите" />
+                <Run Text="согласие с условиями"
+                     FontFamily="{StaticResource PlayBoldFontFamily}" />
+            </TextBlock>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0 45 0 47">
+                <TextBlock Text="Я согласен с"
+                           FontFamily="{StaticResource UbuntuMediumFontFamily}"
+                           FontSize="22"
+                           VerticalAlignment="Center"
+                           Margin="10 0 0 0" />
+                <Button Content="условиями пользовательского соглашения"
+                        Style="{StaticResource LinkButtonStyle}"
+                        FontFamily="{StaticResource UbuntuMediumFontFamily}"
+                        FontSize="22"
+                        Margin="-6 0 0 0"
+                        Click="TermsButton_OnClick" />
+            </StackPanel>
+            <Button Content="Подтверждаю"
+                    Style="{StaticResource BlueButtonStyle}"
+                    HorizontalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Width="239"
+                    Height="51"
+                    Click="ConfirmButton_OnClick" />
+        </StackPanel>
+
+    </Grid>
+</UserControl>

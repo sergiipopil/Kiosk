@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="KioskApp.Ek.Products.ProductDescriptionPresenter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:KioskApp.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+
+    <Grid>
+        <StackPanel>
+            <TextBlock x:Name="TextElement"
+                       Text="{x:Bind Product.Description, Mode=OneWay}"
+                       Visibility="{x:Bind Product.Description, Mode=OneWay, Converter={StaticResource IsStringNotEmptyToVisibilityConverter}}"
+                       MaxLines="{x:Bind MaxLines, Mode=OneWay}"
+                       TextWrapping="WrapWholeWords"
+                       TextTrimming="CharacterEllipsis"
+                       Foreground="#6c7096"
+                       FontFamily="{StaticResource UbuntuFontFamily}"
+                       LineHeight="20" />
+            <TextBlock Text="Полное описание..."
+                       Visibility="{x:Bind ShowFullDescriptionLink, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                       Foreground="#5258cd"
+                       FontFamily="{StaticResource UbuntuFontFamily}"
+                       LineHeight="20"
+                       HorizontalAlignment="Left"
+                       Tapped="ShowFullDescriptionLink_OnTapped" />
+        </StackPanel>
+
+        <controls:LoadingControl Size="Small"
+                                 Visibility="{x:Bind Product.IsDescriptionRequesting, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 ShowOverlay="False" />
+    </Grid>
+</UserControl>

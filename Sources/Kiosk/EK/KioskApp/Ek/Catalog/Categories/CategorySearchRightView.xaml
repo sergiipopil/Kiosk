@@ -1,0 +1,127 @@
+﻿<UserControl x:Class="KioskApp.Ek.Catalog.Categories.CategorySearchRightView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:KioskApp.Controls"
+             xmlns:categories="using:KioskApp.Ek.Catalog.Categories"
+             xmlns:catalog="using:KioskApp.Ek.Catalog"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400"
+             Unloaded="CategorySearchRightView_OnUnloaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <controls:RightContentHeaderPanel Height="51">
+            <StackPanel Orientation="Horizontal">
+                <controls:RightContentHeaderBackButton Click="BackButton_OnClick" />
+                <TextBlock Text="{x:Bind SearchProvider.SearchTitle, Mode=OneWay}"
+                           Style="{StaticResource RightContentHeaderStyle}" />
+            </StackPanel>
+        </controls:RightContentHeaderPanel>
+
+        <!--breadcrumbs-->
+        <Grid Grid.Row="1"
+              Margin="17 2 17 0"
+              Visibility="{x:Bind Breadcrumbs, Mode=OneWay, Converter={StaticResource IsNotNullToVisibilityConverter}}">
+            <ItemsControl ItemsSource="{x:Bind Breadcrumbs, Mode=OneWay}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="categories:BreadcrumbCategoryWrapper">
+                        <categories:CategoryGroupPresenter Category="{x:Bind Category}"
+                                                           Operation="Change"
+                                                           Margin="{x:Bind Index, Converter={StaticResource BreadcrumbMarginConverter}}"
+                                                           Click="BreadcrumbPresenter_OnClick" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+
+        <!--categories-->
+        <Grid Grid.Row="2"
+              Margin="17 32 0 10">
+
+            <!--templates-->
+            <Grid.Resources>
+                <DataTemplate x:Key="ProductCategoryGroupDataTemplate"
+                              x:DataType="categories:Category">
+                    <categories:CategoryGroupPresenter Category="{x:Bind}"
+                                                       Operation="Expand"
+                                                       Click="Category_OnClick"
+                                                       Tag="{x:Bind}"
+                                                       Width="837"
+                                                       Margin="0 0 0 15" />
+                </DataTemplate>
+
+                <DataTemplate x:Key="ProductCategoryLeafDataTemplate"
+                              x:DataType="categories:Category">
+                    <categories:ProductCategoryLeafPresenter Category="{x:Bind}"
+                                                             Click="Category_OnClick"
+                                                             Tag="{x:Bind}"
+                                                             Width="837"
+                                                             Margin="0 0 0 15" />
+                </DataTemplate>
+
+                <DataTemplate x:Key="CarManufacturerDataTemplate"
+                              x:DataType="categories:Category">
+                    <categories:CarManufacturerPresenter Category="{x:Bind}"
+                                                         Click="Category_OnClick"
+                                                         Tag="{x:Bind}"
+                                                         Margin="10 0 10 19" />
+                </DataTemplate>
+
+                <DataTemplate x:Key="CarModelDataTemplate"
+                              x:DataType="categories:Category">
+                    <categories:CarModelPresenter Category="{x:Bind}"
+                                                  Click="Category_OnClick"
+                                                  Tag="{x:Bind}"
+                                                  Width="568"
+                                                  Margin="0 0 0 15" />
+                </DataTemplate>
+
+                <DataTemplate x:Key="CarModelModificationDataTemplate"
+                              x:DataType="categories:Category">
+                    <categories:CarModelModificationCategoryPresenter Category="{x:Bind}"
+                                                                      Click="Category_OnClick"
+                                                                      Tag="{x:Bind}"
+                                                                      Width="911"
+                                                                      Margin="36 0 0 15" />
+                </DataTemplate>
+
+                <categories:CategoryDataTemplateSelector x:Key="CategoryDataTemplateSelector"
+                                                         ProductCategoryGroup="{StaticResource ProductCategoryGroupDataTemplate}"
+                                                         ProductCategoryLeaf="{StaticResource ProductCategoryLeafDataTemplate}"
+                                                         CarManufacturer="{StaticResource CarManufacturerDataTemplate}"
+                                                         CarModel="{StaticResource CarModelDataTemplate}"
+                                                         CarModelModification="{StaticResource CarModelModificationDataTemplate}" />
+            </Grid.Resources>
+
+            <ScrollViewer Visibility="{x:Bind SearchProvider.Categories, Mode=OneWay, Converter={StaticResource IsNotNullToVisibilityConverter}}"
+                          Padding="0 0 17 0">
+                <!--grid-->
+                <ItemsControl ItemsSource="{x:Bind SearchProvider.Categories, Mode=OneWay}"
+                              VerticalAlignment="Top"
+                              ItemTemplateSelector="{StaticResource CategoryDataTemplateSelector}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid HorizontalAlignment="Center"
+                                           Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+
+            <catalog:SearchStatePresenter SearchState="{x:Bind SearchProvider.SearchState, Mode=OneWay}"
+                                          TermName=""
+                                          WithAnotherTermPhrase="в другой категории"
+                                          RetryOnErrorCommand="{x:Bind SearchProvider.RetryOnErrorCommand, Mode=OneWay}" />
+
+        </Grid>
+
+    </Grid>
+</UserControl>

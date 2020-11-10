@@ -1,0 +1,6 @@
+<div class="global-search input-group">
+  <input type="text" class="form-control input-sm" [(ngModel)]="term" placeholder="{{placeholder}}" maxlength="50" />
+  <button class="input-group-addon btn btn-sm btn-complete" (click)="onSearch.emit();">
+    <i class="fa fa-search"></i>
+  </button>
+</div>

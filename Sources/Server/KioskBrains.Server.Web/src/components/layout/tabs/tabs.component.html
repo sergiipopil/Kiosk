@@ -1,0 +1,10 @@
+﻿<ul class="nav nav-tabs nav-tabs-linetriangle hidden-sm-down">
+  <li *ngFor="let tab of tabs" (click)="selectTab(tab)"
+      class="nav-item">
+    <a [ngClass]="{active: tab.active}">{{tab.title}}</a>
+  </li>
+</ul>
+<select (change)="selectTab(tabs[$event.target.value]);" class="mobile-tab-selector form-control hidden-md-up">
+  <option *ngFor="let tab of tabs; let i = index;" [value]="i" [selected]="tab.active">{{tab.title}}</option>
+</select>
+<ng-content></ng-content>

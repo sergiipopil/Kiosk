@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="KioskApp.CoreExtension.Application.KioskApplicationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="using:KioskApp.Controls"
+             mc:Ignorable="d"
+             d:DesignHeight="1080"
+             d:DesignWidth="1920">
+
+    <Grid Background="{StaticResource ContentBackgroundBrush}">
+        <ContentControl Content="{x:Bind Model.ContentView, Mode=OneWay}"
+                        VerticalContentAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch" />
+        <controls:LoadingControl Visibility="{x:Bind Model.IsContentViewLoading, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}"
+                                 Size="Large" />
+        <Grid x:Name="ModalLayer" />
+    </Grid>
+</UserControl>

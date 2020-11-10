@@ -1,0 +1,15 @@
+<div class="form-control-container" [class.required]="isRequiredLabel">
+    <label>
+        {{label}}
+    </label>
+
+    <div class="all-option-wrapper-container">
+        <button [attr.disabled]="isReadonlyValue" type="button" class="btn btn-default"
+                [ngClass]="{active:value}"
+                (click)="toggle();">
+            ALL
+        </button>
+
+        <ng-content *ngIf="!value"></ng-content>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+:host-context(.modal) ::ng-deep .base-frame-container {
+  max-width: 520px !important;
+}
+
+.header-image-container {
+  text-align: center;
+  margin-top: -60px;
+  margin-bottom: 20px;
+}
+
+.form-container {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  border: 1px solid grey;
+
+  .banner {
+    font-family: 'Montserrat';
+    font-size: 22px;
+  }
+
+  .error {
+    padding: 10px;
+    border: 1px solid #f55753;
+    background-color: #FFD6D2;
+    margin-bottom: 15px;
+  }
+
+  input {
+    max-width: 400px;
+  }
+
+  button {
+    font-size: 14px;
+    font-weight: 700;
+    height: 50px;
+  }
+}

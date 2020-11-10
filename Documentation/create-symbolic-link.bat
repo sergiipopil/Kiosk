@@ -1,0 +1,1 @@
+mklink /D C:\Users\Kiosk\Pictures\Kiosk C:\Kiosk

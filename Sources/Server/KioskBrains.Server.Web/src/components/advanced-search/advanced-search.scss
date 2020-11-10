@@ -1,0 +1,26 @@
+﻿.advanced-search-container {
+  margin-left: 20px;
+  background: #fafafa;
+  padding: 15px 20px 20px 20px;
+
+  .actions {
+    padding-top: 5px;
+    text-align: right;
+
+    >* {
+      margin-left: 20px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+
+    .btn-link {
+      padding: 0;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

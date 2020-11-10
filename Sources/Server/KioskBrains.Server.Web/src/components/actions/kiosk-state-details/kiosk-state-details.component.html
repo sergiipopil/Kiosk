@@ -1,0 +1,83 @@
+<base-frame [isLoading]="isLoading">
+  <div body *ngIf="viewModel">
+
+    <details-basic-layout [isFullWidth]="true">
+
+      <ng-template form-commands-area>
+        <command-panel>
+          <command-group>
+            <button class="btn btn-default" (click)="exit();">Back</button>
+          </command-group>
+        </command-panel>
+      </ng-template>
+
+
+      <div form-area>
+        <form #detailsForm="ngForm">
+
+          <notifications [notifications]="notifications"></notifications>
+
+          <div class="form-fields">
+
+            <form-field-group group-title="Main Details">
+              <div class="row">
+                <div class="col-md-4">
+                  <text-input name="addressLine1" label="Address Line 1" [(ngModel)]="viewModel.form.addressLine1" [isReadonlyValue]="true">
+                  </text-input>
+                </div>
+                <div class="col-md-4" *ngIf="viewModel.form.addressLine2">
+                  <text-input name="addressLine2" label="Address Line 2" [(ngModel)]="viewModel.form.addressLine2" [isReadonlyValue]="true">
+                  </text-input>
+                </div>
+                <div class="col-md-4">
+                  <text-input name="city" label="City" [(ngModel)]="viewModel.form.city" [isReadonlyValue]="true">
+                  </text-input>
+                </div>
+                <div class="col-md-4" *ngIf="viewModel.form.stateId">
+                  <select-input name="stateId" label="State" [(ngModel)]="viewModel.form.stateId" [disabled]="!viewModel.form.countryId"
+                                remoteAction="state-options" [remoteFilter]="{countryId: viewModel.form.countryId}" [isReadonlyValue]="true"
+                                [options]="viewModel.states" minimumInputLength="0">
+                  </select-input>
+                </div>
+                <div class="col-md-4">
+                  <text-input name="country" label="Country" [(ngModel)]="viewModel.form.country" [isReadonlyValue]="true">
+                  </text-input>
+                </div>
+                <div class="col-md-4" *ngIf="viewModel.form.zip">
+                  <number-input name="zip" label="Zip" [(ngModel)]="viewModel.form.zip" [allowDecimal]="false" [isReadonlyValue]="true">
+                  </number-input>
+                </div>
+              </div>
+            </form-field-group>
+
+            <form-field-group group-title="Components">
+              <div class="state-container">
+                <div class="state-row-container">
+                  <div class="state-component-container status-{{kioskState.aliveComponentStatus}}">
+                    <div>Alive/Internet: {{kioskState.aliveComponentMessage}}</div>
+                  </div>
+                </div>
+                <div class="state-row-container">
+                  <div class="state-component-container status-{{componentStatus.status.code}}" *ngFor="let componentStatus of kioskState.kioskStateRecord.componentsStatuses">
+                    <div class="state-component-header text-bold">{{componentStatus.componentName}}</div>
+                    <div class="state-component-body">
+                      <div>{{componentStatus.status.message}}</div>
+                      <div *ngIf="componentStatus.specificMonitorableStateJson">
+                        <additional-data-common-formatter [additionalDataJson]="componentStatus.specificMonitorableStateJson">
+                        </additional-data-common-formatter>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form-field-group>
+
+          </div>
+
+        </form>
+      </div>
+
+    </details-basic-layout>
+
+  </div>
+</base-frame>

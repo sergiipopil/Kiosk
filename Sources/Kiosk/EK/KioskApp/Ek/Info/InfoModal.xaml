@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="KioskApp.Ek.Info.InfoModal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+             xmlns:info="using:KioskApp.Ek.Info"
+             mc:Ignorable="d"
+             d:DesignHeight="1080"
+             d:DesignWidth="1920">
+    <UserControl.Resources>
+        <info:InfoBlockTemplateSelector x:Key="InfoBlockTemplateSelector">
+            <info:InfoBlockTemplateSelector.Paragraph>
+                <DataTemplate x:DataType="info:InfoBlock">
+                    <TextBlock Text="{x:Bind Text, Mode=OneWay}"
+                               Style="{StaticResource InfoBlockTextStyle}"
+                               Margin="0 10 0 0" />
+                </DataTemplate>
+            </info:InfoBlockTemplateSelector.Paragraph>
+            <info:InfoBlockTemplateSelector.ExtraSpace>
+                <DataTemplate x:DataType="info:InfoBlock">
+                    <Grid Height="10" />
+                </DataTemplate>
+            </info:InfoBlockTemplateSelector.ExtraSpace>
+            <info:InfoBlockTemplateSelector.ListItem>
+                <DataTemplate x:DataType="info:InfoBlock">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="•"
+                                   Style="{StaticResource InfoBlockTextStyle}"
+                                   Margin="0 5 10 0"
+                                   VerticalAlignment="Top" />
+                        <TextBlock Grid.Column="1"
+                                   Text="{x:Bind Text, Mode=OneWay}"
+                                   Style="{StaticResource InfoBlockTextStyle}"
+                                   Margin="0 5 0 0"
+                                   VerticalAlignment="Top" />
+                    </Grid>
+                </DataTemplate>
+            </info:InfoBlockTemplateSelector.ListItem>
+        </info:InfoBlockTemplateSelector>
+    </UserControl.Resources>
+
+    <Grid Width="904"
+          Height="924"
+          Background="#e9eaff">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ScrollViewer>
+            <StackPanel Width="650"
+                        HorizontalAlignment="Center"
+                        Margin="0 60 0 40">
+                <TextBlock FontFamily="{StaticResource PlayFontFamily}"
+                           FontSize="40"
+                           Foreground="#3b328d"
+                           TextWrapping="WrapWholeWords">
+                    <Run Text="{x:Bind TitlePart1, Mode=OneWay}" />
+                    <Run Text="{x:Bind TitlePart2, Mode=OneWay}"
+                         FontFamily="{StaticResource PlayBoldFontFamily}" />
+                </TextBlock>
+                <ItemsControl ItemsSource="{x:Bind InfoBlocks, Mode=OneWay}"
+                              ItemTemplateSelector="{StaticResource InfoBlockTemplateSelector}"
+                              Margin="0 30 0 0" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <toolkitControls:DropShadowPanel Grid.Row="1"
+                                         HorizontalContentAlignment="Stretch"
+                                         Color="#393e90"
+                                         ShadowOpacity="0.35"
+                                         BlurRadius="7">
+            <Grid Background="#eeefff"
+                  Height="120">
+                <Button Content="Закрыть"
+                        Style="{StaticResource BlueButtonStyle}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Width="260"
+                        Height="60"
+                        Click="CloseButton_Click" />
+            </Grid>
+        </toolkitControls:DropShadowPanel>
+    </Grid>
+</UserControl>

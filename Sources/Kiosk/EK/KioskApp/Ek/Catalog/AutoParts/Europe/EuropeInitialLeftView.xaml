@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="KioskApp.Ek.Catalog.AutoParts.Europe.EuropeInitialLeftView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:catalog="using:KioskApp.Ek.Catalog"
+             xmlns:autoParts="using:KioskApp.Ek.Catalog.AutoParts"
+             mc:Ignorable="d"
+             d:DesignHeight="800"
+             d:DesignWidth="800"
+             Loaded="EuropeInitialLeftView_OnLoaded"
+             Unloaded="EuropeInitialLeftView_OnUnloaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="318" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Image Source="/Themes/Assets/Images/Catalog/LoupeBackground1.png"
+                   Stretch="None"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   Margin="187 0 0 0" />
+
+            <TextBlock Foreground="White"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Left"
+                       FontFamily="{StaticResource PlayFontFamily}"
+                       FontSize="60"
+                       Margin="0 37 0 0">
+                <Run Text="Найдите деталь" />
+                <LineBreak />
+                <Run Text="по" />
+                <Run Text="номеру"
+                     FontFamily="{StaticResource PlayBoldFontFamily}"
+                     Foreground="#feb31d" />
+            </TextBlock>
+        </Grid>
+
+        <StackPanel Grid.Row="1">
+            <StackPanel.Resources>
+                <Style TargetType="catalog:SearchFilterPlaceholder">
+                    <Setter Property="Margin"
+                            Value="2 0 88 30" />
+                </Style>
+            </StackPanel.Resources>
+            <catalog:SearchFilterPlaceholder PlaceholderText1="Найти по"
+                                             PlaceholderText2="номеру детали"
+                                             PointerPressed="SearchFilterPlaceholder_OnPointerPressed">
+                <catalog:SearchFilterPlaceholder.Tag>
+                    <autoParts:SearchTypeEnum>ByName</autoParts:SearchTypeEnum>
+                </catalog:SearchFilterPlaceholder.Tag>
+            </catalog:SearchFilterPlaceholder>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

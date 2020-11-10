@@ -1,0 +1,26 @@
+<form-control-container #container [control]="controlInstance">
+  <div label-extension>
+    <ng-content select="[label-extension]"></ng-content>
+  </div>
+  <ng-container *ngIf="!isReadonlyValue">
+    <input [(ngModel)]="value"
+           type="checkbox"
+           [ngClass]="{invalid: (invalid | async)}"
+           [id]="controlId"
+           (focusout)="touch();"
+           [attr.tabindex]="tabindex ? tabindex : null" />
+    <span (mouseup)="checkBoxClicked()" class="custom-control-indicator" [class.inputHidden]="allowNull"></span>
+
+    <div class="nullable-container" *ngIf="allowNull">
+      <button class="btn btn-sm btn-default" [class.activated]="value" (click)="value = true">Yes</button>
+      <button class="btn btn-sm btn-default" [class.activated]="!value && value!=null" (click)="value = false">No</button>
+      <button class="btn btn-sm btn-default" [class.activated]="value==null" (click)="value = null">Either</button>
+    </div>
+    <div *ngIf="allowNull" class="hr"></div>
+  </ng-container>
+
+  <ng-container *ngIf="isReadonlyValue">
+    <span class="readonly-value" innerHTML="{{value | boolToDisplayValue}}"></span>
+  </ng-container>
+
+</form-control-container>

@@ -1,0 +1,65 @@
+﻿<form-control-container #container [control]="controlInstance">
+    <div label-extension>
+        <ng-content select="[label-extension]"></ng-content> 
+    </div>
+
+    <div class="select-container" *ngIf="!isReadonlyValue">
+        <ng-container *ngIf="showStaticHTML">
+            <span *ngIf="isMultiple" class="select2 select2-container select2-container--default select2-static-html" [class.select2-container--disabled]="disabled" (click)="initAndOpenOptions()">
+                <span class="selection">
+                    <span class="select2-selection select2-selection--multiple" role="combobox" aria-expanded="false">
+                        <ul class="select2-selection__rendered">
+                            <span *ngIf="allowClear && selectedOptions && !disabled" (click)="clearValue()" class="select2-selection__clear">×</span>
+                            <li *ngFor="let option of selectedOptions" class="select2-selection__choice" title="{{option.displayName}}">
+                                <span (click)="clearOptionValue(option.value)" class="select2-selection__choice__remove" role="presentation">×</span>{{option.displayName}}
+                            </li>
+                        </ul>
+                    </span>
+                </span>
+            </span>
+            <span *ngIf="!isMultiple" class="select2 select2-container select2-container--default select2-static-html" [class.select2-container--disabled]="disabled" (click)="initAndOpenOptions()">
+                <span class="selection">
+                    <span class="select2-selection select2-selection--single" role="combobox">
+                        <span class="select2-selection__rendered" id="select2-select-input-2-container" title="{{selectedOptions | listOptionToDisplayValue}}">
+                            <span *ngIf="allowClear && selectedOptions && !disabled" (click)="clearValue()" class="select2-selection__clear">×</span>
+                            {{selectedOptions | listOptionToDisplayValue}}
+                        </span>
+                        <span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>
+                    </span>
+                </span><span class="dropdown-wrapper" aria-hidden="true"></span>
+            </span>
+        </ng-container>
+
+        <ng-container *ngIf="showSelectElement">
+            <select *ngIf="isMultiple"
+                    #selectElement
+                    [(ngModel)]="value"
+                    class="form-control full-width"
+                    [ngClass]="{invalid: (invalid | async)}"
+                    [id]="controlId"
+                    [disabled]="disabled"
+                    multiple
+                    (focusout)="touch();"></select>
+
+            <select *ngIf="!isMultiple"
+                    #selectElement
+                    [(ngModel)]="value"
+                    class="form-control full-width"
+                    [ngClass]="{invalid: (invalid | async)}"
+                    [id]="controlId"
+                    [disabled]="disabled"
+                    (focusout)="touch();">
+            </select>
+        </ng-container>
+        
+        <!--link-->
+        <a *ngIf="link && !isMultiple && value" class="goto fa fa-share" [routerLink]="link" [queryParams]="linkQueryParams || {id: value}"></a>
+        <span *ngIf="link && !isMultiple && !value" class="goto fa fa-share novalue"></span>
+    </div>
+
+    <ng-container *ngIf="isReadonlyValue">
+        <!--link-->
+        <a *ngIf="link" class="readonly-value" [routerLink]="link" [queryParams]="linkQueryParams || {id: value}">{{selectedOptions | listOptionToDisplayValue}}</a>
+        <span *ngIf="!link" class="readonly-value">{{selectedOptions | listOptionToDisplayValue}}</span>
+    </ng-container>
+</form-control-container>

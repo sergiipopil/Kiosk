@@ -1,0 +1,33 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converters="using:KioskBrains.Kiosk.Helpers.Ui.Converters">
+
+    <converters:BooleanNotConverter x:Key="BooleanNotConverter" />
+    <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityReversedConverter"
+                                             IsReversed="True" />
+
+    <converters:IsEqualByStringConverter x:Key="IsEqualByStringConverter" />
+    <converters:IsEqualByStringToVisibilityConverter x:Key="IsEqualByStringToVisibilityConverter" />
+    <converters:IsEqualByStringToVisibilityConverter x:Key="IsNotEqualByStringToVisibilityConverter"
+                                                     IsReversed="True" />
+    <converters:IsStringNotEmptyToVisibilityConverter x:Key="IsStringNotEmptyToVisibilityConverter" />
+    <converters:IsStringNotEmptyToVisibilityConverter x:Key="IsStringEmptyToVisibilityConverter"
+                                                      IsReversed="True" />
+    <converters:StringLengthGreaterThanToVisibilityConverter x:Key="StringLengthGreaterThanToVisibilityConverter" />
+    <converters:StringLengthGreaterThanToVisibilityConverter x:Key="StringLengthLessThanOrEqualsToToVisibilityConverter"
+                                                             IsReversed="True" />
+    <converters:StringLengthEqualsToToVisibilityConverter x:Key="StringLengthEqualsToToVisibilityConverter" />
+
+    <converters:StringToUpperConverter x:Key="StringToUpperConverter" />
+    <converters:IsNullToVisibilityConverter x:Key="IsNullToVisibilityConverter" />
+    <converters:IsNullToVisibilityConverter x:Key="IsNotNullToVisibilityConverter"
+                                            IsReversed="True" />
+    <converters:IsNullToBooleanConverter x:Key="IsNullToBooleanConverter" />
+    <converters:IsNullToBooleanConverter x:Key="IsNotNullToBooleanConverter"
+                                         IsReversed="True" />
+    <converters:IntegerEditingConverter x:Key="IntegerEditingConverter" />
+
+    <converters:LanguageToNativeCodeConverter x:Key="LanguageToNativeCodeConverter" />
+
+</ResourceDictionary>

@@ -1,0 +1,65 @@
+<base-frame [isLoading]="isLoading">
+  <div body>
+
+    <search-basic-layout [showRightSidebar]="showAdvanced">
+
+      <div header-left-area>
+        <command-panel>
+          <command-group>
+            <button class="btn btn-sm btn-primary" (click)="doRequest();">Refresh</button>
+          </command-group>
+        </command-panel>
+      </div>
+
+      <div header-right-area>
+        <global-search-input [(term)]="requestModel.searchTerm" placeholder="Fast Search..." (onSearch)="doRequest();"></global-search-input>
+        <open-sidebar-button [(opened)]="showAdvanced" label="Advanced"></open-sidebar-button>
+      </div>
+
+      <div results-area>
+        <div *ngIf="viewModel.records && viewModel.records.length > 0">
+          <div class="table-responsive">
+            <table class="search-table">
+              <thead table-header-component [fields]="fields"
+                     [orderBy]="requestModel.metadata.orderBy"
+                     [orderDirection]="requestModel.metadata.orderDirection"
+                     [onSortingChange]="onSortingChange.bind(this)">
+              </thead>
+              <tbody>
+              <tr role="row" *ngFor="let record of viewModel.records; let i = index" [class]="i%2 === 0? 'even':'odd'">
+                <td>{{record.typeDisplayName}}</td>
+                <td>
+                  <div>{{record.kioskId}}</div>
+                  <div class="hint-text">{{record.kioskVersion}}</div>
+                </td>
+                <td>
+                  <div>{{record.localTime | date2:'yyyy-MM-dd'}}</div>
+                  <div>{{record.localTime | date2:'HH:mm:ss'}}</div>
+                </td>
+                <td>{{record.contextDisplayName}}</td>
+                <td>{{record.message}}</td>
+                <td>{{record.additionalDataJson}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <paging-component [total]="viewModel.total"
+                            [paging]="requestModel.metadata"
+                            (onStartChange)="onStartChange($event)">
+          </paging-component>
+        </div>
+        <div *ngIf="viewModel.records && viewModel.records.length === 0 && !isLoading"
+             class="no-records-message">
+          Search returned no results
+        </div>
+      </div>
+
+      <div right-sidebar-area>
+        <advanced-search [clearForm]="clearAdvancedSearch.bind(this)" [doSearch]="doAdvancedSearch.bind(this)">
+        </advanced-search>
+      </div>
+
+    </search-basic-layout>
+
+  </div>
+</base-frame>

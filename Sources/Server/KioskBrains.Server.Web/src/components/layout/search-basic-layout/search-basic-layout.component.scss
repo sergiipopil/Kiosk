@@ -1,0 +1,43 @@
+﻿.header-row {
+  margin-bottom: 20px;
+}
+
+.header-row ::ng-deep {
+
+    [header-left-area],
+    [header-middle-area],
+    [header-right-area] {
+        display: flex;
+        align-items: center;
+
+        > * {
+            margin-left: 20px;
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+.content-container {
+  display: flex;
+  overflow: hidden;
+
+  .results-container {
+    flex-grow: 1;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .right-sidebar-container {
+    width: 300px;
+    margin-right: -300px;
+    transition: margin-right 200ms;
+    z-index: 1;
+
+    &.opened {
+      margin-right: 0;
+    }
+  }
+}

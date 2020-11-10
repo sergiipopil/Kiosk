@@ -1,0 +1,5 @@
+<div #modalContainer class="modal" [class.nonTransparent]="modalConfig && !modalConfig.isTransparent">
+  <div #target class="target-marker">
+  </div>
+  <i #closeIcon class="fa fa-close close-icon" (click)="closeModal($event)"></i>
+</div>

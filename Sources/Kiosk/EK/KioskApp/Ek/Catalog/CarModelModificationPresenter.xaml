@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="KioskApp.Ek.Catalog.CarModelModificationPresenter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:catalog="using:KioskApp.Ek.Catalog"
+             mc:Ignorable="d"
+             d:DesignHeight="250"
+             d:DesignWidth="837">
+
+    <!--todo: make as a button - as it's done for categories-->
+    <catalog:CarModelModificationPresenterPanel Tapped="RootElement_OnTapped">
+
+        <Grid Margin="31 20 31 31">
+            <StackPanel>
+                <TextBlock Text="{x:Bind CarModelModification.Name, Mode=OneWay}"
+                           TextWrapping="WrapWholeWords"
+                           FontFamily="{StaticResource UbuntuFontFamily}"
+                           FontSize="20"
+                           Foreground="#23274d"
+                           Margin="0 6 0 32" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1.25*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="31" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <catalog:CarModelModificationFeaturePresenter Grid.Column="0"
+                                                                  Grid.Row="0"
+                                                                  Label="Тип кузова"
+                                                                  Value="{x:Bind CarModelModification.BodyType, Mode=OneWay}" />
+                    <catalog:CarModelModificationFeaturePresenter Grid.Column="1"
+                                                                  Grid.Row="0"
+                                                                  Label="Тип двигателя"
+                                                                  Value="{x:Bind CarModelModification.EngineType, Mode=OneWay}"
+                                                                  StartSeparator="True" />
+                    <catalog:CarModelModificationFeaturePresenter Grid.Column="2"
+                                                                  Grid.Row="0"
+                                                                  Label="Модель двигателя"
+                                                                  Value="{x:Bind CarModelModification.EngineCode, Mode=OneWay}"
+                                                                  StartSeparator="True" />
+
+                    <catalog:CarModelModificationFeaturePresenter Grid.Column="0"
+                                                                  Grid.Row="2"
+                                                                  Label="Объем двигателя"
+                                                                  Value="{x:Bind CarModelModification.EngineCapacity, Mode=OneWay}" />
+                    <catalog:CarModelModificationFeaturePresenter Grid.Column="1"
+                                                                  Grid.Row="2"
+                                                                  Label="Привод"
+                                                                  Value="{x:Bind CarModelModification.DriveType, Mode=OneWay}"
+                                                                  StartSeparator="True" />
+                    <catalog:CarModelModificationFeaturePresenter Grid.Column="2"
+                                                                  Grid.Row="2"
+                                                                  Label="Дата выпуска"
+                                                                  Value="{x:Bind CarModelModification.ProducedPeriod, Mode=OneWay}"
+                                                                  StartSeparator="True" />
+
+                </Grid>
+            </StackPanel>
+
+        </Grid>
+
+    </catalog:CarModelModificationPresenterPanel>
+</UserControl>

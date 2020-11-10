@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus.Core" Version="1.5.4" />
+    <PackageReference Include="MailKit" Version="2.1.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\KioskBrains.Common\KioskBrains.Common.csproj" />
+    <ProjectReference Include="..\..\KioskBrains.Server.Common\KioskBrains.Server.Common.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="KioskApp.Ek.Cart.PromoCode.PromoCodePresenter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="400">
+
+    <Grid>
+        <!--NO PROMO CODE-->
+        <Button Visibility="{x:Bind PromoCode, Mode=OneWay, Converter={StaticResource IsStringEmptyToVisibilityConverter}}"
+                Style="{StaticResource EnterPromoCodeButtonStyle}"
+                Click="EnterPromoCodeButton_OnClick">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="/Themes/Assets/Images/Cart/Promo/EnterPromoCodeIcon.png"
+                       Stretch="None"
+                       VerticalAlignment="Center"
+                       Margin="0 0 12 0" />
+                <TextBlock Text="Ввести промо-код"
+                           VerticalAlignment="Center"
+                           TextDecorations="Underline"
+                           Margin="0 0 0 4" />
+            </StackPanel>
+        </Button>
+
+        <!--PROMO CODE ENTERED-->
+        <StackPanel Visibility="{x:Bind PromoCode, Mode=OneWay, Converter={StaticResource IsStringNotEmptyToVisibilityConverter}}">
+            <Button Style="{StaticResource EnterPromoCodeButtonStyle}"
+                    Click="EnterPromoCodeButton_OnClick">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Themes/Assets/Images/Cart/Promo/EnteredPromoCodeIcon.png"
+                           Stretch="None"
+                           VerticalAlignment="Center"
+                           Margin="0 0 12 0" />
+                    <TextBlock VerticalAlignment="Center"
+                               TextDecorations="Underline">
+                        <Run Text="Промо-код" />
+                        <Run Text="{x:Bind PromoCode, Mode=OneWay}" />
+                    </TextBlock>
+                </StackPanel>
+            </Button>
+            <TextBlock FontFamily="{StaticResource UbuntuFontFamily}"
+                       Foreground="#9d96d4"
+                       FontSize="14"
+                       LineHeight="22"
+                       Width="290"
+                       TextWrapping="WrapWholeWords"
+                       TextAlignment="Center">
+                <Run Text="Скидка согласно договору будет начислена на Ваш аккаунт в течении суток." />
+                <LineBreak />
+                <Run Text="Посмотреть её можно в Вашем кабинете на сайте www.ek4car.com" />
+            </TextBlock>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

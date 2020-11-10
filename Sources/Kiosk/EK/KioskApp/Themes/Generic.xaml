@@ -1,0 +1,188 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="using:KioskApp.Controls"
+                    xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+                    xmlns:cart="using:KioskApp.Ek.Cart"
+                    xmlns:products="using:KioskApp.Ek.Products"
+                    xmlns:catalog="using:KioskApp.Ek.Catalog">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ms-appx:///Themes/ThemeParts/Brushes.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="controls:LeftContentPanel">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0 0"
+                                     EndPoint="0 1">
+                    <GradientStop Color="#524593"
+                                  Offset="0" />
+                    <GradientStop Color="#383e90"
+                                  Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Margin"
+                Value="0 21 0 0" />
+        <Setter Property="Width"
+                Value="688" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:LeftContentPanel">
+                    <toolkitControls:DropShadowPanel Color="Black"
+                                                     BlurRadius="10"
+                                                     ShadowOpacity="0.5"
+                                                     HorizontalContentAlignment="Stretch"
+                                                     VerticalContentAlignment="Stretch">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Border BorderThickness="1 1 0 0"
+                                    BorderBrush="White"
+                                    Opacity="0.1" />
+                            <ContentPresenter HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Stretch" />
+                        </Grid>
+                    </toolkitControls:DropShadowPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="controls:RightContentPanel">
+        <Setter Property="Background"
+                Value="#dcdeff" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:RightContentPanel">
+                    <toolkitControls:DropShadowPanel Color="#15172d"
+                                                     BlurRadius="15"
+                                                     ShadowOpacity="0.75"
+                                                     HorizontalContentAlignment="Stretch"
+                                                     VerticalContentAlignment="Stretch">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Stretch" />
+                        </Grid>
+                    </toolkitControls:DropShadowPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="cart:CartWidgetPanel">
+        <Setter Property="Background"
+                Value="White" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="cart:CartWidgetPanel">
+                    <toolkitControls:DropShadowPanel Color="#121426"
+                                                     BlurRadius="10"
+                                                     ShadowOpacity="0.9"
+                                                     HorizontalContentAlignment="Stretch"
+                                                     VerticalContentAlignment="Stretch">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Stretch" />
+                        </Grid>
+                    </toolkitControls:DropShadowPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="controls:RightContentHeaderPanel">
+        <Setter Property="Background"
+                Value="#eeefff" />
+        <Setter Property="Canvas.ZIndex"
+                Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="controls:RightContentHeaderPanel">
+                    <toolkitControls:DropShadowPanel Color="#393e90"
+                                                     BlurRadius="7"
+                                                     ShadowOpacity="0.35"
+                                                     HorizontalContentAlignment="Stretch"
+                                                     VerticalContentAlignment="Stretch">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Stretch" />
+                        </Grid>
+                    </toolkitControls:DropShadowPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="products:ProductPresenterPanel">
+        <Setter Property="Background"
+                Value="White" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="products:ProductPresenterPanel">
+                    <toolkitControls:DropShadowPanel Color="#514593"
+                                                     BlurRadius="10"
+                                                     ShadowOpacity="0.25"
+                                                     HorizontalContentAlignment="Stretch"
+                                                     VerticalContentAlignment="Stretch">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="4" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--left border-->
+                            <Rectangle Fill="{StaticResource BlueSideBorderBrush}" />
+
+                            <!--content-->
+                            <ContentPresenter Grid.Column="1"
+                                              HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Stretch" />
+
+                            <!--right border-->
+                            <Rectangle Grid.Column="2"
+                                       Fill="{StaticResource OrangeSideBorderBrush}" />
+
+                        </Grid>
+                    </toolkitControls:DropShadowPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="catalog:CarModelModificationPresenterPanel">
+        <Setter Property="Background"
+                Value="White" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="catalog:CarModelModificationPresenterPanel">
+                    <toolkitControls:DropShadowPanel Color="#514593"
+                                                     BlurRadius="10"
+                                                     ShadowOpacity="0.25"
+                                                     HorizontalContentAlignment="Stretch"
+                                                     VerticalContentAlignment="Stretch">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="4" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--left border-->
+                            <Rectangle Fill="{StaticResource BlueSideBorderBrush}" />
+
+                            <!--content-->
+                            <ContentPresenter Grid.Column="1"
+                                              HorizontalAlignment="Stretch"
+                                              VerticalAlignment="Stretch" />
+
+                            <!--right border-->
+                            <Rectangle Grid.Column="2"
+                                       Fill="{StaticResource OrangeSideBorderBrush}" />
+
+                        </Grid>
+                    </toolkitControls:DropShadowPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

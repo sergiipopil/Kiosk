@@ -1,0 +1,19 @@
+﻿<div *ngIf="notifications && notifications.length > 0"
+     class="notification-container">
+  <div *ngFor="let notification of notifications; let i = index;"
+       class="alert"
+       [ngClass]="{
+         'alert-info': !notification.type || notification.type === NotificationTypeEnum.Info,
+         'alert-success': notification.type === NotificationTypeEnum.Success,
+         'alert-warning': notification.type === NotificationTypeEnum.Warning,
+         'alert-danger': notification.type === NotificationTypeEnum.Error
+       }"
+       role="alert">
+    <span>
+        {{notification.message}}
+    </span>
+    <button (click)="removeNotification(i);" type="button" class="close" aria-label="Close">
+      <span>×</span>
+    </button>
+  </div>
+</div>

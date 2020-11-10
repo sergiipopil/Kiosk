@@ -1,0 +1,24 @@
+﻿<div class="base-frame-container modal-size-{{modalSize}}">
+  
+  <div class="header-container jumbotron"
+       *ngIf="!hideHeader">
+  
+    <ng-content select="[header]"></ng-content>
+
+  </div>
+
+  <div class="body-container">
+
+    <loader [show]="isLoading"></loader>
+
+    <ng-content select="[body]"></ng-content>
+  
+  </div>
+
+  <div class="footer-container">
+  
+    <ng-content select="[footer]"></ng-content>
+
+  </div>
+
+</div>

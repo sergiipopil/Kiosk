@@ -1,0 +1,37 @@
+﻿<div *ngIf="paging" class="paging">
+  <div class="page-size-container">
+    <select [(ngModel)]="paging.pageSize"
+            (change)="onPageSizeChanged();"
+            class="form-control">
+      <option value="20">20</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
+    <span>per page</span>
+  </div>
+  <div class="pages-container">
+    <button *ngIf="hasPrevious()"
+            (click)="onFirst()"
+            class="btn btn-default btn-xs">
+      <i class="fa fa-step-backward"></i>
+    </button>
+    <button *ngIf="hasPrevious()"
+            (click)="onPrevious()"
+            class="btn btn-default btn-xs">
+      <i class="fa fa-arrow-left"></i>
+    </button>
+    <div class="page-info">
+      <span class="displayed-range">{{getStartLabel()}} - {{getEndLabel()}}</span> of {{total}}
+    </div>
+    <button *ngIf="hasNext()"
+            (click)="onNext()"
+            class="btn btn-default btn-xs">
+      <i class="fa fa-arrow-right"></i>
+    </button>
+    <button *ngIf="hasNext()"
+            (click)="onLast()"
+            class="btn btn-default btn-xs">
+      <i class="fa fa-step-forward"></i>
+    </button>
+  </div>
+</div>

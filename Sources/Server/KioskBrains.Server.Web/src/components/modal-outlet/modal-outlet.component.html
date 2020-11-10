@@ -1,0 +1,8 @@
+﻿<ng-container *ngFor="let modal of modals;let i = index">
+  <dynamic-modal-wrapper [component]="modal.component" 
+                         [params]="modal.params" 
+                         [index]="i" 
+                         [modalConfig]="modal.modalConfig"
+                         (modalClose)="popModal()">
+  </dynamic-modal-wrapper>
+</ng-container>
