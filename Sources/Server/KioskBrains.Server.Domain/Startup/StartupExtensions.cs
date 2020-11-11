@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using AllegroSearchService.Bl.ServiceInterfaces.Repo;
+using KioskBrains.Clients.AllegroPl.ServiceInterfaces;
 using KioskBrains.Clients.KioskProxy;
 using KioskBrains.Common.Contracts;
 using KioskBrains.Server.Common.Cache;
@@ -10,6 +12,8 @@ using KioskBrains.Server.Domain.Managers;
 using KioskBrains.Server.Domain.Managers.Integration;
 using KioskBrains.Server.Domain.Notifications;
 using KioskBrains.Server.Domain.Security;
+using KioskBrains.Server.Domain.Services;
+using KioskBrains.Server.Domain.Services.Repo;
 using KioskBrains.Server.Domain.Settings;
 using KioskBrains.Waf.Extensions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -89,6 +93,12 @@ namespace KioskBrains.Server.Domain.Startup
             // Notifications
             services.Configure<NotificationManagerSettings>(configuration.GetSection("NotificationManagerSettings"));
             services.AddScoped<INotificationManager, NotificationManager>();
+
+            //Repo and services
+            services.AddScoped<ITranslateService, TranslateService>();
+
+            services.AddScoped<IReadOnlyRepository, ReadOnlyRepository<KioskBrainsContext>>();
+            services.AddScoped<IWriteOnlyRepository, WriteOnlyRepository<KioskBrainsContext>>();
 
             // Common Clients
             services.Configure<KioskProxyClientSettings>(configuration.GetSection("KioskProxyClientSettings"));

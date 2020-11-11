@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Clients\KioskBrains.Clients.AllegroPl\KioskBrains.Clients.AllegroPl.csproj" />
+    <ProjectReference Include="..\KioskBrains.Server.Common\KioskBrains.Server.Common.csproj" />
+    <ProjectReference Include="..\KioskBrains.Server.Domain\KioskBrains.Server.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
