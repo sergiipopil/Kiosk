@@ -11,7 +11,7 @@ namespace KioskBrains.Server.Domain.Entities.DbStorage
             : base(options)
         {
         }
-
+        public DbSet<TranslateItem> Translations { get; set; }
         public DbSet<Address> Addresses { get; set; }
 
         public DbSet<CentralBankExchangeRate> CentralBankExchangeRates { get; set; }

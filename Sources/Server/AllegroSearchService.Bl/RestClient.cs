@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
+using KioskBrains.Clients.AllegroPl;
 using KioskBrains.Clients.AllegroPl.Models;
 using KioskBrains.Common.Constants;
 using KioskBrains.Common.Contracts;
@@ -14,19 +16,13 @@ using KioskBrains.Common.EK.Api;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace KioskBrains.Clients.AllegroPl.Rest
+namespace AllegroSearchService.Bl
 {
     /// <summary>
     /// Keep in mind that it's a singleton.
     /// </summary>
     internal class RestClient
     {
-        public static IDictionary<string, OfferStateEnum> StatesByNames => new Dictionary<string, OfferStateEnum>()
-        {
-            {"nowy", OfferStateEnum.New },
-            {"używany", OfferStateEnum.Used },
-            {"odzyskany",  OfferStateEnum.Recovered}
-        };
         public RestClient(string clientId, string clientSecret)
         {
             Assure.ArgumentNotNull(clientId, nameof(clientId));
@@ -203,7 +199,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
         private const string StateFilterId = "parameter.11323";
 
-        public async Task<Models.SearchOffersResponse> SearchOffersAsync(
+        public async Task<KioskBrains.Clients.AllegroPl.Rest.Models.SearchOffersResponse> SearchOffersAsync(
             string phrase,
             string categoryId,
             OfferStateEnum state,
@@ -273,7 +269,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             parameters["limit"] = limit.ToString();
 
             var action = "/offers/listing";
-            var response = await GetAsync<Models.SearchOffersResponse>(action, parameters, cancellationToken);
+            var response = await GetAsync<KioskBrains.Clients.AllegroPl.Rest.Models.SearchOffersResponse>(action, parameters, cancellationToken);
             if (response.Items == null
                 || response.SearchMeta == null)
             {
@@ -283,12 +279,13 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             return response;
         }
 
-        public OfferExtraData GetExtraDataInit(string id)
+        public OfferExtraData GetOfferDescriptionAsync(string offerId, CancellationToken cancellationToken)
         {
+
             try
             {
                 HtmlWeb web = new HtmlWeb();
-                HtmlDocument doc = web.Load("https://allegro.pl/oferta/" + id);
+                HtmlDocument doc = web.Load("https://allegro.pl/oferta/" + offerId);
                 var divsDesc = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Description'] div._2d49e_5pK0q div");
 
                 if (!divsDesc.Any())
@@ -335,7 +332,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             catch (Exception ex)
             {
                 throw new AllegroPlRequestException($"Request to https://allegro.pl/oferta failed", ex);
-            }
+            }            
         }
 
         private OfferParameter GetParameterFromLine(string line)
@@ -370,6 +367,71 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     }
                 };
             }
+        }
+
+
+        // http://htmlbook.ru/samhtml/tekst/spetssimvoly
+        private static readonly Dictionary<string, string> SpecialHtmlSymbolReplacements = new Dictionary<string, string>()
+        {
+            ["&nbsp;"] = " ",
+            ["&amp;"] = "&",
+            ["&quot;"] = "\"",
+            ["&lt;"] = "<",
+            ["&gt;"] = ">",
+            ["&copy;"] = "©",
+            ["&reg;"] = "®",
+            ["&trade;"] = "™",
+        };
+
+        // http://www.beansoftware.com/ASP.NET-Tutorials/Convert-HTML-To-Plain-Text.aspx
+        // https://www.codeproject.com/Articles/11902/Convert-HTML-to-Plain-Text-2
+        private string ConvertDescriptionHtmlToText(string html)
+        {
+            Assure.ArgumentNotNull(html, nameof(html));
+
+            // removal of head/script are not required since they are not presented in Allegro description HTML
+
+            var htmlStringBuilder = new StringBuilder(html);
+
+            // remove new lines since they are not visible in HTML
+            htmlStringBuilder.Replace("\n", " ");
+            htmlStringBuilder.Replace("\r", " ");
+
+            // remove tab spaces
+            htmlStringBuilder.Replace("\t", " ");
+
+            // replace special characters like &, <, >, " etc.
+            foreach (var (specialSymbol, replacement) in SpecialHtmlSymbolReplacements)
+            {
+                htmlStringBuilder.Replace(specialSymbol, replacement);
+            }
+
+            // insert line breaks, spaces, etc. (simple replace is used instead of regex since allegro description contains HTML tags without attributes)
+            htmlStringBuilder.Replace("<p>", "\n<p>");
+            htmlStringBuilder.Replace("<h1>", "\n<h1>");
+            htmlStringBuilder.Replace("<h2>", "\n<h2>");
+            htmlStringBuilder.Replace("<h3>", "\n<h3>");
+            htmlStringBuilder.Replace("<tr>", "\n<tr>");
+            htmlStringBuilder.Replace("<td>", " <td>");
+            htmlStringBuilder.Replace("<li>", "\n- <li>");
+
+            html = htmlStringBuilder.ToString();
+
+            // remove others special symbols
+            html = Regex.Replace(html, @"&(.{2,6});", "", RegexOptions.IgnoreCase);
+
+            // remove all HTML tags
+            html = Regex.Replace(html, "<[^>]*>", "");
+
+            // remove multiple spaces
+            html = Regex.Replace(html, " +", " ");
+
+            // remove first space in line
+            html = html
+                .Replace("\n ", "\n")
+                .Trim();
+
+            return html;
         }
     }
 }

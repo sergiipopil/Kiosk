@@ -5,9 +5,10 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using AllegroSearchService.Bl.ServiceInterfaces;
+using KioskBrains.Clients.AllegroPl;
 using KioskBrains.Clients.AllegroPl.Models;
 using KioskBrains.Clients.AllegroPl.Rest;
-using KioskBrains.Clients.AllegroPl.ServiceInterfaces;
 using KioskBrains.Clients.YandexTranslate;
 using KioskBrains.Common.Constants;
 using KioskBrains.Common.Contracts;
@@ -17,7 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SoapService;
 
-namespace KioskBrains.Clients.AllegroPl
+namespace AllegroSearchService.Bl
 {
     /// <summary>
     /// Keep in mind that it's a singleton.
@@ -35,7 +36,7 @@ namespace KioskBrains.Clients.AllegroPl
         private readonly RestClient _restClient;
 
         private readonly ITranslateService _translateService;
-        
+        private readonly ITokenService _tokenService;
 
         private object _transLock = new object();
         private ISet<String> _valuesToTranslate;
@@ -43,14 +44,17 @@ namespace KioskBrains.Clients.AllegroPl
         public AllegroPlClient(
             IOptions<AllegroPlClientSettings> settings,
             YandexTranslateClient yandexTranslateClient,
-            ILogger<AllegroPlClient> logger, ITranslateService translateService)
+            ILogger<AllegroPlClient> logger, ITokenService tokenService, ITranslateService translateService)
         {
             _settings = settings.Value;
             Assure.ArgumentNotNull(_settings, nameof(_settings));
 
             _yandexTranslateClient = yandexTranslateClient;
             _logger = logger;
-            
+
+
+
+            _tokenService = tokenService;
             _translateService = translateService;
             _restClient = new RestClient(_settings.ApiClientId, _settings.ApiClientSecret);
             _valuesToTranslate = new HashSet<string>();
@@ -59,7 +63,6 @@ namespace KioskBrains.Clients.AllegroPl
         #region Search
 
         private const int MaxPageSize = 10;
-        private const int MaxDescriptionLength = 250;
 
         public async Task<SearchOffersResponse> SearchOffersAsync(
             string phrase,
@@ -98,7 +101,7 @@ namespace KioskBrains.Clients.AllegroPl
 
             // search for offers
             var apiResponse = await _restClient.SearchOffersAsync(translatedPhrase, categoryId, state, sorting, offset, limit, cancellationToken);
-            var apiOffers = new List<Rest.Models.Offer>();
+            var apiOffers = new List<KioskBrains.Clients.AllegroPl.Rest.Models.Offer>();
             if (apiResponse.Items.Promoted?.Length > 0)
             {
                 apiOffers.AddRange(apiResponse.Items.Promoted);
@@ -199,28 +202,6 @@ namespace KioskBrains.Clients.AllegroPl
             }
         }
 
-        private void AddExtraDataToTranslate(OfferExtraData data)
-        {
-            lock (_transLock)
-            {
-                if (!_valuesToTranslate.Contains(data.Description[Languages.PolishCode]))
-                {
-                    _valuesToTranslate.Add(data.Description[Languages.PolishCode]);
-                }
-                foreach (var p in data.Parameters)
-                {
-                    if (!_valuesToTranslate.Contains(p.Name[Languages.RussianCode]))
-                    {
-                        _valuesToTranslate.Add(p.Name[Languages.RussianCode]);
-                    }
-                    if (!_valuesToTranslate.Contains(p.Value[Languages.RussianCode]))
-                    {
-                        _valuesToTranslate.Add(p.Value[Languages.RussianCode]);
-                    }
-                }
-            }
-        }
-
         private async Task ApplyTranslations(Offer[] offers, string sourceText, string destText, CancellationToken cancellationToken)
         {
             var dict = _translateService.GetDictionary(_valuesToTranslate);
@@ -260,47 +241,6 @@ namespace KioskBrains.Clients.AllegroPl
                 }*/
             }
         }
-        
-        private async Task ApplyTranslationsExtraData(OfferExtraData data, string sourceText, string destText, CancellationToken cancellationToken)
-        {
-            var dict = _translateService.GetDictionary(_valuesToTranslate);
-
-
-            var translatedTexts = dict.Select(x => x.Key).ToList();
-
-            var forYandex = _valuesToTranslate.Where(x => !translatedTexts.Contains(x.ToLower())).ToArray();
-            var yandexTranslated = await _yandexTranslateClient.TranslateAsync(forYandex, Languages.PolishCode.ToLower(), Languages.RussianCode.ToLower(), cancellationToken);
-
-            var yandexList = from f in forYandex
-                             join y in yandexTranslated
-                             on Array.IndexOf(forYandex, f) equals Array.IndexOf(yandexTranslated, y)
-                             select new { Key = f, Value = y };
-            var yandexDict = yandexList.ToDictionary(x => x.Key.ToLower(), x => x.Value);
-
-            if (!yandexDict.ContainsKey(sourceText.ToLower()))
-            {
-                yandexDict.Add(sourceText.ToLower(), destText);
-            }
-
-            await _translateService.AddRecords(yandexDict, Languages.PolishCode, Languages.RussianCode, Guid.NewGuid());
-
-            
-            
-            var state = data.Parameters.FirstOrDefault(x => x.Name[Languages.PolishCode].ToLower() == StateAttributeName.ToLower());
-            if (state != null)
-            {
-                data.State = RestClient.StatesByNames.ContainsKey(state.Value[Languages.PolishCode].ToLower()) ? RestClient.StatesByNames[state.Value[Languages.PolishCode].ToLower()] : OfferStateEnum.New;
-            }
-
-            data.Description[Languages.RussianCode] = GetSafeValFromDictionary(dict, yandexDict, data.Description[Languages.PolishCode]);
-            foreach (var p in data.Parameters)
-            {
-                p.Name[Languages.RussianCode] = GetSafeValFromDictionary(dict, yandexDict, p.Name[Languages.PolishCode]);
-                p.Value[Languages.RussianCode] = GetSafeValFromDictionary(dict, yandexDict, p.Value[Languages.PolishCode]);
-            }
-            
-        }
-
         private string GetSafeValFromDictionary(IDictionary<string, string> dict1, IDictionary<string, string> dict2, string val)
         {
             if (dict1.ContainsKey(val.ToLower()))
@@ -418,88 +358,42 @@ namespace KioskBrains.Clients.AllegroPl
         {
             var shipmentId = postageStruct.postageId;
             return shipmentId < 100 || shipmentId > 200;
-        }       
+        }
+
+        private async Task TranslateNamesAsync(Offer[] offers, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var texts = offers
+                    .Select(x => x.Name.GetValue(Languages.PolishCode))
+                    .ToArray();
+
+                var translatedTexts = await _yandexTranslateClient.TranslateAsync(
+                    texts,
+                    Languages.PolishCode,
+                    Languages.RussianCode,
+                    cancellationToken);
+
+                for (var i = 0; i < offers.Length; i++)
+                {
+                    var offer = offers[i];
+                    offer.Name[Languages.RussianCode] = translatedTexts[i];
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(LoggingEvents.ExternalApiError, "Offer names translation failed.", ex);
+            }
+        }
 
         #endregion
 
         #region Description
 
-        public async Task<OfferExtraData> GetOfferDescriptionAsync(string offerId, CancellationToken cancellationToken)
-        {            
-            var data = _restClient.GetExtraDataInit(offerId);
-            AddExtraDataToTranslate(data);
-            await ApplyTranslationsExtraData(data, "", "", cancellationToken);
-            return data;
-        }
-
-        #endregion
-
-        #region HtmlToText
-
-        // http://htmlbook.ru/samhtml/tekst/spetssimvoly
-        private static readonly Dictionary<string, string> SpecialHtmlSymbolReplacements = new Dictionary<string, string>()
+        public OfferExtraData GetOfferDescriptionAsync(string offerId, CancellationToken cancellationToken)
         {
-            ["&nbsp;"] = " ",
-            ["&amp;"] = "&",
-            ["&quot;"] = "\"",
-            ["&lt;"] = "<",
-            ["&gt;"] = ">",
-            ["&copy;"] = "©",
-            ["&reg;"] = "®",
-            ["&trade;"] = "™",
-        };
-
-        // http://www.beansoftware.com/ASP.NET-Tutorials/Convert-HTML-To-Plain-Text.aspx
-        // https://www.codeproject.com/Articles/11902/Convert-HTML-to-Plain-Text-2
-        private string ConvertDescriptionHtmlToText(string html)
-        {
-            Assure.ArgumentNotNull(html, nameof(html));
-
-            // removal of head/script are not required since they are not presented in Allegro description HTML
-
-            var htmlStringBuilder = new StringBuilder(html);
-
-            // remove new lines since they are not visible in HTML
-            htmlStringBuilder.Replace("\n", " ");
-            htmlStringBuilder.Replace("\r", " ");
-
-            // remove tab spaces
-            htmlStringBuilder.Replace("\t", " ");
-
-            // replace special characters like &, <, >, " etc.
-            foreach (var (specialSymbol, replacement) in SpecialHtmlSymbolReplacements)
-            {
-                htmlStringBuilder.Replace(specialSymbol, replacement);
-            }
-
-            // insert line breaks, spaces, etc. (simple replace is used instead of regex since allegro description contains HTML tags without attributes)
-            htmlStringBuilder.Replace("<p>", "\n<p>");
-            htmlStringBuilder.Replace("<h1>", "\n<h1>");
-            htmlStringBuilder.Replace("<h2>", "\n<h2>");
-            htmlStringBuilder.Replace("<h3>", "\n<h3>");
-            htmlStringBuilder.Replace("<tr>", "\n<tr>");
-            htmlStringBuilder.Replace("<td>", " <td>");
-            htmlStringBuilder.Replace("<li>", "\n- <li>");
-
-            html = htmlStringBuilder.ToString();
-
-            // remove others special symbols
-            html = Regex.Replace(html, @"&(.{2,6});", "", RegexOptions.IgnoreCase);
-
-            // remove all HTML tags
-            html = Regex.Replace(html, "<[^>]*>", "");
-
-            // remove multiple spaces
-            html = Regex.Replace(html, " +", " ");
-
-            // remove first space in line
-            html = html
-                .Replace("\n ", "\n")
-                .Trim();
-
-            return html;
+            return _restClient.GetOfferDescriptionAsync(offerId, cancellationToken);
         }
-
-        #endregion
+        #endregion       
     }
 }

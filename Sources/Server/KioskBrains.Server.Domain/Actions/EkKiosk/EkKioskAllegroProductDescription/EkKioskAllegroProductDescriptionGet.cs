@@ -33,7 +33,8 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk.EkKioskAllegroProductDescrip
 
             return new EkKioskAllegroProductDescriptionGetResponse()
                 {
-                    Description = description,
+                    Description = description.Description,
+                    Parameters = description.Parameters
                 };
         }
     }
