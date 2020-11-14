@@ -147,6 +147,18 @@ namespace KioskApp.Search
             return response;
         }
 
+        public static async Task<EkKioskTranslateTermGetResponse> TranslateTermAsync(
+            EkKioskTranslateTermGetRequest request,
+            CancellationToken cancellationToken)
+        {
+            var response = await ServerApiProxy.Current.GetAsync<EkKioskTranslateTermGetResponse>(
+                "/ek-kiosk-translate-term",
+                request,
+                cancellationToken);
+
+            return response;
+        }
+
         public static async Task<EkKioskVerifyPhoneNumberPostResponse> VerifyPhoneNumberAsync(
             EkKioskVerifyPhoneNumberPostRequest request,
             CancellationToken cancellationToken)

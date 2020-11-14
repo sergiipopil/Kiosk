@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using KioskApp.Helpers;
@@ -29,24 +30,7 @@ namespace KioskApp.Search
                 ? "с учетом доставки\nдоставка 1-7 дней"
                 : "доставка 1-3 дня";
 
-            switch (ekProduct.State)
-            {
-                case EkProductStateEnum.New:
-                    StateString = "новое";
-                    break;
-                case EkProductStateEnum.Used:
-                    StateString = "б/у";
-                    break;
-                case EkProductStateEnum.Recovered:
-                    StateString = "восстановлено";
-                    break;
-                case EkProductStateEnum.Broken:
-                    StateString = "неисправно";
-                    break;
-                default:
-                    StateString = "?";
-                    break;
-            }
+            SetStateString(ekProduct.State);            
 
             ProductionYear = ekProduct.ProductionYear;
             PartNumber = ekProduct.PartNumber;
@@ -54,7 +38,7 @@ namespace KioskApp.Search
 
             // description
             _descriptionValue = ekProduct.Description;
-            UpdateDescriptionByValue();
+            UpdateParametersByValue();
             IsDescriptionRequestRequired = !IsNotAvailable
                                            && _descriptionValue == null
                                            && ekProduct.Source == EkProductSourceEnum.AllegroPl;
@@ -116,6 +100,28 @@ namespace KioskApp.Search
             set => SetProperty(ref _StateString, value);
         }
 
+        private void SetStateString(EkProductStateEnum state)
+        {
+            switch (state)
+            {
+                case EkProductStateEnum.New:
+                    StateString = "новое";
+                    break;
+                case EkProductStateEnum.Used:
+                    StateString = "б/у";
+                    break;
+                case EkProductStateEnum.Recovered:
+                    StateString = "восстановлено";
+                    break;
+                case EkProductStateEnum.Broken:
+                    StateString = "неисправно";
+                    break;
+                default:
+                    StateString = "";
+                    break;
+            }
+        }
+
         #endregion
 
         public string ProductionYear { get; set; }
@@ -124,32 +130,57 @@ namespace KioskApp.Search
 
         public bool IsNotAvailable { get; }
 
-        // DESCRIPTION
-        private MultiLanguageString _descriptionValue;
+
+
+
+        #region Parameters
+        private static string[] ParametersToIgnore => new string[] { "stan", "faktura" };
+        private OfferParameter[] _parameters;        
+        private string _Parameters;
+
+        public string Parameters
+        {
+            get => _Parameters;
+            set => SetProperty(ref _Parameters, value);
+        }
+
+
+
+        #endregion
+
+        private void UpdateParametersByValue()
+        {
+            if (_parameters==null)
+            {
+                return;
+            }
+            _parameters = _parameters.Where(x => !ParametersToIgnore.Contains(x.Name[Languages.PolishCode].ToLower())).ToArray();
+            var paramsStrPl = String.Join("\n", _parameters.Select(x => $"{x.Name[Languages.PolishCode]}: {x.Value[Languages.PolishCode]}"));
+            var paramsStrRu = String.Join("\n", _parameters.Select(x => $"{x.Name[Languages.RussianCode]}: {x.Value[Languages.RussianCode]}"));
+            Parameters = String.IsNullOrEmpty(paramsStrRu) ? paramsStrPl : paramsStrRu + "\n";
+        }
 
         #region Description
 
+        // DESCRIPTION
+        private MultiLanguageString _descriptionValue;
         private string _Description;
 
         public string Description
         {
             get => _Description;
             set => SetProperty(ref _Description, value);
-        }
-
-        #endregion
+        }        
 
         private void UpdateDescriptionByValue()
         {
             Description = _descriptionValue?.GetValue(Languages.RussianCode);
         }
-
         public bool IsDescriptionRequestRequired { get; private set; }
 
         private readonly object _descriptionLocker = new object();
-
+        #endregion
         #region IsDescriptionRequesting
-
         private bool _IsDescriptionRequesting;
 
         public bool IsDescriptionRequesting
@@ -157,7 +188,6 @@ namespace KioskApp.Search
             get => _IsDescriptionRequesting;
             set => SetProperty(ref _IsDescriptionRequesting, value);
         }
-
         #endregion
 
         public MultiLanguageString GetDescription()
@@ -166,6 +196,32 @@ namespace KioskApp.Search
             {
                 return _descriptionValue;
             }
+        }
+
+        public void RequestDescriptionTranslate()
+        { 
+            Task.Run(async () =>
+            {
+                try
+                {                   
+                    var productKey = EkProductKey.FromKey(Key);
+                    var response = await ServerApiHelper.TranslateTermAsync(
+                     new EkKioskTranslateTermGetRequest()
+                     {
+                         Term = GetDescription()[Languages.PolishCode],
+                     }, CancellationToken.None);
+
+                    lock (_descriptionLocker)
+                    {
+                         Description = response.Translation;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(LogContextEnum.Communication, $"Description translation failed ({Key}).", ex);
+                }
+                
+            }).Wait();                   
         }
 
         public void RequestDescription()
@@ -195,9 +251,14 @@ namespace KioskApp.Search
                             CancellationToken.None);
 
                         lock (_descriptionLocker)
-                        {
+                        {                           
+                            _parameters = new OfferParameter[response.Parameters.Count];
+                            response.Parameters.CopyTo(_parameters, 0);
+                            UpdateParametersByValue();
+
                             _descriptionValue = response.Description;
-                            UpdateDescriptionByValue();
+                            UpdateDescriptionByValue();                            
+                            SetStateString(response.State);
                         }
                     }
                     catch (Exception ex)

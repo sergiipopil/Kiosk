@@ -4,6 +4,8 @@ using Windows.UI.Xaml.Input;
 using KioskApp.Ek.Products.Photos;
 using KioskApp.Search;
 using KioskBrains.Kiosk.Core.Modals;
+using KioskBrains.Kiosk.Helpers.Threads;
+using System;
 
 namespace KioskApp.Ek.Products
 {
@@ -50,10 +52,9 @@ namespace KioskApp.Ek.Products
                 return;
             }
 
-            if (Product.IsDescriptionRequestRequired)
-            {
-                Product.RequestDescription();
-            }
+            
+            Product.RequestDescription();
+            
 
 #pragma warning disable 4014
             ModalManager.Current.ShowModalAsync(new ModalArgs(
@@ -75,6 +76,49 @@ namespace KioskApp.Ek.Products
 
             EkContext.EkProcess?.Cart.AddToCartCommand.Execute(Product);
             EkContext.GoToCartCommand?.Execute(null);
+        }
+
+        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ProductKeyFeaturePresenter_Loaded(object sender, RoutedEventArgs e)
+        {
+            /*if (Product?.IsNotAvailable != false)
+            {
+                return;
+            }
+
+            if (!String.IsNullOrEmpty(Product.StateString) && Product.StateString != "?")
+            {
+                return;
+            }
+
+            ThreadHelper.RunInUiThreadAsync(Product.RequestDescription);
+            Product = Product;*/
+        }
+
+        private void ProductKeyFeaturePresenter_LayoutUpdated(object sender, object e)
+        {
+            /*if (Product?.IsNotAvailable != false)
+            {
+                return;
+            }
+
+            if (!String.IsNullOrEmpty(Product.StateString) && Product.StateString != "?")
+            {
+                return;
+            }
+
+            ThreadHelper.RunInUiThreadAsync(Product.RequestDescription);
+            Product = Product;*/
+        }
+
+        private void ProductKeyFeaturePresenter_Loading(FrameworkElement sender, object args)
+        {
+            
+            //Product.StateString = Product.StateString == "?" ? "*" : Product.StateString;
         }
     }
 }

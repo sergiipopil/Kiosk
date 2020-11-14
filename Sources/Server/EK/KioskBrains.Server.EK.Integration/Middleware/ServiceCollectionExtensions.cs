@@ -1,10 +1,15 @@
-﻿using KioskBrains.Clients.AllegroPl;
+﻿using AllegroSearchService.Bl.ServiceInterfaces.Repo;
+using KioskBrains.Clients.AllegroPl;
+using KioskBrains.Clients.AllegroPl.ServiceInterfaces;
 using KioskBrains.Clients.Ek4Car;
 using KioskBrains.Clients.ElitUa;
 using KioskBrains.Clients.OmegaAutoBiz;
 using KioskBrains.Clients.TecDocWs;
 using KioskBrains.Clients.YandexTranslate;
+using KioskBrains.Server.Domain.Entities.DbStorage;
 using KioskBrains.Server.Domain.Managers;
+using KioskBrains.Server.Domain.Services;
+using KioskBrains.Server.Domain.Services.Repo;
 using KioskBrains.Server.EK.Common.Cache;
 using KioskBrains.Server.EK.Common.Search;
 using KioskBrains.Server.EK.Integration.Jobs;
@@ -43,6 +48,10 @@ namespace KioskBrains.Server.EK.Integration.Middleware
             services.Configure<YandexTranslateClientSettings>(configuration.GetSection("YandexTranslateClientSettings"));
             services.AddSingleton<YandexTranslateClient>();
             services.Configure<AllegroPlClientSettings>(configuration.GetSection("AllegroPlClientSettings"));
+            services.AddSingleton<ITranslateService, TranslateService>();
+
+            services.AddSingleton<IReadOnlyRepository, ReadOnlyRepository<KioskBrainsContext>>();
+            services.AddSingleton<IWriteOnlyRepository, WriteOnlyRepository<KioskBrainsContext>>();
             services.AddSingleton<AllegroPlClient>();
             services.Configure<Ek4CarClientSettings>(configuration.GetSection("Ek4CarClientSettings"));
             services.AddScoped<Ek4CarClient>();

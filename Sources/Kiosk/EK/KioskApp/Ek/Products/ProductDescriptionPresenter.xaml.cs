@@ -6,6 +6,7 @@ using KioskApp.Ek.Info;
 using KioskApp.Search;
 using KioskBrains.Common.Logging;
 using KioskBrains.Kiosk.Core.Modals;
+using System.Threading;
 
 namespace KioskApp.Ek.Products
 {
@@ -85,18 +86,14 @@ namespace KioskApp.Ek.Products
         }
 
         private void ShowFullDescriptionLink_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            if (!ShowFullDescriptionLink)
-            {
-                return;
-            }
-
+        { 
             e.Handled = true;
-
+            Product.RequestDescriptionTranslate();
+            Thread.Sleep(100);
             InfoBlock[] parsedDescription;
             try
             {
-                parsedDescription = InfoModalHelper.ParseInfoText(TextElement.Text);
+                parsedDescription = InfoModalHelper.ParseInfoText(Product.Parameters + "\n" + Product.Description);
             }
             catch (Exception ex)
             {

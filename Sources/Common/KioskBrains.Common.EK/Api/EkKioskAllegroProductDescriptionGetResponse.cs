@@ -6,5 +6,6 @@ namespace KioskBrains.Common.EK.Api
     {
         public MultiLanguageString Description { get; set; }
         public IList<OfferParameter> Parameters { get; set; }
+        public EkProductStateEnum State { get; set; }
     }
 }

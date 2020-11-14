@@ -123,6 +123,8 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk
                     state = EkProductStateEnum.Broken;
                     break;
                 default:
+                    state = EkProductStateEnum.Unknown;
+                    break;
                 case OfferStateEnum.New:
                     state = EkProductStateEnum.New;
                     break;

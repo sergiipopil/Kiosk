@@ -4,8 +4,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using KioskBrains.Clients.AllegroPl;
 using KioskBrains.Clients.AllegroPl.Models;
+using KioskBrains.Clients.AllegroPl.ServiceInterfaces;
 using KioskBrains.Common.EK.Api;
 using KioskBrains.Server.Domain.Entities;
+using KioskBrains.Server.Domain.Entities.DbStorage;
 using KioskBrains.Server.Domain.Helpers.Dates;
 using KioskBrains.Server.Domain.Managers;
 using KioskBrains.Server.Domain.Security;
@@ -22,21 +24,35 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk.EkKioskProductSearchInEurope
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         private readonly CentralBankExchangeRateManager _centralBankExchangeRateManager;
+        private readonly CurrentUser _currentUser;
+        ITranslateService _translateService;
+        KioskBrainsContext _context;
+
 
         public EkKioskProductSearchInEuropeGet(
             AllegroPlClient allegroPlClient,
             IHttpContextAccessor httpContextAccessor,
-            CentralBankExchangeRateManager centralBankExchangeRateManager)
+            CentralBankExchangeRateManager centralBankExchangeRateManager,
+            CurrentUser currentUser, ITranslateService translateService, KioskBrainsContext context)
         {
             _allegroPlClient = allegroPlClient;
+            _translateService = translateService;
             _httpContextAccessor = httpContextAccessor;
             _centralBankExchangeRateManager = centralBankExchangeRateManager;
+            _context = context;
+            this._currentUser = currentUser;
         }
 
         private const string AutomotiveCategoryId = "3";
 
         public override async Task<EkKioskProductSearchInEuropeGetResponse> ExecuteAsync(EkKioskProductSearchInEuropeGetRequest request)
         {
+            //var kioskId = _currentUser.Id;
+            //if (kioskId == 75) 
+            //{
+            //    return await MySpecialLogicAsync();
+            //}
+
             var categoryId = request.CategoryId;
             if (string.IsNullOrEmpty(categoryId))
             {
@@ -91,9 +107,11 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk.EkKioskProductSearchInEurope
                 request.Count,
                 cancellationToken);
 
+            await _allegroPlClient.ApplyTranslations(_translateService, searchOffersResponse.Offers, request.Term, request.TranslatedTerm, cancellationToken);
+
             EkProduct[] products;
             if (searchOffersResponse.Offers?.Length > 0)
-            {
+            { 
                 var exchangeRate = await GetExchangeRateAsync();
 
                 products = searchOffersResponse.Offers
@@ -115,7 +133,7 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk.EkKioskProductSearchInEurope
 
         private async Task<decimal> GetExchangeRateAsync()
         {
-            var ukrainianNow = TimeZones.GetTimeZoneNow(TimeZones.UkrainianTime);
+            var ukrainianNow = DateTime.Now; //TimeZones.GetTimeZoneNow(TimeZones.UkrainianTime);
             const string LocalCurrencyCode = "UAH";
             const string ForeignCurrencyCode = "PLN";
 

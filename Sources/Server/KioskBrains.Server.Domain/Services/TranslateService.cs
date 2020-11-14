@@ -61,14 +61,15 @@ namespace KioskBrains.Server.Domain.Services
             _writeOnlyRepository.Commit();
         }
 
-        public IDictionary<string, string> GetDictionary(IEnumerable<string> values)
+        public async Task<IDictionary<string, string>> GetDictionary(IEnumerable<string> values)
         {
             var texts = values.Select(x => x.ToLower()).ToList();
-            var translations =  _readOnlyRepository.GetAllSync<TranslateItem>().Where(x => texts.Contains(x.Id)).ToList();
+            var translations = await _readOnlyRepository.Get<TranslateItem>(filter: x => texts.Contains(x.Id));
+            
             return translations.ToDictionary(x => x.Id, x => x.TextRu);
         }
 
-        public async Task<string> GetTranslatedText(string text, string from, string to)
+        public async Task<string> GetTranslatedText(string text)
         {
             var task = _readOnlyRepository.GetById<TranslateItem>(text);
             var res = await task;

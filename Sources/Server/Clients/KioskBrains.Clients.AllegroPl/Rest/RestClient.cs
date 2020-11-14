@@ -285,10 +285,12 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
         public OfferExtraData GetExtraDataInit(string id)
         {
+            var text = "";
             try
             {
                 HtmlWeb web = new HtmlWeb();
                 HtmlDocument doc = web.Load("https://allegro.pl/oferta/" + id);
+                text = doc.ParsedText;
                 var divsDesc = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Description'] div._2d49e_5pK0q div");
 
                 if (!divsDesc.Any())
@@ -307,7 +309,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
                 if (!liParams.Any() && !divsDesc.Any())
                 {
-                    throw new AllegroPlRequestException("Error read https://allegro.pl/oferta/ no description and params found" + id);
+                    throw new AllegroPlRequestException("Error read https://allegro.pl/oferta/" + id + text);
                 }
 
                 var divParamsInit = liParams.Select(x => x.QuerySelectorAll("div").FirstOrDefault());

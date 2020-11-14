@@ -11,8 +11,8 @@
     <Grid>
         <StackPanel>
             <TextBlock x:Name="TextElement"
-                       Text="{x:Bind Product.Description, Mode=OneWay}"
-                       Visibility="{x:Bind Product.Description, Mode=OneWay, Converter={StaticResource IsStringNotEmptyToVisibilityConverter}}"
+                       Text="{x:Bind Product.Parameters, Mode=OneWay}"
+                       Visibility="{x:Bind Product.Parameters, Mode=OneWay, Converter={StaticResource IsStringNotEmptyToVisibilityConverter}}"
                        MaxLines="{x:Bind MaxLines, Mode=OneWay}"
                        TextWrapping="WrapWholeWords"
                        TextTrimming="CharacterEllipsis"
@@ -20,7 +20,7 @@
                        FontFamily="{StaticResource UbuntuFontFamily}"
                        LineHeight="20" />
             <TextBlock Text="Полное описание..."
-                       Visibility="{x:Bind ShowFullDescriptionLink, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                       Visibility="{x:Bind Product.Parameters, Mode=OneWay, Converter={StaticResource IsStringNotEmptyToVisibilityConverter}}"
                        Foreground="#5258cd"
                        FontFamily="{StaticResource UbuntuFontFamily}"
                        LineHeight="20"

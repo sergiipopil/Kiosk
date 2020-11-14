@@ -8,37 +8,35 @@ using KioskBrains.Server.Domain.Security;
 using KioskBrains.Waf.Actions.Common;
 using Microsoft.AspNetCore.Http;
 
-namespace KioskBrains.Server.Domain.Actions.EkKiosk.EkKioskAllegroProductDescription
+namespace KioskBrains.Server.Domain.Actions.EkKiosk.EkKioskTranslateTerm
 {
     [AuthorizeUser(UserRoleEnum.KioskApp)]
-    public class EkKioskAllegroProductDescriptionGet : WafActionGet<EkKioskAllegroProductDescriptionGetRequest, EkKioskAllegroProductDescriptionGetResponse>
+    public class EkKioskTranslateTermGet : WafActionGet<EkKioskTranslateTermGetRequest, EkKioskTranslateTermGetResponse>
     {
         private readonly AllegroPlClient _allegroPlClient;
 
         private readonly IHttpContextAccessor _httpContextAccessor;
         private ITranslateService _translateService;
 
-        public EkKioskAllegroProductDescriptionGet(
+        public EkKioskTranslateTermGet(
             AllegroPlClient allegroPlClient,
             IHttpContextAccessor httpContextAccessor, ITranslateService translateService)
         {
-            _allegroPlClient = allegroPlClient;
+            _allegroPlClient = allegroPlClient;            
             _httpContextAccessor = httpContextAccessor;
             _translateService = translateService;
         }
 
-        public override async Task<EkKioskAllegroProductDescriptionGetResponse> ExecuteAsync(EkKioskAllegroProductDescriptionGetRequest request)
+        public override async Task<EkKioskTranslateTermGetResponse> ExecuteAsync(EkKioskTranslateTermGetRequest request)
         {
             // cancellation token
             var cancellationToken = _httpContextAccessor.HttpContext?.RequestAborted ?? CancellationToken.None;
 
-            var description = await _allegroPlClient.GetOfferDescriptionAsync(_translateService, request.ProductId, cancellationToken);
+            var description = await _allegroPlClient.GetTranslation(_translateService, request.Term, cancellationToken);
 
-            return new EkKioskAllegroProductDescriptionGetResponse()
+            return new EkKioskTranslateTermGetResponse()
             {
-                    State = (EkProductStateEnum)(int)description.State,
-                    Description = description.Description,
-                    Parameters = description.Parameters
+                Translation = description
             };
         }
     }
