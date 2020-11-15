@@ -133,7 +133,7 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk.EkKioskProductSearchInEurope
 
         private async Task<decimal> GetExchangeRateAsync()
         {
-            var ukrainianNow = DateTime.Now; //TimeZones.GetTimeZoneNow(TimeZones.UkrainianTime);
+            var ukrainianNow = TimeZones.GetTimeZoneNow(TimeZones.UkrainianTime);
             const string LocalCurrencyCode = "UAH";
             const string ForeignCurrencyCode = "PLN";
 
