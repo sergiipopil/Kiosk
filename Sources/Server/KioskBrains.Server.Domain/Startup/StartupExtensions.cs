@@ -92,7 +92,7 @@ namespace KioskBrains.Server.Domain.Startup
 
             // Notifications
             services.Configure<NotificationManagerSettings>(configuration.GetSection("NotificationManagerSettings"));
-            services.AddScoped<INotificationManager, NotificationManager>();
+            services.AddScoped<INotificationManager, NotificationManagerStub>();
 
             //Repo and services
             services.AddScoped<ITranslateService, TranslateService>();
