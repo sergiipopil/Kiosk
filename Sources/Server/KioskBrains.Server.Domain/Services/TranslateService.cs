@@ -46,10 +46,13 @@ namespace KioskBrains.Server.Domain.Services
 
         public async Task AddRecords(IDictionary<string, string> texts, string fromCode, string toCode, Guid createdById)
         {
+            var keys = texts.Select(x => x.Key.ToLower()).ToList();
+            var records = await _readOnlyRepository.Get<TranslateItem>(filter: x=> keys.Contains(x.Id));
+            
             foreach (var textInit in texts)
             {
                 var text = textInit.Key.ToLower();
-                var old = await _readOnlyRepository.GetById<TranslateItem>(textInit.Key);
+                var old = records.FirstOrDefault(x => x.Id == text);
 
                 var item = new TranslateItem() { Id = text, TextRu = textInit.Value, Translated = text != textInit.Value.ToLower() };
                 if (old == null)
@@ -66,6 +69,12 @@ namespace KioskBrains.Server.Domain.Services
             var texts = values.Select(x => x.ToLower()).ToList();
             var translations = await _readOnlyRepository.Get<TranslateItem>(filter: x => texts.Contains(x.Id));
             
+            return translations.ToDictionary(x => x.Id, x => x.TextRu);
+        }
+
+        public async Task<IDictionary<string, string>> GetParamsDictionary()
+        {           
+            var translations =  await _readOnlyRepository.Get<TranslateItem>(filter: x => x.Id.Length < 30);
             return translations.ToDictionary(x => x.Id, x => x.TextRu);
         }
 

@@ -106,8 +106,12 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk.EkKioskProductSearchInEurope
                 request.From,
                 request.Count,
                 cancellationToken);
+            try
+            {
+                await _allegroPlClient.ApplyTranslations(_translateService, searchOffersResponse.Offers, request.Term, request.TranslatedTerm, cancellationToken);
+            }
 
-            await _allegroPlClient.ApplyTranslations(_translateService, searchOffersResponse.Offers, request.Term, request.TranslatedTerm, cancellationToken);
+            catch { }
 
             EkProduct[] products;
             if (searchOffersResponse.Offers?.Length > 0)

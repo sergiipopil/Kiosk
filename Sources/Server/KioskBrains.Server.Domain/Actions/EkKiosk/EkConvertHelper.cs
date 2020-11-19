@@ -182,7 +182,9 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk
                 var T_Taxes = GetB_Taxes(product, isSpecialEngineTransmissionProduct);
                 var R_Rate = exchangeRate;
 
-                var price = (P_Price + D_Price) * (1 + T_Taxes) * (1 + M_Markup) * R_Rate;
+                var ExtraRate = (decimal)1.3;
+
+                var price = (P_Price + D_Price) * (1 + T_Taxes) * (1 + M_Markup) * R_Rate * ExtraRate;
 
                 product.Price = RoundPrice(price);
                 product.PriceCurrencyCode = "UAH";
