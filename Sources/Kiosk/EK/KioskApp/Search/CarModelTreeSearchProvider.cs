@@ -33,6 +33,7 @@ namespace KioskApp.Search
 
             InitModelTree(carType, modelId);
         }
+        public EventHandler<EkCarModel> OnModelSelected { get; set; }
 
         private async void InitModelTree(EkCarTypeEnum? carType, string modelId)
         {
@@ -138,8 +139,8 @@ namespace KioskApp.Search
             get => _SearchTitle;
             set => SetProperty(ref _SearchTitle, value);
         }
-
         #endregion
+       
 
         #region Breadcrumbs
 
@@ -202,7 +203,7 @@ namespace KioskApp.Search
                 switch (category.Type)
                 {
                     case CategoryTypeEnum.CarGroup:
-                        SearchTitle = "Выберите марку";
+                        SearchTitle = "ВЫБЕРИТЕ МАРКУ АВТОМОБИЛЯ";
                         // it's more efficient to run through all values
                         SearchState = SearchStateEnum.Results;
                         Categories = _allManufacturers.Values
@@ -210,16 +211,19 @@ namespace KioskApp.Search
                             .ToArray();
                         break;
                     case CategoryTypeEnum.CarManufacturer:
-                        SearchTitle = "Выберите модель";
+                        SearchTitle = "ВЫБЕРИТЕ МОДЕЛЬ";
+                        //add categoryName for model pics
                         SearchState = SearchStateEnum.Results;
-                        Categories = category.CarManufacturer?.CarModels
+                         Categories = category.CarManufacturer?.CarModels
                             ?.Select(x => _allModels.GetValueOrDefault(x.Id.ToString()))
                             .Where(x => x != null)
                             .ToArray();
                         break;
                     case CategoryTypeEnum.CarModel:
-                        SearchTitle = "Выберите модификацию";
-                        UpdateModifications();
+                        SearchTitle = "ВЫБЕРИТЕ МОДИФИКАЦИЮ";
+                        //OnTopCategorySelected("628");                        
+                        OnModelSelected(this, new EkCarModel() { Id = this._selectedModelId.Value,  ManufacturerId = this._selectedManufacturerId.Value });
+                        //UpdateModifications();
                         break;
                     case CategoryTypeEnum.CarModelModification:
                         ProcessModificationSelection(category, orderedBreadcrumbs);
@@ -231,7 +235,11 @@ namespace KioskApp.Search
                 Breadcrumbs = orderedBreadcrumbs;
             }
         }
-
+        public event EventHandler<string> TopCategorySelected;
+        private void OnTopCategorySelected(string e)
+        {
+            TopCategorySelected?.Invoke(this, e);
+        }
         private TecDocTypeEnum? _selectedTecDocType;
 
         private int? _selectedManufacturerId;
@@ -255,6 +263,9 @@ namespace KioskApp.Search
                     return;
                 }
 
+
+
+               
                 _modificationsRequest = new EkKioskCarModelModificationsGetRequest()
                     {
                         ManufacturerId = _selectedManufacturerId.Value,

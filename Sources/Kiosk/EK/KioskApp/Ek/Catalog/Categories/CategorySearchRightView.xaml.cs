@@ -30,6 +30,8 @@ namespace KioskApp.Ek.Catalog.Categories
             set => SetValue(SearchProviderProperty, value);
         }
 
+       
+
         #endregion
 
         private void OnSearchProviderChanged(ICategorySearchProvider previousProvider)
@@ -86,6 +88,10 @@ namespace KioskApp.Ek.Catalog.Categories
                                   })
                               .ToArray()
                           ?? new BreadcrumbCategoryWrapper[0];
+            //if (Breadcrumbs[0].Category.ProductCategory == null)
+            //{
+            //    BackButton.Visibility = Breadcrumbs.ToList().Count == 1 ? Visibility.Collapsed : Visibility.Visible;
+            //}
         }
 
         private void BreadcrumbPresenter_OnClick(object sender, EventArgs e)
@@ -97,9 +103,13 @@ namespace KioskApp.Ek.Catalog.Categories
         private void Category_OnClick(object sender, EventArgs e)
         {
             var category = ((FrameworkElement)sender).Tag as Category;
-            SearchProvider?.SelectCategory(category);
+            SearchProvider?.SelectCategory(category);         
         }
-
+        public event EventHandler<string> TopCategorySelected;
+        private void OnTopCategorySelected(string e)
+        {
+            TopCategorySelected?.Invoke(this, e);
+        }
         private void BackButton_OnClick(object sender, RoutedEventArgs e)
         {
             SearchProvider?.GoBack();

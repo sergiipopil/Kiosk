@@ -22,7 +22,7 @@ namespace KioskApp.Search
             Action onBackToRoot)
         {
             _onBackToRoot = onBackToRoot;
-            SearchTitle = "Выберите категорию";
+            SearchTitle = "Выберите группу";
 
             RetryOnErrorCommand = new RelayCommand(
                 nameof(RetryOnErrorCommand),

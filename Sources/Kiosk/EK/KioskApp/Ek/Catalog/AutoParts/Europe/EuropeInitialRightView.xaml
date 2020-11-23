@@ -12,35 +12,33 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Margin="0 120 0 0">
+        <Grid Grid.Row="0" Margin="0 10 0 0">
             <TextBlock Foreground="#3b328d"
                        FontFamily="{StaticResource PlayFontFamily}"
-                       FontSize="60"
+                       FontSize="30"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center">
-                <Run Text="Выберите" />
-                <Run Text="категорию"
-                     FontFamily="{StaticResource PlayBoldFontFamily}" />
+                <Run Text="Выберите раздел" />
             </TextBlock>
         </Grid>
 
         <Grid Grid.Row="1"
-              Margin="91 67 50 0">
+              Margin="51 17 20 20">
             <toolkitControls:WrapPanel Orientation="Horizontal"
                                        VerticalAlignment="Top"
-                                       HorizontalSpacing="28"
+                                       HorizontalSpacing="12"
                                        VerticalSpacing="28">
 
                 <categories:TopCategoryPresenter Title="Запчасти легковые и грузовые"
-                                                 Icon="/Themes/Assets/Images/Catalog/Categories/Europe_AutoParts.png"
+                                                 Icon="/Themes/Assets/Images/Catalog/Categories/Europe_CarTruckParts.png"
                                                  Tag="620"
                                                  Click="TopCategoryPresenter_OnClick" />
 
-                <categories:TopCategoryPresenter Title="Шины и диски"
+                <categories:TopCategoryPresenter Title="Шины и диски" TitleMargin="20"
                                                  Icon="/Themes/Assets/Images/Catalog/Categories/Europe_TiresAndRims.png"
                                                  Tag="99193"
                                                  Click="TopCategoryPresenter_OnClick" />
@@ -51,7 +49,7 @@
                                                  Click="TopCategoryPresenter_OnClick" />
 
                 <categories:TopCategoryPresenter Title="Запчасти и аксессуары для мотоциклов"
-                                                 Icon="/Themes/Assets/Images/Catalog/Categories/Europe_Moto.png"
+                                                 Icon="/Themes/Assets/Images/Catalog/Categories/CarType_Moto.png"
                                                  Tag="156"
                                                  Click="TopCategoryPresenter_OnClick" />
 

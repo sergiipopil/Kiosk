@@ -50,7 +50,7 @@ namespace KioskApp.Ek.Catalog.Categories
             }
             else
             {
-                ManufacturerLogoUrl = $"https://kiosk2storage.blob.core.windows.net/ek-logos/{Category.CarManufacturer.Name}.png";
+                ManufacturerLogoUrl = $"/Themes/Assets/Images/Catalog/Model_Logo/{Category.CarManufacturer.Name}.png";
             }
         }
 

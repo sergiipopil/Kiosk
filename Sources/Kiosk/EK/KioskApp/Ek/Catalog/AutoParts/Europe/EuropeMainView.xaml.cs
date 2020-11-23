@@ -15,7 +15,8 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
     {
         public EuropeMainView()
         {
-            SearchTypeSelectedCommand = new RelayCommand(
+           ShowCarsControl = true;
+           SearchTypeSelectedCommand = new RelayCommand(
                 nameof(SearchTypeSelectedCommand),
                 parameter => OnSearchTypeSelected(parameter as SearchTypeEnum?));
 
@@ -112,6 +113,19 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
 
         #endregion
 
+        #region ShowCarsControl
+
+        public static readonly DependencyProperty ShowCarsControlProperty = DependencyProperty.Register(
+            nameof(ShowCarsControl), typeof(bool), typeof(EuropeMainView), new PropertyMetadata(default(bool)));
+
+        public bool ShowCarsControl
+        {
+            get => (bool)GetValue(ShowCarsControlProperty);
+            set => SetValue(ShowCarsControlProperty, value);
+        }
+
+        #endregion
+
         #region LeftView
 
         public static readonly DependencyProperty LeftViewProperty = DependencyProperty.Register(
@@ -138,6 +152,19 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
 
         #endregion
 
+        #region RightBottomView
+
+        public static readonly DependencyProperty RightBottomViewProperty = DependencyProperty.Register(
+            nameof(RightBottomView), typeof(UserControl), typeof(EuropeMainView), new PropertyMetadata(default(UserControl)));
+
+        public UserControl RightBottomView
+        {
+            get => (UserControl)GetValue(RightBottomViewProperty);
+            set => SetValue(RightBottomViewProperty, value);
+        }
+
+        #endregion
+
         public SearchByAnotherTypeMenuItem[] SearchByAnotherTypeMenuItems { get; } = new[]
             {
                 new SearchByAnotherTypeMenuItem("SearchTypeLink_SearchByPartNumber", SearchTypeEnum.ByName),
@@ -153,7 +180,9 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
         }
 
         private void SetInitialViews()
-        {
+        {           
+            _modelId = 0;
+            ShowCarsControl = true;
             IsLeftSidePanelWidthExtended = true;
             ShowSearchByAnotherTypeMenu = false;
             ShowCategorySelection = false;
@@ -161,10 +190,29 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
                 {
                     SearchTypeSelectedCommand = SearchTypeSelectedCommand,
                 };
+
+            var carModelTreeSearchProvider = new CarModelTreeSearchProvider(KioskBrains.Common.EK.Api.CarTree.EkCarTypeEnum.Car, null, SetInitialViews) {
+                OnModelSelected = (sender, model) => { _modelId = model.Id; SetSelectCategoryViews("620"); }
+            };
+            //carModelTreeSearchProvider.CategorySelected += (sender, selectedCategory) =>
+            //{
+            //    _searchByCategoryContext.SelectedModification = selectedCategory;
+            //    _searchByCategoryContext.SelectedCategory = null;
+            //    SetSelectCategoryViews(NavigationType.NewSearch);
+            //};
+
+
             var initialRightView = new EuropeInitialRightView();
             initialRightView.TopCategorySelected += (sender, categoryId) => SetSelectCategoryViews(categoryId);
             RightView = initialRightView;
+
+            RightBottomView = new CategorySearchRightView()
+            {
+                SearchProvider = carModelTreeSearchProvider,
+                //OnModelSelected = (sender, categoryId) => SetSelectCategoryViews(categoryId)
+        };
         }
+
 
         private void SetSearchByNameViews()
         {
@@ -174,6 +222,11 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
             ShowSearchByAnotherTypeMenu = true;
             ShowCategorySelection = SelectedCategory != null;
             ShowOnlySearchByAnotherTypeMenuItems(SearchTypeEnum.ByName, SearchTypeEnum.ByCategory);
+
+            if (SelectedCategory != null)
+            {
+                SelectedCategory.ContextCarModelId = _modelId.ToString();
+            }
             var productSearchInEuropeProvider = new ProductSearchInEuropeProvider()
                 {
                     SelectedCategory = SelectedCategory,
@@ -204,10 +257,13 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
 
         #endregion
 
+        private int _manufacturerId;
+        private int _modelId;
+
         private void SetSelectCategoryViews(string initialCategoryId)
         {
             EkContext.Current.EkProcess?.OnViewChanged("Europe.SelectCategory", false);
-
+            ShowCarsControl = false;
             SelectedCategory = null;
             IsLeftSidePanelWidthExtended = false;
             ShowSearchByAnotherTypeMenu = true;

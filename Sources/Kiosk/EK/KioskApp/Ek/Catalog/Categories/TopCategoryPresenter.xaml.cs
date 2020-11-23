@@ -37,6 +37,17 @@ namespace KioskApp.Ek.Catalog.Categories
 
         #endregion
 
+        #region TitleMargin        
+
+        public double TitleMargin
+        {
+            set {
+                txtTop.Margin = new Thickness(value, 0, value, 0);
+            }
+        }
+
+        #endregion
+
         #region Icon
 
         public static readonly DependencyProperty IconProperty = DependencyProperty.Register(

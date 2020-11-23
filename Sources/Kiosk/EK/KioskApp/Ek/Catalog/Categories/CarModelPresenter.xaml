@@ -8,7 +8,39 @@
              d:DesignHeight="300"
              d:DesignWidth="400">
 
-    <Grid>
+    <toolkitControls:DropShadowPanel Style="{StaticResource CategoryPresenterShadowStyle}">
+        <Button Style="{StaticResource CategoryButtonBaseStyle}"
+                Width="162"
+                Height="162"
+                Click="CategoryButton_OnClick">
+            <Grid Padding="10 10 10 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="104" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <toolkitControls:ImageEx Source="{x:Bind CarModelLogoUrl, Mode=OneWay}"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         MaxWidth="142"
+                                         MaxHeight="102"
+                                         Stretch="Uniform" />
+
+                <TextBlock Grid.Row="1"
+                           Text="{x:Bind Category.Name, Mode=OneWay}"
+                           TextWrapping="WrapWholeWords"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"
+                           Foreground="#23274d"
+                           FontFamily="{StaticResource UbuntuBoldFontFamily}"
+                           FontSize="16"
+                           LineHeight="20" />
+
+            </Grid>
+        </Button>
+    </toolkitControls:DropShadowPanel>
+    <!--<Grid>
         <toolkitControls:DropShadowPanel Style="{StaticResource CategoryPresenterShadowStyle}">
             <Button Style="{StaticResource CategoryButtonBaseStyle}"
                     Click="CategoryButton_OnClick">
@@ -19,7 +51,7 @@
                         <ColumnDefinition Width="18" />
                     </Grid.ColumnDefinitions>
 
-                    <!--top/bottom margin is set to 0, for some reason height is not extended, todo: investigate/fix-->
+                    --><!--top/bottom margin is set to 0, for some reason height is not extended, todo: investigate/fix--><!--
                     <TextBlock Text="{x:Bind Category.Name, Mode=OneWay}"
                                TextWrapping="WrapWholeWords"
                                VerticalAlignment="Center"
@@ -33,6 +65,6 @@
                 </Grid>
             </Button>
         </toolkitControls:DropShadowPanel>
-    </Grid>
+    </Grid>-->
 
 </UserControl>

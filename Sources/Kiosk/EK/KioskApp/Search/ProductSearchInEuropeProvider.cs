@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using KioskApp.CoreExtension.Application;
 using KioskBrains.Common.EK.Api;
 using KioskBrains.Kiosk.Core.Languages;
 using KioskBrains.Kiosk.Helpers.Ui;
@@ -136,6 +137,7 @@ namespace KioskApp.Search
                 }
                 else
                 {
+                    term = (term + EkSettingsHelper.GetModelFullNameByModelId(SelectedCategory?.ContextCarModelId)).Trim();
                     var searchParameters = new ProductSearchInEuropeParameters()
                         {
                             Term = term,
@@ -148,7 +150,7 @@ namespace KioskApp.Search
                     ProductSearchDataSource = new ProductSearchInEuropeDataSource(searchParameters, this);
                 }
             }
-        }
+        }        
 
         protected override async Task<string[]> GetAutocompleteOptionsAsync(string term, CancellationToken cancellationToken)
         {

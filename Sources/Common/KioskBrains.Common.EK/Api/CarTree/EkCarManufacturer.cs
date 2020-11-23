@@ -8,6 +8,8 @@ namespace KioskBrains.Common.EK.Api.CarTree
 
         public string Name { get; set; }
 
+        public string CarImageURL { get; set; }
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string DisplayName { get; set; }
 

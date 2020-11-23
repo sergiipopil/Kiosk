@@ -18,17 +18,17 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <controls:RightContentHeaderPanel Height="51">
-            <StackPanel Orientation="Horizontal">
-                <controls:RightContentHeaderBackButton Click="BackButton_OnClick" />
-                <TextBlock Text="{x:Bind SearchProvider.SearchTitle, Mode=OneWay}"
+        <controls:RightContentHeaderPanel Height="51">           
+            <Grid>               
+                    <controls:RightContentHeaderBackButton Click="BackButton_OnClick" x:Name="BackButton" Width="100" HorizontalAlignment="Left" />
+                <TextBlock Text="{x:Bind SearchProvider.SearchTitle, Mode=OneWay}" Width="auto" HorizontalAlignment="Center"
                            Style="{StaticResource RightContentHeaderStyle}" />
-            </StackPanel>
+            </Grid>
         </controls:RightContentHeaderPanel>
 
-        <!--breadcrumbs-->
+        <!--breadcrumbs
         <Grid Grid.Row="1"
-              Margin="17 2 17 0"
+              Margin="157 2 17 0"
               Visibility="{x:Bind Breadcrumbs, Mode=OneWay, Converter={StaticResource IsNotNullToVisibilityConverter}}">
             <ItemsControl ItemsSource="{x:Bind Breadcrumbs, Mode=OneWay}">
                 <ItemsControl.ItemTemplate>
@@ -41,7 +41,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </Grid>
-
+-->
         <!--categories-->
         <Grid Grid.Row="2"
               Margin="17 32 0 10">
@@ -71,6 +71,7 @@
                               x:DataType="categories:Category">
                     <categories:CarManufacturerPresenter Category="{x:Bind}"
                                                          Click="Category_OnClick"
+                                                         ManufacturerLogoUrl="{x:Bind CarManufacturer.CarImageURL}"
                                                          Tag="{x:Bind}"
                                                          Margin="10 0 10 19" />
                 </DataTemplate>
@@ -80,8 +81,7 @@
                     <categories:CarModelPresenter Category="{x:Bind}"
                                                   Click="Category_OnClick"
                                                   Tag="{x:Bind}"
-                                                  Width="568"
-                                                  Margin="0 0 0 15" />
+                                                  Margin="10 0 10 19" />
                 </DataTemplate>
 
                 <DataTemplate x:Key="CarModelModificationDataTemplate"

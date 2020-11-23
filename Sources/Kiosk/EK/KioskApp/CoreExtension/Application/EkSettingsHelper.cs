@@ -4,6 +4,7 @@ using KioskBrains.Common.EK.KioskConfiguration;
 using KioskBrains.Kiosk.Core.Components;
 using KioskBrains.Kiosk.Core.Settings;
 using Newtonsoft.Json;
+using System;
 
 namespace KioskApp.CoreExtension.Application
 {
@@ -37,6 +38,47 @@ namespace KioskApp.CoreExtension.Application
             PrepareEkSettings();
 
             return _ekSettings.CarModelTree;
+        }
+
+        public static string GetModelFullNameByModelId(string modelId)
+        {
+            var model = GetModelAndNameByModelId(modelId);
+            if (model!=null)
+            if (!string.IsNullOrEmpty(modelId) && modelId != "0")
+            {               
+                return $" {model.ManufacturerName} {model.Name}";
+            }
+            return "";
+        }
+
+        public static string GetModelManufacturerNameByModelId(string modelId)
+        {
+            var model = GetModelAndNameByModelId(modelId);
+            if (model != null)
+                if (!string.IsNullOrEmpty(modelId) && modelId != "0")
+                {
+                    return $"{model.ManufacturerName}";
+                }
+            return "";
+        }
+
+        public static EkCarModel GetModelAndNameByModelId(string modelId)
+        {
+            var tree = GetCarModelTree();
+            if (!string.IsNullOrEmpty(modelId) && modelId != "0")
+            {
+                foreach (var g in tree)
+                    foreach (var manufacturer in g.Manufacturers)
+                        foreach (var model in manufacturer.CarModels)
+                        {
+                            if (model.Id.ToString() == modelId)
+                            {
+                                return new EkCarModel() { Id = model.Id, ManufacturerId = manufacturer.Id, Name = model.Name, ManufacturerName = manufacturer.Name};
+                            }
+                        }
+
+            }
+            return null;
         }
     }
 }

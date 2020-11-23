@@ -5,30 +5,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              mc:Ignorable="d"
-             d:DesignHeight="250"
-             d:DesignWidth="837">
+             d:DesignHeight="115"
+             d:DesignWidth="142">
 
-    <toolkitControls:DropShadowPanel Color="#181ba2"
+    <toolkitControls:DropShadowPanel Color="#181ba2" MaxHeight="115" MaxWidth="142"
                                      BlurRadius="10"
                                      ShadowOpacity="0.15">
-        <Button Style="{StaticResource TopCategoryButtonStyle}"
+        <Button Style="{StaticResource TopCategoryButtonStyle}" MaxHeight="115" MaxWidth="142"
                 Click="ButtonBase_OnClick">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="122" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="60" />
                 </Grid.RowDefinitions>
 
                 <Image Source="{x:Bind Icon, Mode=OneWay}"
                        Stretch="None"
+                       Margin="0 5 0 0"
                        HorizontalAlignment="Center"
-                       VerticalAlignment="Bottom" />
+                       VerticalAlignment="Center" />
 
-                <TextBlock Grid.Row="1"
+                <TextBlock Grid.Row="1" Name="txtTop"
                            Text="{x:Bind Title, Mode=OneWay}"
-                           VerticalAlignment="Top"
+                           VerticalAlignment="Center" FontSize="16"
                            HorizontalAlignment="Center"
-                           Margin="10 12 10 0"
+                           Margin="5 0 5 0"
                            TextWrapping="WrapWholeWords"
                            TextAlignment="Center" />
 
