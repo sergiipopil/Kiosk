@@ -19,7 +19,7 @@ namespace KioskBrains.Server.EK.Common {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Categories {
@@ -61,7 +61,7 @@ namespace KioskBrains.Server.EK.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [{&quot;carType&quot;:1,&quot;manufacturers&quot;:[{&quot;id&quot;:1505,&quot;name&quot;:&quot;ACURA&quot;,&quot;carModels&quot;:[{&quot;tecDocType&quot;:1,&quot;id&quot;:4403,&quot;name&quot;:&quot;INTEGRA купе&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4402,&quot;name&quot;:&quot;INTEGRA Наклонная задняя часть&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4401,&quot;name&quot;:&quot;INTEGRA седан&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4404,&quot;name&quot;:&quot;LEGEND&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4406,&quot;name&quot;:&quot;LEGEND II&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4407,&quot;name&quot;:&quot;LEGEND II купе&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4405,&quot;name&quot;:&quot;LEGEND купе&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:6092,&quot;name&quot;:&quot;MDX (YD1)&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:10059,&quot;name&quot;:&quot;MDX (YD [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to [{&quot;carType&quot;:1,&quot;manufacturers&quot;:[{&quot;id&quot;:1505,&quot;name&quot;:&quot;ACURA&quot;,&quot;carModels&quot;:[{&quot;tecDocType&quot;:1,&quot;id&quot;:4403,&quot;name&quot;:&quot;INTEGRA coupe&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4402,&quot;name&quot;:&quot;INTEGRA liftback&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4401,&quot;name&quot;:&quot;INTEGRA sedan&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4404,&quot;name&quot;:&quot;LEGEND&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4406,&quot;name&quot;:&quot;LEGEND II&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4407,&quot;name&quot;:&quot;LEGEND II coupe&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4405,&quot;name&quot;:&quot;LEGEND coupe&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:6092,&quot;name&quot;:&quot;MDX&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4409,&quot;name&quot;:&quot;NSX&quot;},{&quot;tecDocType&quot;:1,&quot;id [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CarModelTreeJson {
             get {

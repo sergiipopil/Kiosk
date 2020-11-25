@@ -10,23 +10,23 @@
 
     <toolkitControls:DropShadowPanel Style="{StaticResource CategoryPresenterShadowStyle}">
         <Button Style="{StaticResource CategoryButtonBaseStyle}"
-                Width="72"
-                Height="42"
+                Width="102"
+                Height="72"
                 Click="CategoryButton_OnClick">
             <Grid Padding="10 10 10 0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="24" />
+                    <RowDefinition Height="54" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
                 <toolkitControls:ImageEx Source="{x:Bind ManufacturerLogoUrl, Mode=OneWay}"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Center"
-                                         MaxWidth="42"
-                                         MaxHeight="22"
+                                         MaxWidth="52"
+                                         MaxHeight="52"
                                          Stretch="Uniform" />
 
-                <TextBlock Grid.Row="1"
+                <!--<TextBlock Grid.Row="1"
                            Text="{x:Bind Category.Name, Mode=OneWay}"
                            TextWrapping="WrapWholeWords"
                            VerticalAlignment="Top"
@@ -34,7 +34,7 @@
                            TextAlignment="Center"
                            Foreground="#23274d"
                            FontFamily="{StaticResource UbuntuBoldFontFamily}"
-                           FontSize="12"/>
+                           FontSize="12"/>-->
 
             </Grid>
         </Button>

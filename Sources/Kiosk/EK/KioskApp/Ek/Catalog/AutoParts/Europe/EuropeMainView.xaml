@@ -56,17 +56,19 @@
         <!--RESULTS/CATEGORIES-->
 
         <controls:RightContentPanel Grid.Column="1">
-            <StackPanel>
+            <Grid>
+                <Grid>
                 <ContentControl Content="{x:Bind RightView, Mode=OneWay}" Height="Auto"
                             VerticalContentAlignment="Stretch"
                             HorizontalContentAlignment="Stretch" />
-
+                </Grid>
+                <Grid>
                 <ContentControl Content="{x:Bind RightBottomView, Mode=OneWay}" Height="Auto"
                             VerticalContentAlignment="Stretch"
                             Visibility="{x:Bind ShowCarsControl, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                             HorizontalContentAlignment="Stretch" />
-
-            </StackPanel>
+                </Grid>
+            </Grid>
             
         </controls:RightContentPanel>
     </Grid>
