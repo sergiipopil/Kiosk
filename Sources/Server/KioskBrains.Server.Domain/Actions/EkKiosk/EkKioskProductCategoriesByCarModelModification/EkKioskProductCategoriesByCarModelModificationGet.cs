@@ -2,11 +2,14 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using KioskBrains.Clients.TecDocWs;
-using KioskBrains.Clients.TecDocWs.Models;
+using KioskBrains.Clients.AllegroPl;
+using KioskBrains.Clients.AllegroPl.Models;
+using KioskBrains.Clients.AllegroPl.ServiceInterfaces;
+
 using KioskBrains.Common.Constants;
 using KioskBrains.Common.EK.Api;
 using KioskBrains.Server.Domain.Entities;
+using KioskBrains.Server.Domain.Entities.DbStorage;
 using KioskBrains.Server.Domain.Security;
 using KioskBrains.Waf.Actions.Common;
 using Microsoft.AspNetCore.Http;
@@ -15,16 +18,20 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk.EkKioskProductCategoriesByCa
 {
     [AuthorizeUser(UserRoleEnum.KioskApp)]
     public class EkKioskProductCategoriesByCarModelModificationGet : WafActionGet<EkKioskProductCategoriesByCarModelModificationGetRequest, EkKioskProductCategoriesByCarModelModificationGetResponse>
-    {
-        private readonly TecDocWsClient _tecDocWsClient;
+    {        
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly AllegroPlClient _allegroPlClient;
+        private readonly ITranslateService _translateService;
 
-        public EkKioskProductCategoriesByCarModelModificationGet(
-            TecDocWsClient tecDocWsClient,
-            IHttpContextAccessor httpContextAccessor)
+        public EkKioskProductCategoriesByCarModelModificationGet(            
+            
+            AllegroPlClient allegroPlClient,
+            IHttpContextAccessor httpContextAccessor,
+            ITranslateService translateService)
         {
-            _tecDocWsClient = tecDocWsClient;
+            _allegroPlClient = allegroPlClient;
             _httpContextAccessor = httpContextAccessor;
+            _translateService = translateService;
         }
 
         public override async Task<EkKioskProductCategoriesByCarModelModificationGetResponse> ExecuteAsync(EkKioskProductCategoriesByCarModelModificationGetRequest request)
@@ -34,37 +41,16 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk.EkKioskProductCategoriesByCa
 
             // todo: add cancellationToken support to proxy based clients
 
-            var modelTypeId = request.ModificationId;
 
-            // request for cars first
-            var categories = await _tecDocWsClient.GetCategoriesAsync(CarTypeEnum.Car, modelTypeId, null, childNodes: true);
-            if (categories == null
-                || categories.Length == 0)
-            {
-                // then request for trucks
-                categories = await _tecDocWsClient.GetCategoriesAsync(CarTypeEnum.Truck, modelTypeId, null, childNodes: true);
-            }
+            var categories = await _allegroPlClient.GetCategoriesByFullModelName(
+                request.FullModelName,
+                cancellationToken);
 
-            if (categories == null
-                || categories.Length == 0)
-            {
-                return GetEmptyResponse();
-            }
-
-            const int RootCategoryParentNodeId = 0;
-            var categoriesByParentId = categories
-                .GroupBy(x => x.ParentNodeId)
-                .ToDictionary(
-                    x => x.Key ?? RootCategoryParentNodeId,
-                    x => x
-                        .OrderBy(c => c.AssemblyGroupName)
-                        .ToArray());
-
-            var ekProductCategories = GetEkProductCategoryChildren(RootCategoryParentNodeId, categoriesByParentId);
+            
 
             return new EkKioskProductCategoriesByCarModelModificationGetResponse()
                 {
-                    Categories = ekProductCategories,
+                    CategoriesIds = categories.ToArray(),
                 };
         }
 
@@ -80,13 +66,13 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk.EkKioskProductCategoriesByCa
             return childCategories
                 .Select(x => new EkProductCategory()
                     {
-                        CategoryId = x.AssemblyGroupNodeId.ToString(),
+                        CategoryId = x.Id.ToString(),
                         Name = new MultiLanguageString()
                             {
                                 // sometimes TecDoc names start from lower case
-                                [Languages.RussianCode] = FirstLetterToUpperCase(x.AssemblyGroupName),
+                                [Languages.RussianCode] = FirstLetterToUpperCase(x.Name),
                             },
-                        Children = GetEkProductCategoryChildren(x.AssemblyGroupNodeId, categoriesByParentId),
+                        Children = GetEkProductCategoryChildren(x.Id, categoriesByParentId),
                     })
                 .ToArray();
         }
