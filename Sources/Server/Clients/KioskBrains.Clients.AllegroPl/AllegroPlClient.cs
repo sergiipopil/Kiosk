@@ -60,7 +60,34 @@ namespace KioskBrains.Clients.AllegroPl
         #region Search
 
         private const int MaxPageSize = 10;
-        private const int MaxDescriptionLength = 250;        
+        private const int MaxDescriptionLength = 250;
+        
+        public async Task<IList<int>> GetCategoriesByFullModelName(string modelName, CancellationToken cancellationToken)
+        {
+            var categoriesResponse = await _restClient.GetCategoriesByModel(modelName, cancellationToken);
+            var categories = categoriesResponse.Matching_Categories.ToList();
+            var newColl = new List<Category>();
+            foreach (var c in categories)
+            {
+                ProcessCategories(newColl, c);
+            }
+            categories = newColl;
+            return categories.Select(x=>x.Id).Distinct().ToList();
+        }
+
+        private void ProcessCategories(IList<Category> categories, Category category)
+        {
+            if (category.Parent != null)
+            {
+                ProcessCategories(categories, category.Parent);
+            }
+
+            if (categories.FirstOrDefault(x => x.Id == category.Id) != null)
+            {
+                return;
+            }
+            categories.Add(category);
+        }
 
         public async Task<SearchOffersResponse> SearchOffersAsync(
             string phrase,

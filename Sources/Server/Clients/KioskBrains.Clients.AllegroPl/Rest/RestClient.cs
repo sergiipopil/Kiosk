@@ -19,7 +19,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
     /// <summary>
     /// Keep in mind that it's a singleton.
     /// </summary>
-    internal class RestClient
+    public class RestClient
     {
         public static IDictionary<string, OfferStateEnum> StatesByNames => new Dictionary<string, OfferStateEnum>()
         {
@@ -203,7 +203,18 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
         private const string StateFilterId = "parameter.11323";
 
-        public async Task<Models.SearchOffersResponse> SearchOffersAsync(
+        public async Task<SearchCategoriesResponse> GetCategoriesByModel(string model, CancellationToken cancellationToken)
+        {
+            var parameters = new Dictionary<string, string>
+            {
+                ["name"] = model
+            };
+            var action = "/sale/matching-categories";
+            var response = await GetAsync<SearchCategoriesResponse>(action, parameters, cancellationToken);
+            return response;
+        }
+
+        internal async Task<Models.SearchOffersResponse> SearchOffersAsync(
             string phrase,
             string categoryId,
             OfferStateEnum state,
