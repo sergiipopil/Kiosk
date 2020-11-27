@@ -41,8 +41,19 @@ namespace KioskApp.Ek.Catalog.Categories
 
         public double TitleMargin
         {
-            set {
+            set
+            {
                 txtTop.Margin = new Thickness(value, 0, value, 0);
+            }
+        }
+        public bool IsActive
+        {
+            set
+            {
+                if (value)
+                {
+                    topBtnCategory.Style = Application.Current.Resources["ActiveTopCategoryButtonStyle"] as Style;
+                }
             }
         }
 

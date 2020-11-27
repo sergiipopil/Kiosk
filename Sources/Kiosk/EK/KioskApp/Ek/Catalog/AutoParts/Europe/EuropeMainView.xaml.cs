@@ -269,17 +269,19 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
             ShowSearchByAnotherTypeMenu = true;
             ShowCategorySelection = true;
             ShowOnlySearchByAnotherTypeMenuItems(SearchTypeEnum.ByName, SearchTypeEnum.ByCategory);
-            var categorySearchInEuropeProvider = new CategorySearchInEuropeProvider(initialCategoryId, SetInitialViews);
+            var categorySearchInEuropeProvider = new CategorySearchInEuropeProvider(initialCategoryId, _modelId, SetInitialViews);
             categorySearchInEuropeProvider.CategorySelected += (sender, selectedCategory) =>
                 {
                     SelectedCategory = selectedCategory;
                     SetSearchByNameViews();
                 };
             LeftView = null;
+            if (initialCategoryId != "628") { 
             RightView = new CategorySearchRightView()
                 {
                     SearchProvider = categorySearchInEuropeProvider,
                 };
+            }
         }
 
         public ICommand SearchTypeSelectedCommand { get; }

@@ -11,7 +11,7 @@
     <toolkitControls:DropShadowPanel Color="#181ba2" MaxHeight="115" MaxWidth="142"
                                      BlurRadius="10"
                                      ShadowOpacity="0.15">
-        <Button Style="{StaticResource TopCategoryButtonStyle}" MaxHeight="115" MaxWidth="142"
+        <Button Style="{StaticResource TopCategoryButtonStyle}" MaxHeight="115" MaxWidth="142" Name="topBtnCategory"
                 Click="ButtonBase_OnClick">
             <Grid>
                 <Grid.RowDefinitions>

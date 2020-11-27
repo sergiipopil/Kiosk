@@ -19,6 +19,7 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
         private void TopCategoryPresenter_OnClick(object sender, EventArgs e)
         {
             var categoryId = ((TopCategoryPresenter)sender).Tag as string;
+            
             if (categoryId == null)
             {
                 return;

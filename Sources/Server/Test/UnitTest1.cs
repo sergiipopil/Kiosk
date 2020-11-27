@@ -32,7 +32,7 @@ namespace Test
                  GetEmptyResponse();
             }
 
-            const int RootCategoryParentNodeId = 3;
+            const string RootCategoryParentNodeId = "3";
             var categoriesByParentId = categories
                 .GroupBy(x => x.Parent.Id)
                 .ToDictionary(
@@ -58,7 +58,7 @@ namespace Test
             categories.Add(category);            
         }
 
-        private EkProductCategory[] GetEkProductCategoryChildren(int parentId, Dictionary<int, Category[]> categoriesByParentId)
+        private EkProductCategory[] GetEkProductCategoryChildren(string parentId, Dictionary<string, Category[]> categoriesByParentId)
         {
             var childCategories = categoriesByParentId.GetValueOrDefault(parentId);
             if (childCategories == null

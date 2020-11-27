@@ -17,13 +17,14 @@ namespace KioskApp.Search
     /// </summary>
     public class CategorySearchInEuropeProvider : SearchProviderBase, ISearchStateProvider, ICategorySearchProvider
     {
+        int _modelId;
         public CategorySearchInEuropeProvider(
-            string initialCategoryId,
+            string initialCategoryId, int modelId,
             Action onBackToRoot)
         {
             _onBackToRoot = onBackToRoot;
             SearchTitle = "Выберите группу";
-
+            _modelId = modelId;
             RetryOnErrorCommand = new RelayCommand(
                 nameof(RetryOnErrorCommand),
                 parameter =>
@@ -36,18 +37,38 @@ namespace KioskApp.Search
 
         private async void InitCategories(string initialCategoryId)
         {
+            List<string> availableCategories = null;
+            if (_modelId != 0)
+            {
+                try
+                {
+                    var response = await ServerApiHelper.ProductCategoriesByCarModelModificationAsync(
+                       new EkKioskProductCategoriesByCarModelModificationGetRequest()
+                       {
+                           FullModelName = EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString()),
+                       },
+                       CancellationToken.None);
+                    availableCategories = response.CategoriesIds.Select(x => x.ToString()).ToList();
+                }
+                catch(Exception)
+                {
+                }
+            }
+            
             // free UI thread
             await ThreadHelper.RunInBackgroundThreadAsync(() =>
                 {
+                    
                     // build categories
-                    var rootCategories = EkSettingsHelper.GetEuropeCategories();
+                    
+                    var rootCategories = EkSettingsHelper.GetEuropeCategories().Where(x=> availableCategories == null || availableCategories.Contains(x.CategoryId)).ToArray();
                     if (rootCategories == null
                         || rootCategories.Length == 0)
                     {
                         return Task.CompletedTask;
                     }
 
-                    BuildCategories(null, rootCategories);
+                    BuildCategories(null, rootCategories, availableCategories);
 
                     Category selectedCategory = null;
                     if (initialCategoryId != null)
@@ -142,7 +163,7 @@ namespace KioskApp.Search
 
         private readonly Dictionary<string, Category> _allCategories = new Dictionary<string, Category>();
 
-        private void BuildCategories(string parentCategoryId, EkProductCategory[] productCategories)
+        private void BuildCategories(string parentCategoryId, EkProductCategory[] productCategories, IList<string> availableCategories)
         {
             if (productCategories == null)
             {
@@ -177,7 +198,7 @@ namespace KioskApp.Search
                     _allCategories[specialCategory.Id] = specialCategory;
 
                     // build children
-                    BuildCategories(category.Id, productCategory.Children);
+                    BuildCategories(category.Id, productCategory.Children.Where(x => availableCategories == null || availableCategories.Contains(x.CategoryId)).ToArray(), availableCategories);
                 }
                 else
                 {

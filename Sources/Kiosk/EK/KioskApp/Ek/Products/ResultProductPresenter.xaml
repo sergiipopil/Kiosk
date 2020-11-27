@@ -72,7 +72,7 @@
                                                           MaxLines="2"
                                                           Margin="0 21 0 -2" />
 
-                    <StackPanel Visibility="Collapsed" Grid.Row="3"
+                    <StackPanel  Grid.Row="3"
                                 Orientation="Horizontal"
                                 Background="Transparent"
                                 Margin="0 10 0 -10"

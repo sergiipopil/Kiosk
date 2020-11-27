@@ -57,13 +57,14 @@
 
         <controls:RightContentPanel Grid.Column="1">
             <Grid>
-                <Grid>
-                <ContentControl Content="{x:Bind RightView, Mode=OneWay}" Height="Auto"
+
+                <Grid Grid.Row="0" Height="Auto">
+                    <ContentControl Content="{x:Bind RightView, Mode=OneWay}" Height="Auto"
                             VerticalContentAlignment="Stretch"
                             HorizontalContentAlignment="Stretch" />
                 </Grid>
-                <Grid>
-                <ContentControl Content="{x:Bind RightBottomView, Mode=OneWay}" Height="Auto"
+                <Grid Grid.Row="1" Height="auto" Padding="0 200 0 0">
+                    <ContentControl Content="{x:Bind RightBottomView, Mode=OneWay}" Height="Auto"
                             VerticalContentAlignment="Stretch"
                             Visibility="{x:Bind ShowCarsControl, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                             HorizontalContentAlignment="Stretch" />

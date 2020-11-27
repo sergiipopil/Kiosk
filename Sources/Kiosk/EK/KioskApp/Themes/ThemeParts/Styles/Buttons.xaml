@@ -428,6 +428,25 @@
                 Value="0.5" />
     </Style>
 
+    <Style x:Key="ActiveTopCategoryButtonStyle"
+           TargetType="Button"
+           BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Background"
+                Value="#ffffff" />
+        <Setter Property="Foreground"
+                Value="#23274d" />
+        <Setter Property="FontSize"
+                Value="18" />
+        <Setter Property="FontFamily"
+                Value="{StaticResource UbuntuMediumFontFamily}" />
+        <Setter Property="Width"
+                Value="208" />
+        <Setter Property="Height"
+                Value="208" />
+        <Setter Property="controls:ButtonEx.TopBorderOpacity"
+                Value="0.5" />
+    </Style>
+
     <Style x:Key="CategoryButtonBaseStyle"
            TargetType="Button"
            BasedOn="{StaticResource BaseButtonStyle}">

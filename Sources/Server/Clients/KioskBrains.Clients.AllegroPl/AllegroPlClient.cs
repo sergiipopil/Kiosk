@@ -62,7 +62,7 @@ namespace KioskBrains.Clients.AllegroPl
         private const int MaxPageSize = 10;
         private const int MaxDescriptionLength = 250;
         
-        public async Task<IList<int>> GetCategoriesByFullModelName(string modelName, CancellationToken cancellationToken)
+        public async Task<IList<string>> GetCategoriesByFullModelName(string modelName, CancellationToken cancellationToken)
         {
             var categoriesResponse = await _restClient.GetCategoriesByModel(modelName, cancellationToken);
             var categories = categoriesResponse.Matching_Categories.ToList();

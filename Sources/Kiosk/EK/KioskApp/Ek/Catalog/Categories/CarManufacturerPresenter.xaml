@@ -19,7 +19,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
-                <toolkitControls:ImageEx Source="{x:Bind ManufacturerLogoUrl, Mode=OneWay}"
+                <toolkitControls:ImageEx Source="{x:Bind ManufacturerLogoUrl, Mode=OneTime}"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Center"
                                          MaxWidth="52"

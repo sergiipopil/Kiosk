@@ -4,6 +4,7 @@ using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using KioskApp.Search;
+using KioskApp.CoreExtension.Application;
 
 namespace KioskApp.Ek.Catalog.Categories
 {
@@ -30,7 +31,7 @@ namespace KioskApp.Ek.Catalog.Categories
             set => SetValue(SearchProviderProperty, value);
         }
 
-       
+
 
         #endregion
 
@@ -82,16 +83,19 @@ namespace KioskApp.Ek.Catalog.Categories
         {
             Breadcrumbs = SearchProvider?.Breadcrumbs
                               ?.Select((x, i) => new BreadcrumbCategoryWrapper()
-                                  {
-                                      Index = i,
-                                      Category = x,
-                                  })
+                              {
+                                  Index = i,
+                                  Category = x,
+                              })
                               .ToArray()
                           ?? new BreadcrumbCategoryWrapper[0];
-            //if (Breadcrumbs[0].Category.ProductCategory == null)
-            //{
-            //    BackButton.Visibility = Breadcrumbs.ToList().Count == 1 ? Visibility.Collapsed : Visibility.Visible;
-            //}
+            if (Breadcrumbs.Length > 0)
+            {
+                if (Breadcrumbs[0].Category.ProductCategory == null)
+                {
+                    BackButton.Visibility = Breadcrumbs.ToList().Count == 1 ? Visibility.Collapsed : Visibility.Visible;
+                }
+            }
         }
 
         private void BreadcrumbPresenter_OnClick(object sender, EventArgs e)
@@ -103,7 +107,7 @@ namespace KioskApp.Ek.Catalog.Categories
         private void Category_OnClick(object sender, EventArgs e)
         {
             var category = ((FrameworkElement)sender).Tag as Category;
-            SearchProvider?.SelectCategory(category);         
+            SearchProvider?.SelectCategory(category);
         }
         public event EventHandler<string> TopCategorySelected;
         private void OnTopCategorySelected(string e)

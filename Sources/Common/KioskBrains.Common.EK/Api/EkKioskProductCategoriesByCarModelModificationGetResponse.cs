@@ -3,6 +3,6 @@
     public class EkKioskProductCategoriesByCarModelModificationGetResponse
     {
         public EkProductCategory[] Categories { get; set; }
-        public int[] CategoriesIds { get; set; }
+        public string[] CategoriesIds { get; set; }
     }
 }

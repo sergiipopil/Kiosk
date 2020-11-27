@@ -33,27 +33,26 @@
                                        HorizontalSpacing="12"
                                        VerticalSpacing="28">
 
-                <categories:TopCategoryPresenter Title="Запчасти легковые и грузовые"
+                <categories:TopCategoryPresenter Title="Запчасти легковые и грузовые" IsActive="True" x:Name="categoryAutoParts"
                                                  Icon="/Themes/Assets/Images/Catalog/Categories/Europe_CarTruckParts.png"
-                                                 Tag="620"
-                                                 Click="TopCategoryPresenter_OnClick" />
+                                                 Tag="620"/>
 
-                <categories:TopCategoryPresenter Title="Шины и диски" TitleMargin="20"
+                <categories:TopCategoryPresenter Title="Шины и диски" TitleMargin="20" Name="categoryDisks"
                                                  Icon="/Themes/Assets/Images/Catalog/Categories/Europe_TiresAndRims.png"
                                                  Tag="99193"
                                                  Click="TopCategoryPresenter_OnClick" />
 
-                <categories:TopCategoryPresenter Title="Инструменты и оборудование для СТО"
+                <categories:TopCategoryPresenter Title="Инструменты и оборудование для СТО" Name="categorySTO"
                                                  Icon="/Themes/Assets/Images/Catalog/Categories/Europe_Tools.png"
                                                  Tag="18554"
                                                  Click="TopCategoryPresenter_OnClick" />
 
-                <categories:TopCategoryPresenter Title="Запчасти и аксессуары для мотоциклов"
+                <categories:TopCategoryPresenter Title="Запчасти и аксессуары для мотоциклов" Name="categoryMoto"
                                                  Icon="/Themes/Assets/Images/Catalog/Categories/CarType_Moto.png"
                                                  Tag="156"
                                                  Click="TopCategoryPresenter_OnClick" />
 
-                <categories:TopCategoryPresenter Title="Запчасти для спецтехники"
+                <categories:TopCategoryPresenter Title="Запчасти для спецтехники" Name="categorySpecialCar"
                                                  Icon="/Themes/Assets/Images/Catalog/Categories/CarType_Special.png"
                                                  Tag="99022"
                                                  Click="TopCategoryPresenter_OnClick" />

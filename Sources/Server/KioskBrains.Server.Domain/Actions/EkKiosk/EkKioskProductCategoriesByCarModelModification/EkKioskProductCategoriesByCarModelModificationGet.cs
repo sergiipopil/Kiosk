@@ -54,7 +54,7 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk.EkKioskProductCategoriesByCa
                 };
         }
 
-        private EkProductCategory[] GetEkProductCategoryChildren(int parentId, Dictionary<int, Category[]> categoriesByParentId)
+        private EkProductCategory[] GetEkProductCategoryChildren(string parentId, Dictionary<string, Category[]> categoriesByParentId)
         {
             var childCategories = categoriesByParentId.GetValueOrDefault(parentId);
             if (childCategories == null

@@ -73,7 +73,7 @@
                                                          Click="Category_OnClick"
                                                          ManufacturerLogoUrl="{x:Bind CarManufacturer.CarImageURL}"
                                                          Tag="{x:Bind}"
-                                                         Margin="10 0 10 19" />
+                                                         Margin="5 0 5 10" />
                 </DataTemplate>
 
                 <DataTemplate x:Key="CarModelDataTemplate"
@@ -81,7 +81,7 @@
                     <categories:CarModelPresenter Category="{x:Bind}"
                                                   Click="Category_OnClick"
                                                   Tag="{x:Bind}"
-                                                  Margin="10 0 10 19" />
+                                                  Margin="5 0 5 10" />
                 </DataTemplate>
 
                 <DataTemplate x:Key="CarModelModificationDataTemplate"
