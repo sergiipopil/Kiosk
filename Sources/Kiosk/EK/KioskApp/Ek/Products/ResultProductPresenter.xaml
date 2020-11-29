@@ -10,7 +10,8 @@
              d:DesignHeight="250"
              d:DesignWidth="837">
 
-    <products:ProductPresenterPanel Margin="20 0 20 0">
+    <products:ProductPresenterPanel Margin="20 0 20 0"
+        Visibility="{x:Bind Product.Name, Mode=OneWay, Converter={StaticResource IsStringNotEmptyToVisibilityConverter}}">
 
         <Grid Margin="0 20 0 20">
             <Grid>

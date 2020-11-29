@@ -8,6 +8,7 @@ using KioskApp.Search;
 using KioskBrains.Kiosk.Core.Languages;
 using KioskBrains.Kiosk.Helpers.Threads;
 using KioskBrains.Kiosk.Helpers.Ui;
+using KioskBrains.Common.EK.Api.CarTree;
 
 namespace KioskApp.Ek.Catalog.AutoParts.Europe
 {
@@ -178,7 +179,7 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
                 item.IsVisible = searchTypes.Contains(item.SearchType);
             }
         }
-
+        string _selectedMainCategoryId;
         private void SetInitialViews()
         {           
             _modelId = 0;
@@ -191,9 +192,7 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
                     SearchTypeSelectedCommand = SearchTypeSelectedCommand,
                 };
 
-            var carModelTreeSearchProvider = new CarModelTreeSearchProvider(KioskBrains.Common.EK.Api.CarTree.EkCarTypeEnum.Car, null, SetInitialViews) {
-                OnModelSelected = (sender, model) => { _modelId = model.Id; SetSelectCategoryViews("620"); }
-            };
+            
             //carModelTreeSearchProvider.CategorySelected += (sender, selectedCategory) =>
             //{
             //    _searchByCategoryContext.SelectedModification = selectedCategory;
@@ -206,11 +205,45 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
             initialRightView.TopCategorySelected += (sender, categoryId) => SetSelectCategoryViews(categoryId);
             RightView = initialRightView;
 
+            
+            var carModelTreeSearchProvider = new CarModelTreeSearchProvider(EkCarTypeEnum.Car, null, SetInitialViews)
+            {
+                OnModelSelected = (sender, model) => { _modelId = model.Id; SetSelectCategoryViews("620"); }
+            };
+
+            carProvider = carModelTreeSearchProvider;
             RightBottomView = new CategorySearchRightView()
             {
                 SearchProvider = carModelTreeSearchProvider,
                 //OnModelSelected = (sender, categoryId) => SetSelectCategoryViews(categoryId)
-        };
+            };
+
+        }
+        CarModelTreeSearchProvider carProvider;
+
+        private void SetSelectManufacturerViews(string categoryId)
+        {
+            EkCarTypeEnum typeTransport = EkCarTypeEnum.Car;
+            switch (categoryId)
+            {
+                case "620":
+                    typeTransport = EkCarTypeEnum.Car;
+                    break;
+                case "621":
+                    typeTransport = EkCarTypeEnum.Truck;
+                    break;
+                case "622":
+                    typeTransport = EkCarTypeEnum.Bus;
+                    break;
+                case "156":
+                    typeTransport = EkCarTypeEnum.Moto;
+                    break;
+                case "99022":
+                    typeTransport = EkCarTypeEnum.Special;
+                    break;
+                default: break;
+            }
+            carProvider.InitModelTree(typeTransport, null);
         }
 
 
@@ -262,26 +295,35 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
 
         private void SetSelectCategoryViews(string initialCategoryId)
         {
-            EkContext.Current.EkProcess?.OnViewChanged("Europe.SelectCategory", false);
+            if ((initialCategoryId == "621" || initialCategoryId == "620" || initialCategoryId == "622") && _modelId==0)
+            {
+                SetSelectManufacturerViews(initialCategoryId);
+                    return;
+            }
+
+
+                EkContext.Current.EkProcess?.OnViewChanged("Europe.SelectCategory", false);
             ShowCarsControl = false;
             SelectedCategory = null;
             IsLeftSidePanelWidthExtended = false;
+            _selectedMainCategoryId = initialCategoryId;
             ShowSearchByAnotherTypeMenu = true;
             ShowCategorySelection = true;
             ShowOnlySearchByAnotherTypeMenuItems(SearchTypeEnum.ByName, SearchTypeEnum.ByCategory);
             var categorySearchInEuropeProvider = new CategorySearchInEuropeProvider(initialCategoryId, _modelId, SetInitialViews);
             categorySearchInEuropeProvider.CategorySelected += (sender, selectedCategory) =>
                 {
-                    SelectedCategory = selectedCategory;
+                    SelectedCategory = selectedCategory;                    
                     SetSearchByNameViews();
                 };
             LeftView = null;
-            if (initialCategoryId != "628") { 
+            //if (initialCategoryId != "628"&&initialCategoryId != "621" && initialCategoryId != "620" && initialCategoryId != "622") { 
             RightView = new CategorySearchRightView()
                 {
                     SearchProvider = categorySearchInEuropeProvider,
                 };
-            }
+            
+           // }
         }
 
         public ICommand SearchTypeSelectedCommand { get; }

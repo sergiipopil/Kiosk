@@ -22,9 +22,8 @@ namespace KioskApp.Ek.Catalog.Categories
                 switch (category.Type)
                 {
                     case CategoryTypeEnum.ProductCategory:
-                        return category.IsGroup
-                            ? ProductCategoryGroup
-                            : ProductCategoryLeaf;
+                        return 
+                             ProductCategoryGroup;
 
                     case CategoryTypeEnum.CarManufacturer:
                         return CarManufacturer;

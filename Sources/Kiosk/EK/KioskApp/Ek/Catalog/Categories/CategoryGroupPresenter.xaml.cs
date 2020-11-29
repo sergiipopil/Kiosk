@@ -70,6 +70,18 @@ namespace KioskApp.Ek.Catalog.Categories
 
         #endregion
 
+        #region DetailsGroupUrl
+
+        public static readonly DependencyProperty DetailsGroupUrlProperty = DependencyProperty.Register(
+            nameof(DetailsGroupUrl), typeof(string), typeof(CarManufacturerPresenter), new PropertyMetadata(default(string)));
+
+        public string DetailsGroupUrl
+        {
+            get => (string)GetValue(DetailsGroupUrlProperty);
+            set => SetValue(DetailsGroupUrlProperty, value);
+        }
+
+        #endregion
         private void OnOperationChanged()
         {
             ShowExpandLabel = false;

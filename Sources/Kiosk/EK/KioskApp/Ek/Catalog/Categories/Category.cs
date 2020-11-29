@@ -116,6 +116,8 @@ namespace KioskApp.Ek.Catalog.Categories
             set => SetProperty(ref _Name, value);
         }
 
+        public string CategoryUrl => $"/Themes/Assets/Images/Catalog/AutoParts/" + Id + ".png";
+
         #endregion
 
         public bool IsGroup { get; set; }

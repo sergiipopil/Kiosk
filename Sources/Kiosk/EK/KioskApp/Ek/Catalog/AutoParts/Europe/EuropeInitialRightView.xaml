@@ -27,35 +27,49 @@
         </Grid>
 
         <Grid Grid.Row="1"
-              Margin="51 17 20 20">
+              Margin="21 17 10 20">
             <toolkitControls:WrapPanel Orientation="Horizontal"
                                        VerticalAlignment="Top"
-                                       HorizontalSpacing="12"
-                                       VerticalSpacing="28">
+                                       HorizontalSpacing="6">
 
-                <categories:TopCategoryPresenter Title="Запчасти легковые и грузовые" IsActive="True" x:Name="categoryAutoParts"
-                                                 Icon="/Themes/Assets/Images/Catalog/Categories/Europe_CarTruckParts.png"
+                <categories:TopCategoryPresenter Title="Легковие микроавтобусы" x:Name="categoryAutoParts" IsActive="True"
+                                                 Icon="/Themes/Assets/Images/Catalog/Categories/New/Europe_CarTruckParts.png"
+                                                 Click="TopCategoryPresenter_OnClick"
                                                  Tag="620"/>
 
-                <categories:TopCategoryPresenter Title="Шины и диски" TitleMargin="20" Name="categoryDisks"
-                                                 Icon="/Themes/Assets/Images/Catalog/Categories/Europe_TiresAndRims.png"
-                                                 Tag="99193"
+                <categories:TopCategoryPresenter Title="Грузовые" x:Name="categoryTruckModels"
+                                                 Icon="/Themes/Assets/Images/Catalog/Categories/New/Europe_TruckParts.png"
+                                                 Click="TopCategoryPresenter_OnClick"
+                                                 Tag="621"/>
+
+                <categories:TopCategoryPresenter Title="Автобусы" x:Name="categoryBusModels"
+                                                 Icon="/Themes/Assets/Images/Catalog/Categories/New/Europe_BusParts.png"
+                                                 Click="TopCategoryPresenter_OnClick"
+                                                 Tag="622"/>
+
+                <categories:TopCategoryPresenter Title="Спецтехника" x:Name="categorySpecialCar"
+                                                 Icon="/Themes/Assets/Images/Catalog/Categories/New/CarType_Special.png"
+                                                 Tag="99022"
                                                  Click="TopCategoryPresenter_OnClick" />
 
-                <categories:TopCategoryPresenter Title="Инструменты и оборудование для СТО" Name="categorySTO"
-                                                 Icon="/Themes/Assets/Images/Catalog/Categories/Europe_Tools.png"
-                                                 Tag="18554"
-                                                 Click="TopCategoryPresenter_OnClick" />
-
-                <categories:TopCategoryPresenter Title="Запчасти и аксессуары для мотоциклов" Name="categoryMoto"
-                                                 Icon="/Themes/Assets/Images/Catalog/Categories/CarType_Moto.png"
+                <categories:TopCategoryPresenter Title="Мотоциклы" x:Name="categoryMoto"
+                                                 Icon="/Themes/Assets/Images/Catalog/Categories/New/CarType_Moto.png"
                                                  Tag="156"
                                                  Click="TopCategoryPresenter_OnClick" />
 
-                <categories:TopCategoryPresenter Title="Запчасти для спецтехники" Name="categorySpecialCar"
-                                                 Icon="/Themes/Assets/Images/Catalog/Categories/CarType_Special.png"
-                                                 Tag="99022"
+                <categories:TopCategoryPresenter Title="Шины и диски" TitleMargin="20" x:Name="categoryDisks"
+                                                 Icon="/Themes/Assets/Images/Catalog/Categories/New/Europe_TiresAndRims.png"
+                                                 Tag="99193"
                                                  Click="TopCategoryPresenter_OnClick" />
+
+                <categories:TopCategoryPresenter Title="Инструменты и оборудование" x:Name="categorySTO"
+                                                 Icon="/Themes/Assets/Images/Catalog/Categories/New/Europe_Tools.png"
+                                                 Tag="18554"
+                                                 Click="TopCategoryPresenter_OnClick" />
+
+                
+
+                
 
             </toolkitControls:WrapPanel>
         </Grid>

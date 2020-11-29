@@ -38,7 +38,7 @@ namespace KioskApp.Search
         private async void InitCategories(string initialCategoryId)
         {
             List<string> availableCategories = null;
-            if (_modelId != 0)
+            /*if (_modelId != 0)
             {
                 try
                 {
@@ -53,7 +53,7 @@ namespace KioskApp.Search
                 catch(Exception)
                 {
                 }
-            }
+            }*/
             
             // free UI thread
             await ThreadHelper.RunInBackgroundThreadAsync(() =>
@@ -265,7 +265,7 @@ namespace KioskApp.Search
                 Breadcrumbs = orderedBreadcrumbs.ToArray();
                 // show children (calculate children by registered categories, ProductCategory.Children can't be used since tree is modified by special categories)
                 Categories = _allCategories.Values
-                    .Where(x => x.ParentCategoryId == category.Id)
+                    .Where(x => x.ParentCategoryId == category.Id && x.Id != category.Id.Replace("GROUP_",""))
                     .ToArray();
             }
         }

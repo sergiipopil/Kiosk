@@ -22,7 +22,7 @@
                 <toolkitControls:ImageEx Source="{x:Bind ManufacturerLogoUrl, Mode=OneTime}"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Center"
-                                         MaxWidth="52"
+                                         MaxWidth="88"
                                          MaxHeight="52"
                                          Stretch="Uniform" />
 

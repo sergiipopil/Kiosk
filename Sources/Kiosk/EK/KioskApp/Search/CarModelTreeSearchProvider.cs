@@ -35,7 +35,9 @@ namespace KioskApp.Search
         }
         public EventHandler<EkCarModel> OnModelSelected { get; set; }
 
-        private async void InitModelTree(EkCarTypeEnum? carType, string modelId)
+        
+
+        public async void InitModelTree(EkCarTypeEnum? carType, string modelId)
         {
             Assure.CheckFlowState(carType != null || modelId != null, $"Either {nameof(carType)} or {nameof(modelId)} should not be null.");
 

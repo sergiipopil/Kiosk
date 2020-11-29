@@ -50,10 +50,7 @@ namespace KioskApp.Ek.Catalog.Categories
         {
             set
             {
-                if (value)
-                {
-                    topBtnCategory.Style = Application.Current.Resources["ActiveTopCategoryButtonStyle"] as Style;
-                }
+                topBtnCategory.Style = Application.Current.Resources[value ? "ActiveTopCategoryButtonStyle" : "TopCategoryButtonStyle"] as Style;                
             }
         }
 

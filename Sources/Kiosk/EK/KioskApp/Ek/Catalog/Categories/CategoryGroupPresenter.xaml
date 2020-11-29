@@ -8,57 +8,33 @@
              d:DesignHeight="300"
              d:DesignWidth="400">
 
-    <Grid>
-        <toolkitControls:DropShadowPanel Style="{StaticResource CategoryPresenterShadowStyle}"
-                                         Margin="0 0 5 5">
-            <Grid Background="White" />
-        </toolkitControls:DropShadowPanel>
-        <toolkitControls:DropShadowPanel Style="{StaticResource CategoryPresenterShadowStyle}"
-                                         Margin="5 5 0 0">
-            <Button Style="{StaticResource CategoryButtonBaseStyle}"
-                    Click="CategoryButton_OnClick">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="22" />
-                    </Grid.ColumnDefinitions>
+    <toolkitControls:DropShadowPanel Style="{StaticResource CategoryPresenterShadowStyle}">
+        <Button Style="{StaticResource CategoryButtonBaseStyle}"
+                Width="202"
+                Height="168"
+                Click="CategoryButton_OnClick">
+            <Grid Padding="5 5 5 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="103" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
 
-                    <TextBlock Text="{x:Bind Category.Name, Mode=OneWay}"
+                <toolkitControls:ImageEx Source="{x:Bind Category.CategoryUrl, Mode=OneWay}"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         MaxWidth="190"
+                                         MaxHeight="100"
+                                         Stretch="Uniform" />
+
+                <TextBlock Grid.Row="1" Text="{x:Bind Category.Name, Mode=OneWay}"
                                TextWrapping="WrapWholeWords"
-                               VerticalAlignment="Center"
-                               Margin="24 10 10 10" />
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           TextAlignment="Center"
+                           FontSize="16"/>
 
-                    <StackPanel Grid.Column="1"
-                                Orientation="Horizontal"
-                                Visibility="{x:Bind ShowExpandLabel, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock Text="развернуть"
-                                   FontSize="14"
-                                   Foreground="#383f90"
-                                   VerticalAlignment="Center"
-                                   Margin="0 0 0 2" />
-                        <Image Source="/Themes/Assets/Images/Catalog/Categories/CategoryExpandIcon.png"
-                               Stretch="None"
-                               VerticalAlignment="Center"
-                               Margin="10 0 0 0" />
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="1"
-                                Orientation="Horizontal"
-                                Visibility="{x:Bind ShowChangeLabel, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <TextBlock Text="изменить"
-                                   FontSize="14"
-                                   Foreground="#533c83"
-                                   VerticalAlignment="Center"
-                                   Margin="0 0 0 2" />
-                        <Image Source="/Themes/Assets/Images/Catalog/Categories/CategoryChangeIcon.png"
-                               Stretch="None"
-                               VerticalAlignment="Center"
-                               Margin="10 0 0 0" />
-                    </StackPanel>
-                </Grid>
-            </Button>
-        </toolkitControls:DropShadowPanel>
-    </Grid>
+            </Grid>
+        </Button>
+    </toolkitControls:DropShadowPanel>
 
 </UserControl>

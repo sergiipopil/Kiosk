@@ -19,7 +19,15 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
         private void TopCategoryPresenter_OnClick(object sender, EventArgs e)
         {
             var categoryId = ((TopCategoryPresenter)sender).Tag as string;
-            
+
+            categoryAutoParts.IsActive = false;
+            categoryTruckModels.IsActive = false;
+            categoryBusModels.IsActive = false;
+            categorySpecialCar.IsActive = false;
+            categoryDisks.IsActive = false;
+            categorySTO.IsActive = false;
+
+            ((TopCategoryPresenter)sender).IsActive = true;
             if (categoryId == null)
             {
                 return;
@@ -27,6 +35,8 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
 
             OnTopCategorySelected(categoryId);
         }
+
+        
 
         public event EventHandler<string> TopCategorySelected;
 

@@ -8,28 +8,29 @@
              d:DesignHeight="115"
              d:DesignWidth="142">
 
-    <toolkitControls:DropShadowPanel Color="#181ba2" MaxHeight="115" MaxWidth="142"
+    <toolkitControls:DropShadowPanel Color="#181ba2" MaxHeight="115" MaxWidth="113"
                                      BlurRadius="10"
                                      ShadowOpacity="0.15">
-        <Button Style="{StaticResource TopCategoryButtonStyle}" MaxHeight="115" MaxWidth="142" Name="topBtnCategory"
+        <Button Style="{StaticResource TopCategoryButtonStyle}" MaxHeight="115" MaxWidth="113" Name="topBtnCategory"
                 Click="ButtonBase_OnClick">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
                     <RowDefinition Height="60" />
+                    <RowDefinition Height="55" />
                 </Grid.RowDefinitions>
 
                 <Image Source="{x:Bind Icon, Mode=OneWay}"
-                       Stretch="None"
-                       Margin="0 5 0 0"
+                       Stretch="Uniform"
+                       MaxWidth="100"
+                       Margin="0 10 0 0"                       
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center" />
 
                 <TextBlock Grid.Row="1" Name="txtTop"
                            Text="{x:Bind Title, Mode=OneWay}"
-                           VerticalAlignment="Center" FontSize="16"
+                           VerticalAlignment="Center" FontSize="14"
                            HorizontalAlignment="Center"
-                           Margin="5 0 5 0"
+                           Margin="2 0 2 0"
                            TextWrapping="WrapWholeWords"
                            TextAlignment="Center" />
 

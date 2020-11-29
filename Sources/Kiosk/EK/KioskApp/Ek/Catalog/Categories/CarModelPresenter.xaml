@@ -10,20 +10,20 @@
 
     <toolkitControls:DropShadowPanel Style="{StaticResource CategoryPresenterShadowStyle}">
         <Button Style="{StaticResource CategoryButtonBaseStyle}"
-                Width="122"
-                Height="90"
+                Width="142"
+                Height="110"
                 Click="CategoryButton_OnClick">
             <Grid Padding="5 5 5 0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="57" />
+                    <RowDefinition Height="77" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
                 <toolkitControls:ImageEx Source="{x:Bind CarModelLogoUrl, Mode=OneWay}"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="center"
-                                         MaxWidth="120"
-                                         MaxHeight="55"
+                                         MaxWidth="140"
+                                         MaxHeight="85"
                                          Stretch="Uniform" />
 
                 <TextBlock Grid.Row="1"
