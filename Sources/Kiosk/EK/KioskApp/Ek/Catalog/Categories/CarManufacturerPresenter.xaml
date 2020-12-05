@@ -5,25 +5,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              mc:Ignorable="d"
-             d:DesignHeight="300"
-             d:DesignWidth="400">
+             d:DesignHeight="87"
+             d:DesignWidth="117">
 
     <toolkitControls:DropShadowPanel Style="{StaticResource CategoryPresenterShadowStyle}">
         <Button Style="{StaticResource CategoryButtonBaseStyle}"
-                Width="102"
-                Height="72"
+                Width="117"
+                Height="87"
                 Click="CategoryButton_OnClick">
             <Grid Padding="10 10 10 0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="54" />
+                    <RowDefinition Height="64" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
                 <toolkitControls:ImageEx Source="{x:Bind ManufacturerLogoUrl, Mode=OneTime}"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Center"
-                                         MaxWidth="88"
-                                         MaxHeight="52"
+                                         MaxWidth="103"
+                                         MaxHeight="87"
                                          Stretch="Uniform" />
 
                 <!--<TextBlock Grid.Row="1"

@@ -295,7 +295,7 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
 
         private void SetSelectCategoryViews(string initialCategoryId)
         {
-            if ((initialCategoryId == "621" || initialCategoryId == "620" || initialCategoryId == "622") && _modelId==0)
+            if ((initialCategoryId == "621" || initialCategoryId == "620" || initialCategoryId == "622" || initialCategoryId == "99022" || initialCategoryId == "156") && _modelId==0)
             {
                 SetSelectManufacturerViews(initialCategoryId);
                     return;

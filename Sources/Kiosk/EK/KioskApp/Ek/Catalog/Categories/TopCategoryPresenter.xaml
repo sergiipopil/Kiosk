@@ -8,10 +8,10 @@
              d:DesignHeight="115"
              d:DesignWidth="142">
 
-    <toolkitControls:DropShadowPanel Color="#181ba2" MaxHeight="115" MaxWidth="113"
+    <toolkitControls:DropShadowPanel Color="#181ba2" MaxHeight="115" MaxWidth="148"
                                      BlurRadius="10"
                                      ShadowOpacity="0.15">
-        <Button Style="{StaticResource TopCategoryButtonStyle}" MaxHeight="115" MaxWidth="113" Name="topBtnCategory"
+        <Button Style="{StaticResource TopCategoryButtonStyle}" MaxHeight="115" MaxWidth="148" Name="topBtnCategory"
                 Click="ButtonBase_OnClick">
             <Grid>
                 <Grid.RowDefinitions>
@@ -21,7 +21,7 @@
 
                 <Image Source="{x:Bind Icon, Mode=OneWay}"
                        Stretch="Uniform"
-                       MaxWidth="100"
+                       MaxWidth="135"
                        Margin="0 10 0 0"                       
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center" />

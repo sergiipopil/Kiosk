@@ -5,9 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              d:DesignHeight="65"
-             d:DesignWidth="552">
+             d:DesignWidth="350">
 
-    <Grid Width="552"
+    <Grid Width="350"
           Height="65">
         <!--shadow is done by image since DropShadowPanel doesn't work well with transparent objects-->
         <Image Source="/Themes/Assets/Images/Catalog/Categories/SelectedCategoryValueShadow.png"

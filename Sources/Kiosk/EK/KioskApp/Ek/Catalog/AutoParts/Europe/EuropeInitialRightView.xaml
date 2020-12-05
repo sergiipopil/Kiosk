@@ -32,7 +32,7 @@
                                        VerticalAlignment="Top"
                                        HorizontalSpacing="6">
 
-                <categories:TopCategoryPresenter Title="Легковие микроавтобусы" x:Name="categoryAutoParts" IsActive="True"
+                <categories:TopCategoryPresenter Title="Легковые и микроавтобусы" x:Name="categoryAutoParts" IsActive="True"
                                                  Icon="/Themes/Assets/Images/Catalog/Categories/New/Europe_CarTruckParts.png"
                                                  Click="TopCategoryPresenter_OnClick"
                                                  Tag="620"/>
