@@ -30,16 +30,22 @@ namespace KioskApp.Search
                         // only modifications request fail is possible
                         UpdateModifications();
                     });
-
-            InitModelTree(carType, modelId);
+            string manufacturerId = null;
+            if (!String.IsNullOrEmpty(modelId) && modelId!="0")
+            {
+                var model = EkSettingsHelper.GetModelAndNameByModelId(modelId);
+                carType = model.CarType;
+                manufacturerId = model.ManufacturerId.ToString();
+            }
+            InitModelTree(carType, manufacturerId, null);            
         }
         public EventHandler<EkCarModel> OnModelSelected { get; set; }
 
         
 
-        public async void InitModelTree(EkCarTypeEnum? carType, string modelId)
+        public async void InitModelTree(EkCarTypeEnum? carType, string manufacturerId, string modelId)
         {
-            Assure.CheckFlowState(carType != null || modelId != null, $"Either {nameof(carType)} or {nameof(modelId)} should not be null.");
+            //Assure.CheckFlowState(carType != null || modelId != null, $"Either {nameof(carType)} or {nameof(modelId)} should not be null.");
 
             // free UI thread
             await ThreadHelper.RunInBackgroundThreadAsync(() =>
@@ -81,6 +87,10 @@ namespace KioskApp.Search
                     if (modelId != null)
                     {
                         selectedCategory = _allModels.GetValueOrDefault(modelId);
+                    } 
+                    else if (manufacturerId != null)
+                    {
+                        selectedCategory = _allManufacturers.GetValueOrDefault(carType + "_" + manufacturerId);
                     }
                     else if (carType != null)
                     {
@@ -187,7 +197,7 @@ namespace KioskApp.Search
                     SelectCategory(_allManufacturers.GetValueOrDefault(category.ParentCategoryId));
                     return;
             }
-        }
+        }        
 
         public void SelectCategory(Category category)
         {
@@ -195,6 +205,8 @@ namespace KioskApp.Search
             {
                 return;
             }
+
+            
 
             lock (_stateLocker)
             {
@@ -212,8 +224,8 @@ namespace KioskApp.Search
                             .Where(x => x.ParentCategoryId == category.Id)
                             .ToArray();
                         break;
-                    case CategoryTypeEnum.CarManufacturer:
-                        SearchTitle = "ВЫБЕРИТЕ МОДЕЛЬ";
+                    case CategoryTypeEnum.CarManufacturer:                        
+                        SearchTitle = "ВЫБЕРИТЕ МОДЕЛЬ " + category.Name;
                         //add categoryName for model pics
                         SearchState = SearchStateEnum.Results;
                          Categories = category.CarManufacturer?.CarModels
@@ -402,6 +414,7 @@ namespace KioskApp.Search
         }
 
         private readonly Action _onBackToRoot;
+        private readonly Action _onBackToManufacturers;
 
         private void OnBackToRoot()
         {

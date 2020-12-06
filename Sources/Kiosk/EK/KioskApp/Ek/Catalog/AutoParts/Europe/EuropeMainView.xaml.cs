@@ -182,7 +182,7 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
         string _selectedMainCategoryId;
         private void SetInitialViews()
         {           
-            _modelId = 0;
+           
             ShowCarsControl = true;
             IsLeftSidePanelWidthExtended = true;
             ShowSearchByAnotherTypeMenu = false;
@@ -206,10 +206,12 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
             RightView = initialRightView;
 
             
-            var carModelTreeSearchProvider = new CarModelTreeSearchProvider(EkCarTypeEnum.Car, null, SetInitialViews)
+            var carModelTreeSearchProvider = new CarModelTreeSearchProvider(EkCarTypeEnum.Car, _modelId.ToString(), SetInitialViews)
             {
                 OnModelSelected = (sender, model) => { _modelId = model.Id; SetSelectCategoryViews("620"); }
             };
+
+            _modelId = 0;
 
             carProvider = carModelTreeSearchProvider;
             RightBottomView = new CategorySearchRightView()
@@ -243,7 +245,7 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
                     break;
                 default: break;
             }
-            carProvider.InitModelTree(typeTransport, null);
+            carProvider.InitModelTree(typeTransport, null, null);
         }
 
 

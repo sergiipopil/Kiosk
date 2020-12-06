@@ -24,7 +24,15 @@ namespace KioskApp.Search
         {
             _onBackToRoot = onBackToRoot;
             SearchTitle = "Выберите группу";
+
+
+
             _modelId = modelId;
+
+            if (_modelId!=0)
+            {
+                SearchTitle += EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString());
+            }
             RetryOnErrorCommand = new RelayCommand(
                 nameof(RetryOnErrorCommand),
                 parameter =>
