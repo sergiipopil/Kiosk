@@ -256,7 +256,7 @@ namespace KioskBrains.Clients.AllegroPl
             }
         }
 
-        private async Task<IDictionary<string,string>> GetForTranslateDictionary(IDictionary<string,string> dict, CancellationToken cancellationToken)
+        private async Task<IDictionary<string,string>> GetForTranslateDictionary(ITranslateService translateService, IDictionary<string,string> dict, CancellationToken cancellationToken)
         {             
             if (!_settings.IsTranslationEnabled)
             {
@@ -266,6 +266,23 @@ namespace KioskBrains.Clients.AllegroPl
             var translatedTexts = dict.Select(x => x.Key).ToList();
 
             var forYandex = _valuesToTranslate.Where(x => !translatedTexts.Contains(x.ToLower())).ToArray();
+
+
+            /*if (forYandex.Any())
+            {
+                var nameTerms = await translateService.GetNamesDictionary();
+                var j = 0;
+                foreach (var name in forYandex)
+                {
+                    foreach (var t in nameTerms)
+                    {
+                        if (!String.IsNullOrEmpty(t.Key))
+                            forYandex[j] = name.Replace(t.Key, t.Value);
+                    }
+                    j++;
+                }
+            }*/
+
             var yandexTranslated = await _yandexTranslateClient.TranslateAsync(forYandex, Languages.PolishCode.ToLower(), Languages.RussianCode.ToLower(), cancellationToken);
 
 
@@ -282,19 +299,33 @@ namespace KioskBrains.Clients.AllegroPl
             return yandexDict;
         }
 
+        private async Task<IDictionary<string, string>> GetWoTranslateDictionary(IDictionary<string, string> dict, CancellationToken cancellationToken)
+        {
+            if (!_settings.IsTranslationEnabled)
+            {
+                return new Dictionary<string, string>();
+            }
+
+            var translatedTexts = dict.Select(x => x.Key).ToList();
+
+            var forYandex = _valuesToTranslate.Where(x => !translatedTexts.Contains(x.ToLower())).ToArray();
+            
+            return forYandex.ToDictionary(x=>x,x=>x);
+        }
+
         public async Task ApplyTranslations(ITranslateService translateService, Offer[] offers, string sourceText, string destText, CancellationToken cancellationToken)
         {
             try
             {
                 var dict = await translateService.GetDictionary(_valuesToTranslate);
-                var yandexDict = await GetForTranslateDictionary(dict, cancellationToken);
+                var yandexDict = await GetForTranslateDictionary(translateService, dict, cancellationToken);
                 try
                 {
                     await translateService.AddRecords(yandexDict, Languages.PolishCode, Languages.RussianCode, Guid.NewGuid());
                 }
                 catch
                 {
-
+                    _logger.LogError("Error translate");
                 }
 
                 foreach (var o in offers)
@@ -311,7 +342,10 @@ namespace KioskBrains.Clients.AllegroPl
         private async Task ApplyTranslationsExtraData(ITranslateService translateService, OfferExtraData data, CancellationToken cancellationToken)
         {
             var dict = await translateService.GetDictionary(_valuesToTranslate);
-            var yandexDict = await GetForTranslateDictionary(dict, cancellationToken);
+            var yandexDict = await GetWoTranslateDictionary(dict, cancellationToken);
+            
+            
+
             try
             {
                 //await translateService.AddRecords(yandexDict, Languages.PolishCode, Languages.RussianCode, Guid.NewGuid());
@@ -364,7 +398,7 @@ namespace KioskBrains.Clients.AllegroPl
 
             data.Description[Languages.RussianCode] = String.Join('\n', descArr);*/
             var desc = data.Description[Languages.PolishCode].ToLower();
-            var allParams = await translateService.GetParamsDictionary();
+            var allParams = await translateService.GetDescriptionDictionary();
             
             foreach (var p in allParams)
             {

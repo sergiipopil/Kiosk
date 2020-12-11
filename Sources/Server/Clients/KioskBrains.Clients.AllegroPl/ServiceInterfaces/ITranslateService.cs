@@ -12,5 +12,8 @@ namespace KioskBrains.Clients.AllegroPl.ServiceInterfaces
         Task AddRecords(IDictionary<string, string> texts,  string fromCode, string toCode, Guid createdById);
         Task <IDictionary<string, string>> GetDictionary(IEnumerable<string> values);
         Task<IDictionary<string, string>> GetParamsDictionary();
+
+        Task<IDictionary<string, string>> GetDescriptionDictionary();
+        Task<IDictionary<string, string>> GetNamesDictionary();
     }
 }
