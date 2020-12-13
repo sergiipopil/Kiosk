@@ -11,6 +11,8 @@
         public int ManufacturerId { get; set; }
         public string ManufacturerName { get; set; }
 
+        public EkCarTypeEnum CarType { get; set; }
+
         public override string ToString()
         {
             return $"{Name} ({TecDocType} {Id})";

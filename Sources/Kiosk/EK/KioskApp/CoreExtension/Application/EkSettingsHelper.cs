@@ -62,6 +62,17 @@ namespace KioskApp.CoreExtension.Application
             return "";
         }
 
+        public static string GetModelManufacturerIdByModelId(string modelId)
+        {
+            var model = GetModelAndNameByModelId(modelId);
+            if (model != null)
+                if (!string.IsNullOrEmpty(modelId) && modelId != "0")
+                {
+                    return $"{model.ManufacturerId}";
+                }
+            return "";
+        }
+
         public static EkCarModel GetModelAndNameByModelId(string modelId)
         {
             var tree = GetCarModelTree();
@@ -73,7 +84,7 @@ namespace KioskApp.CoreExtension.Application
                         {
                             if (model.Id.ToString() == modelId)
                             {
-                                return new EkCarModel() { Id = model.Id, ManufacturerId = manufacturer.Id, Name = model.Name, ManufacturerName = manufacturer.Name};
+                                return new EkCarModel() { Id = model.Id, CarType = g.CarType, ManufacturerId = manufacturer.Id, Name = model.Name, ManufacturerName = manufacturer.Name};
                             }
                         }
 
