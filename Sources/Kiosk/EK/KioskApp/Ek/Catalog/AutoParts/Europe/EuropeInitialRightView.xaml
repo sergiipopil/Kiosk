@@ -17,12 +17,12 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="0 10 0 0">
-            <TextBlock Foreground="#3b328d"
-                       FontFamily="{StaticResource PlayFontFamily}"
+            <TextBlock FontFamily="{StaticResource PlayFontFamily}"
                        FontSize="30"
+                       Foreground="#F97008"
+                       FontWeight="Bold"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center">
-                <Run Text="Выберите раздел" />
+                       HorizontalAlignment="Center" Text="ВЫБЕРИТЕ РАЗДЕЛ">
             </TextBlock>
         </Grid>
 

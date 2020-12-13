@@ -225,7 +225,7 @@ namespace KioskApp.Search
                             .ToArray();
                         break;
                     case CategoryTypeEnum.CarManufacturer:                        
-                        SearchTitle = "ВЫБЕРИТЕ МОДЕЛЬ " + category.Name;
+                        SearchTitle = "ВЫБЕРИТЕ МОДЕЛЬ";
                         //add categoryName for model pics
                         SearchState = SearchStateEnum.Results;
                          Categories = category.CarManufacturer?.CarModels

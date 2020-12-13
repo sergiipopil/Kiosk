@@ -23,16 +23,16 @@ namespace KioskApp.Search
             Action onBackToRoot)
         {
             _onBackToRoot = onBackToRoot;
-            SearchTitle = "Выберите группу";
+            SearchTitle = "ВЫБЕРЕТЕ ГРУППУ";
 
 
 
             _modelId = modelId;
 
-            if (_modelId!=0)
+            /*if (_modelId!=0)
             {
                 SearchTitle += EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString());
-            }
+            }*/
             RetryOnErrorCommand = new RelayCommand(
                 nameof(RetryOnErrorCommand),
                 parameter =>

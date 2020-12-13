@@ -35,7 +35,7 @@
                 <Run Text="по" />
                 <Run Text="номеру"
                      FontFamily="{StaticResource PlayBoldFontFamily}"
-                     Foreground="#feb31d" />
+                     Foreground="#F97008" />
             </TextBlock>
         </Grid>
 

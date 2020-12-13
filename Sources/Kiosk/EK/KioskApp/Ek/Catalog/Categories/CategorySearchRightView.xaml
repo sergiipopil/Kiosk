@@ -22,7 +22,8 @@
             <Grid>               
                     <controls:RightContentHeaderBackButton Click="BackButton_OnClick" x:Name="BackButton" Width="100" HorizontalAlignment="Left" />
                 <TextBlock Text="{x:Bind SearchProvider.SearchTitle, Mode=OneWay}" Width="auto" HorizontalAlignment="Center"
-                           Style="{StaticResource RightContentHeaderStyle}" />
+                           FontFamily="{StaticResource PlayFontFamily}" FontSize="30"
+                       VerticalAlignment="Center" Foreground="#F97008" FontWeight="Bold" />
             </Grid>
         </controls:RightContentHeaderPanel>
 

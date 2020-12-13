@@ -56,7 +56,7 @@
 
             <TextBlock Style="{StaticResource CheckoutCallToActionStyle}"
                        Margin="0 42 0 0">
-                <Run Text="Введите Ваши" />
+                <Run Text="Введите" />
                 <Run Text="имя и фамилию"
                      FontFamily="{StaticResource PlayBoldFontFamily}" />
             </TextBlock>
