@@ -15,19 +15,18 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
         {
             IsCategorySelected = isCategorySelected;
 
-            if (isCategorySelected)
-            {
-                KeyboardLayoutProvider = new SearchByNameKeyboardLayoutProvider()
-                    {
-                        ShowConfirmCommand = true,
-                    };
-            }
-            else
+            if (!isCategorySelected)
             {
                 KeyboardLayoutProvider = new SearchByPartNumberKeyboardLayoutProvider();
             }
+            
 
             InitializeComponent();
+            if (isCategorySelected)
+            {
+                searchAndKeybord.Visibility = Visibility.Collapsed;
+                return;
+            }
         }
 
         #region SearchProvider

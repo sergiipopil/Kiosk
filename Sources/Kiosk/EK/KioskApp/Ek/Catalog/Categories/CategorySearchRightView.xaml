@@ -55,7 +55,7 @@
                     <categories:CategoryGroupPresenter Category="{x:Bind}"
                                                        Click="Category_OnClick"
                                                        Tag="{x:Bind}"
-                                                       Margin="5 0 5 10" />
+                                                       Margin="25 0 5 10" />
                 </DataTemplate>
 
                 <DataTemplate x:Key="ProductCategoryLeafDataTemplate"
@@ -64,7 +64,7 @@
                                                              Click="Category_OnClick"
                                                              Tag="{x:Bind}"
                                                              Width="837"
-                                                             Margin="0 0 0 15" />
+                                                             Margin="0 0 0 115" />
                 </DataTemplate>
 
                 <DataTemplate x:Key="CarManufacturerDataTemplate"

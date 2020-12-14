@@ -10,7 +10,7 @@
              d:DesignWidth="400"
              Loaded="EuropeSearchLeftView_OnLoaded"
              Unloaded="EuropeSearchLeftView_OnUnloaded">
-    <Grid>
+    <Grid x:Name="searchAndKeybord">
         <filters:SearchInput SearchProvider="{x:Bind SearchProvider, Mode=OneWay}"
                              KeyboardLayoutProvider="{x:Bind KeyboardLayoutProvider, Mode=OneTime}"
                              Instruction="{x:Bind SearchInputInstruction, Mode=OneWay}"

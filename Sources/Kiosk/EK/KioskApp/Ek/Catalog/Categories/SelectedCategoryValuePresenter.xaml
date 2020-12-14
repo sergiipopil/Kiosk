@@ -5,9 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              d:DesignHeight="65"
-             d:DesignWidth="350">
+             d:DesignWidth="550">
 
-    <Grid Width="350"
+    <Grid Width="550"
           Height="65">
         <!--shadow is done by image since DropShadowPanel doesn't work well with transparent objects-->
         <Image Source="/Themes/Assets/Images/Catalog/Categories/SelectedCategoryValueShadow.png"
@@ -31,9 +31,9 @@
                         <TextBlock Text="{x:Bind Value.Name1, Mode=OneWay}"
                                    Foreground="#b7b2e8"
                                    Margin="0 -1 0 2"
-                                   TextTrimming="CharacterEllipsis" />
+                                    />
                         <TextBlock Text="{x:Bind Value.Name2, Mode=OneWay}"
-                                   TextTrimming="CharacterEllipsis" />
+                                    />
                     </StackPanel>
 
                     <Image Grid.Column="1"
@@ -45,7 +45,7 @@
                 <!--empty value-->
                 <TextBlock Text="{x:Bind Placeholder, Mode=OneWay}"
                            VerticalAlignment="Center"
-                           Visibility="{x:Bind Value, Mode=OneWay, Converter={StaticResource IsNullToVisibilityConverter}}" />
+                           Visibility="Collapsed" />
 
             </Grid>
         </Button>

@@ -4,6 +4,7 @@ using Windows.Globalization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using KioskApp.Ek.Catalog.Categories;
+using KioskApp.CoreExtension.Application;
 using KioskApp.Search;
 using KioskBrains.Kiosk.Core.Languages;
 using KioskBrains.Kiosk.Helpers.Threads;
@@ -315,6 +316,11 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
             ShowSearchByAnotherTypeMenu = true;
             ShowCategorySelection = true;
             ShowOnlySearchByAnotherTypeMenuItems(SearchTypeEnum.ByName, SearchTypeEnum.ByCategory);
+            SelectedCategory = new SelectedCategoryValue()
+            {
+                Name1 = EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString()),
+                Id = _modelId.ToString()
+            };
             var categorySearchInEuropeProvider = new CategorySearchInEuropeProvider(initialCategoryId, _modelId, SetInitialViews);
             categorySearchInEuropeProvider.CategorySelected += (sender, selectedCategory) =>
                 {

@@ -29,7 +29,7 @@
                        HorizontalAlignment="Left"
                        FontFamily="{StaticResource PlayFontFamily}"
                        FontSize="60"
-                       Margin="0 37 0 0">
+                       Margin="40 37 0 0">
                 <Run Text="Найдите деталь" />
                 <LineBreak />
                 <Run Text="по" />
@@ -43,7 +43,7 @@
             <StackPanel.Resources>
                 <Style TargetType="catalog:SearchFilterPlaceholder">
                     <Setter Property="Margin"
-                            Value="2 0 88 30" />
+                            Value="40 0 88 30" />
                 </Style>
             </StackPanel.Resources>
             <catalog:SearchFilterPlaceholder PlaceholderText1="Найти по"

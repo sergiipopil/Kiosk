@@ -33,6 +33,7 @@ namespace KioskApp.Search
             {
                 SearchTitle += EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString());
             }*/
+
             RetryOnErrorCommand = new RelayCommand(
                 nameof(RetryOnErrorCommand),
                 parameter =>
@@ -230,7 +231,7 @@ namespace KioskApp.Search
                 SelectCategory(parentCategory);
             }
         }
-
+        public event EventHandler<SelectedCategoryValue> CategorySelected;
         public void SelectCategory(Category category)
         {
             lock (_stateLocker)
@@ -256,12 +257,13 @@ namespace KioskApp.Search
                     .ToList();
 
                 // check if leaf
+                
                 if (!category.IsGroup)
                 {
                     // leaf
                     OnCategorySelected(new SelectedCategoryValue()
                         {
-                            Name1 = string.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)),
+                            Name1 = EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString()) + string.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)),
                             Name2 = category.Name,
                             Id = category.Id,
                         });
@@ -303,7 +305,7 @@ namespace KioskApp.Search
             }
         }
 
-        public event EventHandler<SelectedCategoryValue> CategorySelected;
+        
 
         protected virtual void OnCategorySelected(SelectedCategoryValue eventArgs)
         {

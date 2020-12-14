@@ -6,7 +6,7 @@
              xmlns:filters="using:KioskApp.Ek.Filters"
              xmlns:controls="using:KioskApp.Controls"
              mc:Ignorable="d"
-             d:DesignHeight="40"
+             d:DesignHeight="60"
              d:DesignWidth="400">
 
     <StackPanel Orientation="Horizontal">

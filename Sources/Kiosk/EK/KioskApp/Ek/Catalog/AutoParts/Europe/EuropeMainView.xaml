@@ -36,9 +36,9 @@
             <autoParts:SearchByAnotherTypeMenu Grid.Row="1"
                                                Margin="0 17 0 0"
                                                Items="{x:Bind SearchByAnotherTypeMenuItems}"
-                                               Visibility="{x:Bind ShowSearchByAnotherTypeMenu, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                               Visibility="Collapsed"
                                                SearchByAnotherTypeSelected="SearchByAnotherTypeMenu_OnSearchByAnotherTypeSelected" />
-
+            <!--Left control of Breadcumps and select category-->
             <categories:SelectedCategoryValuePresenter Grid.Row="2"
                                                        Margin="0 44 0 0"
                                                        HorizontalAlignment="Left"

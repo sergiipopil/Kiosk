@@ -84,7 +84,7 @@
                         </ItemsControl>
                         <TextBlock Text="{x:Bind Instruction, Mode=OneWay}"
                                    FontFamily="{StaticResource UbuntuFontFamily}"
-                                   FontSize="32"
+                                   FontSize="24"
                                    Foreground="#6b7bd0"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
