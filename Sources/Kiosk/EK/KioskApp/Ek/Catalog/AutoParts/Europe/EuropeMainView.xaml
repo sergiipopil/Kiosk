@@ -23,7 +23,7 @@
         <!--content is outside panel to be able overflow right panel-->
         <Grid Grid.Column="0"
               Canvas.ZIndex="1"
-              Margin="85 0 0 0">
+              Margin="15 0 0 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />

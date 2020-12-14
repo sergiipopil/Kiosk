@@ -26,7 +26,7 @@
 
     <StackPanel>
 
-        <toolkitControls:DropShadowPanel Canvas.ZIndex="1">
+        <toolkitControls:DropShadowPanel Canvas.ZIndex="1" Width="450" Margin="70 0 0 180">
             <StackPanel>
 
                 <!--search input-->
@@ -84,9 +84,10 @@
                         </ItemsControl>
                         <TextBlock Text="{x:Bind Instruction, Mode=OneWay}"
                                    FontFamily="{StaticResource UbuntuFontFamily}"
-                                   FontSize="14"
+                                   FontSize="32"
                                    Foreground="#6b7bd0"
                                    VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
                                    Visibility="{x:Bind SearchProvider.AutocompleteOptions, Mode=OneWay, Converter={StaticResource IsNullToVisibilityConverter}}" />
                     </Grid>
                 </StackPanel>

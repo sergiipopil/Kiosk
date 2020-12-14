@@ -82,10 +82,8 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
         private void UpdateLabels()
         {
             ThreadHelper.EnsureUiThread();
-
-            SearchInputInstruction = IsCategorySelected
-                ? "Введите название автозапчасти и марку автомобиля или номер детали"
-                : "Введите номер детали";
+            //fix Sergii
+            SearchInputInstruction = "Введите номер детали";
         }
 
         private void OnLanguageChanged(object sender, Language e)

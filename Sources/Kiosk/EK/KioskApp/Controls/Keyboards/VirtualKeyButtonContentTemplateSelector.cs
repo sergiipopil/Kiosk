@@ -30,7 +30,10 @@ namespace KioskApp.Controls.Keyboards
                         case VirtualSpecialKeyTypeEnum.Backspace:
                             resourceKey = "VirtualBackspaceKeyButtonContentTemplate";
                             break;
-                        default:
+                            case VirtualSpecialKeyTypeEnum.LeftArrow:
+                                resourceKey = "VirtualLeftArrowKeyButtonContentTemplate";
+                                break;
+                            default:
                             resourceKey = "VirtualTextKeyButtonContentTemplate";
                             break;
                     }

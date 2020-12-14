@@ -55,6 +55,32 @@ namespace KioskBrains.Kiosk.Core.Ui.Controls
                 Text = currentText.Substring(0, currentText.Length - 1);
             }
         }
+        public virtual void ProcessLeftArrow()
+        {
+            var options = new FindNextElementOptions()
+            {
+                //SearchRoot = TicTacToeGrid,
+                XYFocusNavigationStrategyOverride = XYFocusNavigationStrategyOverride.Projection
+            };
+            DependencyObject candidate = null;
+            candidate = FocusManager.FindNextElement(
+                        FocusNavigationDirection.Left, options);
+            if (candidate != null && candidate is Control)
+            {
+                (candidate as Control).Focus(FocusState.Keyboard);
+            }
+            var currentText = Text;
+            
+        }
+        
+        public virtual void ProcessRightArrow()
+        {
+            var currentText = Text;
+            if (currentText?.Length > 0)
+            {
+                Text = currentText.Substring(0, currentText.Length - 1);
+            }
+        }
 
         #region RelatedKeyboard
 

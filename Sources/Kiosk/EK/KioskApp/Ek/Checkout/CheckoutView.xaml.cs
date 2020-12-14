@@ -20,6 +20,7 @@ namespace KioskApp.Ek.Checkout
     {
         public CheckoutView()
         {
+            
             WizardBackCommand = new RelayCommand(
                 nameof(WizardBackCommand),
                 x => OnWizardBackCommand());
@@ -46,7 +47,8 @@ namespace KioskApp.Ek.Checkout
             //return;
 #endif
 
-            GotoNextStep();
+            GotoNextStep();            
+            txtCartProducts.Text = string.Join("\n", EkContext.EkProcess.Cart.Products.Select(x => x.Product.Name));
         }
 
         public EkContext EkContext => EkContext.Current;

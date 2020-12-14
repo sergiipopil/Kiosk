@@ -18,8 +18,8 @@
                             Background="Transparent"
                             Foreground="#9fa4d4"
                             FontFamily="{StaticResource UbuntuFontFamily}"
-                            FontSize="24"
-                            Margin="0 0 0 27"
+                            FontSize="38"
+                            Margin="0 0 0 17"
                             Visibility="{x:Bind IsVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                             Click="MenuItem_OnClick">
                         <StackPanel Orientation="Horizontal">

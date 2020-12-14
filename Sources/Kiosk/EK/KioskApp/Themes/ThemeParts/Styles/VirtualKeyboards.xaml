@@ -102,6 +102,16 @@
                 Value="{StaticResource BlackKeyBrush}" />
     </Style>
 
+    <Style x:Key="VirtualLeftArrowKeyButtonStyle"
+           TargetType="Button"
+           BasedOn="{StaticResource VirtualKeyButtonStyle}">
+        <!--2*60 + 1*9-->
+        <Setter Property="Width"
+                Value="129" />
+        <Setter Property="Background"
+                Value="{StaticResource BlackKeyBrush}" />
+    </Style>
+
     <Style x:Key="VirtualSpaceKeyButtonStyle"
            TargetType="Button"
            BasedOn="{StaticResource VirtualKeyButtonStyle}">
@@ -162,6 +172,11 @@
     <virtualKeyboard:VirtualSpecialKeyToGlyphConverter x:Key="VirtualSpecialKeyToGlyphConverter" />
 
     <DataTemplate x:Key="VirtualBackspaceKeyButtonContentTemplate">
+        <Image Source="/Themes/Assets/Images/Keyboard/Backspace.png"
+               Stretch="None" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="VirtualLeftArrowKeyButtonContentTemplate">
         <Image Source="/Themes/Assets/Images/Keyboard/Backspace.png"
                Stretch="None" />
     </DataTemplate>

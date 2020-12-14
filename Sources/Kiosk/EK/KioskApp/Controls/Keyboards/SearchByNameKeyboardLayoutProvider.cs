@@ -40,6 +40,11 @@ namespace KioskApp.Controls.Keyboards
                     Type = VirtualKeyTypeEnum.Special,
                     SpecialKeyType = VirtualSpecialKeyTypeEnum.Backspace,
                 });
+            numbersRow.Add(new VirtualKey()
+            {
+                Type = VirtualKeyTypeEnum.Special,
+                SpecialKeyType = VirtualSpecialKeyTypeEnum.LeftArrow,
+            });
 
             // 2. letters
             IVirtualKeyboardLayoutProvider lettersLayoutProvider;

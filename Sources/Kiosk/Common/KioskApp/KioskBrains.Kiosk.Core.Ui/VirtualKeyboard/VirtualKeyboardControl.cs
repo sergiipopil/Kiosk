@@ -231,6 +231,14 @@ namespace KioskBrains.Kiosk.Core.Ui.VirtualKeyboard
                     Target.ProcessBackspace();
                     break;
 
+                case VirtualSpecialKeyTypeEnum.LeftArrow:
+                    Target.ProcessLeftArrow();
+                    break;
+
+                case VirtualSpecialKeyTypeEnum.RightArrow:
+                    Target.ProcessRightArrow();
+                    break;
+
                 default:
                     Log.Error(LogContextEnum.Ui, $"Keyboard special key '{specialKeyType}' is not supported.");
                     break;

@@ -96,6 +96,7 @@ namespace KioskApp.Ek.Catalog.Categories
                     BackButton.Visibility = Breadcrumbs.ToList().Count == 1 ? Visibility.Collapsed : Visibility.Visible;
                 }
             }
+            
         }
 
         private void BreadcrumbPresenter_OnClick(object sender, EventArgs e)

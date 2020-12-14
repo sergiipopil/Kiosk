@@ -19,10 +19,10 @@
         </Grid.RowDefinitions>
 
         <controls:RightContentHeaderPanel Height="51">           
-            <Grid>               
+            <Grid>
                     <controls:RightContentHeaderBackButton Click="BackButton_OnClick" x:Name="BackButton" Width="100" HorizontalAlignment="Left" />
                 <TextBlock Text="{x:Bind SearchProvider.SearchTitle, Mode=OneWay}" Width="auto" HorizontalAlignment="Center"
-                           FontFamily="{StaticResource PlayFontFamily}" FontSize="30"
+                           FontFamily="{StaticResource PlayFontFamily}" FontSize="30" TextTrimming="CharacterEllipsis"
                        VerticalAlignment="Center" Foreground="#F97008" FontWeight="Bold" />
             </Grid>
         </controls:RightContentHeaderPanel>
@@ -44,9 +44,10 @@
         </Grid>
 -->
         <!--categories-->
+        
         <Grid Grid.Row="2"
               Margin="17 32 0 10">
-
+           
             <!--templates-->
             <Grid.Resources>
                 <DataTemplate x:Key="ProductCategoryGroupDataTemplate"

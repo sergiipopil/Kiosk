@@ -5,5 +5,9 @@
         void AddText(string textAddition);
 
         void ProcessBackspace();
+
+        void ProcessLeftArrow();
+
+        void ProcessRightArrow();
     }
 }

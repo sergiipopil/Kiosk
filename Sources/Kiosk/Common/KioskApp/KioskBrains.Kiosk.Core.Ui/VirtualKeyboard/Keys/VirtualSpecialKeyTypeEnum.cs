@@ -3,6 +3,8 @@
     public enum VirtualSpecialKeyTypeEnum
     {
         Space,
-        Backspace,
+        Backspace, 
+        LeftArrow,
+        RightArrow
     }
 }

@@ -169,7 +169,7 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
         public SearchByAnotherTypeMenuItem[] SearchByAnotherTypeMenuItems { get; } = new[]
             {
                 new SearchByAnotherTypeMenuItem("SearchTypeLink_SearchByPartNumber", SearchTypeEnum.ByName),
-                new SearchByAnotherTypeMenuItem("SearchTypeLink_SearchByCategory", SearchTypeEnum.ByCategory),
+                //new SearchByAnotherTypeMenuItem("SearchTypeLink_SearchByCategory", SearchTypeEnum.ByCategory),
             };
 
         private void ShowOnlySearchByAnotherTypeMenuItems(params SearchTypeEnum[] searchTypes)
@@ -252,10 +252,10 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
         private void SetSearchByNameViews()
         {
             EkContext.Current.EkProcess?.OnViewChanged("Europe.SearchByName", false);
-
+            ShowCarsControl = false;
             IsLeftSidePanelWidthExtended = false;
             ShowSearchByAnotherTypeMenu = true;
-            ShowCategorySelection = SelectedCategory != null;
+            ShowCategorySelection = SelectedCategory != null;//fix show car control !!!ShowCarsControl   
             ShowOnlySearchByAnotherTypeMenuItems(SearchTypeEnum.ByName, SearchTypeEnum.ByCategory);
 
             if (SelectedCategory != null)
@@ -302,10 +302,13 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
                 SetSelectManufacturerViews(initialCategoryId);
                     return;
             }
+            {
+                ShowCarsControl = false;
+            }
 
 
                 EkContext.Current.EkProcess?.OnViewChanged("Europe.SelectCategory", false);
-            ShowCarsControl = false;
+            
             SelectedCategory = null;
             IsLeftSidePanelWidthExtended = false;
             _selectedMainCategoryId = initialCategoryId;
