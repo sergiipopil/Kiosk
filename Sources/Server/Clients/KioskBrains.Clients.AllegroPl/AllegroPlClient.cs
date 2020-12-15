@@ -268,32 +268,36 @@ namespace KioskBrains.Clients.AllegroPl
             var forYandex = _valuesToTranslate.Where(x => !translatedTexts.Contains(x.ToLower())).ToArray();
 
 
-            /*if (forYandex.Any())
+            var forYandexReplaced = forYandex.ToArray();
+
+            //var forYandexTranslate = new List<>
+
+            if (forYandex.Any())
             {
-                var nameTerms = await translateService.GetNamesDictionary();
+                var nameTerms = await translateService.GetDescriptionDictionary();
                 var j = 0;
                 foreach (var name in forYandex)
                 {
                     foreach (var t in nameTerms)
                     {
                         if (!String.IsNullOrEmpty(t.Key))
-                            forYandex[j] = name.Replace(t.Key, t.Value);
+                            forYandexReplaced[j] = forYandexReplaced[j].ToLower().Replace(t.Key, t.Value);
                     }
                     j++;
                 }
-            }*/
+            }
 
-            var yandexTranslated = await _yandexTranslateClient.TranslateAsync(forYandex, Languages.PolishCode.ToLower(), Languages.RussianCode.ToLower(), cancellationToken);
+            //var yandexTranslated = await _yandexTranslateClient.TranslateAsync(forYandexReplaced, Languages.PolishCode.ToLower(), Languages.RussianCode.ToLower(), cancellationToken);
 
 
             var yandexDict = new Dictionary<string, string>();
 
-            if (forYandex.Count() == yandexTranslated.Count())
+            if (forYandex.Count() == forYandexReplaced.Count())
                 for (var i = 0; i < forYandex.Count(); i++)
                 {
                     if (!yandexDict.ContainsKey(forYandex[i].ToLower()))
                     {
-                        yandexDict.Add(forYandex[i].ToLower(), yandexTranslated[i].ToLower());
+                        yandexDict.Add(forYandex[i].ToLower(), forYandexReplaced[i].ToLower());
                     }
                 }
             return yandexDict;
@@ -318,7 +322,7 @@ namespace KioskBrains.Clients.AllegroPl
             try
             {
                 var dict = await translateService.GetDictionary(_valuesToTranslate);
-                var yandexDict = await GetForTranslateDictionary(translateService, dict, cancellationToken);
+                var yandexDict = new Dictionary<string, string>();// await GetForTranslateDictionary(translateService, dict, cancellationToken);
                 try
                 {
                     await translateService.AddRecords(yandexDict, Languages.PolishCode, Languages.RussianCode, Guid.NewGuid());
@@ -398,15 +402,17 @@ namespace KioskBrains.Clients.AllegroPl
 
             data.Description[Languages.RussianCode] = String.Join('\n', descArr);*/
             var desc = data.Description[Languages.PolishCode].ToLower();
-            var allParams = await translateService.GetDescriptionDictionary();
+            /*var allParams = await translateService.GetDescriptionDictionary();
             
             foreach (var p in allParams)
             {
                 if (!String.IsNullOrEmpty(p.Key))
                     desc = desc.Replace(p.Key, p.Value);
-            }
+            }*/
 
-            data.Description[Languages.RussianCode] = desc;
+            var yandexTranslated = await _yandexTranslateClient.TranslateAsync(new string[] { desc }, Languages.PolishCode.ToLower(), Languages.RussianCode.ToLower(), cancellationToken);
+
+            data.Description[Languages.RussianCode] = yandexTranslated[0];
 
         }
 
