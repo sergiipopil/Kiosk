@@ -155,11 +155,15 @@ namespace KioskBrains.Clients.YandexTranslate
         private const int MaxTextLength = 10_000;
 
         public async Task<string[]> TranslateAsync(
-            string[] texts,
+            string[] texts, IDictionary<string,string> glossary,
             string fromLanguageCode,
             string toLanguageCode,
             CancellationToken cancellationToken)
         {
+            if (!glossary.Any())
+            {
+                glossary.Add("test", "test");
+            }
             await EnsureAuthSessionAsync(cancellationToken);
             if (texts == null
                 || texts.All(x => string.IsNullOrWhiteSpace(x)))
@@ -186,7 +190,7 @@ namespace KioskBrains.Clients.YandexTranslate
                     ["texts"] = JsonConvert.SerializeObject(texts)    
                 });*/
 
-                var str = $"{{ \"sourceLanguageCode\":\"{ fromLanguageCode.ToLower() }\", \"targetLanguageCode\": \"{toLanguageCode.ToLower()}\", \"format\": \"PLAIN_TEXT\", \"folderId\": \"b1gr992001hh7bimbr42\", \"texts\": {JsonConvert.SerializeObject(texts)} }}";
+                var str = $"{{ \"sourceLanguageCode\":\"{ fromLanguageCode.ToLower() }\", \"targetLanguageCode\": \"{toLanguageCode.ToLower()}\", \"format\": \"PLAIN_TEXT\", \"folderId\": \"b1gr992001hh7bimbr42\", \"texts\": {JsonConvert.SerializeObject(texts)}, \"glossaryConfig\": {{ \"glossaryData\": {{ \"glossaryPairs\": [{ JsonConvert.SerializeObject(glossary) }]  }}  }} }}";
                 var httpContent = new StringContent(str, Encoding.UTF8, "application/json");
 
                 using (var httpClient = new HttpClient())
