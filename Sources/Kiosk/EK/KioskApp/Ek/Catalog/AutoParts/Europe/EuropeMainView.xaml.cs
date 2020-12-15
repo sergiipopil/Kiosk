@@ -17,10 +17,10 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
     {
         public EuropeMainView()
         {
-           ShowCarsControl = true;
-           SearchTypeSelectedCommand = new RelayCommand(
-                nameof(SearchTypeSelectedCommand),
-                parameter => OnSearchTypeSelected(parameter as SearchTypeEnum?));
+            ShowCarsControl = true;
+            SearchTypeSelectedCommand = new RelayCommand(
+                 nameof(SearchTypeSelectedCommand),
+                 parameter => OnSearchTypeSelected(parameter as SearchTypeEnum?));
 
             SetInitialViewCommand = new RelayCommand(
                 nameof(SetInitialViewCommand),
@@ -183,16 +183,16 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
         string _selectedMainCategoryId;
         private string _selectedCarType;
         private void SetInitialViews()
-        {           
-           
+        {
+
             ShowCarsControl = true;
             IsLeftSidePanelWidthExtended = true;
             ShowSearchByAnotherTypeMenu = false;
             ShowCategorySelection = false;
             LeftView = new EuropeInitialLeftView()
-                {
-                    SearchTypeSelectedCommand = SearchTypeSelectedCommand,
-                };
+            {
+                SearchTypeSelectedCommand = SearchTypeSelectedCommand,
+            };
 
 
             //carModelTreeSearchProvider.CategorySelected += (sender, selectedCategory) =>
@@ -203,7 +203,8 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
             //};
             var carModelTreeSearchProvider = new CarModelTreeSearchProvider(EkCarTypeEnum.Car, _modelId.ToString(), SetInitialViews)
             {
-                OnModelSelected = (sender, model) => {
+                OnModelSelected = (sender, model) =>
+                {
                     _modelId = model.Id; _selectedCarType = model.CarType.ToString(); SetSelectCategoryViews(GetCategoryByCarType(model.CarType));
                     SelectedCategory = new SelectedCategoryValue()
                     {
@@ -221,18 +222,28 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
                     };
                     ShowCategorySelection = !string.IsNullOrEmpty(name.ManufacturerName);
                     if (!string.IsNullOrEmpty(name.ManufacturerName))
+                    {
                         LeftView = null;
+                    }
+                    else
+                    {
+                        LeftView = new EuropeInitialLeftView()
+                        {
+                            SearchTypeSelectedCommand = SearchTypeSelectedCommand,
+                        };
+                    }
+
                 })
             };
 
             var initialRightView = new EuropeInitialRightView();
-            if(SelectedCategory!=null)
+            if (SelectedCategory != null)
                 initialRightView.SetActiveGroup(_selectedCarType);
             initialRightView.TopCategorySelected += (sender, categoryId) => SetSelectCategoryViews(categoryId);
             RightView = initialRightView;
 
 
-            
+
 
             _modelId = 0;
 
@@ -272,22 +283,22 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
         }
 
         private string GetCategoryByCarType(EkCarTypeEnum type)
-        {            
+        {
             switch (type)
             {
                 case EkCarTypeEnum.Car:
-                    return "620";                    
-                case EkCarTypeEnum.Truck:                    
+                    return "620";
+                case EkCarTypeEnum.Truck:
                     return "620";
                 case EkCarTypeEnum.Bus:
                     return "620";
-                case EkCarTypeEnum.Moto:                    
+                case EkCarTypeEnum.Moto:
                     return "156";
                 case EkCarTypeEnum.Special:
-                    
+
                     return "99022";
                 default: return "620";
-            }           
+            }
         }
 
 
@@ -305,20 +316,20 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
                 SelectedCategory.ContextCarModelId = _modelId.ToString();
             }
             var productSearchInEuropeProvider = new ProductSearchInEuropeProvider()
-                {
-                    SelectedCategory = SelectedCategory,
-                };
+            {
+                SelectedCategory = SelectedCategory,
+            };
             LeftView = new EuropeSearchLeftView(SelectedCategory != null)
-                {
-                    SearchProvider = productSearchInEuropeProvider,
-                };
+            {
+                SearchProvider = productSearchInEuropeProvider,
+            };
             RightView = new EuropeSearchRightView()
-                {
-                    SearchProvider = productSearchInEuropeProvider,
-                    BackCommand = SelectedCategory == null
+            {
+                SearchProvider = productSearchInEuropeProvider,
+                BackCommand = SelectedCategory == null
                         ? SetInitialViewCommand
                         : BackToCategorySelectionCommand,
-                };
+            };
         }
 
         #region SelectedCategory
@@ -339,44 +350,44 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
 
         private void SetSelectCategoryViews(string initialCategoryId)
         {
-            if ((initialCategoryId == "621" || initialCategoryId == "620" || initialCategoryId == "622" || initialCategoryId == "99022" || initialCategoryId == "156") && _modelId==0)
+            if ((initialCategoryId == "621" || initialCategoryId == "620" || initialCategoryId == "622" || initialCategoryId == "99022" || initialCategoryId == "156") && _modelId == 0)
             {
                 SetSelectManufacturerViews(initialCategoryId);
-                    return;
+                return;
             }
             {
                 ShowCarsControl = false;
             }
 
 
-                EkContext.Current.EkProcess?.OnViewChanged("Europe.SelectCategory", false);
-            
+            EkContext.Current.EkProcess?.OnViewChanged("Europe.SelectCategory", false);
+
             //SelectedCategory = null;
             IsLeftSidePanelWidthExtended = false;
             _selectedMainCategoryId = initialCategoryId;
             ShowSearchByAnotherTypeMenu = true;
             ShowCategorySelection = true;
             ShowOnlySearchByAnotherTypeMenuItems(SearchTypeEnum.ByName, SearchTypeEnum.ByCategory);
-            
+
             var categorySearchInEuropeProvider = new CategorySearchInEuropeProvider(initialCategoryId, _modelId, SetInitialViews);
             categorySearchInEuropeProvider.CategorySelected += (sender, selectedCategory) =>
                 {
                     if (selectedCategory.Name2.Contains("Легковые и микроавтобусы"))
                     {
-                        selectedCategory.Name2 = selectedCategory.Name2.Replace("Легковые и микроавтобусы","");
+                        selectedCategory.Name2 = selectedCategory.Name2.Replace("Легковые и микроавтобусы", "");
                     }
-                    SelectedCategory = selectedCategory; 
+                    SelectedCategory = selectedCategory;
                     if (!selectedCategory.Id.Contains("GROUP_") && selectedCategory.Id != "621" && selectedCategory.Id != "620" && selectedCategory.Id != "622" && selectedCategory.Id != "99022" && selectedCategory.Id != "156")
                         SetSearchByNameViews();
                 };
             LeftView = null;
             //if (initialCategoryId != "628"&&initialCategoryId != "621" && initialCategoryId != "620" && initialCategoryId != "622") { 
             RightView = new CategorySearchRightView()
-                {
-                    SearchProvider = categorySearchInEuropeProvider,
-                };
-            
-           // }
+            {
+                SearchProvider = categorySearchInEuropeProvider,
+            };
+
+            // }
         }
 
         public ICommand SearchTypeSelectedCommand { get; }
