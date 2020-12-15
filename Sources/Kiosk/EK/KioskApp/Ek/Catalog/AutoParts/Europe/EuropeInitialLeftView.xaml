@@ -43,7 +43,7 @@
             <StackPanel.Resources>
                 <Style TargetType="catalog:SearchFilterPlaceholder">
                     <Setter Property="Margin"
-                            Value="40 0 88 30" />
+                            Value="2 0 88 30" />
                 </Style>
             </StackPanel.Resources>
             <catalog:SearchFilterPlaceholder PlaceholderText1="Найти по"
