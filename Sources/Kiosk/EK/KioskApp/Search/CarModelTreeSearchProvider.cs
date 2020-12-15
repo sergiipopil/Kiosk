@@ -41,7 +41,7 @@ namespace KioskApp.Search
             InitModelTree(carType, manufacturerId, null);            
         }
         public EventHandler<EkCarModel> OnModelSelected { get; set; }
-        public EventHandler<string> OnManufacturerSelected { get; set; }
+        public EventHandler<EkCarModel> OnManufacturerSelected { get; set; }
         private EkCarTypeEnum? _carType;
 
 
@@ -223,6 +223,8 @@ namespace KioskApp.Search
                         SearchTitle = "ВЫБЕРИТЕ МАРКУ АВТОМОБИЛЯ";
                         // it's more efficient to run through all values
                         SearchState = SearchStateEnum.Results;
+                        OnManufacturerSelected(this, new EkCarModel() { Path = String.Join(" - ", orderedBreadcrumbs.Select(x => x.Name), true)});
+                        
                         Categories = _allManufacturers.Values
                             .Where(x => x.ParentCategoryId == category.Id)
                             .ToArray();
@@ -235,7 +237,7 @@ namespace KioskApp.Search
                             ?.Select(x => _allModels.GetValueOrDefault(x.Id.ToString()))
                             .Where(x => x != null)
                             .ToArray();
-                        OnManufacturerSelected(this, String.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)) + " " +  category.CarManufacturer.Name);
+                        OnManufacturerSelected(this, new EkCarModel() { Path = String.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)), ManufacturerName = "Selected" });
                         break;
                     case CategoryTypeEnum.CarModel:
                         SearchTitle = "ВЫБЕРИТЕ МОДИФИКАЦИЮ";

@@ -181,6 +181,7 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
             }
         }
         string _selectedMainCategoryId;
+        private string _selectedCarType;
         private void SetInitialViews()
         {           
            
@@ -193,40 +194,45 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
                     SearchTypeSelectedCommand = SearchTypeSelectedCommand,
                 };
 
-            
+
             //carModelTreeSearchProvider.CategorySelected += (sender, selectedCategory) =>
             //{
             //    _searchByCategoryContext.SelectedModification = selectedCategory;
             //    _searchByCategoryContext.SelectedCategory = null;
             //    SetSelectCategoryViews(NavigationType.NewSearch);
             //};
-
-
-            var initialRightView = new EuropeInitialRightView();
-            initialRightView.TopCategorySelected += (sender, categoryId) => SetSelectCategoryViews(categoryId);
-            RightView = initialRightView;
-
-
             var carModelTreeSearchProvider = new CarModelTreeSearchProvider(EkCarTypeEnum.Car, _modelId.ToString(), SetInitialViews)
             {
-                OnModelSelected = (sender, model) => { _modelId = model.Id; SetSelectCategoryViews(GetCategoryByCarType(model.CarType)); 
-                SelectedCategory = new SelectedCategoryValue()
-                {
-                    Name1 = model.Path + EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString()),
-                    Id = _modelId.ToString()
-                };
+                OnModelSelected = (sender, model) => {
+                    _modelId = model.Id; _selectedCarType = model.CarType.ToString(); SetSelectCategoryViews(GetCategoryByCarType(model.CarType));
+                    SelectedCategory = new SelectedCategoryValue()
+                    {
+                        Name1 = model.Path,
+                        Id = _modelId.ToString()
+                    };
                 },
                 OnManufacturerSelected = (sender, name) =>
                 ThreadHelper.RunInUiThreadAsync(() =>
                 {
                     SelectedCategory = new SelectedCategoryValue()
                     {
-                        Name1 = name,
+                        Name1 = name.Path,
                         Id = ""
                     };
-                    ShowCategorySelection = true;
+                    ShowCategorySelection = !string.IsNullOrEmpty(name.ManufacturerName);
+                    if (!string.IsNullOrEmpty(name.ManufacturerName))
+                        LeftView = null;
                 })
             };
+
+            var initialRightView = new EuropeInitialRightView();
+            if(SelectedCategory!=null)
+                initialRightView.SetActiveGroup(_selectedCarType);
+            initialRightView.TopCategorySelected += (sender, categoryId) => SetSelectCategoryViews(categoryId);
+            RightView = initialRightView;
+
+
+            
 
             _modelId = 0;
 
@@ -272,9 +278,9 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
                 case EkCarTypeEnum.Car:
                     return "620";                    
                 case EkCarTypeEnum.Truck:                    
-                    return "621";
+                    return "620";
                 case EkCarTypeEnum.Bus:
-                    return "622";
+                    return "620";
                 case EkCarTypeEnum.Moto:                    
                     return "156";
                 case EkCarTypeEnum.Special:
@@ -355,7 +361,10 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
             var categorySearchInEuropeProvider = new CategorySearchInEuropeProvider(initialCategoryId, _modelId, SetInitialViews);
             categorySearchInEuropeProvider.CategorySelected += (sender, selectedCategory) =>
                 {
-                    
+                    if (selectedCategory.Name2.Contains("Легковые и микроавтобусы"))
+                    {
+                        selectedCategory.Name2 = selectedCategory.Name2.Replace("Легковые и микроавтобусы","");
+                    }
                     SelectedCategory = selectedCategory; 
                     if (!selectedCategory.Id.Contains("GROUP_") && selectedCategory.Id != "621" && selectedCategory.Id != "620" && selectedCategory.Id != "622" && selectedCategory.Id != "99022" && selectedCategory.Id != "156")
                         SetSearchByNameViews();

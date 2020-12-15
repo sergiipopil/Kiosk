@@ -256,10 +256,13 @@ namespace KioskApp.Search
                     .Reverse()
                     .ToList();
 
+                int index = orderedBreadcrumbs.FindIndex(x => x.Name.Contains("Легковые и микроавтобусы"));
+                if(index!=-1)
+                    orderedBreadcrumbs.Remove(orderedBreadcrumbs[index]);
                 // check if leaf
                 OnCategorySelected(new SelectedCategoryValue()
                 {
-                    Name1 = EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString()) + string.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)),
+                    Name1 = EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString()) + " - " + string.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)),
                     Name2 = category.Name,
                     Id = category.Id,
                 });
