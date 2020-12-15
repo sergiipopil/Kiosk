@@ -206,10 +206,26 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
             initialRightView.TopCategorySelected += (sender, categoryId) => SetSelectCategoryViews(categoryId);
             RightView = initialRightView;
 
-            
+
             var carModelTreeSearchProvider = new CarModelTreeSearchProvider(EkCarTypeEnum.Car, _modelId.ToString(), SetInitialViews)
             {
-                OnModelSelected = (sender, model) => { _modelId = model.Id; SetSelectCategoryViews("620"); }
+                OnModelSelected = (sender, model) => { _modelId = model.Id; SetSelectCategoryViews(GetCategoryByCarType(model.CarType)); 
+                SelectedCategory = new SelectedCategoryValue()
+                {
+                    Name1 = model.Path + EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString()),
+                    Id = _modelId.ToString()
+                };
+                },
+                OnManufacturerSelected = (sender, name) =>
+                ThreadHelper.RunInUiThreadAsync(() =>
+                {
+                    SelectedCategory = new SelectedCategoryValue()
+                    {
+                        Name1 = name,
+                        Id = ""
+                    };
+                    ShowCategorySelection = true;
+                })
             };
 
             _modelId = 0;
@@ -247,6 +263,25 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
                 default: break;
             }
             carProvider.InitModelTree(typeTransport, null, null);
+        }
+
+        private string GetCategoryByCarType(EkCarTypeEnum type)
+        {            
+            switch (type)
+            {
+                case EkCarTypeEnum.Car:
+                    return "620";                    
+                case EkCarTypeEnum.Truck:                    
+                    return "621";
+                case EkCarTypeEnum.Bus:
+                    return "622";
+                case EkCarTypeEnum.Moto:                    
+                    return "156";
+                case EkCarTypeEnum.Special:
+                    
+                    return "99022";
+                default: return "620";
+            }           
         }
 
 
@@ -310,22 +345,20 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
 
                 EkContext.Current.EkProcess?.OnViewChanged("Europe.SelectCategory", false);
             
-            SelectedCategory = null;
+            //SelectedCategory = null;
             IsLeftSidePanelWidthExtended = false;
             _selectedMainCategoryId = initialCategoryId;
             ShowSearchByAnotherTypeMenu = true;
             ShowCategorySelection = true;
             ShowOnlySearchByAnotherTypeMenuItems(SearchTypeEnum.ByName, SearchTypeEnum.ByCategory);
-            SelectedCategory = new SelectedCategoryValue()
-            {
-                Name1 = EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString()),
-                Id = _modelId.ToString()
-            };
+            
             var categorySearchInEuropeProvider = new CategorySearchInEuropeProvider(initialCategoryId, _modelId, SetInitialViews);
             categorySearchInEuropeProvider.CategorySelected += (sender, selectedCategory) =>
                 {
-                    SelectedCategory = selectedCategory;                    
-                    SetSearchByNameViews();
+                    
+                    SelectedCategory = selectedCategory; 
+                    if (!selectedCategory.Id.Contains("GROUP_") && selectedCategory.Id != "621" && selectedCategory.Id != "620" && selectedCategory.Id != "622" && selectedCategory.Id != "99022" && selectedCategory.Id != "156")
+                        SetSearchByNameViews();
                 };
             LeftView = null;
             //if (initialCategoryId != "628"&&initialCategoryId != "621" && initialCategoryId != "620" && initialCategoryId != "622") { 

@@ -37,14 +37,17 @@ namespace KioskApp.Search
                 carType = model.CarType;
                 manufacturerId = model.ManufacturerId.ToString();
             }
+            _carType = carType;
             InitModelTree(carType, manufacturerId, null);            
         }
         public EventHandler<EkCarModel> OnModelSelected { get; set; }
+        public EventHandler<string> OnManufacturerSelected { get; set; }
+        private EkCarTypeEnum? _carType;
 
-        
 
         public async void InitModelTree(EkCarTypeEnum? carType, string manufacturerId, string modelId)
         {
+            _carType = carType;
             //Assure.CheckFlowState(carType != null || modelId != null, $"Either {nameof(carType)} or {nameof(modelId)} should not be null.");
 
             // free UI thread
@@ -232,11 +235,12 @@ namespace KioskApp.Search
                             ?.Select(x => _allModels.GetValueOrDefault(x.Id.ToString()))
                             .Where(x => x != null)
                             .ToArray();
+                        OnManufacturerSelected(this, String.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)) + " " +  category.CarManufacturer.Name);
                         break;
                     case CategoryTypeEnum.CarModel:
                         SearchTitle = "ВЫБЕРИТЕ МОДИФИКАЦИЮ";
                         //OnTopCategorySelected("628");                        
-                        OnModelSelected(this, new EkCarModel() { Id = this._selectedModelId.Value,  ManufacturerId = this._selectedManufacturerId.Value });
+                        OnModelSelected(this, new EkCarModel() { Id = this._selectedModelId.Value,  ManufacturerId = this._selectedManufacturerId.Value, CarType = _carType.Value, Path = String.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)) });
                         //UpdateModifications();
                         break;
                     case CategoryTypeEnum.CarModelModification:

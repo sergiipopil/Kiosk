@@ -257,16 +257,17 @@ namespace KioskApp.Search
                     .ToList();
 
                 // check if leaf
-                
+                OnCategorySelected(new SelectedCategoryValue()
+                {
+                    Name1 = EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString()) + string.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)),
+                    Name2 = category.Name,
+                    Id = category.Id,
+                });
+
                 if (!category.IsGroup)
                 {
                     // leaf
-                    OnCategorySelected(new SelectedCategoryValue()
-                        {
-                            Name1 = EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString()) + string.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)),
-                            Name2 = category.Name,
-                            Id = category.Id,
-                        });
+                    
                     return;
                 }
 
