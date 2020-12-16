@@ -27,7 +27,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel VerticalAlignment="Center">
+                    <StackPanel VerticalAlignment="Center">                        
                         <TextBlock Text="{x:Bind Value.Name1, Mode=OneWay}"
                                    Foreground="#b7b2e8"
                                    TextWrapping="WrapWholeWords"
