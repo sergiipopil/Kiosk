@@ -5,25 +5,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              mc:Ignorable="d"
-             d:DesignHeight="120"
-             d:DesignWidth="167">
+             d:DesignHeight="160"
+             d:DesignWidth="205">
 
     <toolkitControls:DropShadowPanel Style="{StaticResource CategoryPresenterShadowStyle}">
         <Button Style="{StaticResource CategoryButtonBaseStyle}"
-                Width="167"
-                Height="120"
+                Width="205"
+                Height="160"
                 Click="CategoryButton_OnClick">
             <Grid Padding="5 5 5 0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="87" />
+                    <RowDefinition Height="127" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
                 <toolkitControls:ImageEx Source="{x:Bind CarModelLogoUrl, Mode=OneWay}"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="center"
-                                         MaxWidth="165"
-                                         MaxHeight="87"
+                                         MaxWidth="203"
+                                         MaxHeight="127"
                                          Stretch="Uniform" />
 
                 <TextBlock Grid.Row="1"
@@ -34,7 +34,7 @@
                            TextAlignment="Center"
                            Foreground="#23274d"
                            FontFamily="{StaticResource UbuntuBoldFontFamily}"
-                           FontSize="12"
+                           FontSize="18"
                            LineHeight="14" />
 
             </Grid>

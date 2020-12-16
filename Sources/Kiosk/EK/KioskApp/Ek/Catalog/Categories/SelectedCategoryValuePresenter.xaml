@@ -30,9 +30,12 @@
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock Text="{x:Bind Value.Name1, Mode=OneWay}"
                                    Foreground="#b7b2e8"
+                                   TextWrapping="WrapWholeWords"
+                                   FontSize="22"
                                    Margin="0 -1 0 2"
                                     />
-                        <TextBlock Text="{x:Bind Value.Name2, Mode=OneWay}"
+                        <TextBlock Text="{x:Bind Value.Name2, Mode=OneWay}" TextWrapping="WrapWholeWords"
+                                   FontSize="22"
                                     />
                     </StackPanel>
 
