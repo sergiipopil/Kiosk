@@ -36,11 +36,13 @@ namespace KioskApp.Ek.Catalog.Categories
             set
             {
                 SetValue(ValueProperty, value);
+                if (value != null) { 
                 blockManufacture.Visibility = txtHeader.Visibility = String.IsNullOrEmpty(value.SelectedManufactureURL) ? Visibility.Collapsed : Visibility.Visible;
                 blockModel.Visibility = String.IsNullOrEmpty(value.SelectedCarModelText) ? Visibility.Collapsed : Visibility.Visible;
                 blockCategory.Visibility = String.IsNullOrEmpty(value.SelectedGroupText) ? Visibility.Collapsed : Visibility.Visible;
                 blockSubCategory.Visibility = String.IsNullOrEmpty(value.SelectedSubGroupText) ? Visibility.Collapsed : Visibility.Visible;
                 blockSecondSubCategory.Visibility = String.IsNullOrEmpty(value.SelectedSecondSubGroupText) ? Visibility.Collapsed : Visibility.Visible;
+                }
             }
         }
 
