@@ -232,6 +232,8 @@ namespace KioskApp.Search
             }
         }
         public event EventHandler<SelectedCategoryValue> CategorySelected;
+        private bool SecondLevelCategory { get; set; }
+        private bool ThirdLevelCategory { get; set; }
         public void SelectCategory(Category category)
         {
             lock (_stateLocker)
@@ -260,13 +262,77 @@ namespace KioskApp.Search
                 if(index!=-1)
                     orderedBreadcrumbs.Remove(orderedBreadcrumbs[index]);
                 // check if leaf
-                OnCategorySelected(new SelectedCategoryValue()
+                //EkSettingsHelper.GetModelAndNameByModelId(_modelId.ToString()).Name integra
+                //EkSettingsHelper.GetModelManufacturerNameByModelId(_modelId.ToString()) acura
+                SelectedCategoryValue tempCategory = new SelectedCategoryValue();
+                if (_modelId != 0) { 
+                tempCategory = new SelectedCategoryValue()
                 {
                     Name1 = EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString()) + " - " + string.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)),
                     Name2 = category.Name,
-                    Id = category.Id,
-                });
+                    SelectedManufactureURL = $"/Themes/Assets/Images/Catalog/Model_Logo/{EkSettingsHelper.GetModelManufacturerNameByModelId(_modelId.ToString())}.png",
+                    SelectedCarModelText = EkSettingsHelper.GetModelAndNameByModelId(_modelId.ToString()).Name,
+                    SelectedCarModelURL = $"/Themes/Assets/Images/Catalog/CarModel/{EkSettingsHelper.GetModelManufacturerNameByModelId(_modelId.ToString())}/{EkSettingsHelper.GetModelAndNameByModelId(_modelId.ToString()).Name}.png",
+                    Id = category.Id
+                };
 
+
+                    if (category.IsGroup)
+                    {
+                        if (SecondLevelCategory && category.Id.Contains("GROUP") && orderedBreadcrumbs.Count() > 0) {
+                            tempCategory.SelectedGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + orderedBreadcrumbs[0].Id + ".png";
+                            tempCategory.SelectedGroupText = category.Name == "Легковые и микроавтобусы" ? "" : orderedBreadcrumbs[0].Name;
+                            tempCategory.SelectedSubGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + category.Id + ".png";
+                            tempCategory.SelectedSubGroupText = category.Name == "Легковые и микроавтобусы" ? "" : category.Name;
+                            ThirdLevelCategory = true;
+                        }
+                        else
+                        {
+                            ThirdLevelCategory = false;
+                            if (orderedBreadcrumbs.Count() > 0) {
+                                tempCategory.SelectedGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + orderedBreadcrumbs[0].Id + ".png";
+                                tempCategory.SelectedGroupText = category.Name == "Легковые и микроавтобусы" ? "" : orderedBreadcrumbs[0].Name;
+                                tempCategory.SelectedSubGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + category.Id + ".png";
+                                tempCategory.SelectedSubGroupText = category.Name == "Легковые и микроавтобусы" ? "" : category.Name;
+                            }
+                            else {
+                                tempCategory.SelectedGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + (orderedBreadcrumbs.Count() == 0 ? category.Id : orderedBreadcrumbs[0].Id) + ".png";
+                                tempCategory.SelectedGroupText = category.Name == "Легковые и микроавтобусы" ? "" : orderedBreadcrumbs.Count() == 0 ? category.Name : orderedBreadcrumbs[0].Name;
+                            }
+                        }
+                        SecondLevelCategory = category.Id.Contains("GROUP");
+                    }
+                    else
+                    {
+                        if (ThirdLevelCategory || breadcrumbs.Count()>1)
+                        {
+                            if(breadcrumbs[1].Name != "Легковые и микроавтобусы") {
+                            tempCategory.SelectedGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + breadcrumbs[1].Id + ".png";
+                            tempCategory.SelectedGroupText = category.Name == "Легковые и микроавтобусы" ? "" : breadcrumbs[1].Name;
+                            }
+                            tempCategory.SelectedSubGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + breadcrumbs[0].Id + ".png";
+                            tempCategory.SelectedSubGroupText = category.Name == "Легковые и микроавтобусы" ? "" : breadcrumbs[0].Name;
+                            tempCategory.SelectedSecondSubGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + category.Id + ".png";
+                            tempCategory.SelectedSecondSubGroupText = category.Name == "Легковые и микроавтобусы" ? "" : category.Name;
+                        }
+                        else {
+                            tempCategory.SelectedGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + category.ParentCategoryId + ".png";
+                            tempCategory.SelectedGroupText = category.Name == "Легковые и микроавтобусы" ? "" : breadcrumbs[0].Name;
+                            tempCategory.SelectedSubGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + category.Id + ".png";
+                            tempCategory.SelectedSubGroupText = category.Name == "Легковые и микроавтобусы" ? "" : category.Name;
+                        }
+                    }
+                }
+                else {
+                    tempCategory = new SelectedCategoryValue()
+                    {
+                        Name1 = string.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)),
+                        Name2 = category.Name,                        
+                        Id = category.Id
+                    };
+                }
+                OnCategorySelected(tempCategory);
+                //SelectedModelURL = $"/Themes/Assets/Images/Catalog/CarModel/{EkSettingsHelper.GetModelManufacturerNameByModelId(_selectedModelId.ToString())}/{category.Name}.png"
                 if (!category.IsGroup)
                 {
                     // leaf

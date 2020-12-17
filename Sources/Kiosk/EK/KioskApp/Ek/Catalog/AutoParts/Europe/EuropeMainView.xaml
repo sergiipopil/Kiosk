@@ -40,7 +40,7 @@
                                                SearchByAnotherTypeSelected="SearchByAnotherTypeMenu_OnSearchByAnotherTypeSelected" />
             <!--Left control of Breadcumps and select category-->
             <categories:SelectedCategoryValuePresenter Grid.Row="2"
-                                                       Margin="0 44 0 0"
+                                                       Margin="0 0 0 0"
                                                        HorizontalAlignment="Left"
                                                        Placeholder="Выберите категорию..."
                                                        Value="{x:Bind SelectedCategory, Mode=OneWay}"

@@ -209,6 +209,7 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
                     SelectedCategory = new SelectedCategoryValue()
                     {
                         Name1 = model.Path,
+                        SelectedCarModelURL = model.SelectedModelURL,
                         Id = _modelId.ToString()
                     };
                 },
@@ -216,7 +217,8 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
                 ThreadHelper.RunInUiThreadAsync(() =>
                 {
                     SelectedCategory = new SelectedCategoryValue()
-                    {
+                    {                        
+                        SelectedManufactureURL = name.SelectedManufactureURL,
                         Name1 = name.Path,
                         Id = ""
                     };

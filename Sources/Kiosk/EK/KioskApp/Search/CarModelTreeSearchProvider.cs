@@ -237,12 +237,12 @@ namespace KioskApp.Search
                             ?.Select(x => _allModels.GetValueOrDefault(x.Id.ToString()))
                             .Where(x => x != null)
                             .ToArray();
-                        OnManufacturerSelected(this, new EkCarModel() { Path = String.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)), ManufacturerName = "Selected" });
+                        OnManufacturerSelected(this, new EkCarModel() { SelectedManufactureURL= $"/Themes/Assets/Images/Catalog/Model_Logo/{category.CarManufacturer.Name}.png", Path = String.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)), ManufacturerName = "Selected" });
                         break;
                     case CategoryTypeEnum.CarModel:
                         SearchTitle = "ВЫБЕРИТЕ МОДИФИКАЦИЮ";
                         //OnTopCategorySelected("628");                        
-                        OnModelSelected(this, new EkCarModel() { Id = this._selectedModelId.Value,  ManufacturerId = this._selectedManufacturerId.Value, CarType = _carType.Value, Path = String.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)) });
+                        OnModelSelected(this, new EkCarModel() { SelectedModelURL = $"/Themes/Assets/Images/Catalog/CarModel/{EkSettingsHelper.GetModelManufacturerNameByModelId(_selectedModelId.ToString())}/{category.Name}.png", Id = this._selectedModelId.Value,  ManufacturerId = this._selectedManufacturerId.Value, CarType = _carType.Value, Path = String.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)) });
                         //UpdateModifications();
                         break;
                     case CategoryTypeEnum.CarModelModification:

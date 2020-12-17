@@ -8,6 +8,10 @@
 
         public string Name { get; set; }
 
+        public string SelectedManufactureURL { get; set; }
+
+        public string SelectedModelURL { get; set; }
+
         public int ManufacturerId { get; set; }
         public string ManufacturerName { get; set; }
 

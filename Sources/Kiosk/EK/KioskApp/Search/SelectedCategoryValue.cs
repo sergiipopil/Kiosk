@@ -6,6 +6,20 @@ namespace KioskApp.Search
     {
         public string Id { get; set; }
 
+        public string SelectedSecondSubGroupText { get; set; }
+
+        public string SelectedSecondSubGroupURL { get; set; }
+
+        public string SelectedSubGroupText { get; set; }
+
+        public string SelectedSubGroupURL { get; set; }
+
+        public string SelectedGroupURL { get; set; }
+        public string SelectedGroupText { get; set; }
+        public string SelectedCarModelURL { get; set; }
+        public string SelectedCarModelText { get; set; }
+        public string SelectedManufactureURL { get; set; }
+
         #region Name1
 
         private string _Name1;

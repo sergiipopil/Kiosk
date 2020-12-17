@@ -3,20 +3,140 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:toolkitControls="using:Microsoft.Toolkit.Uwp.UI.Controls"
              mc:Ignorable="d"
-             d:DesignHeight="65"
+             d:DesignHeight="765"
              d:DesignWidth="550">
 
     <Grid Width="550"
-          Height="65">
+          Height="865">
+        <StackPanel VerticalAlignment="top">
+            <TextBlock Foreground="White" x:Name="txtHeader"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Center"
+                       FontFamily="{StaticResource PlayFontFamily}"
+                       FontSize="40"
+                       Margin="0 0 0 10">
+                <Run Text="Вы выбрали:" />
+            </TextBlock>
+            <Grid Background="White" HorizontalAlignment="Center" Padding="5" Margin="5" MinWidth="200" MaxWidth="200" x:Name="blockManufacture">
+               
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="120"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" HorizontalAlignment="Center">
+                    <toolkitControls:ImageEx Source="{x:Bind Value.SelectedManufactureURL, Mode=OneWay}"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Top"
+                                         MaxWidth="200"
+                                         MaxHeight="120"
+                                         Margin="0 0 0 0"
+                                         Stretch="Uniform" />
+                </Grid>
+            </Grid>
+            <Grid Background="White" HorizontalAlignment="Center" Padding="5" Margin="5" MinWidth="200" MaxWidth="200" x:Name="blockModel">
+               
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="95"></RowDefinition>
+                    <RowDefinition Height="25"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" HorizontalAlignment="Center">
+                    <toolkitControls:ImageEx Source="{x:Bind Value.SelectedCarModelURL, Mode=OneWay}"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Top"
+                                         MaxWidth="150"
+                                         MaxHeight="100"
+                                         Margin="0 0 0 0"
+                                         Stretch="Uniform" />
+                </Grid>
+                <Grid Grid.Row="1" HorizontalAlignment="Center">
+                <TextBlock Text="{x:Bind Value.SelectedCarModelText, Mode=OneWay}"
+                                   Foreground="Black"                       
+                                   TextWrapping="WrapWholeWords"
+                                   FontSize="20"
+                                   Margin="0 0 0 2"
+                                    />
+                </Grid>
+            </Grid>
+            <Grid Background="White" HorizontalAlignment="Center" Padding="5" Margin="5" MinWidth="200" MaxWidth="200" x:Name="blockCategory">
+                
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="95"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" HorizontalAlignment="Center">
+                    <toolkitControls:ImageEx Source="{x:Bind Value.SelectedGroupURL, Mode=OneWay}"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Top"
+                                         MaxWidth="180"
+                                         MaxHeight="100"
+                                         Margin="0 0 0 0"
+                                         Stretch="Uniform" />
+                </Grid>
+                <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="{x:Bind Value.SelectedGroupText, Mode=OneWay}"
+                                   Foreground="Black"       
+                                   TextWrapping="Wrap"
+                                   FontSize="18" LineHeight="18"
+                                    />
+                </Grid>
+            </Grid>
+            <Grid Background="White" HorizontalAlignment="Center" Padding="5" Margin="5" MinWidth="200" MaxWidth="200" x:Name="blockSubCategory">
+               
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="95"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" HorizontalAlignment="Center">
+                    <toolkitControls:ImageEx Source="{x:Bind Value.SelectedSubGroupURL, Mode=OneWay}"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Top"
+                                         MaxWidth="180"
+                                         MaxHeight="100"
+                                         Margin="0 0 0 0"
+                                         Stretch="Uniform" />
+                </Grid>
+                <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="Auto">
+                    <TextBlock Text="{x:Bind Value.SelectedSubGroupText, Mode=OneWay}"
+                                   Foreground="Black"       
+                                   TextWrapping="Wrap"
+                                   FontSize="18" LineHeight="18"
+                                    />
+                </Grid>
+            </Grid>
+            <Grid Background="White" HorizontalAlignment="Center" Padding="5" Margin="5" MinWidth="200" MaxWidth="200" x:Name="blockSecondSubCategory">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="95"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" HorizontalAlignment="Center">
+                    <toolkitControls:ImageEx Source="{x:Bind Value.SelectedSecondSubGroupURL, Mode=OneWay}"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Top"
+                                         MaxWidth="180"
+                                         MaxHeight="95"
+                                         Margin="0 0 0 0"
+                                         Stretch="Uniform" />
+                </Grid>
+                <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <TextBlock Text="{x:Bind Value.SelectedSecondSubGroupText, Mode=OneWay}"
+                                   Foreground="Black"       
+                                   TextWrapping="Wrap"
+                                   FontSize="18" LineHeight="18"
+                                    />
+                </Grid>
+            </Grid>
+
+        </StackPanel>
         <!--shadow is done by image since DropShadowPanel doesn't work well with transparent objects-->
         <Image Source="/Themes/Assets/Images/Catalog/Categories/SelectedCategoryValueShadow.png"
-               Stretch="None"
+               Stretch="None" Visibility="Collapsed"
                HorizontalAlignment="Left"
                VerticalAlignment="Top"
                Margin="-9" />
 
-        <Button Style="{x:Bind Value, Mode=OneWay, Converter={StaticResource SelectedCategoryValueToButtonStyleConverter}}"
+        <Button Visibility="Collapsed" Style="{x:Bind Value, Mode=OneWay, Converter={StaticResource SelectedCategoryValueToButtonStyleConverter}}"
                 Click="ChangeButton_OnClick">
             <Grid Padding="26 0 15 0">
 
