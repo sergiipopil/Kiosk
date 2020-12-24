@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="f4a31c33-1818-4012-8710-0efc7de2dbb8" Publisher="CN=KioskBrains" Version="1.0.49.0" />
+  <Identity Name="f4a31c33-1818-4012-8710-0efc7de2dbb8" Publisher="CN=KioskBrains" Version="1.0.52.0" />
   <mp:PhoneIdentity PhoneProductId="f4a31c33-1818-4012-8710-0efc7de2dbb8" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>KioskApp</DisplayName>
