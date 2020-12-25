@@ -11,8 +11,8 @@
     <AssemblyName>KioskApp</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17134.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -110,6 +110,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -595,8 +596,10 @@
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\253797.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\254188.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\254524.png" />
+    <Content Include="Themes\Assets\Images\Catalog\AutoParts\254526.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\254557.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\254566.png" />
+    <Content Include="Themes\Assets\Images\Catalog\AutoParts\254578.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\254581.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\254645.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\254663.png" />
@@ -643,6 +646,7 @@
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\256008.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\256009.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\256101.png" />
+    <Content Include="Themes\Assets\Images\Catalog\AutoParts\256161.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\256182.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\256282.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\256283.png" />
@@ -659,6 +663,7 @@
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\260575.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\260580.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\260604.png" />
+    <Content Include="Themes\Assets\Images\Catalog\AutoParts\260605.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\260608.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\260609.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\250431.png" />
@@ -886,8 +891,10 @@
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\261067.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\261068.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\261069.png" />
+    <Content Include="Themes\Assets\Images\Catalog\AutoParts\261070.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\261071.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\261074.png" />
+    <Content Include="Themes\Assets\Images\Catalog\AutoParts\261079.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\261088.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\261089.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\261130.png" />
@@ -896,10 +903,12 @@
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\261289.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\261290.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\261292.png" />
+    <Content Include="Themes\Assets\Images\Catalog\AutoParts\261297.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\261300.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\261376.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\4147.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\50752.png" />
+    <Content Include="Themes\Assets\Images\Catalog\AutoParts\50754.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\50762.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\50765.png" />
     <Content Include="Themes\Assets\Images\Catalog\AutoParts\50766.png" />
@@ -1744,12 +1753,12 @@
     <Content Include="Themes\Assets\Images\Catalog\CarModel\ISUZU\ASCENDER.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\ISUZU\D-MAX.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\ISUZU\ELF.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\ISUZU\F-Series FORWARD.png" />
+    <Content Include="Themes\Assets\Images\Catalog\CarModel\ISUZU\F.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\ISUZU\GEMINI.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\ISUZU\GRAFTER.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\ISUZU\IMPULSE.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\ISUZU\MIDI.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\ISUZU\N-Serie %285th Generation%29.png" />
+    <Content Include="Themes\Assets\Images\Catalog\CarModel\ISUZU\N.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\ISUZU\PIAZZA.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\ISUZU\TROOPER.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\IVECO\CITY CLASS.png" />
@@ -1871,14 +1880,12 @@
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MAN\EM.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MAN\F 2000.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MAN\F 9.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\MAN\F 90 Unterflur.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MAN\F 90.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MAN\G 90.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MAN\G.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MAN\L 2000.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MAN\LC.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\MAN\M 2000 L.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\MAN\M 2000 M.png" />
+    <Content Include="Themes\Assets\Images\Catalog\CarModel\MAN\M 2000.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MAN\M 90.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MAN\TGA.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MAN\TGE.png" />
@@ -1908,8 +1915,7 @@
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MAZDA\TRIBUTE.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MAZDA\XEDOS 6.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MAZDA\XEDOS 9.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\MAZ\Serie 200.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\MAZ\Serie 5.png" />
+    <Content Include="Themes\Assets\Images\Catalog\CarModel\MAZ\5.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MERCEDES-BENZ\ACCELO.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MERCEDES-BENZ\ACTROS.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\MERCEDES-BENZ\AMG.png" />
@@ -2062,7 +2068,7 @@
     <Content Include="Themes\Assets\Images\Catalog\CarModel\NISSAN\INTERSTAR.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\NISSAN\JUKE.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\NISSAN\KUBISTAR.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\NISSAN\L-Serie.png" />
+    <Content Include="Themes\Assets\Images\Catalog\CarModel\NISSAN\L.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\NISSAN\LEAF.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\NISSAN\MAXIMA.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\NISSAN\MICRA.png" />
@@ -2167,11 +2173,10 @@
     <Content Include="Themes\Assets\Images\Catalog\CarModel\PORSCHE\CAYMAN.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\PORSCHE\MACAN.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\PORSCHE\PANAMERA.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\C-Serie.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\D-Serie.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\D-Series Access.png" />
+    <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\C.png" />
+    <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\D.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\G.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\K-Serie.png" />
+    <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\K.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\Kerax.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\Magnum.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\Major.png" />
@@ -2184,17 +2189,17 @@
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\Midlum.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\Premium.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\R.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\T-Serie.png" />
+    <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\T.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\TR.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT TRUCKS\TRH.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT\19.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT\AGORA.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT\ALASKAN.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT\AVANTIME.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT\C-Serie.png" />
+    <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT\C.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT\CAPTUR.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT\CLIO.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT\D-Serie.png" />
+    <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT\D.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT\DUSTER.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT\ESPACE.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\RENAULT\FLUENCE.png" />
@@ -2381,7 +2386,7 @@
     <Content Include="Themes\Assets\Images\Catalog\CarModel\TOYOTA\VERSO.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\TOYOTA\YARIS VERSO.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\TOYOTA\YARIS.png" />
-    <Content Include="Themes\Assets\Images\Catalog\CarModel\URALAZ\Serie 4320.png" />
+    <Content Include="Themes\Assets\Images\Catalog\CarModel\URALAZ\4320.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\VOLVO\7700.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\VOLVO\7900.png" />
     <Content Include="Themes\Assets\Images\Catalog\CarModel\VOLVO\8300.png" />
