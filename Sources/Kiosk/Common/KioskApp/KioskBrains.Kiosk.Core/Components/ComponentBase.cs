@@ -40,7 +40,7 @@ namespace KioskBrains.Kiosk.Core.Components
                     }
                     catch (Exception ex)
                     {
-                        Status.SetSelfStatus(ComponentStatusCodeEnum.Error, $"Initialization failed: {ex.Message}");
+                        Status.SetSelfStatus(ComponentStatusCodeEnum.Error, $"Initialization failed: {ex.Message + "//Source:" + ex.Source + "//InnerException:" + ex.InnerException + "//StackTrace:" + ex.StackTrace + "//HelpLink:" + ex.HelpLink}");
                         context.Log.Error(LogContextEnum.Configuration, "Unhandled exception.", ex, callerName: null);
                     }
 
