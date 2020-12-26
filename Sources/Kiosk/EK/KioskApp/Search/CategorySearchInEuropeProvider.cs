@@ -18,6 +18,8 @@ namespace KioskApp.Search
     public class CategorySearchInEuropeProvider : SearchProviderBase, ISearchStateProvider, ICategorySearchProvider
     {
         int _modelId;
+        string _rootCategorieName = "";
+        string _rootCategorieID = "";
         public CategorySearchInEuropeProvider(
             string initialCategoryId, int modelId,
             Action onBackToRoot)
@@ -63,21 +65,21 @@ namespace KioskApp.Search
                 {
                 }
             }*/
-            
+
             // free UI thread
             await ThreadHelper.RunInBackgroundThreadAsync(() =>
                 {
-                    
+
                     // build categories
-                    
-                    var rootCategories = EkSettingsHelper.GetEuropeCategories().Where(x=> availableCategories == null || availableCategories.Contains(x.CategoryId)).ToArray();
+
+                    var rootCategories = EkSettingsHelper.GetEuropeCategories().Where(x => availableCategories == null || availableCategories.Contains(x.CategoryId)).ToArray();
                     if (rootCategories == null
                         || rootCategories.Length == 0)
                     {
                         return Task.CompletedTask;
                     }
 
-                    BuildCategories(null, rootCategories, availableCategories);
+                    BuildCategories(null, null, rootCategories, availableCategories); ;
 
                     Category selectedCategory = null;
                     if (initialCategoryId != null)
@@ -121,7 +123,18 @@ namespace KioskApp.Search
         #endregion
 
         public ICommand RetryOnErrorCommand { get; }
-
+        public class BreadcrumbsTree : IBreadcrumbsTree
+        {
+            public string RootLevel { get; set; }
+            public string SecondLevel { get; set; }
+            public string ThirdLevel { get; set; }
+        }
+        public interface IBreadcrumbsTree
+        {
+            string RootLevel { get; set; }
+            string SecondLevel { get; set; }
+            string ThirdLevel { get; set; }
+        }
         protected override void UpdateSearchResults(DateTime termTime, string term)
         {
             // not supported
@@ -172,7 +185,7 @@ namespace KioskApp.Search
 
         private readonly Dictionary<string, Category> _allCategories = new Dictionary<string, Category>();
 
-        private void BuildCategories(string parentCategoryId, EkProductCategory[] productCategories, IList<string> availableCategories)
+        private void BuildCategories(string parentCategoryName, string parentCategoryId, EkProductCategory[] productCategories, IList<string> availableCategories)
         {
             if (productCategories == null)
             {
@@ -182,20 +195,21 @@ namespace KioskApp.Search
             foreach (var productCategory in productCategories)
             {
                 var category = new Category(productCategory)
-                    {
-                        ParentCategoryId = parentCategoryId,
-                    };
+                {
+                    ParentCategoryId = parentCategoryId,
+                    ParentCategoryName = parentCategoryName
+                };
 
                 if (category.IsGroup)
                 {
                     // group is not selectable for search - add special leaf category with group name and id
                     var specialCategory = new Category(
                         new EkProductCategory()
-                            {
-                                CategoryId = productCategory.CategoryId,
-                                Name = productCategory.Name,
-                                Children = null,
-                            },
+                        {
+                            CategoryId = productCategory.CategoryId,
+                            Name = productCategory.Name,
+                            Children = null,
+                        },
                         CategorySpecialTypeEnum.ProductCategoryGroupSelector);
 
                     // modify group id to avoid conflict with special category
@@ -207,7 +221,7 @@ namespace KioskApp.Search
                     _allCategories[specialCategory.Id] = specialCategory;
 
                     // build children
-                    BuildCategories(category.Id, productCategory.Children.Where(x => availableCategories == null || availableCategories.Contains(x.CategoryId)).ToArray(), availableCategories);
+                    BuildCategories(category.Name, category.Id, productCategory.Children.Where(x => availableCategories == null || availableCategories.Contains(x.CategoryId)).ToArray(), availableCategories);
                 }
                 else
                 {
@@ -245,7 +259,9 @@ namespace KioskApp.Search
 
                 // calculate parent nodes
                 var breadcrumbs = new List<Category>();
+                var breadcrumbsTree = new BreadcrumbsTree();
                 var parentCategoryId = category.ParentCategoryId;
+                var parentCategoryName = category.ParentCategoryName;
                 while (parentCategoryId != null)
                 {
                     var parentCategory = _allCategories.GetValueOrDefault(parentCategoryId);
@@ -259,75 +275,78 @@ namespace KioskApp.Search
                     .ToList();
 
                 int index = orderedBreadcrumbs.FindIndex(x => x.Name.Contains("Легковые и микроавтобусы"));
-                if(index!=-1)
+                if (index != -1)
                     orderedBreadcrumbs.Remove(orderedBreadcrumbs[index]);
                 // check if leaf
                 //EkSettingsHelper.GetModelAndNameByModelId(_modelId.ToString()).Name integra
                 //EkSettingsHelper.GetModelManufacturerNameByModelId(_modelId.ToString()) acura
                 SelectedCategoryValue tempCategory = new SelectedCategoryValue();
-                if (_modelId != 0) { 
-                tempCategory = new SelectedCategoryValue()
+                if (_modelId != 0)
                 {
-                    Name1 = EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString()) + " - " + string.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)),
-                    Name2 = category.Name,
-                    SelectedManufactureURL = $"/Themes/Assets/Images/Catalog/Model_Logo/{EkSettingsHelper.GetModelManufacturerNameByModelId(_modelId.ToString())}.png",
-                    SelectedCarModelText = EkSettingsHelper.GetModelAndNameByModelId(_modelId.ToString()).Name,
-                    SelectedCarModelURL = $"/Themes/Assets/Images/Catalog/CarModel/{EkSettingsHelper.GetModelManufacturerNameByModelId(_modelId.ToString())}/{EkSettingsHelper.GetModelAndNameByModelId(_modelId.ToString()).Name}.png",
-                    Id = category.Id
-                };
-
-
-                    if (category.IsGroup)
+                    string manufactureName = EkSettingsHelper.GetModelManufacturerNameByModelId(_modelId.ToString());
+                    string manufactureURL = $"/Themes/Assets/Images/Catalog/Model_Logo/{manufactureName}.png";
+                    string carModelName = EkSettingsHelper.GetModelAndNameByModelId(_modelId.ToString()).Name;
+                    tempCategory = new SelectedCategoryValue()
                     {
-                        if (SecondLevelCategory && category.Id.Contains("GROUP") && orderedBreadcrumbs.Count() > 0) {
-                            tempCategory.SelectedGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + orderedBreadcrumbs[0].Id + ".png";
-                            tempCategory.SelectedGroupText = category.Name == "Легковые и микроавтобусы" ? "" : orderedBreadcrumbs[0].Name;
-                            tempCategory.SelectedSubGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + category.Id + ".png";
-                            tempCategory.SelectedSubGroupText = category.Name == "Легковые и микроавтобусы" ? "" : category.Name;
-                            ThirdLevelCategory = true;
+                        Name1 = EkSettingsHelper.GetModelFullNameByModelId(_modelId.ToString()) + " - " + string.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)),
+                        Name2 = category.Name,
+                        SelectedManufactureURL = manufactureURL,
+                        SelectedCarModelText = carModelName,
+                        SelectedCarModelURL = $"/Themes/Assets/Images/Catalog/CarModel/{manufactureName}/{carModelName}.png",
+                        Id = category.Id
+                    };
+                    
+                    if (category.Id != "GROUP_620")
+                    {
+                        if (category.IsGroup)
+                        {
+                            if (category.ParentCategoryId == "GROUP_620")
+                            {
+                                tempCategory.SelectedGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + category.Id + ".png";
+                                tempCategory.SelectedGroupText = category.Name == "Легковые и микроавтобусы" ? "" : category.Name;
+                                breadcrumbsTree.RootLevel = category.Name;
+                                _rootCategorieName = tempCategory.SelectedGroupText;
+                                _rootCategorieID = category.Id;
+                            }
+                            else {
+                                tempCategory.SelectedGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + category.ParentCategoryId + ".png";
+                                tempCategory.SelectedGroupText = category.Name == "Легковые и микроавтобусы" ? "" : category.ParentCategoryName;
+                                breadcrumbsTree.RootLevel = category.ParentCategoryName;
+                                tempCategory.SelectedSubGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + category.Id + ".png";
+                                tempCategory.SelectedSubGroupText = category.Name == "Легковые и микроавтобусы" ? "" : category.Name;
+                                breadcrumbsTree.SecondLevel = category.Name;
+                            }
                         }
                         else
                         {
-                            ThirdLevelCategory = false;
-                            if (orderedBreadcrumbs.Count() > 0) {
-                                tempCategory.SelectedGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + orderedBreadcrumbs[0].Id + ".png";
-                                tempCategory.SelectedGroupText = category.Name == "Легковые и микроавтобусы" ? "" : orderedBreadcrumbs[0].Name;
-                                tempCategory.SelectedSubGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + category.Id + ".png";
-                                tempCategory.SelectedSubGroupText = category.Name == "Легковые и микроавтобусы" ? "" : category.Name;
-                            }
-                            else {
-                                tempCategory.SelectedGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + (orderedBreadcrumbs.Count() == 0 ? category.Id : orderedBreadcrumbs[0].Id) + ".png";
-                                tempCategory.SelectedGroupText = category.Name == "Легковые и микроавтобусы" ? "" : orderedBreadcrumbs.Count() == 0 ? category.Name : orderedBreadcrumbs[0].Name;
-                            }
-                        }
-                        SecondLevelCategory = category.Id.Contains("GROUP");
-                    }
-                    else
-                    {
-                        if (ThirdLevelCategory || breadcrumbs.Count()>1)
-                        {
-                            if(breadcrumbs[1].Name != "Легковые и микроавтобусы") {
-                            tempCategory.SelectedGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + breadcrumbs[1].Id + ".png";
-                            tempCategory.SelectedGroupText = category.Name == "Легковые и микроавтобусы" ? "" : breadcrumbs[1].Name;
-                            }
-                            tempCategory.SelectedSubGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + breadcrumbs[0].Id + ".png";
+                            if (breadcrumbs.Count() > 1)
+                            {
+                                if (breadcrumbs[1].Name != "Легковые и микроавтобусы")
+                                {
+                                    tempCategory.SelectedGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + breadcrumbs[1].Id + ".png";
+                                    tempCategory.SelectedGroupText = category.Name == "Легковые и микроавтобусы" ? "" : breadcrumbs[1].Name;
+                                }
+                                                            tempCategory.SelectedSubGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + breadcrumbs[0].Id + ".png";
                             tempCategory.SelectedSubGroupText = category.Name == "Легковые и микроавтобусы" ? "" : breadcrumbs[0].Name;
                             tempCategory.SelectedSecondSubGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + category.Id + ".png";
                             tempCategory.SelectedSecondSubGroupText = category.Name == "Легковые и микроавтобусы" ? "" : category.Name;
-                        }
-                        else {
-                            tempCategory.SelectedGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + category.ParentCategoryId + ".png";
-                            tempCategory.SelectedGroupText = category.Name == "Легковые и микроавтобусы" ? "" : breadcrumbs[0].Name;
-                            tempCategory.SelectedSubGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + category.Id + ".png";
-                            tempCategory.SelectedSubGroupText = category.Name == "Легковые и микроавтобусы" ? "" : category.Name;
+                            }
+                            else
+                            {
+                                tempCategory.SelectedGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + category.ParentCategoryId + ".png";
+                                tempCategory.SelectedGroupText = category.Name == "Легковые и микроавтобусы" ? "" : category.ParentCategoryName;
+                                tempCategory.SelectedSubGroupURL = $"/Themes/Assets/Images/Catalog/AutoParts/" + category.Id + ".png";
+                                tempCategory.SelectedSubGroupText = category.Name == "Легковые и микроавтобусы" ? "" : category.Name;
+                            }
                         }
                     }
                 }
-                else {
+                else
+                {
                     tempCategory = new SelectedCategoryValue()
                     {
                         Name1 = string.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)),
-                        Name2 = category.Name,                        
+                        Name2 = category.Name,
                         Id = category.Id
                     };
                 }
@@ -336,7 +355,7 @@ namespace KioskApp.Search
                 if (!category.IsGroup)
                 {
                     // leaf
-                    
+
                     return;
                 }
 
@@ -345,7 +364,7 @@ namespace KioskApp.Search
                 Breadcrumbs = orderedBreadcrumbs.ToArray();
                 // show children (calculate children by registered categories, ProductCategory.Children can't be used since tree is modified by special categories)
                 Categories = _allCategories.Values
-                    .Where(x => x.ParentCategoryId == category.Id && x.Id != category.Id.Replace("GROUP_",""))
+                    .Where(x => x.ParentCategoryId == category.Id && x.Id != category.Id.Replace("GROUP_", ""))
                     .ToArray();
             }
         }
@@ -375,7 +394,7 @@ namespace KioskApp.Search
             }
         }
 
-        
+
 
         protected virtual void OnCategorySelected(SelectedCategoryValue eventArgs)
         {

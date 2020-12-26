@@ -123,5 +123,7 @@ namespace KioskApp.Ek.Catalog.Categories
         public bool IsGroup { get; set; }
 
         public string ParentCategoryId { get; set; }
+
+        public string ParentCategoryName { get; set; }
     }
 }
