@@ -28,6 +28,7 @@ namespace KioskApp.Ek
 
         protected override async Task<ComponentInitializeResponse> InitializeAsync(ComponentInitializeRequest request, ComponentOperationContext context)
         {
+            Log.Info(LogContextEnum.Application, "EkApp initialize async start");
             var isAdvertisementDisplayDisabled = request.Settings.Get<bool?>("IsAdvertisementDisplayDisabled", mandatory: false) == true;
             if (!isAdvertisementDisplayDisabled)
             {
@@ -41,6 +42,7 @@ namespace KioskApp.Ek
 
                     ThreadHelper.RunInUiThreadAsync(async () =>
                     {
+                        Log.Info(LogContextEnum.Application, "EkApp RunInUiThreadAsync");
                         var isShown = await ApplicationViewSwitcher.TryShowAsStandaloneAsync(secondaryViewId);
                         if (isShown)
                         {
@@ -50,6 +52,7 @@ namespace KioskApp.Ek
                         {
                             Log.Error(LogContextEnum.Application, "Advertisement display was not shown.");
                         }
+                        Log.Info(LogContextEnum.Application, "EkApp RunInUiThreadAsync end");
                     });
                 });
             }

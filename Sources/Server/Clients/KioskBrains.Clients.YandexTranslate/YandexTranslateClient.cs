@@ -52,8 +52,7 @@ namespace KioskBrains.Clients.YandexTranslate
         public YandexTranslateClient(IOptions<YandexTranslateClientSettings> settings)
         {
             _settings = settings.Value;
-            Assure.ArgumentNotNull(_settings, nameof(_settings));
-           
+            Assure.ArgumentNotNull(_settings, nameof(_settings));           
         }
 
         private bool IsAuthSessionExpired(DateTime now)

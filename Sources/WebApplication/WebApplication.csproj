@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Proxy\KioskBrains.Proxy\KioskBrains.Proxy.Common\KioskBrains.Proxy.Common.csproj" />
+    <ProjectReference Include="..\Server\Clients\KioskBrains.Clients.AllegroPl\KioskBrains.Clients.AllegroPl.csproj" />
+    <ProjectReference Include="..\Server\Clients\KioskBrains.Clients.KioskProxy\KioskBrains.Clients.KioskProxy.csproj" />
+    <ProjectReference Include="..\Server\EK\KioskBrains.Server.EK.Common\KioskBrains.Server.EK.Common.csproj" />
+    <ProjectReference Include="..\Server\KioskBrains.Server.Common\KioskBrains.Server.Common.csproj" />
+    <ProjectReference Include="..\Server\KioskBrains.Server.Domain\KioskBrains.Server.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Kiosk\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+</Project>

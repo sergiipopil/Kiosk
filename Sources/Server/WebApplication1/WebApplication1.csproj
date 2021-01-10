@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Proxy\KioskBrains.Proxy\KioskBrains.Proxy.Common\KioskBrains.Proxy.Common.csproj" />
+    <ProjectReference Include="..\Clients\KioskBrains.Clients.AllegroPl\KioskBrains.Clients.AllegroPl.csproj" />
+    <ProjectReference Include="..\Clients\KioskBrains.Clients.KioskProxy\KioskBrains.Clients.KioskProxy.csproj" />
+    <ProjectReference Include="..\KioskBrains.Server.Common\KioskBrains.Server.Common.csproj" />
+    <ProjectReference Include="..\KioskBrains.Server.Domain\KioskBrains.Server.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

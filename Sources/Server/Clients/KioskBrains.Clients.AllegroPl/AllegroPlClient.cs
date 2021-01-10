@@ -344,57 +344,30 @@ namespace KioskBrains.Clients.AllegroPl
         {
             var dict = await translateService.GetDictionary(_valuesToTranslate);
             var yandexDict = await GetWoTranslateDictionary(dict, cancellationToken);
-
-
-
-            try
-            {
-                //await translateService.AddRecords(yandexDict, Languages.PolishCode, Languages.RussianCode, Guid.NewGuid());
-            }
-            catch
-            {
-            }
+           
 
             var state = data.Parameters.FirstOrDefault(x => x.Name[Languages.PolishCode].ToLower() == StateAttributeName.ToLower());
             if (state != null)
             {
                 data.State = RestClient.StatesByNames.ContainsKey(state.Value[Languages.PolishCode].ToLower()) ? RestClient.StatesByNames[state.Value[Languages.PolishCode].ToLower()] : OfferStateEnum.New;
             }
-
-            data.Description[Languages.RussianCode] = GetSafeValFromDictionary(dict, yandexDict, data.Description[Languages.PolishCode]);
+            
             foreach (var p in data.Parameters)
             {
                 p.Name[Languages.RussianCode] = GetSafeValFromDictionary(dict, yandexDict, p.Name[Languages.PolishCode]);
                 p.Value[Languages.RussianCode] = GetSafeValFromDictionary(dict, yandexDict, p.Value[Languages.PolishCode]);
             }
-
-            var notTranslatedParams = data.Parameters.Where(x => x.Name[Languages.PolishCode].ToLower() == x.Name[Languages.RussianCode].ToLower()).Distinct().ToDictionary(x => x.Name[Languages.PolishCode].ToLower(), x => x.Name[Languages.RussianCode]);
-            var notTranslatedParamsValues = data.Parameters.Where(x => x.Value[Languages.PolishCode].ToLower() == x.Value[Languages.RussianCode].ToLower()).Distinct().ToDictionary(x => x.Name[Languages.PolishCode].ToLower(), x => x.Name[Languages.RussianCode]);
-
-            try
-            {
-                await translateService.AddRecords(notTranslatedParams, Languages.PolishCode, Languages.RussianCode, Guid.NewGuid());
-            }
-            catch (Exception er)
-            {
-                _logger.LogError(er.Message);
-            }
-
-            try
-            {
-                await translateService.AddRecords(notTranslatedParamsValues, Languages.PolishCode, Languages.RussianCode, Guid.NewGuid());
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message);
-            }
-
             
             var desc = data.Description[Languages.PolishCode].ToLower();
-            var yandexTranslated = await _yandexTranslateClient.TranslateAsync(new string[] { desc }, Languages.PolishCode.ToLower(), Languages.RussianCode.ToLower(), cancellationToken);
+            var allParams = await translateService.GetDescriptionDictionary();
+
+            foreach (var p in allParams)
+            {
+                if (!String.IsNullOrEmpty(p.Key))
+                    desc = desc.Replace(p.Key, p.Value);
+            }
 
             data.Description[Languages.RussianCode] = desc;
-            data.Description[Languages.RussianCode] = yandexTranslated.Any() ? yandexTranslated[0] : desc;
         }
 
         private string GetSafeValFromDictionary(IDictionary<string, string> dict1, IDictionary<string, string> dict2, string val)
