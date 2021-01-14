@@ -23,7 +23,9 @@ namespace WebApplication.Controllers
         {
             var restClient = new RestClient("", "");
             var p = restClient.GetExtraDataInit(id);
-            var product = new ProductViewModel() {Id = id,  Description = p.Description[Languages.PolishCode] };
+            List<string> ImagePath = new List<string> { "https://lh3.googleusercontent.com/proxy/Su-lx1na8rBohFs8td-Ef0_5fSk3Y6skfH48zXFzpAc8_TBmhQktMSQmhBlPAATC_ksYwUrq4qKrHHOsGgIZ0DsdlsudvrtuP0YkknBkyucNfI26_fiK8acxqGuQDQ1o4EeD2ONJcu7F", "https://bugaga.ru/uploads/posts/2018-06/1527924361_kartinki-21.jpg" };
+            
+            var product = new ProductViewModel() {Id = id,  Description = p.Description[Languages.PolishCode], Images = ImagePath };
             return View(product);
         }
 

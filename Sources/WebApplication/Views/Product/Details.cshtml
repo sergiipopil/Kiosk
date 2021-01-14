@@ -1,7 +1,7 @@
 ﻿@model WebApplication.Models.ProductViewModel
 @{
     Layout = null;
-}
+ }
 
 <!DOCTYPE html>
 
@@ -9,27 +9,24 @@
 <head>
     <link rel="stylesheet" href="~/css/site.css" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>@Model.Title</title>    
+    <title>@Model.Title</title>
 </head>
 <body>
     <div id="rootBlockDetails" style="display:block;padding:50px 0px;">
         <div id="imageBlock" class="detailBlock" style="display:inline-block;vertical-align:top;width:19%;text-align:center;">
-            <div id="mainPhoto"></div>
+            <div id="mainPhoto">
+                @foreach (var item in Model.Images)
+                {
+                    <img src=@item alt="Sample Image" style="max-width:200px;" />
+                }
+            </div>
             <img id="mainImageProduct" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" style="max-width:100%;" />
             <div id="smallPhotoes" style="text-align:left;">
                 <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
                 <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
                 <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
                 <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
-                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
-                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
-                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
-                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
-                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
-                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
-                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
-                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
-                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
+                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />                
             </div>
         </div>
         <div id="infoBlock" class="detailBlock" style="display:inline-block;vertical-align:top;width:60%;"><span style=" display: block; padding: 0px 50px;line-height:24px; text-align: justify;">@Model.Description</span></div>
@@ -49,11 +46,6 @@
             </div>
         </div>
     </div>
-    <partial>
-        @{
-            Html.RenderPartial("ProductPhotos");
-        }
-    </partial>
     <div id="footerBlockDetails" style="background:#eeefff;height:120px;text-align:center;">
         <div style="position:relative;top:30%;">
             <input type="submit" id="btnCloseDetailWindow" value="Закрыть" />
