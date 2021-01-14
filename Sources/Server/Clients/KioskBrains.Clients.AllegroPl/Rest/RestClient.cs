@@ -296,12 +296,23 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
         public OfferExtraData GetExtraDataInit(string id)
         {
+            var o = GetOfferInit(id);
+            return new OfferExtraData() { Description = o.Description, Parameters = o.Parameters };
+        }
+
+        public Offer GetOfferInit(string id)
+        {
             var text = "";
             try
             {
                 HtmlWeb web = new HtmlWeb();
                 HtmlDocument doc = web.Load("https://allegro.pl/oferta/" + id);
                 text = doc.ParsedText;
+
+
+                var divName = doc.DocumentNode.QuerySelector("h1._1s2v1._1djie._4lbi0");
+                var name = divName.InnerHtml;
+
                 var divsDesc = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Description'] div._2d49e_5pK0q div");
 
                 if (!divsDesc.Any())
@@ -317,6 +328,11 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
 
                 var liParams = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Parameters'] li div._f8818_3-1jj");
+
+                var images = doc.DocumentNode.QuerySelectorAll("div[data-prototype-id = 'allegro.gallery'] img");
+                
+                var imagePathes = images.Where(x => x.Attributes["src"] != null).Select(x => new OfferImage() { Url = x.Attributes["src"].Value }).ToList();
+
 
                 if (!liParams.Any() && !divsDesc.Any())
                 {
@@ -335,10 +351,16 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     [Languages.RussianCode] = desc
                 };
 
-                return new OfferExtraData()
+                return new Offer()
                 {
+                    Name = new MultiLanguageString()
+                    {
+                        [Languages.PolishCode] = name,
+                        [Languages.RussianCode] = name
+                    },
                     Description = descMulti,
-                    Parameters = parameters
+                    Parameters = parameters,
+                    Images = imagePathes
                 };
             }
             catch (AllegroPlRequestException)

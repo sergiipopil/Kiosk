@@ -1,4 +1,6 @@
-﻿using KioskBrains.Common.EK.Api;
+﻿using KioskBrains.Common.Constants;
+using KioskBrains.Common.EK.Api;
+using System.Collections.Generic;
 
 namespace KioskBrains.Clients.AllegroPl.Models
 {
@@ -21,5 +23,23 @@ namespace KioskBrains.Clients.AllegroPl.Models
         public OfferImage[] Images { get; set; }
 
         public DeliveryOption[] DeliveryOptions { get; set; }
+        public List<OfferParameter> Parameters { get; set; }
+
+        public Offer()
+        {
+
+        }
+
+        public Offer(OfferExtraData data)
+        {
+            Parameters = data.Parameters;
+            Description = data.Description;
+            State = data.State;
+            Name = new MultiLanguageString()
+            {
+                [Languages.PolishCode] = "",
+                [Languages.RussianCode] = ""
+            };
+        }
     }
 }
