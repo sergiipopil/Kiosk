@@ -1,6 +1,44 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+@media(max-width: 480px) {
+    .detailBlock {
+        width: 100% !important;
+    }
+}
+body {
+    background: #e9eaff;
+}
 
+.btnBuy {
+    background: #e87619;
+    height: 51px;
+    color: #411f0c;
+    width: 80%;
+    border: 1px solid #e87619;
+}
+
+    .btnBuy img, .btnBuy span {
+        vertical-align: middle;
+    }
+
+input#btnContinueBuys {
+    border: 1px solid #474c7c;
+    color: #3b328d;
+    width: 80%;
+    height: 51px;
+}
+
+input#btnCloseDetailWindow {
+    background: #474c7c;
+    border: 1px solid #474c7c;
+    color: white;
+    height: 51px;
+    width: 20%;
+}
+
+.smallPhotoes {
+    max-width: 24%;
+}
 a.navbar-brand {
   white-space: normal;
   text-align: center;

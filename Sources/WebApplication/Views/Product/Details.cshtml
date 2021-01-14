@@ -7,10 +7,58 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@Model.Title</title>
+    <link rel="stylesheet" href="~/css/site.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@Model.Title</title>    
 </head>
 <body>
-    <span>@Model.Description</span>
+    <div id="rootBlockDetails" style="display:block;padding:50px 0px;">
+        <div id="imageBlock" class="detailBlock" style="display:inline-block;vertical-align:top;width:19%;text-align:center;">
+            <div id="mainPhoto"></div>
+            <img id="mainImageProduct" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" style="max-width:100%;" />
+            <div id="smallPhotoes" style="text-align:left;">
+                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
+                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
+                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
+                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
+                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
+                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
+                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
+                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
+                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
+                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
+                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
+                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
+                <img class="smallPhotoes" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" />
+            </div>
+        </div>
+        <div id="infoBlock" class="detailBlock" style="display:inline-block;vertical-align:top;width:60%;"><span style=" display: block; padding: 0px 50px;line-height:24px; text-align: justify;">@Model.Description</span></div>
+        <div id="controlBlock" class="detailBlock" style="display: inline-block; vertical-align: top;width:20%;text-align:center;border-left:1px solid #c3c4d7;">
+            <div id="priceProduct">
+                <div id="priceBlock" style="color: #e87619;"><label style="font-size:40px;">1 345</label><label style="font-size:24px;">грн</label></div>
+                <div id="priceComment" style="color:#6c7096;font-size:14px;">с учетом доставки<br /> доставка 1-7 дней</div>
+                <div id="buyBtn" style="margin: 57px 0px 0px 0px">
+                    <button class="btnBuy">
+                        <img src="~/images/Buy.png" />
+                        <span>Купить</span>
+                    </button>
+                </div>
+                <div id="continueBtn" style="margin: 10px 0px 0px 0px">
+                    <input type="submit" id="btnContinueBuys" value="Продолжить покупки" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <partial>
+        @{
+            Html.RenderPartial("ProductPhotos");
+        }
+    </partial>
+    <div id="footerBlockDetails" style="background:#eeefff;height:120px;text-align:center;">
+        <div style="position:relative;top:30%;">
+            <input type="submit" id="btnCloseDetailWindow" value="Закрыть" />
+        </div>
+
+    </div>
 </body>
 </html>

@@ -47,7 +47,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KioskBrains.Clients.ElitUa"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Server\Test\Test.csproj", "{687BF9D5-9211-4AEB-9643-33737B743DC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "Server\WebApplication1\WebApplication1.csproj", "{A7A171D6-72AA-47CB-B962-225845FA68C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "Server\WebApplication1\WebApplication1.csproj", "{A7A171D6-72AA-47CB-B962-225845FA68C1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication", "WebApplication\WebApplication.csproj", "{D0DBF3C5-DFD4-414D-8FE9-E89A2A941778}"
 EndProject
