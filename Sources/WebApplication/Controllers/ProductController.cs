@@ -23,7 +23,7 @@ namespace WebApplication.Controllers
         {
             var restClient = new RestClient("", "");
             var p = restClient.GetExtraDataInit(id);
-            List<string> ImagePath = new List<string> { "https://lh3.googleusercontent.com/proxy/Su-lx1na8rBohFs8td-Ef0_5fSk3Y6skfH48zXFzpAc8_TBmhQktMSQmhBlPAATC_ksYwUrq4qKrHHOsGgIZ0DsdlsudvrtuP0YkknBkyucNfI26_fiK8acxqGuQDQ1o4EeD2ONJcu7F", "https://bugaga.ru/uploads/posts/2018-06/1527924361_kartinki-21.jpg" };
+            List<string> ImagePath = new List<string> { "https://9.allegroimg.com/original/030a63/6d2953e8451eb54c45e7d93f8fa9/BLOTNIK-VW-GOLF-4-IV-KOLOR-LB9A-nowy", "https://a.allegroimg.com/original/03f97b/90520c994c718dab243caef5f9b3/Blotnik-VW-Golf-3-III-Dowolny-Kolor-Lewy-Nowy" };
             
             var product = new ProductViewModel() {Id = id,  Description = p.Description[Languages.PolishCode], Images = ImagePath };
             return View(product);
