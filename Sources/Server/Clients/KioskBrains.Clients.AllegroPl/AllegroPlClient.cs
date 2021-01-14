@@ -35,13 +35,17 @@ namespace KioskBrains.Clients.AllegroPl
 
         private readonly RestClient _restClient;
 
+        private readonly ITranslateService _translateService;
+
         private object _transLock = new object();
         private ISet<String> _valuesToTranslate;
 
         public AllegroPlClient(
             IOptions<AllegroPlClientSettings> settings,
             YandexTranslateClient yandexTranslateClient,
-            ILogger<AllegroPlClient> logger)
+            ILogger<AllegroPlClient> logger,
+            //ITokenService tokenService,
+            ITranslateService translateService)
         {
             _settings = settings.Value;
             Assure.ArgumentNotNull(_settings, nameof(_settings));
@@ -55,6 +59,7 @@ namespace KioskBrains.Clients.AllegroPl
             {
                 _valuesToTranslate = new HashSet<string>();
             }
+            _translateService = translateService;
         }
 
         #region Search
