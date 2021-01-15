@@ -11,7 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using KioskBrains.Clients.AllegroPl;
 using KioskBrains.Clients.YandexTranslate;
-using Autofac;
+using KioskBrains.Server.Domain.Config;
 
 namespace WebApplication
 {
@@ -42,12 +42,12 @@ namespace WebApplication
 
 
             services.AddMvc();
-            //services.AddDbContext<SSDbContext>(options =>
-            //{
-            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            //});
+            services.AddDbContext<SSDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
             
-            //services.UpdateDatabase<SSDbContext, DbInitializer>(services.BuildServiceProvider());
+            services.UpdateDatabase<SSDbContext, DbInitializer>(services.BuildServiceProvider());
             services.AddControllersWithViews();
         }
 
