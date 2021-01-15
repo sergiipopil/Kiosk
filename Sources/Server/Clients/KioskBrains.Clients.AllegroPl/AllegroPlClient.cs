@@ -281,7 +281,17 @@ namespace KioskBrains.Clients.AllegroPl
                 }
             }*/
 
-            var yandexTranslated = await _yandexTranslateClient.TranslateAsync(forYandex, Languages.PolishCode.ToLower(), Languages.RussianCode.ToLower(), cancellationToken);
+            var yandexTranslated = new string[0];
+
+            try
+            {
+                yandexTranslated = await _yandexTranslateClient.TranslateAsync(forYandex, Languages.PolishCode.ToLower(), Languages.RussianCode.ToLower(), cancellationToken);
+            }
+            catch(Exception er)
+            {
+                yandexTranslated = forYandex;
+            }
+            
 
 
             var yandexDict = new Dictionary<string, string>();
