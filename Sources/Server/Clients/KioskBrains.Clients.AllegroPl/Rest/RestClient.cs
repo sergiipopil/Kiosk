@@ -329,7 +329,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
                 var liParams = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Parameters'] li div._f8818_3-1jj");
 
-                var images = doc.DocumentNode.QuerySelectorAll("div[data-prototype-id = 'allegro.gallery'] img");
+                var images = doc.DocumentNode.QuerySelectorAll("div[data-prototype-id='allegro.gallery'] img");
                 
                 OfferImage[] imagePathes = images.Where(x => x.Attributes["src"] != null).Select(x => new OfferImage() { Url = x.Attributes["src"].Value }).ToArray();
 

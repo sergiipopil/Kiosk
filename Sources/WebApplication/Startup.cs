@@ -12,6 +12,8 @@ using Serilog;
 using KioskBrains.Clients.AllegroPl;
 using KioskBrains.Clients.YandexTranslate;
 using KioskBrains.Server.Domain.Config;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace WebApplication
 {
