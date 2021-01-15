@@ -60,9 +60,9 @@ namespace WebApplication.Controllers
         {
             var p = _allegroPlClient.GetOfferById(_translateService, id, CancellationToken.None).Result;
             
-            List<string> ImagePath = new List<string> { "https://9.allegroimg.com/original/030a63/6d2953e8451eb54c45e7d93f8fa9/BLOTNIK-VW-GOLF-4-IV-KOLOR-LB9A-nowy", "https://a.allegroimg.com/original/03f97b/90520c994c718dab243caef5f9b3/Blotnik-VW-Golf-3-III-Dowolny-Kolor-Lewy-Nowy" };
+            //List<string> ImagePath = new List<string> { "https://9.allegroimg.com/original/030a63/6d2953e8451eb54c45e7d93f8fa9/BLOTNIK-VW-GOLF-4-IV-KOLOR-LB9A-nowy", "https://a.allegroimg.com/original/03f97b/90520c994c718dab243caef5f9b3/Blotnik-VW-Golf-3-III-Dowolny-Kolor-Lewy-Nowy" };
             
-            var product = new ProductViewModel() {Id = id, Name= p.Name[Languages.RussianCode], Description = p.Description[Languages.RussianCode], Images = ImagePath };
+            var product = new ProductViewModel() {Id = id, Name= p.Name[Languages.RussianCode], Description = p.Description[Languages.RussianCode], Images = p.Images };
             return View(product);
         }
 

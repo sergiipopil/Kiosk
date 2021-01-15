@@ -21,12 +21,12 @@
             <div id="mainPhoto">
 
             </div>
-            <img id="mainImageProduct" src="https://f.allegroimg.com/original/033639/c5bfd0d04a7b8271341ab7e3c40f/BLOTNIK-VW-GOLF-4-IV-LB7Z" style="max-width:100%;" />
+            <img id="mainImageProduct" src=@Model.Images[0].Url style="max-width:100%;" />
             <div id="smallPhotoes" style="text-align:left;">
                 @foreach (var item in Model.Images)
                 {
-                    <a href=@item data-fancybox="gallery" class="noneDecoration">
-                        <img src=@item class="smallPhotoes">
+                    <a href=@item.Url data-fancybox="gallery" class="noneDecoration">
+                        <img src=@item.Url class="smallPhotoes">
                     </a>
                 }
             </div>
