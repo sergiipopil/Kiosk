@@ -7,11 +7,12 @@ using System.Linq;
 using AllegroSearchService.Bl.ServiceInterfaces.Repo;
 using System.Threading.Tasks;
 using KioskBrains.Server.Domain.Entities;
+using KioskBrains.Server.Domain.ServiceInterfaces;
 
 
 namespace KioskBrains.Server.Domain.Services
 {
-    public class TokenService 
+    public class TokenService : ITokenService
     {
         private IReadOnlyRepository _readOnlyRepository;
         private IWriteOnlyRepository _writeOnlyRepository;

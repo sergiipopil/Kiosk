@@ -11,6 +11,7 @@ using Autofac.Extensions.DependencyInjection;
 using KioskBrains.Server.Domain.Automapper;
 using Serilog;
 using KioskBrains.Server.Domain.Config;
+using static KioskBrains.Server.Domain.Automapper.AutofacModule;
 
 namespace WebApplication
 {
