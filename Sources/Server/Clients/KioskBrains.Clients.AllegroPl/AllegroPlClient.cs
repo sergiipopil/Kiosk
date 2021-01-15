@@ -236,19 +236,11 @@ namespace KioskBrains.Clients.AllegroPl
             }
         }
 
-        private void AddDescriptionToTranslate(OfferExtraData data)
+        private void AddParametersToTranslate(List<OfferParameter> parameters)
         {
             lock (_transLock)
-            {
-                /*if (!_valuesToTranslate.Contains(data.Description[Languages.PolishCode]))
-                {
-                    _valuesToTranslate.Add(data.Description[Languages.PolishCode]);
-                }*/
-
-
-
-
-                foreach (var p in data.Parameters)
+            { 
+                foreach (var p in parameters)
                 {
                     if (!_valuesToTranslate.Contains(p.Name[Languages.PolishCode]))
                     {
@@ -262,7 +254,7 @@ namespace KioskBrains.Clients.AllegroPl
             }
         }
 
-        private async Task<IDictionary<string, string>> GetForTranslateDictionary(ITranslateService translateService, IDictionary<string, string> dict, CancellationToken cancellationToken)
+        private async Task<IDictionary<string, string>> GetTranslateDictionary(ITranslateService translateService, IDictionary<string, string> dict, CancellationToken cancellationToken)
         {
             if (!_settings.IsTranslationEnabled)
             {
@@ -324,7 +316,7 @@ namespace KioskBrains.Clients.AllegroPl
             try
             {
                 var dict = await translateService.GetDictionary(_valuesToTranslate);
-                var yandexDict = await GetForTranslateDictionary(translateService, dict, cancellationToken);
+                var yandexDict = await GetTranslateDictionary(translateService, dict, cancellationToken);
                 try
                 {
                     await translateService.AddRecords(yandexDict, Languages.PolishCode, Languages.RussianCode, Guid.NewGuid());
@@ -345,22 +337,34 @@ namespace KioskBrains.Clients.AllegroPl
             }
         }
 
-        private async Task ApplyTranslationsExtraData(ITranslateService translateService, OfferExtraData data, CancellationToken cancellationToken)
+        private async Task ApplyTranslationsExtraData(ITranslateService translateService, Offer data, CancellationToken cancellationToken)
         {
             var dict = await translateService.GetDictionary(_valuesToTranslate);
-            var yandexDict = await GetWoTranslateDictionary(dict, cancellationToken);
-           
+            var woTranslateDict = await GetWoTranslateDictionary(dict, cancellationToken);
+
+
+            var yandexDict = await GetTranslateDictionary(translateService, dict, cancellationToken);
+            try
+            {
+                await translateService.AddRecords(yandexDict, Languages.PolishCode, Languages.RussianCode, Guid.NewGuid());
+            }
+            catch
+            {
+                _logger.LogError("Error translate");
+            }
 
             var state = data.Parameters.FirstOrDefault(x => x.Name[Languages.PolishCode].ToLower() == StateAttributeName.ToLower());
             if (state != null)
             {
                 data.State = RestClient.StatesByNames.ContainsKey(state.Value[Languages.PolishCode].ToLower()) ? RestClient.StatesByNames[state.Value[Languages.PolishCode].ToLower()] : OfferStateEnum.New;
             }
-            
+
+            data.Name[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, data.Name[Languages.PolishCode]);
+
             foreach (var p in data.Parameters)
             {
-                p.Name[Languages.RussianCode] = GetSafeValFromDictionary(dict, yandexDict, p.Name[Languages.PolishCode]);
-                p.Value[Languages.RussianCode] = GetSafeValFromDictionary(dict, yandexDict, p.Value[Languages.PolishCode]);
+                p.Name[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, p.Name[Languages.PolishCode]);
+                p.Value[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, p.Value[Languages.PolishCode]);
             }
             
             var desc = data.Description[Languages.PolishCode].ToLower();
@@ -433,12 +437,7 @@ namespace KioskBrains.Clients.AllegroPl
                 {
                     _valuesToTranslate = new HashSet<string>();
                 }
-                /*return new OfferExtraData()
-                {
-                    Description = new MultiLanguageString() { [Languages.PolishCode] = "test", [Languages.RussianCode] = "test11" },
-                    State = OfferStateEnum.Used,
-                    Parameters = new List<OfferParameter>() { new OfferParameter() { Name = new MultiLanguageString() { [Languages.PolishCode] = "test", [Languages.RussianCode] = "test11" }, Value = new MultiLanguageString() { [Languages.PolishCode] = "test", [Languages.RussianCode] = "test11" } } }
-                };*/
+                
                 var data = _restClient.GetExtraDataInit(offerId);
                 var state = data.Parameters.FirstOrDefault(x => x.Name[Languages.PolishCode].ToLower() == StateAttributeName.ToLower());
                 if (state != null)
@@ -448,8 +447,8 @@ namespace KioskBrains.Clients.AllegroPl
 
                 data.Description[Languages.RussianCode] =
                    data.Description[Languages.PolishCode] = ConvertDescriptionHtmlToText(data.Description[Languages.PolishCode]);
-                AddDescriptionToTranslate(data);
-                await ApplyTranslationsExtraData(translateService, data, cancellationToken);
+                AddParametersToTranslate(data.Parameters);
+                await ApplyTranslationsExtraData(translateService, new Offer(data), cancellationToken);
                 return data;
             }
             catch (Exception er)
@@ -459,6 +458,30 @@ namespace KioskBrains.Clients.AllegroPl
         }
 
         #endregion
+
+        public async Task<Offer> GetOfferById(ITranslateService translateService, string offerId, CancellationToken cancellationToken)
+        {
+            lock (_transLock)
+            {
+                _valuesToTranslate = new HashSet<string>();
+            }
+            var data = _restClient.GetOfferInit(offerId);
+            var state = data.Parameters.FirstOrDefault(x => x.Name[Languages.PolishCode].ToLower() == StateAttributeName.ToLower());
+            if (state != null)
+            {
+                data.State = RestClient.StatesByNames.ContainsKey(state.Value[Languages.PolishCode].ToLower()) ? RestClient.StatesByNames[state.Value[Languages.PolishCode].ToLower()] : OfferStateEnum.New;
+            }
+
+            data.Description[Languages.RussianCode] =
+               data.Description[Languages.PolishCode] = ConvertDescriptionHtmlToText(data.Description[Languages.PolishCode]);
+            lock (_transLock)
+            {
+                _valuesToTranslate.Add(data.Name[Languages.PolishCode]);
+            }
+            AddParametersToTranslate(data.Parameters);
+            await ApplyTranslationsExtraData(translateService, data, cancellationToken);
+            return data;
+        }
 
         #region HtmlToText
 

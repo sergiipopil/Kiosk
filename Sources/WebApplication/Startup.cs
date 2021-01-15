@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using KioskBrains.Clients.AllegroPl;
 using KioskBrains.Clients.YandexTranslate;
+using Autofac;
 
 namespace WebApplication
 {
