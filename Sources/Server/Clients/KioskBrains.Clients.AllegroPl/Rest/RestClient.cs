@@ -323,15 +323,17 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                         divsDesc = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Description']");
                     }
                 }
-
+                var tempdesc = doc.DocumentNode.QuerySelectorAll("div._2d49e_5pK0q");
                 var desc = divsDesc.Any() ? divsDesc[0].InnerHtml : "";
 
 
                 var liParams = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Parameters'] li div._f8818_3-1jj");
-
-                var images = doc.DocumentNode.QuerySelectorAll("div[data-prototype-id='allegro.gallery'] img");
                 
-                OfferImage[] imagePathes = images.Where(x => x.Attributes["src"] != null).Select(x => new OfferImage() { Url = x.Attributes["src"].Value }).ToArray();
+                var tempPrice = doc.DocumentNode.QuerySelector("div._9a071_1tOgC");
+                decimal productPricePLN = decimal.Parse(tempPrice.InnerText.Substring(0, tempPrice.InnerText.Length - 3));
+                var images = doc.DocumentNode.QuerySelectorAll("img._b8e15_2LNko");//doc.DocumentNode.QuerySelectorAll("div[data-prototype-id='allegro.gallery'] img");
+
+                OfferImage[] imagePathes = images.Where(x => x.Attributes["src"] != null).Select(x => new OfferImage() { Url = x.Attributes["src"].Value.Replace("s128","s512") }).ToArray();
 
 
                 if (!liParams.Any() && !divsDesc.Any())
@@ -360,7 +362,8 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     },
                     Description = descMulti,
                     Parameters = parameters,
-                    Images = imagePathes
+                    Images = imagePathes,
+                    Price=productPricePLN
                 };
             }
             catch (AllegroPlRequestException)

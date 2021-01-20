@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KioskBrains.Clients.AllegroPl.Models;
+using KioskBrains.Common.EK.Api;
 
 namespace WebApplication.Models
 {
@@ -13,6 +14,8 @@ namespace WebApplication.Models
         public string Description { get; set; }   
         public string Name { get; set; }
 
+        public decimal Price { get; set; }
+        public List<string> Parameters { get; set; }
         public OfferImage[] Images
         {
             get;set;

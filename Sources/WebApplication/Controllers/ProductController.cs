@@ -10,13 +10,11 @@ using WebApplication.Models;
 using KioskBrains.Clients.AllegroPl;
 using KioskBrains.Clients.AllegroPl.ServiceInterfaces;
 using System.Threading;
-
 using Microsoft.Extensions.Logging;
-using KioskBrains.Clients.AllegroPl;
 using Microsoft.Extensions.Options;
 using KioskBrains.Clients.YandexTranslate;
-using System.Threading;
-using KioskBrains.Clients.AllegroPl.ServiceInterfaces;
+using KioskBrains.Server.Domain.Actions.EkKiosk;
+using KioskBrains.Common.EK.Api;
 
 namespace WebApplication.Controllers
 {
@@ -34,7 +32,6 @@ namespace WebApplication.Controllers
         public ProductController(ILogger<AllegroPlClient> logger,
             IOptions<AllegroPlClientSettings> settings,
             IOptions<YandexTranslateClientSettings> yandexApiClientSettings,
-            //ITokenService tokenService,
             ITranslateService translateService)
         {
             _logger = logger;
@@ -43,9 +40,7 @@ namespace WebApplication.Controllers
             _allegroPlClient = new AllegroPlClient(
                 settings,
                 new YandexTranslateClient(yandexApiClientSettings),
-                logger,
-                //tokenService,
-                translateService); 
+                logger);
             _translateService = translateService;
         }
         // GET: ProductController
@@ -59,10 +54,11 @@ namespace WebApplication.Controllers
         public  ActionResult Details(string id)
         {
             var p = _allegroPlClient.GetOfferById(_translateService, id, CancellationToken.None).Result;
-            
-            //List<string> ImagePath = new List<string> { "https://9.allegroimg.com/original/030a63/6d2953e8451eb54c45e7d93f8fa9/BLOTNIK-VW-GOLF-4-IV-KOLOR-LB9A-nowy", "https://a.allegroimg.com/original/03f97b/90520c994c718dab243caef5f9b3/Blotnik-VW-Golf-3-III-Dowolny-Kolor-Lewy-Nowy" };
-            
-            var product = new ProductViewModel() {Id = id, Name= p.Name[Languages.RussianCode], Description = p.Description[Languages.RussianCode], Images = p.Images };
+            List<string> test = new List<string>();
+            foreach (var item in p.Parameters) {
+                test.Add(item.Name[Languages.RussianCode] + ": " + item.Value[Languages.RussianCode]);
+            }
+            var product = new ProductViewModel() { Id = id, Title = p.Name[Languages.RussianCode], Description = p.Description[Languages.RussianCode], Images = p.Images, Parameters = test };
             return View(product);
         }
 

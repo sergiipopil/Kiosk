@@ -1,7 +1,7 @@
 ﻿@model WebApplication.Models.ProductViewModel
 @{
     Layout = null;
- }
+}
 
 <!DOCTYPE html>
 
@@ -17,12 +17,11 @@
 <body>
     <div id="rootBlockDetails" style="display:block;padding:50px 0px;">
         <!--IMAGES BLOCK-->
-        <div id="imageBlock" class="detailBlock" style="width:19%;text-align:center;">
-            <div id="mainPhoto">
-
-            </div>
-            <img id="mainImageProduct" src=@Model.Images[0].Url style="max-width:100%;" />
-            <div id="smallPhotoes" style="text-align:left;">
+        <div id="imageBlock" class="detailBlock" style="width:19%;text-align:center;background:white;">
+            
+            <img id="mainImageProduct" src=@Model.Images[0].Url style="max-width:100%;border-bottom:3px solid #e9eaff;" />
+            
+            <div style="text-align:left;">
                 @foreach (var item in Model.Images)
                 {
                     <a href=@item.Url data-fancybox="gallery" class="noneDecoration">
@@ -32,12 +31,20 @@
             </div>
         </div>
         <!--DESCRIPTION BLOCK-->
-        <div id="infoBlock" class="detailBlock" style="width:60%;"><span class="descriptionBlock">@Model.Description</span></div>
+        <div id="infoBlock" class="detailBlock" style="width:60%;">
+            <span class="titleBlock">@Model.Title</span>
+            @foreach (var item in Model.Parameters)
+            {
+                <div class="descriptionBlock">@item</div>
+            }
+
+            <span class="descriptionBlock">@Model.Description</span>
+        </div>
         <!--PRICE BLOCK-->
         <div id="controlBlock" class="detailBlock" style="width:20%;text-align:center;border-left:1px solid #c3c4d7;">
             <div id="priceProduct">
                 <div id="priceBlock" style="color: #e87619;"><label style="font-size:40px;">1 345</label><label style="font-size:24px;">грн</label></div>
-                <div id="priceComment" style="color:#6c7096;font-size:14px;">с учетом доставки<br /> доставка 1-7 дней</div>
+                <div id="priceComment" style="color:#6c7096;font-size:14px;">доставка в Украину <br /> 2-5 дней</div>
                 <div id="buyBtn" style="margin: 57px 0px 0px 0px">
                     <button class="btnBuy">
                         <img src="~/images/Buy.png" />

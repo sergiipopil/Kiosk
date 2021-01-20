@@ -15,8 +15,16 @@ for details on configuring this project to bundle and minify static web assets. 
     line-height: 24px;
     text-align: justify;
 }
+.titleBlock {
+    display: block;
+    padding: 0px 50px;
+    text-align: justify;
+    font-weight: bold;
+    font-size: 38px;
+    padding-bottom: 20px;
+}
 .noneDecoration {
-    text-decoration:none;
+    text-decoration: none;
 }
 body {
     background: #e9eaff;
@@ -50,7 +58,8 @@ input#btnCloseDetailWindow {
 }
 
 .smallPhotoes {
-    max-width:24%;
+    max-width:20%;
+    vertical-align:middle;
 }
 a.navbar-brand {
   white-space: normal;

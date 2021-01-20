@@ -43,9 +43,7 @@ namespace KioskBrains.Clients.AllegroPl
         public AllegroPlClient(
             IOptions<AllegroPlClientSettings> settings,
             YandexTranslateClient yandexTranslateClient,
-            ILogger<AllegroPlClient> logger,
-            //ITokenService tokenService,
-            ITranslateService translateService)
+            ILogger<AllegroPlClient> logger)
         {
             _settings = settings.Value;
             Assure.ArgumentNotNull(_settings, nameof(_settings));
@@ -59,7 +57,6 @@ namespace KioskBrains.Clients.AllegroPl
             {
                 _valuesToTranslate = new HashSet<string>();
             }
-            _translateService = translateService;
         }
 
         #region Search
