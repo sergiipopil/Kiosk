@@ -12,6 +12,7 @@ using KioskBrains.Server.Domain.Automapper;
 using Serilog;
 using KioskBrains.Server.Domain.Config;
 using static KioskBrains.Server.Domain.Automapper.AutofacModule;
+using KioskBrains.Server.Domain.Entities.DbStorage;
 
 namespace WebApplication
 {
@@ -32,7 +33,7 @@ namespace WebApplication
                 {
                     containerBuilder.RegisterModule<AutofacModule>();
                     //containerBuilder.RegisterModule(new IntegrationEventsAutofacModule<MessageBusListener>(context.Configuration));
-                    containerBuilder.RegisterModule(new DataAccessEventsAutofacModule<SSDbContext>());
+                    containerBuilder.RegisterModule(new DataAccessEventsAutofacModule<KioskBrainsContext>());
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

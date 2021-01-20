@@ -9,6 +9,7 @@ using KioskBrains.Clients.AllegroPl.ServiceInterfaces;
 using KioskBrains.Server.Domain.ServiceInterfaces;
 using KioskBrains.Server.Domain.Services.Repo;
 using AllegroSearchService.Bl.ServiceInterfaces.Repo;
+using KioskBrains.Server.Domain.Managers;
 
 namespace KioskBrains.Server.Domain.Automapper
 {
@@ -27,6 +28,7 @@ namespace KioskBrains.Server.Domain.Automapper
             builder.RegisterType<TokenService>()
                .As<ITokenService>()
                .InstancePerLifetimeScope();
+            builder.RegisterType<CentralBankExchangeRateManager>();
         }
 
         public class DataAccessEventsAutofacModule<TContext> : Module where TContext : DbContext

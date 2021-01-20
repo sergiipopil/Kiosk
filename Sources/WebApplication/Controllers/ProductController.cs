@@ -15,6 +15,9 @@ using Microsoft.Extensions.Options;
 using KioskBrains.Clients.YandexTranslate;
 using KioskBrains.Server.Domain.Actions.EkKiosk;
 using KioskBrains.Common.EK.Api;
+using KioskBrains.Server.Domain.Managers;
+using KioskBrains.Server.Domain.Entities.DbStorage;
+using KioskBrains.Server.Domain.Config;
 
 namespace WebApplication.Controllers
 {
@@ -28,11 +31,12 @@ namespace WebApplication.Controllers
         private IOptions<AllegroPlClientSettings> _settings;
         private IOptions<YandexTranslateClientSettings> _yandexSettings;
         private CancellationTokenSource _tokenSource;
+        private readonly CentralBankExchangeRateManager _centralBankExchangeRateManager;
 
         public ProductController(ILogger<AllegroPlClient> logger,
             IOptions<AllegroPlClientSettings> settings,
             IOptions<YandexTranslateClientSettings> yandexApiClientSettings,
-            ITranslateService translateService)
+            ITranslateService translateService, CentralBankExchangeRateManager centralBankExchangeRateManager)
         {
             _logger = logger;
             _settings = settings;
@@ -42,6 +46,7 @@ namespace WebApplication.Controllers
                 new YandexTranslateClient(yandexApiClientSettings),
                 logger);
             _translateService = translateService;
+            _centralBankExchangeRateManager = centralBankExchangeRateManager;
         }
         // GET: ProductController
         public ActionResult Index()

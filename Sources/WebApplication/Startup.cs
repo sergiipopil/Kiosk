@@ -13,7 +13,7 @@ using KioskBrains.Clients.AllegroPl;
 using KioskBrains.Clients.YandexTranslate;
 using KioskBrains.Server.Domain.Config;
 using Microsoft.EntityFrameworkCore;
-
+using KioskBrains.Server.Domain.Entities.DbStorage;
 
 namespace WebApplication
 {
@@ -44,12 +44,14 @@ namespace WebApplication
 
 
             services.AddMvc();
-            services.AddDbContext<SSDbContext>(options =>
+            services.AddDbContext<KioskBrainsContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
             
-            services.UpdateDatabase<SSDbContext, DbInitializer>(services.BuildServiceProvider());
+
+
+            services.UpdateDatabase<KioskBrainsContext, DbInitializer>(services.BuildServiceProvider());
             services.AddControllersWithViews();
         }
 
