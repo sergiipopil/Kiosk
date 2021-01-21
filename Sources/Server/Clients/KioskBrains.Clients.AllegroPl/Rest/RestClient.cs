@@ -328,7 +328,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
 
                 var liParams = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Parameters'] li div._f8818_3-1jj");
-                
+
                 //var tempPrice = doc.DocumentNode.QuerySelector("div.asi-offer__price.m-price.m-price--primary");
                 decimal productPricePLN = 100;
                 var images = doc.DocumentNode.QuerySelectorAll("img._b8e15_2LNko");//doc.DocumentNode.QuerySelectorAll("div[data-prototype-id='allegro.gallery'] img");

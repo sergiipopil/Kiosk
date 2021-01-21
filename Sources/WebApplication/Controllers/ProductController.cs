@@ -53,18 +53,28 @@ namespace WebApplication.Controllers
         {            
             return View();
         }
-
-        // GET: ProductController/Details/5
-          
-        public  ActionResult Details(string id)
+        public ActionResult CartView()
         {
+            return View();
+        }
+        public ActionResult Delivery()
+        {
+            return View();
+        }
+        public ProductViewModel GetProductInfo(string id) {
             var p = _allegroPlClient.GetOfferById(_translateService, id, CancellationToken.None).Result;
             List<string> test = new List<string>();
-            foreach (var item in p.Parameters) {
+            foreach (var item in p.Parameters)
+            {
                 test.Add(item.Name[Languages.RussianCode] + ": " + item.Value[Languages.RussianCode]);
             }
             var product = new ProductViewModel() { Id = id, Title = p.Name[Languages.RussianCode], Description = p.Description[Languages.RussianCode], Images = p.Images, Parameters = test };
-            return View(product);
+            return product;
+        }
+        // GET: ProductController/Details/5        
+        public  ActionResult Details(string id)
+        {            
+            return View(GetProductInfo(id));
         }
 
         // GET: ProductController/Create

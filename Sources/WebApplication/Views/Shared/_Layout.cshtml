@@ -7,11 +7,20 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
+<body style="background:#23274d;">
     <header>
+        <div style="display:inline-block;vertical-align:middle;">
+            <img src="~/images/Logo.png" style="margin:10px 30px;" />
+        </div>
+        <div style="display:inline-block;vertical-align:middle;margin-left:30px;">
+            <img src="~/images/SupportPhone.png" />
+        </div>
+        <div style="display:inline-block;vertical-align:middle;">
+            <span style="margin-left:18px;font-size:30px;color:white;">+38 (050) 508 81 08</span>
+        </div>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplication</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Автозапчасти 24/7</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -29,8 +38,8 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div style="margin:0px 50px 0px 50px;" @*class="container"*@>
+        <main role="main">
             @RenderBody()
         </main>
     </div>

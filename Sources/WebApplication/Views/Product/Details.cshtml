@@ -1,7 +1,7 @@
 ﻿@model WebApplication.Models.ProductViewModel
-@{
-    Layout = null;
-}
+@*@{
+        Layout = null;
+    }*@
 
 <!DOCTYPE html>
 
@@ -15,12 +15,12 @@
     <title>@Model.Title</title>
 </head>
 <body>
-    <div id="rootBlockDetails" style="display:block;padding:50px 0px;">
+    <div id="rootBlockDetails" style="display:block; color:white;">
         <!--IMAGES BLOCK-->
         <div id="imageBlock" class="detailBlock" style="width:19%;text-align:center;background:white;">
-            
+
             <img id="mainImageProduct" src=@Model.Images[0].Url style="max-width:100%;border-bottom:3px solid #e9eaff;" />
-            
+
             <div style="text-align:left;">
                 @foreach (var item in Model.Images)
                 {
@@ -46,10 +46,13 @@
                 <div id="priceBlock" style="color: #e87619;"><label style="font-size:40px;">1 345</label><label style="font-size:24px;">грн</label></div>
                 <div id="priceComment" style="color:#6c7096;font-size:14px;">доставка в Украину <br /> 2-5 дней</div>
                 <div id="buyBtn" style="margin: 57px 0px 0px 0px">
-                    <button class="btnBuy">
-                        <img src="~/images/Buy.png" />
-                        <span>Купить</span>
-                    </button>
+                    <form action="@Url.Action("CartView")">
+                        <button class="btnBuy">
+
+                            <img src="~/images/Buy.png" />
+                            <span>Купить</span>
+                        </button>
+                    </form>
                 </div>
                 <div id="continueBtn" style="margin: 10px 0px 0px 0px">
                     <input type="submit" id="btnContinueBuys" value="Продолжить покупки" />
