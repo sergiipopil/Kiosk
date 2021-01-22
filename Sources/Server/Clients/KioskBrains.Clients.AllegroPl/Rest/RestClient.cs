@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -329,8 +330,9 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
                 var liParams = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Parameters'] li div._f8818_3-1jj");
                 
-                //var tempPrice = doc.DocumentNode.QuerySelector("div.asi-offer__price.m-price.m-price--primary");
-                decimal productPricePLN = 100;
+                var tempPrice = doc.DocumentNode.QuerySelector("meta[itemprop='price']");
+                var priceStr = tempPrice.Attributes["content"].Value.ToString().Replace(",", ".");
+                decimal productPricePLN = decimal.Parse(priceStr, CultureInfo.InvariantCulture);
                 var images = doc.DocumentNode.QuerySelectorAll("img._b8e15_2LNko");//doc.DocumentNode.QuerySelectorAll("div[data-prototype-id='allegro.gallery'] img");
 
                 OfferImage[] imagePathes = images.Where(x => x.Attributes["src"] != null).Select(x => new OfferImage() { Url = x.Attributes["src"].Value.Replace("s128","s512") }).ToArray();
