@@ -19,6 +19,7 @@ using KioskBrains.Server.Domain.Managers;
 using KioskBrains.Server.Domain.Entities.DbStorage;
 using KioskBrains.Server.Domain.Config;
 using WebApplication.NovaPoshtaUkraine;
+using KioskBrains.Server.Domain.Helpers.Dates;
 
 namespace WebApplication.Controllers
 {
@@ -64,6 +65,23 @@ namespace WebApplication.Controllers
         {
             return View();
         }
+
+        private async Task<decimal> GetExchangeRateAsync()
+        {
+            var ukrainianNow = TimeZones.GetTimeZoneNow(TimeZones.UkrainianTime);
+            const string LocalCurrencyCode = "UAH";
+            const string ForeignCurrencyCode = "PLN";
+
+            // todo: cache
+            var exchangeRate = await _centralBankExchangeRateManager.GetCurrentRateAsync(LocalCurrencyCode, ForeignCurrencyCode, ukrainianNow);
+            if (exchangeRate == null)
+            {
+                throw new InvalidOperationException($"CB exchange rate for {LocalCurrencyCode}-{ForeignCurrencyCode} is not presented.");
+            }
+
+            return exchangeRate.Value;
+        }
+
         public ProductViewModel GetProductInfo(string id) {            
             var p = _allegroPlClient.GetOfferById(_translateService, id, CancellationToken.None).Result;
             NPInfo();
@@ -74,7 +92,20 @@ namespace WebApplication.Controllers
             {
                 test.Add(item.Name[Languages.RussianCode] + ": " + item.Value[Languages.RussianCode]);
             }
-            var product = new ProductViewModel() { Id = id, Title = p.Name[Languages.RussianCode], Description = p.Description[Languages.RussianCode], Images = p.Images, Parameters = test };
+
+            var rate = GetExchangeRateAsync().Result;
+            var ekProduct = EkConvertHelper.EkAllegroPlOfferToProduct(p, rate);
+
+
+            var product = new ProductViewModel() 
+            { 
+                Id = id, 
+                Title = p.Name[Languages.RussianCode], 
+                Description = p.Description[Languages.RussianCode], 
+                Images = p.Images, 
+                Parameters = test,
+                Price = p.Price
+            };
             return product;
         }
         public async void NPInfo()

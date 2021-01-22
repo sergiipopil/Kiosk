@@ -188,7 +188,7 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk
 
                 product.Price = RoundPrice(price);
                 product.PriceCurrencyCode = "UAH";
-                product.PriceCalculationInfo = $"Formula=((P+D)+M%+T%)*R, P={P_Price}, D={D_Price}, M={M_Markup:P}, T={T_Taxes:P}, R={R_Rate}, Category={(isSpecialEngineTransmissionProduct ? "Engine/Transmission" : "Regular")}";
+                product.PriceCalculationInfo = $"Formula=((P+D)+M%+T%)*R*ER, P={P_Price}, D={D_Price}, M={M_Markup:P}, T={T_Taxes:P}, R={R_Rate}, ER={ExtraRate}, Category={(isSpecialEngineTransmissionProduct ? "Engine/Transmission" : "Regular")}";
             }
 
             return product;
