@@ -18,6 +18,7 @@ using KioskBrains.Common.EK.Api;
 using KioskBrains.Server.Domain.Managers;
 using KioskBrains.Server.Domain.Entities.DbStorage;
 using KioskBrains.Server.Domain.Config;
+using WebApplication.NovaPoshtaUkraine;
 
 namespace WebApplication.Controllers
 {
@@ -25,6 +26,7 @@ namespace WebApplication.Controllers
     {
 
         private AllegroPlClient _allegroPlClient;
+        private NovaPoshtaUkraineClient _novaPoshtaClient;
         private ITranslateService _translateService;
 
         private ILogger<AllegroPlClient> _logger;
@@ -36,7 +38,7 @@ namespace WebApplication.Controllers
         public ProductController(ILogger<AllegroPlClient> logger,
             IOptions<AllegroPlClientSettings> settings,
             IOptions<YandexTranslateClientSettings> yandexApiClientSettings,
-            ITranslateService translateService, CentralBankExchangeRateManager centralBankExchangeRateManager)
+            ITranslateService translateService, CentralBankExchangeRateManager centralBankExchangeRateManager, NovaPoshtaUkraineClient novaPoshtaUkraineClient)
         {
             _logger = logger;
             _settings = settings;
@@ -47,24 +49,42 @@ namespace WebApplication.Controllers
                 logger);
             _translateService = translateService;
             _centralBankExchangeRateManager = centralBankExchangeRateManager;
+            _novaPoshtaClient = novaPoshtaUkraineClient;
         }
         // GET: ProductController
         public ActionResult Index()
         {            
             return View();
         }
-
-        // GET: ProductController/Details/5
-          
-        public  ActionResult Details(string id)
+        public ActionResult CartView()
         {
+            return View();
+        }
+        public ActionResult Delivery()
+        {
+            return View();
+        }
+        public ProductViewModel GetProductInfo(string id) {            
             var p = _allegroPlClient.GetOfferById(_translateService, id, CancellationToken.None).Result;
+            NPInfo();
+
+
             List<string> test = new List<string>();
-            foreach (var item in p.Parameters) {
+            foreach (var item in p.Parameters)
+            {
                 test.Add(item.Name[Languages.RussianCode] + ": " + item.Value[Languages.RussianCode]);
             }
             var product = new ProductViewModel() { Id = id, Title = p.Name[Languages.RussianCode], Description = p.Description[Languages.RussianCode], Images = p.Images, Parameters = test };
-            return View(product);
+            return product;
+        }
+        public async void NPInfo()
+        {
+            var npInfo = await _novaPoshtaClient.GetAllWarehousesAsync(CancellationToken.None);
+        }
+            // GET: ProductController/Details/5        
+            public  ActionResult Details(string id)
+        {            
+            return View(GetProductInfo(id));
         }
 
         // GET: ProductController/Create

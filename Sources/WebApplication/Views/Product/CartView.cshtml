@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/site.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <div style="background:#514593;width:20%;text-align:center;padding:20px 0px;">
+            <span style="color:white;font-size:30px;">У Вас в корзине</span>
+            <div style="padding:10px 0px;">
+                <div style="display:inline-block;vertical-align:middle;"><img src="~/images/CartWidgetEmpty.png"></div>
+                <div style="font-size:18px;color:white;display:inline-block;vertical-align:middle;">1 товар</div>
+            </div>
+            <div style="background:#635aa0;height:1px;width:100%;margin-top:15px;"></div>
+            <div style="color:white;">
+                <label style="font-size:68px;">1 345</label><label style="font-size:39px;">грн</label>
+            </div>
+            <div>
+                <span style="font-size:30px;color:white;">Вы можете</span>
+            </div>
+            <div id="buyBtn" style="margin: 57px 0px 0px 0px">
+                <form action="@Url.Action("Delivery")">
+                    <button class="btnBuy">
+                        <img src="~/images/Buy.png" />
+                        <span>Купить</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div style="background:#DCDEFF;">
+
+        </div>
+    </div>
+</body>
+</html>
