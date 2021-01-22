@@ -32,6 +32,7 @@ namespace WebApplication
                 .ConfigureContainer<ContainerBuilder>((context, containerBuilder) =>
                 {
                     containerBuilder.RegisterModule<AutofacModule>();
+                    containerBuilder.RegisterType<NovaPoshtaUkraine.NovaPoshtaUkraineClient>();
                     //containerBuilder.RegisterModule(new IntegrationEventsAutofacModule<MessageBusListener>(context.Configuration));
                     containerBuilder.RegisterModule(new DataAccessEventsAutofacModule<KioskBrainsContext>());
                 })

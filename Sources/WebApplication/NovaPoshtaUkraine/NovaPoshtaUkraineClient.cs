@@ -14,7 +14,7 @@ namespace WebApplication.NovaPoshtaUkraine
 
         public static NovaPoshtaUkraineClient Current { get; } = new NovaPoshtaUkraineClient();
 
-        private NovaPoshtaUkraineClient()
+        public NovaPoshtaUkraineClient()
         {
         }
 
@@ -23,7 +23,7 @@ namespace WebApplication.NovaPoshtaUkraine
         // TODO: accept from server (expiration period - 1 year)
         private const string ApiKey = "376986cb6801ed635b06e3bae756dba8";
 
-        private const string ApiUrl = "https://api.novaposhta.ua";
+        private const string ApiUrl = "http://testapi.novaposhta.ua";
 
         private const string Format = "json";
 
