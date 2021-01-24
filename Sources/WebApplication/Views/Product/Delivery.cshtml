@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model WebApplication.Models.NovaPoshtaViewModel
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -8,10 +10,85 @@
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title></title>
+    <style>
+        .novaPoshtaItem {
+        }
+        * {
+            box-sizing: border-box;
+        }
+
+        #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 12px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #myUL {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            #myUL li a {
+                border: 1px solid #ddd;
+                margin-top: -1px; /* Prevent double borders */
+                background-color: #f6f6f6;
+                padding: 12px;
+                text-decoration: none;
+                font-size: 18px;
+                color: black;
+                display: block
+            }
+
+                #myUL li a:hover:not(.header) {
+                    background-color: #eee;
+                }
+    </style>
+    <script>
+        function myFunction() {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            input.value.length > 0 ? ul.style.display = "block" : ul.style.display = "none";
+            li = ul.getElementsByTagName("li");
+            for (i = 0; i < li.length; i++) {
+                a = li[i];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+        
+        //$(".novaPoshtaItem li").on("click", function () {           
+        //    $("#myInput").val($(this).text());
+        //});
+    </script>
 </head>
 <body>
     <div style="color:white;">
         Виберіть спосіб доставки
-        </div>
-    </body>
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+        @foreach (var item in Model.Areas)
+        {
+            <span>@item.Description</span>
+        }
+        <ul id="myUL" style="display:none;">
+
+            @*@foreach (var item in Model.WareHouses)
+            {
+                <li class="novaPoshtaItem">@String.Format("{0}. {1} - {2}", @item.Number, @item.CityDescriptionRu, @item.DescriptionRu)</li>
+            }*@
+        </ul>
+    </div>
+</body>
 </html>

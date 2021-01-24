@@ -20,6 +20,7 @@ using KioskBrains.Server.Domain.Entities.DbStorage;
 using KioskBrains.Server.Domain.Config;
 using WebApplication.NovaPoshtaUkraine;
 using KioskBrains.Server.Domain.Helpers.Dates;
+using WebApplication.NovaPoshtaUkraine.Models;
 
 namespace WebApplication.Controllers
 {
@@ -54,7 +55,7 @@ namespace WebApplication.Controllers
         }
         // GET: ProductController
         public ActionResult Index()
-        {            
+        {
             return View();
         }
         public ActionResult CartView()
@@ -63,7 +64,12 @@ namespace WebApplication.Controllers
         }
         public ActionResult Delivery()
         {
-            return View();
+            var areas = GetAllNovaPoshtaDepartments();
+            NovaPoshtaViewModel npView = new NovaPoshtaViewModel
+            {
+                Areas = areas.Result
+            };
+            return View(npView);
         }
 
         private async Task<decimal> GetExchangeRateAsync()
@@ -80,12 +86,14 @@ namespace WebApplication.Controllers
             }
 
             return exchangeRate.Value;
+        }       
+        private async Task<AreasSearchItem[]> GetAllNovaPoshtaDepartments() {
+            return _novaPoshtaClient.GetAllAreasAsync(CancellationToken.None).Result;
         }
-
-        public ProductViewModel GetProductInfo(string id) {            
+        
+        public ProductViewModel GetProductInfo(string id)
+        {
             var p = _allegroPlClient.GetOfferById(_translateService, id, CancellationToken.None).Result;
-            NPInfo();
-
 
             List<string> test = new List<string>();
             foreach (var item in p.Parameters)
@@ -97,24 +105,20 @@ namespace WebApplication.Controllers
             var ekProduct = EkConvertHelper.EkAllegroPlOfferToProduct(p, rate);
 
 
-            var product = new ProductViewModel() 
-            { 
-                Id = id, 
-                Title = p.Name[Languages.RussianCode], 
-                Description = p.Description[Languages.RussianCode], 
-                Images = p.Images, 
+            var product = new ProductViewModel()
+            {
+                Id = id,
+                Title = p.Name[Languages.RussianCode],
+                Description = p.Description[Languages.RussianCode],
+                Images = p.Images,
                 Parameters = test,
                 Price = p.Price
             };
             return product;
         }
-        public async void NPInfo()
+        // GET: ProductController/Details/5        
+        public ActionResult Details(string id)
         {
-            var npInfo = await _novaPoshtaClient.GetAllWarehousesAsync(CancellationToken.None);
-        }
-            // GET: ProductController/Details/5        
-            public  ActionResult Details(string id)
-        {            
             return View(GetProductInfo(id));
         }
 

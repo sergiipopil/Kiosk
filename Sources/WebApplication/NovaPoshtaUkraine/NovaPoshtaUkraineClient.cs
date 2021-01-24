@@ -109,6 +109,23 @@ namespace WebApplication.NovaPoshtaUkraine
             }
 
             return warehouses;
+        }       
+        
+        public async Task<AreasSearchItem[]> GetAllAreasAsync(CancellationToken cancellationToken)
+        {
+            var areas = GetCachedAreas();
+            if (areas == null)
+            {
+                var request = new AreasSearchRequest(null, null, null);
+                var response = await SendRequestAsync<AreasSearchResponse>(
+                    "Address/getAreas/",
+                    request,
+                    cancellationToken);
+                areas = response.data;
+                CacheAreas(areas);
+            }
+
+            return areas;
         }
 
         #region Cache
@@ -117,9 +134,25 @@ namespace WebApplication.NovaPoshtaUkraine
 
         private WarehouseSearchItem[] _cachedWarehouses;
 
+        private AreasSearchItem[] _cachedAreas;
+
         private readonly object _cacheLocker = new object();
 
         private readonly TimeSpan _cacheInvalidationPeriod = TimeSpan.FromDays(1);
+
+        private AreasSearchItem[] GetCachedAreas()
+        {
+            lock (_cacheLocker)
+            {
+                if (_warehousesCachedOn == null
+                    || (DateTime.Now - _cacheInvalidationPeriod) > _warehousesCachedOn.Value)
+                {
+                    return null;
+                }
+
+                return _cachedAreas;
+            }
+        }
 
         private WarehouseSearchItem[] GetCachedWarehouses()
         {
@@ -147,6 +180,21 @@ namespace WebApplication.NovaPoshtaUkraine
 
                 _warehousesCachedOn = DateTime.Now;
                 _cachedWarehouses = warehouses;
+            }
+        }
+
+        private void CacheAreas(AreasSearchItem[] areas)
+        {
+            lock (_cacheLocker)
+            {
+                if (areas == null
+                    || areas.Length == 0)
+                {
+                    return;
+                }
+
+                _warehousesCachedOn = DateTime.Now;
+                _cachedAreas = areas;
             }
         }
 
