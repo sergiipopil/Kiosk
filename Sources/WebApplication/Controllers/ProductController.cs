@@ -88,6 +88,7 @@ namespace WebApplication.Controllers
             return exchangeRate.Value;
         }       
         private async Task<AreasSearchItem[]> GetAllNovaPoshtaDepartments() {
+            var allData = _novaPoshtaClient.GetAllWarehousesAsync(CancellationToken.None).Result; 
             return _novaPoshtaClient.GetAllAreasAsync(CancellationToken.None).Result;
         }
         

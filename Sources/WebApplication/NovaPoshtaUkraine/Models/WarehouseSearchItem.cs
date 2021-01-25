@@ -13,6 +13,16 @@ namespace WebApplication.NovaPoshtaUkraine.Models
 
         public string DescriptionRu { get; set; }
 
+        public string Area { get; set; }
+
+        public string Region { get; set; }
+
+        public string RegionRef { get; set; }
+
+        public string AreaDescription { get; set; }
+
+        public string AreaDescriptionRu { get; set; }
+            
         public string Phone { get; set; }
 
         public string TypeOfWarehouse { get; set; }

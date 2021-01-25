@@ -23,7 +23,7 @@ namespace WebApplication.NovaPoshtaUkraine
         // TODO: accept from server (expiration period - 1 year)
         private const string ApiKey = "376986cb6801ed635b06e3bae756dba8";
 
-        private const string ApiUrl = "http://testapi.novaposhta.ua";
+        private const string ApiUrl = "https://api.novaposhta.ua";
 
         private const string Format = "json";
 
@@ -101,7 +101,7 @@ namespace WebApplication.NovaPoshtaUkraine
             {
                 var request = new WarehouseSearchRequest(null, null, null);
                 var response = await SendRequestAsync<WarehouseSearchResponse>(
-                    "AddressGeneral/getWarehouses/",
+                    "AddressGeneral/getSettlements/",
                     request,
                     cancellationToken);
                 warehouses = response.data;
