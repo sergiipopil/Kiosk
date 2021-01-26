@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WebApplication.NovaPoshtaUkraine.Models;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace WebApplication.NovaPoshtaUkraine
 {
@@ -13,7 +16,8 @@ namespace WebApplication.NovaPoshtaUkraine
         #region Singleton
 
         public static NovaPoshtaUkraineClient Current { get; } = new NovaPoshtaUkraineClient();
-
+        public static List<WarehouseSearchItem> NovaPoshtaCities = new List<WarehouseSearchItem>();
+        public string pathToNPCities = @"c:\temp\novaPoshtaCities.json";
         public NovaPoshtaUkraineClient()
         {
         }
@@ -28,7 +32,6 @@ namespace WebApplication.NovaPoshtaUkraine
         private const string Format = "json";
 
         private const string ApiVersion = "v2.0";
-
         private async Task<TResponse> SendRequestAsync<TResponse>(
             string path,
             BaseSearchRequest request,
@@ -94,23 +97,32 @@ namespace WebApplication.NovaPoshtaUkraine
             return response;
         }
 
-        public async Task<WarehouseSearchItem[]> GetAllWarehousesAsync(CancellationToken cancellationToken)
+        public async void GetAllWarehousesAsyncAndWriteToFile(CancellationToken cancellationToken)
         {
-            var warehouses = GetCachedWarehouses();
-            if (warehouses == null)
+            for (int i = 1; i < 100; i++)
             {
-                var request = new WarehouseSearchRequest(null, null, null);
+                var request = new WarehouseSearchRequest(null, null, i);
                 var response = await SendRequestAsync<WarehouseSearchResponse>(
                     "AddressGeneral/getSettlements/",
                     request,
                     cancellationToken);
-                warehouses = response.data;
-                CacheWarehouses(warehouses);
+                if (response.data.Length == 0)
+                {
+                    break;
+                }             
+                foreach (var item in response.data)
+                {
+                    NovaPoshtaCities.Add(item);
+                }
             }
-
-            return warehouses;
-        }       
-        
+            //write to file all nova poshta cities
+            File.WriteAllText(pathToNPCities, JsonConvert.SerializeObject(NovaPoshtaCities));
+        }
+        public List<WarehouseSearchItem> GetDataFromFile() {
+            //read from file all nova poshta cities
+            string readData = File.ReadAllText(pathToNPCities);
+            return JsonConvert.DeserializeObject<List<WarehouseSearchItem>>(readData);
+        }
         public async Task<AreasSearchItem[]> GetAllAreasAsync(CancellationToken cancellationToken)
         {
             var areas = GetCachedAreas();

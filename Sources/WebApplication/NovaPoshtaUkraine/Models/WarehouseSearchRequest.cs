@@ -15,13 +15,15 @@ namespace WebApplication.NovaPoshtaUkraine.Models
             methodProperties = new MethodProperties
             {
                 //FindByString = "Одеська область",
-                //Page=1
+                Page=page,
+                Warehouse="1"
                 //RegionRef= "db5c88d0-391c-11dd-90d9-001a92567626"
             };
         }
 
         public class MethodProperties
         {
+            public string Warehouse { get; set; }            
             public string CityRef { get; set; }
             public string RegionRef { get; set; }
             public string FindByString { get; set; }

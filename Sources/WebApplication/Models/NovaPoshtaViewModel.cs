@@ -8,7 +8,7 @@ namespace WebApplication.Models
 {
     public class NovaPoshtaViewModel
     {
-        public WarehouseSearchItem[] WareHouses { get; set; }
+        public List<WarehouseSearchItem> WareHouses { get; set; }
         public AreasSearchItem[] Areas { get; set; }
     }
 }

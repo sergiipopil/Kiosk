@@ -64,10 +64,12 @@ namespace WebApplication.Controllers
         }
         public ActionResult Delivery()
         {
+            var allData = _novaPoshtaClient.GetDataFromFile();
             var areas = GetAllNovaPoshtaDepartments();
             NovaPoshtaViewModel npView = new NovaPoshtaViewModel
             {
-                Areas = areas.Result
+                Areas = areas.Result,
+                WareHouses=allData.Where(x=>x.AreaDescription=="Львівська область").ToList()
             };
             return View(npView);
         }
@@ -88,7 +90,7 @@ namespace WebApplication.Controllers
             return exchangeRate.Value;
         }       
         private async Task<AreasSearchItem[]> GetAllNovaPoshtaDepartments() {
-            var allData = _novaPoshtaClient.GetAllWarehousesAsync(CancellationToken.None).Result; 
+            
             return _novaPoshtaClient.GetAllAreasAsync(CancellationToken.None).Result;
         }
         
