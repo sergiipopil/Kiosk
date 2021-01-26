@@ -62,14 +62,20 @@ namespace WebApplication.Controllers
         {
             return View();
         }
-        public ActionResult Delivery()
+        public class MyContainer
         {
+            public string Id { get; set; }
+        }
+        public ActionResult Delivery(string regionName)
+        {            
             var allData = _novaPoshtaClient.GetDataFromFile();
-            var areas = GetAllNovaPoshtaDepartments();
+            
+            var areas = GetAllNovaPoshtaAreas();
             NovaPoshtaViewModel npView = new NovaPoshtaViewModel
             {
                 Areas = areas.Result,
-                WareHouses=allData.Where(x=>x.AreaDescription=="Львівська область").ToList()
+                Cities = allData.Where(x => x.AreaDescription == regionName + " область").ToList(),
+                Departments = _novaPoshtaClient.GetAllDepartmentsOfTheCity(CancellationToken.None).Result
             };
             return View(npView);
         }
@@ -88,10 +94,10 @@ namespace WebApplication.Controllers
             }
 
             return exchangeRate.Value;
-        }       
-        private async Task<AreasSearchItem[]> GetAllNovaPoshtaDepartments() {
-            
-            return _novaPoshtaClient.GetAllAreasAsync(CancellationToken.None).Result;
+        }        
+        private async Task<AreasSearchItem[]> GetAllNovaPoshtaAreas() {
+            var result = await _novaPoshtaClient.GetAllAreasAsync(CancellationToken.None);
+            return result;
         }
         
         public ProductViewModel GetProductInfo(string id)

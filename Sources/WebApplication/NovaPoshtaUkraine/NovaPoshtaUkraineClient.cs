@@ -101,7 +101,7 @@ namespace WebApplication.NovaPoshtaUkraine
         {
             for (int i = 1; i < 100; i++)
             {
-                var request = new WarehouseSearchRequest(null, null, i);
+                var request = new SettlemeentsSearchRequest(i);
                 var response = await SendRequestAsync<WarehouseSearchResponse>(
                     "AddressGeneral/getSettlements/",
                     request,
@@ -117,6 +117,15 @@ namespace WebApplication.NovaPoshtaUkraine
             }
             //write to file all nova poshta cities
             File.WriteAllText(pathToNPCities, JsonConvert.SerializeObject(NovaPoshtaCities));
+        }
+        public async Task<WarehouseSearchItem[]> GetAllDepartmentsOfTheCity(CancellationToken cancellationToken)
+        {            
+                var request = new WarehouseSearchRequest("Дрогобич");
+                var response = await SendRequestAsync<WarehouseSearchResponse>(
+                    "AddressGeneral/getWarehouses/",
+                    request,
+                    cancellationToken);
+            return response.data;
         }
         public List<WarehouseSearchItem> GetDataFromFile() {
             //read from file all nova poshta cities

@@ -16,7 +16,38 @@
     </style>
 
     <script type="text/javascript">
+        ("button").click(function (e) {
+            e.preventDefault();
+            @*$.ajax({
+                type: "POST",
+                url:'@Url.Action("Product", "Delivery")',
+                dataType: "string",
+                processData: true,
 
+                data: {
+                    id: "123"
+                },
+                success: function (result) {
+                    alert('ok');
+                },
+                error: function (result) {
+                    alert('error');
+                }
+            });*@
+            $.ajax({
+                type: "POST",
+                url:'@Url.Action("Product", "Delivery")',
+                contentType: "application/json; charset=utf-8",
+                //data:"",
+                data: "{'id':" + JSON.stringify("123") + "}",
+                dataType: "json",
+
+                success: function (data) {
+                    Disable(id, data);
+                    //alert("Cool");
+                }
+            });
+        });
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title></title>
@@ -25,6 +56,8 @@
     <div style="color:white;">
         <div class="container">
             <form>
+                <button id="button_1" value="Львівська" name="regionName">Львівська</button>
+                <button id="button_2" value="Закарпатська" name="regionName">Закарпатська</button>
                 <select class="form-control selectpicker" id="select-country" data-live-search="true">
                     @foreach (var item in Model.Areas)
                     {
@@ -32,7 +65,13 @@
                     }
                 </select>
                 <select class="form-control selectpicker" id="select-country" data-live-search="true">
-                    @foreach (var item in Model.WareHouses)
+                    @foreach (var item in Model.Cities)
+                    {
+                        <option data-tokens="@item.Description">@item.Description</option>
+                    }
+                </select>
+                <select class="form-control selectpicker" id="select-country" data-live-search="true">
+                    @foreach (var item in Model.Departments)
                     {
                         <option data-tokens="@item.Description">@item.Description</option>
                     }

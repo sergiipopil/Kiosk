@@ -5,19 +5,18 @@ using System.Threading.Tasks;
 
 namespace WebApplication.NovaPoshtaUkraine.Models
 {
-    public class WarehouseSearchRequest : BaseSearchRequest
+    public class SettlemeentsSearchRequest : BaseSearchRequest
     {
         public MethodProperties methodProperties { get; set; }
 
-        public WarehouseSearchRequest(string cityName)
-            : base("AddressGeneral", "getWarehouses")
+        public SettlemeentsSearchRequest(int? page)
+            : base("AddressGeneral", "getSettlements")
         {
             methodProperties = new MethodProperties
             {
-                CityName=cityName
+                Page=page,
+                Warehouse="1"
             };
-        }
-
-       
+        }       
     }
 }
