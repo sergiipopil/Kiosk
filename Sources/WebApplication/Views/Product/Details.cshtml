@@ -22,6 +22,9 @@
             <img id="mainImageProduct" src=@Model.Images[0].Url style="max-width:100%;border-bottom:3px solid #e9eaff;" />
 
             <div style="text-align:left;">
+               
+
+
                 @foreach (var item in Model.Images)
                 {
                     <a href=@item.Url data-fancybox="gallery" class="noneDecoration">

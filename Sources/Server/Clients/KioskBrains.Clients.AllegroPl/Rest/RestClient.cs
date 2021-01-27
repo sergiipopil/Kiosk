@@ -311,8 +311,8 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 text = doc.ParsedText;
 
 
-                var divName = doc.DocumentNode.QuerySelector("h1._1s2v1._1djie._4lbi0");
-                var name = divName.InnerHtml;
+                var divName = doc.DocumentNode.QuerySelector("meta[property='og:title']");
+                var name = divName.Attributes["content"].Value.ToString();
 
                 var divsDesc = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Description'] div._2d49e_5pK0q div");
 

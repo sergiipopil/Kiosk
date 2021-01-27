@@ -66,6 +66,7 @@ namespace WebApplication.Controllers
         {
             public string Id { get; set; }
         }
+
         public ActionResult Delivery(string regionName)
         {            
             var allData = _novaPoshtaClient.GetDataFromFile();
