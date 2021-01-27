@@ -5,10 +5,23 @@ for details on configuring this project to bundle and minify static web assets. 
         width: 100% !important;
     }
 }
-.detailBlock {
+.deliveryBoxDesign {
     display: inline-block;
-    vertical-align: top;
+    vertical-align: middle;
+    border: 2px solid white;
+    padding: 20px;
+    margin: 50px;
+    box-shadow: 0px 0px 12px white;
+    border-radius:10px;
 }
+    .deliveryBoxDesign:hover, .deliveryBoxDesign:focus {
+        box-shadow: 0px 0px 22px yellow;
+        border: 2px solid yellow;
+    }
+    .detailBlock {
+        display: inline-block;
+        vertical-align: top;
+    }
 .descriptionBlock {
     display: block;
     padding: 0px 50px;

@@ -3,7 +3,10 @@
 <!DOCTYPE html>
 
 <html>
-<head>
+<head>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
+    <link rel="stylesheet" href="~/css/site.css" type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
@@ -16,7 +19,8 @@
     </style>
 
     <script type="text/javascript">
-        ("button").click(function (e) {
+
+        $("button").click(function (e) {
             e.preventDefault();
             @*$.ajax({
                 type: "POST",
@@ -48,6 +52,16 @@
                 }
             });
         });
+        function showDeliveryFields(divName) {
+            if (divName == '#nova') {
+                $(divName).show();
+                $('#courier').hide();
+            }
+            else {
+                $('#nova').hide();
+                $('#courier').show();
+            }
+        }
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title></title>
@@ -56,26 +70,47 @@
     <div style="color:white;">
         <div class="container">
             <form>
-                <button id="button_1" value="Львівська" name="regionName">Львівська</button>
-                <button id="button_2" value="Закарпатська" name="regionName">Закарпатська</button>
-                <select class="form-control selectpicker" id="select-country" data-live-search="true">
-                    @foreach (var item in Model.Areas)
-                    {
-                        <option data-tokens="@item.Description">@item.Description</option>
-                    }
-                </select>
-                <select class="form-control selectpicker" id="select-country" data-live-search="true">
-                    @foreach (var item in Model.Cities)
-                    {
-                        <option data-tokens="@item.Description">@item.Description</option>
-                    }
-                </select>
-                <select class="form-control selectpicker" id="select-country" data-live-search="true">
-                    @foreach (var item in Model.Departments)
-                    {
-                        <option data-tokens="@item.Description">@item.Description</option>
-                    }
-                </select>
+                <input type="text" placeholder="Имя и фамилия" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" width="20%">
+                <input type="text" placeholder="Мобильний номер" class="form-control" aria-label="Default" value="+38" aria-describedby="inputGroup-sizing-default" data-mask="+38 (999) 999-99-99">
+                <div style="text-align:center;">
+                    <div tabindex="1" class="deliveryBoxDesign" onclick="showDeliveryFields('#nova')">
+                        <div><img src="~/images/Delivery/NovaPoshtaUkraine.png" /></div>
+                        <div style="font-size: 22px; text-align: center;">Нова Пошта</div>
+                    </div>
+                    <div tabindex="2" class="deliveryBoxDesign" onclick="showDeliveryFields('#courier')">
+                        <div>
+                            <img src="~/images/Delivery/Courier.png" />
+                        </div>
+                        <div style="font-size: 22px; text-align: center;">
+                            Доставка курьером
+                        </div>
+                    </div>
+                </div>
+                <div id="nova" style="display:none;">
+                    <button id="button_1" value="Львівська" name="regionName">Львівська</button>
+                    <button id="button_2" value="Закарпатська" name="regionName">Закарпатська</button>
+                    <select class="form-control selectpicker" id="select-country" data-live-search="true">
+                        @foreach (var item in Model.Areas)
+                        {
+                            <option data-tokens="@item.Description">@item.Description</option>
+                        }
+                    </select>
+                    <select class="form-control selectpicker" id="select-country" data-live-search="true">
+                        @foreach (var item in Model.Cities)
+                        {
+                            <option data-tokens="@item.Description">@item.Description</option>
+                        }
+                    </select>
+                    <select class="form-control selectpicker" id="select-country" data-live-search="true">
+                        @foreach (var item in Model.Departments)
+                        {
+                            <option data-tokens="@item.Description">@item.Description</option>
+                        }
+                    </select>
+                </div>
+                <div id="courier" style="display:none;">
+                    Delivery by courier
+                </div>
             </form>
         </div>
     </div>
