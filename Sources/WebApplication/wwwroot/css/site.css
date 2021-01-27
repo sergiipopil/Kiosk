@@ -6,16 +6,14 @@ for details on configuring this project to bundle and minify static web assets. 
     }
 }
 .deliveryBoxDesign {
-    display: inline-block;
-    vertical-align: middle;
     border: 2px solid white;
     padding: 20px;
-    margin: 50px;
-    box-shadow: 0px 0px 12px white;
+    margin: 20px;
+    box-shadow: 0px 0px 10px white;
     border-radius:10px;
 }
-    .deliveryBoxDesign:hover, .deliveryBoxDesign:focus {
-        box-shadow: 0px 0px 22px yellow;
+    .deliveryBoxDesign:hover, .deliveryBoxDesign.selected {
+        box-shadow: 0px 0px 10px yellow;
         border: 2px solid yellow;
     }
     .detailBlock {
