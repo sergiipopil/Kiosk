@@ -70,15 +70,32 @@ namespace WebApplication.Controllers
         public ActionResult Delivery(string regionName)
         {            
             var allData = _novaPoshtaClient.GetDataFromFile();
+
+            //var areas = GetAllNovaPoshtaAreas();
+            var areas = allData.Select(x => new AreasSearchItem() { Description = x.AreaDescription, Ref = x.Ref }).GroupBy(x=>x.Description).Select(g=>g.First()).ToArray();
             
-            var areas = GetAllNovaPoshtaAreas();
+            
             NovaPoshtaViewModel npView = new NovaPoshtaViewModel
             {
-                Areas = areas.Result,
+                Areas = areas,
                 Cities = allData.Where(x => x.AreaDescription == regionName + " область").ToList(),
-                Departments = _novaPoshtaClient.GetAllDepartmentsOfTheCity(CancellationToken.None).Result
+                Departments = allData.ToArray()
             };
             return View(npView);
+        }
+
+        public ActionResult Cities(string area)
+        {
+            var allData = _novaPoshtaClient.GetDataFromFile();
+
+            var areas = allData.Select(x => new AreasSearchItem() { Description = x.AreaDescription, Ref = x.Ref }).GroupBy(x => x.Description).Select(g => g.First()).ToArray();
+            NovaPoshtaViewModel npView = new NovaPoshtaViewModel
+            {
+                Areas = areas,
+                Cities = allData.Where(x => x.AreaDescription == area).ToList(),
+                Departments = allData.ToArray()
+            };
+            return Json(npView);
         }
 
         private async Task<decimal> GetExchangeRateAsync()

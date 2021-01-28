@@ -76,11 +76,39 @@
             }
         }
         function onAreaChanged() {
+            var val = $('#cbArea').val();
+            console.log(val);
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("Cities", "Product")' + "?area=" + val,
+                //contentType: "application/json; charset=utf-8",
+                //data:"",
+                //data: "{'id':" + JSON.stringify("123") + "}",
+               // dataType: "json",
 
-            console.log($('.selectpicker').val());
+                success: function (data) {
+                    console.log(data);
+                    var cities = $('body').find("[data-id='cbCity']").closest('div').find('ul');
+                    //cities.empty(); // remove any existing options
+                    var sel = $('#cbCity');
+                    $.each(data.cities, function (index, item) {
+                        cities.append(`<li data-original-index="${index+1}"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">${item.description}</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>`);
+                        sel.append(`<option value="${item.description}">${item.description}</option>`);
+                    });
+                    $('#cbCity').selectpicker({
+                        liveSearch: true,
+                        showSubtext: true
+                    });
+                    
+                }
+            });
         }
 
+        function onCityChanged() {
 
+            console.log($('#cbCity').val());
+            
+        }
 
 
     </script>
@@ -113,8 +141,10 @@
                 <div id="nova" style="display:none;">
                     <button id="button_1" value="Львівська" name="regionName">Львівська</button>
                     <button id="button_2" value="Закарпатська" name="regionName">Закарпатська</button>
-                    @Html.DropDownListFor(model => model.SelectedArea, new SelectList(Model.Areas, "Description", "Description"), " - Choose area - ", new { @style = "color: black;", @class = "form-control selectpicker", @onchange = "onAreaChanged()" })
-
+                    @Html.DropDownListFor(model => model.SelectedArea, new SelectList(Model.Areas, "Description", "Description"), " - Choose area - ", new { @id = "cbArea", @style = "color: black;", @class = "form-control selectpicker", @onchange = "onAreaChanged()" })
+                <div class="content">
+                    @Html.DropDownListFor(model => model.SelectedCity, new SelectList(Model.Cities, "Description", "Description"), " - Choose city - ", new { @id = "cbCity", @style = "color: black;", @class = "form-control", @onchange = "onCityChanged()" })
+                </div>
 
                     <select onchange="onAreaSelected" class="form-control selectpicker" id="select-country" data-live-search="true">
                         @foreach (var item in Model.Areas)

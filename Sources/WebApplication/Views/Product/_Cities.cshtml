@@ -1,0 +1,12 @@
+﻿@model WebApplication.Models.NovaPoshtaViewModel
+@{
+    Layout = null;
+}
+
+
+ @Html.DropDownListFor(model => model.SelectedCity, new SelectList(Model.Cities, "Description", "Description"), " - Choose city - ", new { @id="cbCity", @style = "color: black;", @class = "form-control selectpicker", @onchange = "onCityChanged()" })
+
+
+                    
+                
+
