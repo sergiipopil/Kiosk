@@ -61,11 +61,7 @@ namespace WebApplication.Controllers
         public ActionResult CartView()
         {
             return View();
-        }
-        public class MyContainer
-        {
-            public string Id { get; set; }
-        }
+        }        
 
         [HttpPost]
         public ActionResult Submit(string selectedDepartment)
@@ -82,7 +78,7 @@ namespace WebApplication.Controllers
             {
                 Areas = areas,
                 Cities = string.IsNullOrEmpty(area) ? new List<WarehouseSearchItem>() : allData.Where(x => x.AreaDescription == area).ToList(),
-                Departments = string.IsNullOrEmpty(city) ? new WarehouseSearchItem[0] : allData.Where(x=>x.Description== city).ToArray()
+                Departments = string.IsNullOrEmpty(city) ? new WarehouseSearchItem[0] : GetAllNovaPoshtaCityDepts(city).Result
             };
             return area==null && city==null ? (ActionResult)View(npView) : Json(npView);
         }
@@ -118,8 +114,10 @@ namespace WebApplication.Controllers
 
             return exchangeRate.Value;
         }        
-        private async Task<AreasSearchItem[]> GetAllNovaPoshtaAreas() {
-            var result = await _novaPoshtaClient.GetAllAreasAsync(CancellationToken.None);
+        
+        private async Task<WarehouseSearchItem[]> GetAllNovaPoshtaCityDepts(string city)
+        {
+            var result = await _novaPoshtaClient.GetAllDepartmentsOfTheCity(CancellationToken.None, city);
             return result;
         }
         
@@ -144,7 +142,7 @@ namespace WebApplication.Controllers
                 Description = p.Description[Languages.RussianCode],
                 Images = p.Images,
                 Parameters = test,
-                Price = p.Price
+                Price = ekProduct.Price
             };
             return product;
         }

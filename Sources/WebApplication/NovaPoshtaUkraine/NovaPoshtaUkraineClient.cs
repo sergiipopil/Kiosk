@@ -118,9 +118,9 @@ namespace WebApplication.NovaPoshtaUkraine
             //write to file all nova poshta cities
             File.WriteAllText(pathToNPCities, JsonConvert.SerializeObject(NovaPoshtaCities));
         }
-        public async Task<WarehouseSearchItem[]> GetAllDepartmentsOfTheCity(CancellationToken cancellationToken)
+        public async Task<WarehouseSearchItem[]> GetAllDepartmentsOfTheCity(CancellationToken cancellationToken, string cityName)
         {            
-                var request = new WarehouseSearchRequest("Дрогобич");
+                var request = new WarehouseSearchRequest(cityName);
                 var response = await SendRequestAsync<WarehouseSearchResponse>(
                     "AddressGeneral/getWarehouses/",
                     request,

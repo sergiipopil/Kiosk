@@ -335,7 +335,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 decimal productPricePLN = decimal.Parse(priceStr, CultureInfo.InvariantCulture);
                 var images = doc.DocumentNode.QuerySelectorAll("img._b8e15_2LNko");//doc.DocumentNode.QuerySelectorAll("div[data-prototype-id='allegro.gallery'] img");
 
-                OfferImage[] imagePathes = images.Where(x => x.Attributes["src"] != null).Select(x => new OfferImage() { Url = x.Attributes["src"].Value.Replace("s128","s512") }).ToArray();
+                OfferImage[] imagePathes = images.Where(x => x.Attributes["src"] != null).Select(x => new OfferImage() { Url = x.Attributes["src"].Value.Replace("s128","original") }).ToArray();
 
 
                 if (!liParams.Any() && !divsDesc.Any())

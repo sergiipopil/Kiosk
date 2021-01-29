@@ -1,7 +1,7 @@
 ﻿@model WebApplication.Models.NovaPoshtaViewModel
 @{
-    Layout = null;
-}
+        Layout = null;
+    }
 <!DOCTYPE html>
 
 <html>
@@ -18,47 +18,35 @@
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-        .caret {
-            display: none;
-        }
-    </style>
+
 
     <script type="text/javascript">
 
-        $("option").click(function (e) {
-            e.preventDefault();
-            @*$.ajax({
-                type: "POST",
-                url:'@Url.Action("Product", "Delivery")',
-                dataType: "string",
-                processData: true,
+function processAjax(areaVal, cityVal, cbName) {
+    $.ajax({
+        type: "GET",
+        url: '@Url.Action("Delivery", "Product")' + "?area=" + areaVal + '&city=' + cityVal,
 
-                data: {
-                    id: "123"
-                },
-                success: function (result) {
-                    alert('ok');
-                },
-                error: function (result) {
-                    alert('error');
-                }
-            });*@
-            $.ajax({
-                type: "POST",
-                url:'@Url.Action("Product", "Delivery")',
-                contentType: "application/json; charset=utf-8",
-                //data:"",
-                data: "{'id':" + JSON.stringify("123") + "}",
-                dataType: "json",
-
-                success: function (data) {
-                    Disable(id, data);
-                    //alert("Cool");
-                }
+        success: function (data) {
+            console.log(data);
+            var entities = data.cities.length == 0 ? data.departments : data.cities;
+            var cities = $('body').find("[data-id='" + cbName + "']").closest('div').find('ul');
+            var sel = $('#' + cbName);
+            //sel.html('<option value=""> - Choose - </option>');
+            cities.html('<li data-original-index="0" class="selected active"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text"> - Choose area - </span><span class="glyphicon glyphicon - ok check - mark"></span></a></li>');
+            $.each(entities, function (index, item) {
+                cities.append(`<li data-original-index="${index + 1}"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">${item.description}</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>`);
+                sel.append(`<option value="${item.description}">${item.description}</option>`);
             });
-        });
-        function showDeliveryFields(divName) {
+            sel.selectpicker({
+                liveSearch: true,
+                showSubtext: true
+            });
+
+        }
+    });
+}
+function showDeliveryFields(divName) {
             if (divName == '#nova') {
                 $(divName).show();
                 $('#courier').hide();
@@ -86,36 +74,13 @@
             processAjax('', $('#cbCity').val(), 'cbDepartment');
         }
 
-        function processAjax(areaVal, cityVal, cbName) {
-            $.ajax({
-                type: "GET",
-                url: '@Url.Action("Delivery", "Product")' + "?area=" + areaVal + '&city=' + cityVal,
 
-                success: function (data) {
-                    console.log(data);
-                    var entities = data.cities.length==0 ? data.departments : data.cities;
-                    var cities = $('body').find("[data-id='" + cbName+ "']").closest('div').find('ul');
-                    var sel = $('#' + cbName);
-                    sel.html('<option value=""> - Choose - </option>');
-                    cities.html('<li data-original-index="0" class="selected active"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text"> - Choose area - </span><span class="glyphicon glyphicon - ok check - mark"></span></a></li>');
-                    $.each(entities, function (index, item) {
-                        cities.append(`<li data-original-index="${index+1}"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">${item.description}</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li>`);
-                        sel.append(`<option value="${item.description}">${item.description}</option>`);
-                    });
-                    sel.selectpicker({
-                        liveSearch: true,
-                        showSubtext: true
-                    });
-
-                }
-            });
-        }
 
         function submit() {
             console.log("submit");
             $.ajax({
                 type: "POST",
-                url:'@Url.Action("Submit", "Product")',                
+                url:'@Url.Action("Submit", "Product")',
                 //data:"",
                 data: { selectedDepartment: $('#cbDepartment').val()},
                 success: function (data) {
@@ -150,13 +115,13 @@
                 </div>
             </div>
             <div style="display:inline-block;vertical-align:top;padding-top:20px;">
-                <input type="text" placeholder="Имя и фамилия" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" width="20%">
-                <input type="text" placeholder="Мобильний номер" class="form-control" aria-label="Default" value="+38" aria-describedby="inputGroup-sizing-default" data-mask="+38 (999) 999-99-99">
+                <input type="text" placeholder="Прізвище та ім`я" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" width="20%">
+                <input type="text" placeholder="Мобільний номер" class="form-control" aria-label="Default" value="+38" aria-describedby="inputGroup-sizing-default" data-mask="+38 (999) 999-99-99">
 
                 <div id="nova" style="display:none;">
-                    @Html.DropDownListFor(model => model.SelectedArea, new SelectList(Model.Areas, "Description", "Description"), " - Choose area - ", new { @id = "cbArea", @style = "color: black;", @class = "form-control selectpicker", @onchange = "onAreaChanged()" })
-                    @Html.DropDownListFor(model => model.SelectedCity, new SelectList(Model.Cities, "Description", "Description"), " - Choose city - ", new { @id = "cbCity", @style = "color: black;", @class = "form-control", @onchange = "onCityChanged()" })
-                    @Html.DropDownListFor(model => model.SelectedDepartment, new SelectList(Model.Departments, "Description", "Description"), " - Choose department - ", new { @id = "cbDepartment", @style = "color: black;", @class = "form-control" })
+                    @Html.DropDownListFor(model => model.SelectedArea, new SelectList(Model.Areas, "Description", "Description"), " - Виберіть область - ", new { @id = "cbArea", @style = "color: black;", @class = "form-control selectpicker", @onchange = "onAreaChanged()" })
+                    @Html.DropDownListFor(model => model.SelectedCity, new SelectList(Model.Cities, "Description", "Description"), " - Виберіть місто - ", new { @id = "cbCity", @style = "color: black;", @class = "form-control", @onchange = "onCityChanged()" })
+                    @Html.DropDownListFor(model => model.SelectedDepartment, new SelectList(Model.Departments, "Description", "Description"), " - Виберіть відділення - ", new { @id = "cbDepartment", @style = "color: black;", @class = "form-control" })
 
                     <div style="background:red" onclick="submit()">Submit</div>
 
