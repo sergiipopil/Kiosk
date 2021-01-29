@@ -67,21 +67,24 @@ namespace WebApplication.Controllers
             public string Id { get; set; }
         }
 
-        public ActionResult Delivery(string regionName)
+        [HttpPost]
+        public ActionResult Submit(string selectedDepartment)
+        {
+            return View(selectedDepartment);
+        }
+
+        public ActionResult Delivery(string area, string city)
         {            
             var allData = _novaPoshtaClient.GetDataFromFile();
-
             //var areas = GetAllNovaPoshtaAreas();
             var areas = allData.Select(x => new AreasSearchItem() { Description = x.AreaDescription, Ref = x.Ref }).GroupBy(x=>x.Description).Select(g=>g.First()).ToArray();
-            
-            
             NovaPoshtaViewModel npView = new NovaPoshtaViewModel
             {
                 Areas = areas,
-                Cities = allData.Where(x => x.AreaDescription == regionName + " область").ToList(),
-                Departments = allData.ToArray()
+                Cities = string.IsNullOrEmpty(area) ? new List<WarehouseSearchItem>() : allData.Where(x => x.AreaDescription == area).ToList(),
+                Departments = string.IsNullOrEmpty(city) ? new WarehouseSearchItem[0] : allData.Where(x=>x.Description== city).ToArray()
             };
-            return View(npView);
+            return area==null && city==null ? (ActionResult)View(npView) : Json(npView);
         }
 
         public ActionResult Cities(string area)
@@ -97,6 +100,8 @@ namespace WebApplication.Controllers
             };
             return Json(npView);
         }
+        
+       
 
         private async Task<decimal> GetExchangeRateAsync()
         {
@@ -154,62 +159,6 @@ namespace WebApplication.Controllers
         {
             return View();
         }
-
-        // POST: ProductController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ProductController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ProductController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ProductController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ProductController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
     }
 }

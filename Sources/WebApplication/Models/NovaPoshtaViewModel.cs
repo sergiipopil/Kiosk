@@ -13,5 +13,6 @@ namespace WebApplication.Models
         public AreasSearchItem[] Areas { get; set; }
         public AreasSearchItem SelectedArea { get; set; }
         public WarehouseSearchItem SelectedCity { get; set; }
+        public WarehouseSearchItem SelectedDepartment { get; set; }
     }
 }
