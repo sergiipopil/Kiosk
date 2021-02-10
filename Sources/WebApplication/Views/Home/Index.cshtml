@@ -20,51 +20,48 @@
             }
         });
     }
-    function back(manufacturer) {
-        showMainView();
-        $('#divSearchByPartNumber').show();
-        $('#divBreadcrumbs').hide();
-        $('#divSelectTopCategory').show();
-    }
-    function BreadCrumbsHistory(manufacture, model, partGroupId, partGroup, partSubGroup, part2ndSubGroup) {
-        $('#divBreadcrumbsItems').empty();
-        //$('#btnBackMain').show();
+        function back() {
+            showMainView();
+            $('#divSearchByPartNumber').show();
+            $('#divBreadcrumbs').hide();
+            $('#divSelectTopCategory').show();
+        }
+        function BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName) {
+        $('#divBreadcrumbsItems').empty();        
         $('#divBreadcrumbs').show();
         $('#divSearchByPartNumber').hide();
+        $('#divSelectTopCategory').hide();
 
         $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsManufacture"><div class="parentDiv">
-        <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/Model_Logo/${manufacture}.png" class="manufactureImage" /></div></div></div>`);
-
-        if (model != null) {
-            $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDiv" style="display:grid;" onclick="BreadCrumbsHistory('${manufacture}', ${model})">
+        <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/Model_Logo/${manufacture}.png" class="manufactureImage" /></div></div></div>`);            
+            if (model != null) {
+            
+            $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDiv" style="display:grid;">
                 <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/CarModel/${manufacture}/${model}.png" class="manufactureImage" style="padding-top:20px;" /></div><div class="manufactureText"><span style="color:black;">${model}</span>
                             </div></div>`);
         }
-        if (partGroup != null) {
-            $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDiv" style="display:grid;" onclick="BreadCrumbsHistory('${manufacture}', ${model})">
-                <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/CarModel/${manufacture}/${model}.png" class="manufactureImage" style="padding-top:20px;" /></div><div class="manufactureText"><span style="color:black;">${model}</span>
+            if (mainCategoryName != null) {
+            $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsMainCategory" class="parentDiv" style="display:grid;">
+                <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/AutoParts/${mainCategoryId}.png" class="manufactureImage" style="padding-top:20px;" /></div><div class="manufactureText"><span style="color:black;">${mainCategoryName}</span>
                             </div></div>`);
-        }
+            }
+            if (subCategoryName != null) {
+                $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsSubCategory" class="parentDiv" style="display:grid;">
+                <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/AutoParts/${subCategoryId}.png" class="manufactureImage" style="padding-top:20px;" /></div><div class="manufactureText"><span style="color:black;">${subCategoryName}</span>
+                            </div></div>`);
+            }
+            if (subChildName != null) {
+                $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsSubChildCategory" class="parentDiv" style="display:grid;">
+                <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/AutoParts/${subChildId}.png" class="manufactureImage" style="padding-top:20px;" /></div><div class="manufactureText"><span style="color:black;">${subChildName}</span>
+                            </div></div>`);
+            }
     }
 
-    function selectCarModel(manufacture, model, mainCategory) {
+    function selectCarModel(manufacture, model) {
         $('#divSelectTopCategory').hide();
         $.ajax({
             type: "GET",
-            url: '@Url.Action("ShowCategoryAutoParts", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategory=" + mainCategory,
-            success: function (data) {
-                console.log('@Model.manufacturer');
-                BreadCrumbsHistory(manufacture, model);
-                $('#divCarManufactures').empty();
-                $('#divCarManufactures').html(data);
-            }
-        });
-    }
-    function selectMainCategory(manufacture, model, mainCategory) {
-        $('#divSelectTopCategory').hide();
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("ShowMainSubcategories", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategory=" + mainCategory,
+            url: '@Url.Action("ShowCategoryAutoParts", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model,
             success: function (data) {
                 BreadCrumbsHistory(manufacture, model);
                 $('#divCarManufactures').empty();
@@ -72,25 +69,39 @@
             }
         });
     }
-    function selectSubMainCategory(manufacture, model, mainCategory, subcategory) {
+        function selectMainCategory(manufacture, model, mainCategoryId, mainCategoryName) {
         $('#divSelectTopCategory').hide();
         $.ajax({
             type: "GET",
-            url: '@Url.Action("ShowMainSubChildssCategories", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategory=" + mainCategory + "&subCategory=" + subcategory,
+            url: '@Url.Action("ShowMainSubcategories", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName,
             success: function (data) {
-                BreadCrumbsHistory(manufacture, model);
+                BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName);
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
             }
         });
     }
-    function getAllegroData() {
+        function selectSubMainCategory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName) {
         $('#divSelectTopCategory').hide();
         $.ajax({
             type: "GET",
-            url: '@Url.Action("ShowProductList", "Home")',
+            url: '@Url.Action("ShowMainSubChildsCategories", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
+                 "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName,
             success: function (data) {
-               //BreadCrumbsHistory(manufacture, model);
+                BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName);
+                $('#divCarManufactures').empty();
+                $('#divCarManufactures').html(data);
+            }
+        });
+    }
+        function getAllegroData(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName) {
+        $('#divSelectTopCategory').hide();
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("ShowProductList", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
+                "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName,
+            success: function (data) {
+               BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName);
                $('#divCarManufactures').empty();
                $('#divCarManufactures').html(data);
             }
@@ -102,7 +113,6 @@
             type: "GET",
             url: '@Url.Action("SelectManufactureAndModel", "Home")' + "?carManufactureName=" + carManufactureName,
             success: function (data) {
-                console.log('@Model');
                 BreadCrumbsHistory(carManufactureName);
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
@@ -235,7 +245,7 @@
                 </div>
                 @*CAR MANUFACTURE TREE*@
                 <div id="divCarManufactures">
-                    @Html.Partial("_CarTree", @Model.manufacturer)
+                    @Html.Partial("_CarTree", @Model)
                 </div>
             </td>
         </tr>

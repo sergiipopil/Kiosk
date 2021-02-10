@@ -1,5 +1,11 @@
-﻿@model string;
+﻿@model WebApplication.Models.RightTreeViewModel;
 @{
     Layout = null;
 }
-<div>@Model</div>
+
+<div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
+    <div onclick="@Model.FunctionReturnFromProducts" style="color: white; padding: 0px 10px; font-weight: normal; display: inline-block; border-radius: 10px; font-size: 23px; float: left; text-transform: capitalize; background: #F97008;">
+        <span>Назад</span>
+    </div>
+    <div style="display:inline-block;">Список запчастин</div>
+</div>

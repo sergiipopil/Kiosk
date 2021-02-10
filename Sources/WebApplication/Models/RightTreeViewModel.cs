@@ -3,13 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using KioskBrains.Common.EK.Api.CarTree;
+using KioskBrains.Common.EK.Api;
 
 namespace WebApplication.Models
 {
     public class RightTreeViewModel
     {
-        public EkCarManufacturer[] manufacturer { get; set; }
+        public EkCarManufacturer[] ManufacturerList { get; set; }
+        public IEnumerable<string> ModelsList { get; set; }
+        public EkProductCategory[] ProductCategoryList { get; set; }
 
         public string PartNumberValue { get; set; }
+        public string ManufacturerSelected { get; set; }
+        public string ModelSelected { get; set; }
+        public string MainCategoryId { get; set; }
+        public string MainCategoryName { get; set; }
+        public string SubCategoryId { get; set; }
+        public string SubCategoryName { get; set; }
+        public string SubChildCategoryId { get; set; }
+        public string SubChildCategoryName { get; set; }
+        public string FunctionReturnFromProducts { get; set; }
+
     }
 }

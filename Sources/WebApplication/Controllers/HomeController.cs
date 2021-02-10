@@ -23,7 +23,6 @@ namespace WebApplication.Controllers
         private ILogger<AllegroPlClient> _logger;
         private IOptions<AllegroPlClientSettings> _settings;
         private IOptions<YandexTranslateClientSettings> _yandexSettings;
-        TreeModel treeAutoParts = new TreeModel(){ };
         public HomeController(ILogger<AllegroPlClient> logger,
             IOptions<AllegroPlClientSettings> settings,
             IOptions<YandexTranslateClientSettings> yandexApiClientSettings)
@@ -41,38 +40,24 @@ namespace WebApplication.Controllers
         public IActionResult Index()
         {
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == EkCarTypeEnum.Car).Select(x => x.Manufacturers).FirstOrDefault();
-            return View(new RightTreeViewModel() { manufacturer = carTree });
+            return View(new RightTreeViewModel() { ManufacturerList = carTree });
         }
         public IActionResult ShowMainView()
         {
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == EkCarTypeEnum.Car).Select(x => x.Manufacturers).FirstOrDefault();
-            return View("_CarTree", carTree);
+            return View("_CarTree", new RightTreeViewModel() { ManufacturerList = carTree });
         }
         public IActionResult SelectManufactureAndModel(string carManufactureName)
         {
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == EkCarTypeEnum.Car).Select(x => x.Manufacturers).FirstOrDefault();
             var modelTree = carTree.Where(x => x.Name == carManufactureName).Select(y => y.CarModels).FirstOrDefault();
-            treeAutoParts.Manufacturer = carManufactureName;
-            treeAutoParts.Models = modelTree.Select(x => x.Name);
-            //TreeModel treeModel = new TreeModel()
-            //{
-            //    Manufacturer = carManufactureName,
-            //    Models = modelTree.Select(x => x.Name)
-            //};
 
-            return View("_CarModels", treeAutoParts);
-
+            return View("_CarModels", new RightTreeViewModel() { ManufacturerSelected = carManufactureName, ModelsList= modelTree.Select(x => x.Name) });
         }
-        public IActionResult ShowCategoryAutoParts(string carManufactureName, string carModel, string mainCategory)
+        public IActionResult ShowCategoryAutoParts(string carManufactureName, string carModel)
         {
             var autoParts = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == "620").FirstOrDefault().Children;
-            if (mainCategory != "undefined")
-            {
-                autoParts = autoParts.Where(x => x.CategoryId == mainCategory).Select(x => x.Children).FirstOrDefault();
-                //if (subCategory != "undefined") {
-                //    autoParts = autoParts.Where(x => x.CategoryId == subCategory).Select(x => x.Children).FirstOrDefault();
-                //}
-            }
+            
             foreach (var item in autoParts)
             {
                 if (item.Children != null && !item.CategoryId.Contains("GROUP_"))
@@ -80,16 +65,12 @@ namespace WebApplication.Controllers
                     item.CategoryId = "GROUP_" + item.CategoryId;
                 }
             }
-            TreeModel treeAutoParts = new TreeModel()
-            {
-                productCategory = autoParts
-            };
 
-            return View("_AutoPartsTree", treeAutoParts);
+            return View("_AutoPartsTree", new RightTreeViewModel() { ProductCategoryList = autoParts, ManufacturerSelected = carManufactureName, ModelSelected = carModel });
         }
-        public IActionResult ShowMainSubcategories(string carManufactureName, string carModel, string mainCategory)
+        public IActionResult ShowMainSubcategories(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName)
         {
-            var autoPartsSubCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == "620").FirstOrDefault().Children.Where(x => x.CategoryId == mainCategory).Select(x => x.Children).FirstOrDefault();
+            var autoPartsSubCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == "620").FirstOrDefault().Children.Where(x => x.CategoryId == mainCategoryId).Select(x => x.Children).FirstOrDefault();
 
             foreach (var item in autoPartsSubCategories)
             {
@@ -98,21 +79,32 @@ namespace WebApplication.Controllers
                     item.CategoryId = "GROUP_" + item.CategoryId;
                 }
             }
-            TreeModel treeAutoParts = new TreeModel()
-            {
-                productCategory = autoPartsSubCategories,
-                MainCategoryId = mainCategory
+            RightTreeViewModel treeView = new RightTreeViewModel() 
+            { 
+                ManufacturerSelected=carManufactureName,
+                ModelSelected=carModel,
+                ProductCategoryList = autoPartsSubCategories, 
+                MainCategoryId = mainCategoryId, 
+                MainCategoryName = mainCategoryName 
             };
-
-            return View("_AutoPartsSubTree", treeAutoParts);
+            return View("_AutoPartsSubTree", treeView);
         }
-        public IActionResult ShowMainSubChildssCategories(string carManufactureName, string carModel, string mainCategory, string subCategory)
+        public IActionResult ShowMainSubChildsCategories(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName)
         {
-            var autoPartsSubChildCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == "620").FirstOrDefault().Children.Where(x => x.CategoryId == mainCategory).Select(x => x.Children).FirstOrDefault();
-            autoPartsSubChildCategories = autoPartsSubChildCategories.Where(x => x.CategoryId == subCategory).Select(x => x.Children).FirstOrDefault();
+            var autoPartsSubChildCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == "620").FirstOrDefault().Children.Where(x => x.CategoryId == mainCategoryId).Select(x => x.Children).FirstOrDefault();
+            autoPartsSubChildCategories = autoPartsSubChildCategories.Where(x => x.CategoryId == subCategoryId).Select(x => x.Children).FirstOrDefault();
             if (autoPartsSubChildCategories == null)
             {
-                return View("_ProductsList", "Retrun allegro list from MainSubCategory");
+                return View("_ProductsList", new RightTreeViewModel()
+                {
+                    ManufacturerSelected = carManufactureName,
+                    ModelSelected = carModel,
+                    MainCategoryId = mainCategoryId,
+                    MainCategoryName = mainCategoryName,
+                    SubCategoryId = subCategoryId,
+                    SubCategoryName = subCategoryName,
+                    FunctionReturnFromProducts = String.Format("selectMainCategory('{0}', '{1}', '{2}', '{3}')", carManufactureName, carModel, mainCategoryId, mainCategoryName)
+                });
             }
             foreach (var item in autoPartsSubChildCategories)
             {
@@ -121,16 +113,34 @@ namespace WebApplication.Controllers
                     item.CategoryId = "GROUP_" + item.CategoryId;
                 }
             }
-            TreeModel treeAutoParts = new TreeModel()
+            RightTreeViewModel treeView = new RightTreeViewModel()
             {
-                productCategory = autoPartsSubChildCategories
+                ManufacturerSelected = carManufactureName,
+                ModelSelected = carModel,
+                MainCategoryId = mainCategoryId,
+                MainCategoryName = mainCategoryName,
+                SubCategoryId = subCategoryId,
+                SubCategoryName = subCategoryName,
+                ProductCategoryList = autoPartsSubChildCategories
             };
-            return View("_AutoPartsSubChildsTree", treeAutoParts);
+            return View("_AutoPartsSubChildsTree", treeView);
 
         }
-        public IActionResult ShowProductList()
-        {
-            return View("_ProductsList", "Retrun allegro list from MainSubCategory");
+        public IActionResult ShowProductList(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName, string subChildId, string subChildName)
+        {   
+            RightTreeViewModel treeView = new RightTreeViewModel()
+            {
+                ManufacturerSelected = carManufactureName,
+                ModelSelected = carModel,
+                MainCategoryId = mainCategoryId,
+                MainCategoryName = mainCategoryName,
+                SubCategoryId = subCategoryId,
+                SubCategoryName = subCategoryName,
+                SubChildCategoryId = subChildId,
+                SubChildCategoryName = subChildName,
+                FunctionReturnFromProducts = String.Format("selectSubMainCategory('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName)
+            };
+            return View("_ProductsList", treeView);
         }
         // ============Block for left part of site
         public IActionResult PartNumberInput(string partNumber)

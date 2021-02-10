@@ -1,18 +1,18 @@
-﻿@model WebApplication.Classes.TreeModel;
+﻿@model WebApplication.Models.RightTreeViewModel;
 @{
     Layout = null;
 }
 <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
-    <div @*onclick="back()"*@ style="color: white; padding: 0px 10px; font-weight: normal; display: inline-block; border-radius: 10px; font-size: 23px; float: left; text-transform: capitalize; background: #F97008;">
+    <div onclick="selectMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName')" style="color: white; padding: 0px 10px; font-weight: normal; display: inline-block; border-radius: 10px; font-size: 23px; float: left; text-transform: capitalize; background: #F97008;">
         <span>Назад</span>
     </div>
     <div style="display:inline-block;">Виберіть групу запчастин</div>
 </div>
 <div style="padding: 10px 0px 10px 20px;">
-    @foreach (var item in Model.productCategory)
+    @foreach (var item in Model.ProductCategoryList)
     {
         <div style="display:inline-block;vertical-align:middle;">
-            <div class="parentDivAutoParts" style="display:grid;" onclick="getAllegroData()">
+            <div class="parentDivAutoParts" style="display:grid;" onclick="getAllegroData('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.SubCategoryId', '@Model.SubCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value')">
                 <div style="min-width:155px;min-height:115px;text-align:center;">
                     <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
                 </div>

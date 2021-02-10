@@ -1,14 +1,13 @@
-﻿@model KioskBrains.Common.EK.Api.CarTree.EkCarManufacturer[]
+﻿@model WebApplication.Models.RightTreeViewModel;
 @{
     Layout = null;
 }
-<div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">    
+<div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
     <div>Виберіть марку автомобіля</div>
 </div>
 <div style="padding: 10px 0px 10px 20px;">
-    @foreach (var item in Model)
+    @foreach (var item in Model.ManufacturerList)
     {
-        @*@Html.ActionLink("Shared", "CarTreeTest", new { carManufactureName = "AUDI" })*@
         <div style="display:inline-block;vertical-align:middle;">
             <div class="parentDiv" onclick="selectManufacturer('@item.Name')">
                 <img src="@String.Format("/images/Catalog/Model_Logo/{0}.png", item.Name)" class="manufactureImage" />
