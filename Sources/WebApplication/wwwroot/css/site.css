@@ -142,3 +142,115 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+/* Default page styles
+-------------------------------------------------- */
+.parentDiv {
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vmin;
+    margin-left: 1vmin;
+    width: 170px;
+    height: 150px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    padding: 10px;
+}
+
+.parentDivAutoParts {
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vmin;
+    margin-left: 1vmin;
+    width: 208px;
+    height: 185px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    padding: 6px;
+}
+.topCategoryDiv {
+    background: #E9EAFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vmin;
+    margin-left: 1vmin;
+    width: 148px;
+    height: 130px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    padding: 10px;
+}
+    .topCategoryDiv.selected {
+        background:white;
+    }
+.manufactureText {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.parentDiv:hover, .topCategoryDiv:hover, .parentDivAutoParts:hover {
+    box-shadow: 0 0 12px rgba(0,0,0,0.5);
+}
+
+input {
+    border: 0px;
+}
+
+.loopBtn {
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+}
+
+    .loopBtn:hover {
+        box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    }
+.leftIndexPanel {
+    width: 35%;
+    min-width: 35%;
+    color: white;
+    font-size: 40px;
+    background: #504593;
+    vertical-align: top;
+    text-align: center;
+}
+.rightIndexPanel {
+    background: #DCDEFF;
+    box-shadow: 0 0 14px rgba(0,0,0,0.5);
+    vertical-align: top;
+}
+.manufactureImage {
+    max-width: 155px;
+    max-height: 145px;
+}
+.TopCategoryImage {
+    max-width: 140px;
+    max-height: 65px;
+}
+.modelImage {
+    max-width: 158px;
+    max-height: 115px;
+    padding-top: 20px;
+}
+.modelImageAutoParts {
+    max-width: 165px;
+    max-height: 145px;
+    padding-top: 20px;
+}
+.mainBlockTitle {
+    box-shadow: 0 0 6px rgba(0,0,0,0.5);
+    background: #EEEFFF;
+    text-align: center;
+    font-size: 24px;
+    text-transform: uppercase;
+    padding: 6px;
+    font-weight: bold;
+    color: #F97008;
+    width: 100%
+}
+.inline-block {
+    display:inline-block;
+    vertical-align:middle;
+}

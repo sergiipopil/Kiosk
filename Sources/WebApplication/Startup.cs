@@ -48,7 +48,7 @@ namespace WebApplication
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-            
+
 
 
             services.UpdateDatabase<KioskBrainsContext, DbInitializer>(services.BuildServiceProvider());

@@ -21,12 +21,14 @@ using KioskBrains.Server.Domain.Config;
 using WebApplication.NovaPoshtaUkraine;
 using KioskBrains.Server.Domain.Helpers.Dates;
 using WebApplication.NovaPoshtaUkraine.Models;
+using KioskBrains.Common.EK.Transactions;
 
 namespace WebApplication.Controllers
 {
     public class ProductController : Controller
     {
-
+        private EkTransaction _transaction;
+        private EkProduct ekProduct;
         private AllegroPlClient _allegroPlClient;
         private NovaPoshtaUkraineClient _novaPoshtaClient;
         private ITranslateService _translateService;
@@ -66,6 +68,13 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Submit(string selectedDepartment)
         {
+            //_transaction = TransactionManager.Current.StartNewTransaction<EkTransaction>();
+            //_transaction.TotalPriceCurrencyCode = "UAH";
+            //_transaction.SetCustomerInfo(new EkCustomerInfo()
+            //{
+            //    FullName = "Sergii",
+            //    Phone = "380678040010",
+            //});
             return View(selectedDepartment);
         }
 
@@ -132,7 +141,7 @@ namespace WebApplication.Controllers
             }
 
             var rate = GetExchangeRateAsync().Result;
-            var ekProduct = EkConvertHelper.EkAllegroPlOfferToProduct(p, rate);
+            ekProduct = EkConvertHelper.EkAllegroPlOfferToProduct(p, rate);
 
 
             var product = new ProductViewModel()

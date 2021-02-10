@@ -1,0 +1,25 @@
+﻿@model WebApplication.Classes.TreeModel;
+@{
+    Layout = null;
+}
+
+<div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">    
+    <div onclick="back('@Model.Manufacturer')" style="color: white; padding: 0px 10px; font-weight: normal; display: inline-block; border-radius: 10px; font-size: 23px; float: left; text-transform: capitalize; background: #F97008;">
+        <span>Назад</span>
+    </div>
+    <div style="display:inline-block;">Виберіть модель автомобіля</div>
+</div>
+<div style="padding: 10px 0px 10px 20px;">
+    @foreach (var item in Model.Models)
+    {
+        <div style="display:inline-block;vertical-align:middle;">
+            <div class="parentDiv" style="display:grid;" onclick="selectCarModel('@Model.Manufacturer', '@item')">
+                <div style="min-width:155px;min-height:115px;text-align:center;">
+                    <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.Manufacturer, item)" class="modelImage" />
+                </div><div class="manufactureText">
+                    <span>@item</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>

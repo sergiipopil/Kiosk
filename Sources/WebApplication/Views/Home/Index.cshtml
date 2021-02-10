@@ -1,8 +1,244 @@
-﻿@{
+﻿@model WebApplication.Models.RightTreeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
+<!DOCTYPE html>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<html>
+<head>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+    </style>
+    <script>
+    function submit() {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("PartNumberInput", "Home")' + "?partNumber=" + $("#inputPartValue").val(),
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    }
+    function back(manufacturer) {
+        showMainView();
+        $('#divSearchByPartNumber').show();
+        $('#divBreadcrumbs').hide();
+        $('#divSelectTopCategory').show();
+    }
+    function BreadCrumbsHistory(manufacture, model, partGroupId, partGroup, partSubGroup, part2ndSubGroup) {
+        $('#divBreadcrumbsItems').empty();
+        //$('#btnBackMain').show();
+        $('#divBreadcrumbs').show();
+        $('#divSearchByPartNumber').hide();
+
+        $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsManufacture"><div class="parentDiv">
+        <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/Model_Logo/${manufacture}.png" class="manufactureImage" /></div></div></div>`);
+
+        if (model != null) {
+            $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDiv" style="display:grid;" onclick="BreadCrumbsHistory('${manufacture}', ${model})">
+                <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/CarModel/${manufacture}/${model}.png" class="manufactureImage" style="padding-top:20px;" /></div><div class="manufactureText"><span style="color:black;">${model}</span>
+                            </div></div>`);
+        }
+        if (partGroup != null) {
+            $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDiv" style="display:grid;" onclick="BreadCrumbsHistory('${manufacture}', ${model})">
+                <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/CarModel/${manufacture}/${model}.png" class="manufactureImage" style="padding-top:20px;" /></div><div class="manufactureText"><span style="color:black;">${model}</span>
+                            </div></div>`);
+        }
+    }
+
+    function selectCarModel(manufacture, model, mainCategory) {
+        $('#divSelectTopCategory').hide();
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("ShowCategoryAutoParts", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategory=" + mainCategory,
+            success: function (data) {
+                console.log('@Model.manufacturer');
+                BreadCrumbsHistory(manufacture, model);
+                $('#divCarManufactures').empty();
+                $('#divCarManufactures').html(data);
+            }
+        });
+    }
+    function selectMainCategory(manufacture, model, mainCategory) {
+        $('#divSelectTopCategory').hide();
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("ShowMainSubcategories", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategory=" + mainCategory,
+            success: function (data) {
+                BreadCrumbsHistory(manufacture, model);
+                $('#divCarManufactures').empty();
+                $('#divCarManufactures').html(data);
+            }
+        });
+    }
+    function selectSubMainCategory(manufacture, model, mainCategory, subcategory) {
+        $('#divSelectTopCategory').hide();
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("ShowMainSubChildssCategories", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategory=" + mainCategory + "&subCategory=" + subcategory,
+            success: function (data) {
+                BreadCrumbsHistory(manufacture, model);
+                $('#divCarManufactures').empty();
+                $('#divCarManufactures').html(data);
+            }
+        });
+    }
+    function getAllegroData() {
+        $('#divSelectTopCategory').hide();
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("ShowProductList", "Home")',
+            success: function (data) {
+               //BreadCrumbsHistory(manufacture, model);
+               $('#divCarManufactures').empty();
+               $('#divCarManufactures').html(data);
+            }
+        });
+    }
+
+    function selectManufacturer(carManufactureName) {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("SelectManufactureAndModel", "Home")' + "?carManufactureName=" + carManufactureName,
+            success: function (data) {
+                console.log('@Model');
+                BreadCrumbsHistory(carManufactureName);
+                $('#divCarManufactures').empty();
+                $('#divCarManufactures').html(data);
+            }
+        });
+    }
+    function showMainView() {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("ShowMainView", "Home")',
+            success: function (data) {
+                $('#divCarManufactures').empty();
+                $('#divCarManufactures').html(data);
+            }
+        });
+    }
+    </script>
+</head>
+<body>
+    <table style="min-height: 100vh;min-width:100%;">
+        <tr>
+            @*LEFT PANEL*@
+            <td class="leftIndexPanel">
+
+                <div id="divSearchByPartNumber">
+
+                    <img src="~/images/Catalog/LoupeBackground1.png" style="margin-top:15%" />
+                    @*FIND DETAIL BY INPUT SEARCH*@
+                    <div style="font-size:60px;vertical-align:top;text-align:center;">
+                        <div style="margin-top: -40%;text-align:left;padding-left:25px;">
+                            <span>Знайдіть деталь <br> по </span><span style="color:#F97008;font-weight:bold;">номеру</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="margin-top:30px;padding-bottom:8px;">
+                            <div style="display:inline-block;vertical-align:middle;">@Html.TextBoxFor(m => m.PartNumberValue, new { @placeholder = "Номер запчастини", @id = "inputPartValue" })</div>
+                            <div class="loopBtn" onclick="submit()"><img style="padding-bottom:10px;" src="~/images/Catalog/InputLoupe.png"></div>
+                        </div>
+                    </div>
+                </div>
+                @*START BREADCRUMBS BLOCK*@
+                <div id="divBreadcrumbs" style="display:none;text-align:center;">
+                    <div>Ви вибрали:</div>
+                    <div id="divBreadcrumbsItems" style="margin:0% 36%;">
+                    </div>
+                </div>
+                @*END BREADCRUMBS BLOCK*@
+            </td>
+
+
+
+            @*RIGHT PANEL*@
+            <td class="rightIndexPanel">
+                @*SELECT TOP CATEGORY PANEL*@
+                <div id="divSelectTopCategory">
+                    <div class="mainBlockTitle">Виберіть розділ</div>
+                    <div style="padding: 0px 0px 14px 0px;">
+                        <div class="inline-block">
+                            <div class="topCategoryDiv selected" style="display:grid;" id="divTopCars">
+                                <div style="text-align:center;">
+                                    <img src="~/images/Catalog/Categories/New/Europe_CarTruckParts.png" class="TopCategoryImage" />
+                                </div>
+                                <div class="manufactureText">
+                                    <span>Легкові і мікроавтобуси</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inline-block">
+                            <div class="topCategoryDiv" style="display:grid;">
+                                <div style="text-align:center;">
+                                    <img src="~/images/Catalog/Categories/New/Europe_TruckParts.png" class="TopCategoryImage" />
+                                </div>
+                                <div class="manufactureText">
+                                    <span>Грузові</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inline-block">
+                            <div class="topCategoryDiv" style="display:grid;">
+                                <div style="text-align:center;">
+                                    <img src="~/images/Catalog/Categories/New/Europe_BusParts.png" class="TopCategoryImage" />
+                                </div>
+                                <div class="manufactureText">
+                                    <span>Автобуси</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inline-block">
+                            <div class="topCategoryDiv" style="display:grid;">
+                                <div style="text-align:center;">
+                                    <img src="~/images/Catalog/Categories/New/CarType_Special.png" class="TopCategoryImage" />
+                                </div>
+                                <div class="manufactureText">
+                                    <span>Спецтехніка</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inline-block">
+                            <div class="topCategoryDiv" style="display:grid;">
+                                <div style="text-align:center;">
+                                    <img src="~/images/Catalog/Categories/New/CarType_Moto.png" class="TopCategoryImage" />
+                                </div>
+                                <div class="manufactureText">
+                                    <span>Мотоцикли</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inline-block">
+                            <div class="topCategoryDiv" style="display:grid;">
+                                <div style="text-align:center;">
+                                    <img src="~/images/Catalog/Categories/New/Europe_TiresAndRims.png" class="TopCategoryImage" />
+                                </div>
+                                <div class="manufactureText">
+                                    <span>Шини і дисик</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inline-block">
+                            <div class="topCategoryDiv" style="display:grid;">
+                                <div style="text-align:center;">
+                                    <img src="~/images/Catalog/Categories/New/Europe_Tools.png" class="TopCategoryImage" />
+                                </div>
+                                <div class="manufactureText">
+                                    <span>Інструменти і обладнання</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*CAR MANUFACTURE TREE*@
+                <div id="divCarManufactures">
+                    @Html.Partial("_CarTree", @Model.manufacturer)
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
