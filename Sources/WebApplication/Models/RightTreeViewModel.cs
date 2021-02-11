@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using KioskBrains.Common.EK.Api.CarTree;
 using KioskBrains.Common.EK.Api;
+using KioskBrains.Clients.AllegroPl.Models;
 
 namespace WebApplication.Models
 {
     public class RightTreeViewModel
     {
+        public EkProduct[] AllegroOfferList { get; set; }
         public EkCarManufacturer[] ManufacturerList { get; set; }
         public IEnumerable<string> ModelsList { get; set; }
         public EkProductCategory[] ProductCategoryList { get; set; }

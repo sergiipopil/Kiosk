@@ -16,12 +16,15 @@
             type: "GET",
             url: '@Url.Action("PartNumberInput", "Home")' + "?partNumber=" + $("#inputPartValue").val(),
             success: function (data) {
-                console.log(data);
+                $('#divSelectTopCategory').hide();
+                $('#divCarManufactures').empty();
+                $('#divCarManufactures').html(data);
             }
         });
     }
         function back() {
             showMainView();
+            $("input#inputPartValue").val("");
             $('#divSearchByPartNumber').show();
             $('#divBreadcrumbs').hide();
             $('#divSelectTopCategory').show();
@@ -128,7 +131,7 @@
                 $('#divCarManufactures').html(data);
             }
         });
-    }
+        }        
     </script>
 </head>
 <body>

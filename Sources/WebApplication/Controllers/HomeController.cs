@@ -14,6 +14,11 @@ using KioskBrains.Clients.YandexTranslate;
 using KioskBrains.Clients.AllegroPl.Rest.Models;
 using KioskBrains.Clients.AllegroPl.Models;
 using WebApplication.Classes;
+using KioskBrains.Clients.AllegroPl.ServiceInterfaces;
+using KioskBrains.Server.Domain.Managers;
+using KioskBrains.Common.EK.Api;
+using KioskBrains.Server.Domain.Helpers.Dates;
+using KioskBrains.Server.Domain.Actions.EkKiosk;
 
 namespace WebApplication.Controllers
 {
@@ -22,10 +27,14 @@ namespace WebApplication.Controllers
         private AllegroPlClient _allegroPlClient;
         private ILogger<AllegroPlClient> _logger;
         private IOptions<AllegroPlClientSettings> _settings;
+        private ITranslateService _translateService;
+
+        private readonly CentralBankExchangeRateManager _centralBankExchangeRateManager;
         private IOptions<YandexTranslateClientSettings> _yandexSettings;
         public HomeController(ILogger<AllegroPlClient> logger,
             IOptions<AllegroPlClientSettings> settings,
-            IOptions<YandexTranslateClientSettings> yandexApiClientSettings)
+            IOptions<YandexTranslateClientSettings> yandexApiClientSettings,
+            ITranslateService translateService, CentralBankExchangeRateManager centralBankExchangeRateManager)
         {
             _logger = logger;
             _settings = settings;
@@ -34,6 +43,8 @@ namespace WebApplication.Controllers
                 settings,
                 new YandexTranslateClient(yandexApiClientSettings),
                 logger);
+            _translateService = translateService;
+            _centralBankExchangeRateManager = centralBankExchangeRateManager;
         }
 
 
@@ -95,6 +106,7 @@ namespace WebApplication.Controllers
             autoPartsSubChildCategories = autoPartsSubChildCategories.Where(x => x.CategoryId == subCategoryId).Select(x => x.Children).FirstOrDefault();
             if (autoPartsSubChildCategories == null)
             {
+                var responceAllegro = GetDetailsFromTree(carManufactureName, carModel, subCategoryId, null).Result;
                 return View("_ProductsList", new RightTreeViewModel()
                 {
                     ManufacturerSelected = carManufactureName,
@@ -103,7 +115,8 @@ namespace WebApplication.Controllers
                     MainCategoryName = mainCategoryName,
                     SubCategoryId = subCategoryId,
                     SubCategoryName = subCategoryName,
-                    FunctionReturnFromProducts = String.Format("selectMainCategory('{0}', '{1}', '{2}', '{3}')", carManufactureName, carModel, mainCategoryId, mainCategoryName)
+                    FunctionReturnFromProducts = String.Format("selectMainCategory('{0}', '{1}', '{2}', '{3}')", carManufactureName, carModel, mainCategoryId, mainCategoryName),
+                    AllegroOfferList=responceAllegro.Products
                 });
             }
             foreach (var item in autoPartsSubChildCategories)
@@ -127,7 +140,8 @@ namespace WebApplication.Controllers
 
         }
         public IActionResult ShowProductList(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName, string subChildId, string subChildName)
-        {   
+        {
+            var responceAllegro = GetDetailsFromTree(carManufactureName, carModel, subChildId, null).Result;
             RightTreeViewModel treeView = new RightTreeViewModel()
             {
                 ManufacturerSelected = carManufactureName,
@@ -138,20 +152,76 @@ namespace WebApplication.Controllers
                 SubCategoryName = subCategoryName,
                 SubChildCategoryId = subChildId,
                 SubChildCategoryName = subChildName,
-                FunctionReturnFromProducts = String.Format("selectSubMainCategory('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName)
+                FunctionReturnFromProducts = String.Format("selectSubMainCategory('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName),
+                AllegroOfferList = responceAllegro.Products
             };
+            
             return View("_ProductsList", treeView);
         }
         // ============Block for left part of site
         public IActionResult PartNumberInput(string partNumber)
         {
-            var apitest = TestGet(partNumber).Result;
-            return Json(partNumber);
+            var responceAllegro = GetDetailsFromTree(null, null, null, partNumber).Result;
+            RightTreeViewModel treeView = new RightTreeViewModel()
+            {
+                AllegroOfferList = responceAllegro.Products,
+                FunctionReturnFromProducts = "back()"
+            };
+            return View("_ProductsList", treeView);
         }
-        public async Task<SearchOffersResponse> TestGet(string partNumber)
+        
+        private async Task<decimal> GetExchangeRateAsync()
         {
-            var apiResponse = await _allegroPlClient.SearchOffersAsync(partNumber, partNumber, "3", KioskBrains.Clients.AllegroPl.Models.OfferStateEnum.All, KioskBrains.Clients.AllegroPl.Models.OfferSortingEnum.Relevance, 0, 10, System.Threading.CancellationToken.None);
-            return apiResponse;
+            var ukrainianNow = TimeZones.GetTimeZoneNow(TimeZones.UkrainianTime);
+            const string LocalCurrencyCode = "UAH";
+            const string ForeignCurrencyCode = "PLN";
+
+            // todo: cache
+            var exchangeRate = await _centralBankExchangeRateManager.GetCurrentRateAsync(LocalCurrencyCode, ForeignCurrencyCode, ukrainianNow);
+            if (exchangeRate == null)
+            {
+                throw new InvalidOperationException($"CB exchange rate for {LocalCurrencyCode}-{ForeignCurrencyCode} is not presented.");
+            }
+
+            return exchangeRate.Value;
+        }
+        public async Task<EkKioskProductSearchInEuropeGetResponse> GetDetailsFromTree(string carManufactureName, string carModel, string selectedCategoryId, string inputPartNumber)
+        {
+            SearchOffersResponse searchOffersResponse;
+            if (inputPartNumber == null)
+            {
+                searchOffersResponse = await _allegroPlClient.SearchOffersAsync(String.Format("{0} {1}", carManufactureName, carModel), null, selectedCategoryId, KioskBrains.Clients.AllegroPl.Models.OfferStateEnum.All, KioskBrains.Clients.AllegroPl.Models.OfferSortingEnum.Relevance, 0, 10, System.Threading.CancellationToken.None);
+            }
+            else {
+                searchOffersResponse = await _allegroPlClient.SearchOffersAsync(inputPartNumber, inputPartNumber, "3", KioskBrains.Clients.AllegroPl.Models.OfferStateEnum.All, KioskBrains.Clients.AllegroPl.Models.OfferSortingEnum.Relevance, 0, 10, System.Threading.CancellationToken.None);
+            }
+                try
+            {
+                await _allegroPlClient.ApplyTranslations(_translateService, searchOffersResponse.Offers, String.Format("{0} {1}", carManufactureName, carModel), null, System.Threading.CancellationToken.None);
+            }
+
+            catch { }
+
+            EkProduct[] products;
+            if (searchOffersResponse.Offers?.Length > 0)
+            {
+                var exchangeRate = await GetExchangeRateAsync();
+
+                products = searchOffersResponse.Offers
+                    .Select(x => EkConvertHelper.EkAllegroPlOfferToProduct(x, exchangeRate))
+                    .ToArray();
+            }
+            else
+            {
+                products = new EkProduct[0];
+            }
+
+            return new EkKioskProductSearchInEuropeGetResponse()
+            {
+                Products = products,
+                Total = searchOffersResponse.Total,
+                TranslatedTerm = searchOffersResponse.TranslatedPhrase,
+            };
         }
         // ============Block for left part of site
         public IActionResult Privacy()

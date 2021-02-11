@@ -9,3 +9,11 @@
     </div>
     <div style="display:inline-block;">Список запчастин</div>
 </div>
+@foreach (var item in Model.AllegroOfferList) { 
+<div style="background:grey;border:3px solid white;padding:10px 0px;">
+    <div>@item.Name.Last().Value</div>
+    <div><span>@item.Price</span>
+         <span>@item.PriceCurrencyCode</span>
+         <span>@item.State</span></div>
+</div>
+}

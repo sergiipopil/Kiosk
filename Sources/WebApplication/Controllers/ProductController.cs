@@ -33,11 +33,11 @@ namespace WebApplication.Controllers
         private NovaPoshtaUkraineClient _novaPoshtaClient;
         private ITranslateService _translateService;
 
+        private readonly CentralBankExchangeRateManager _centralBankExchangeRateManager;
         private ILogger<AllegroPlClient> _logger;
         private IOptions<AllegroPlClientSettings> _settings;
         private IOptions<YandexTranslateClientSettings> _yandexSettings;
         private CancellationTokenSource _tokenSource;
-        private readonly CentralBankExchangeRateManager _centralBankExchangeRateManager;
 
         public ProductController(ILogger<AllegroPlClient> logger,
             IOptions<AllegroPlClientSettings> settings,
