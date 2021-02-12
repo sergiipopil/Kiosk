@@ -35,27 +35,27 @@
         $('#divSearchByPartNumber').hide();
         $('#divSelectTopCategory').hide();
 
-        $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsManufacture"><div class="parentDiv">
-        <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/Model_Logo/${manufacture}.png" class="manufactureImage" /></div></div></div>`);            
+            $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsManufacture"><div class="parentDivBreadCrumbs">
+        <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/Model_Logo/${manufacture}.png" class="manufactureImageBreadcrumbs" /></div></div></div>`);            
             if (model != null) {
             
-            $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDiv" style="display:grid;">
-                <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/CarModel/${manufacture}/${model}.png" class="manufactureImage" style="padding-top:20px;" /></div><div class="manufactureText"><span style="color:black;">${model}</span>
+                $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDivBreadCrumbs" style="display:grid;">
+                <div style="min-width:155px;min-height:100px;max-height:100px;text-align:center;"><img src="/images/Catalog/CarModel/${manufacture}/${model}.png" class="manufactureImageBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${model}</span>
                             </div></div>`);
         }
             if (mainCategoryName != null) {
-            $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsMainCategory" class="parentDiv" style="display:grid;">
-                <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/AutoParts/${mainCategoryId}.png" class="manufactureImage" style="padding-top:20px;" /></div><div class="manufactureText"><span style="color:black;">${mainCategoryName}</span>
+                $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsMainCategory" class="parentDivBreadCrumbs" style="display:grid;">
+                <div style="min-width:155px;min-height:90px;text-align:center;"><img src="/images/Catalog/AutoParts/${mainCategoryId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${mainCategoryName}</span>
                             </div></div>`);
             }
             if (subCategoryName != null) {
-                $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsSubCategory" class="parentDiv" style="display:grid;">
-                <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/AutoParts/${subCategoryId}.png" class="manufactureImage" style="padding-top:20px;" /></div><div class="manufactureText"><span style="color:black;">${subCategoryName}</span>
+                $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsSubCategory" class="parentDivBreadCrumbs" style="display:grid;">
+                <div style="min-width:155px;min-height:90px;text-align:center;"><img src="/images/Catalog/AutoParts/${subCategoryId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${subCategoryName}</span>
                             </div></div>`);
             }
             if (subChildName != null) {
-                $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsSubChildCategory" class="parentDiv" style="display:grid;">
-                <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/AutoParts/${subChildId}.png" class="manufactureImage" style="padding-top:20px;" /></div><div class="manufactureText"><span style="color:black;">${subChildName}</span>
+                $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsSubChildCategory" class="parentDivBreadCrumbs" style="display:grid;">
+                <div style="min-width:155px;min-height:90px;text-align:center;"><img src="/images/Catalog/AutoParts/${subChildId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${subChildName}</span>
                             </div></div>`);
             }
     }

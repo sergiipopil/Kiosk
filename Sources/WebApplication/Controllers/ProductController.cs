@@ -60,9 +60,9 @@ namespace WebApplication.Controllers
         {
             return View();
         }
-        public ActionResult CartView()
+        public ActionResult CartView(EkProduct data)
         {
-            return View();
+            return View(data);
         }        
 
         [HttpPost]

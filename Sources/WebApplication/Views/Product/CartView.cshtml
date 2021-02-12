@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model KioskBrains.Common.EK.Api.EkProduct
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -19,16 +20,14 @@
             </div>
             <div style="background:#635aa0;height:1px;width:100%;margin-top:15px;"></div>
             <div style="color:white;">
-                <label style="font-size:68px;">1 345</label><label style="font-size:39px;">грн</label>
+                <label style="font-size:68px;">@Model.Price</label><label style="font-size:39px;">грн</label>
             </div>
-            <div>
-                <span style="font-size:30px;color:white;">Вы можете</span>
-            </div>
+           
             <div id="buyBtn" style="margin: 57px 0px 0px 0px">
                 <form action="@Url.Action("Delivery")">
                     <button class="btnBuy">
                         <img src="~/images/Buy.png" />
-                        <span>Купить</span>
+                        <span>Оформити замовлення</span>
                     </button>
                 </form>
             </div>

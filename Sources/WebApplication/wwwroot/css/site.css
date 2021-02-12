@@ -48,9 +48,21 @@ body {
     width: 80%;
     border: 1px solid #e87619;
 }
+.btnBuyList {
+    background: linear-gradient(90deg, #e87619, #FFB21D);
+    height: 42px;
+    color: #411f0c;
+    width: 100%;
+    border:0px;
+}
+.btnBuyList:hover {
+    border:0px;
+}
 
-    .btnBuy img, .btnBuy span {
+    .btnBuy img, .btnBuy span, .btnBuyList img, .btnBuyList span {
         vertical-align: middle;
+        font-weight:bold;
+        padding-left:5px;
     }
 
 input#btnContinueBuys {
@@ -157,6 +169,18 @@ body {
     padding: 10px;
 }
 
+.parentDivBreadCrumbs {
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1vmin;
+    width: 200px;
+    height: 130px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    padding: 5px;
+}
+
 .parentDivAutoParts {
     background: white;
     display: flex;
@@ -187,6 +211,11 @@ body {
 .manufactureText {
     text-align: center;
     font-size: 14px;
+    font-weight: bold;
+}
+.manufactureTextBreadcrumbs {
+    text-align: center;
+    font-size: 12px;
     font-weight: bold;
 }
 
@@ -224,6 +253,14 @@ input {
 .manufactureImage {
     max-width: 155px;
     max-height: 145px;
+}
+.manufactureImageCategoryBreadcrumbs {
+    max-width: 155px;
+    max-height: 100px;
+}
+.manufactureImageBreadcrumbs {
+    max-width: 180px;
+    max-height: 130px;
 }
 .TopCategoryImage {
     max-width: 140px;
