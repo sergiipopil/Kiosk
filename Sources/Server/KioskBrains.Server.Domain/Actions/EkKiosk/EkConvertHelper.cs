@@ -182,7 +182,7 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk
                 var T_Taxes = GetB_Taxes(product, isSpecialEngineTransmissionProduct);
                 var R_Rate = exchangeRate;
 
-                var ExtraRate = (decimal)1.3;
+                var ExtraRate = P_Price < 200 ? (decimal)1.55 : (decimal)1.3;
 
                 var price = (P_Price + D_Price) * (1 + T_Taxes) * (1 + M_Markup) * R_Rate * ExtraRate;
 

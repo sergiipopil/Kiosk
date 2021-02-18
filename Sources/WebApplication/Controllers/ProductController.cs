@@ -22,6 +22,10 @@ using WebApplication.NovaPoshtaUkraine;
 using KioskBrains.Server.Domain.Helpers.Dates;
 using WebApplication.NovaPoshtaUkraine.Models;
 using KioskBrains.Common.EK.Transactions;
+using WebApplication.Entity;
+using KioskBrains.Clients.AllegroPl.Models;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace WebApplication.Controllers
 {
@@ -60,10 +64,59 @@ namespace WebApplication.Controllers
         {
             return View();
         }
-        public ActionResult CartView(EkProduct data)
+
+        public async Task<EkKioskProductSearchInEuropeGetResponse> GeEkProductData(string productId)
         {
-            return View(data);
-        }        
+            var p = _allegroPlClient.GetOfferById(_translateService, productId, CancellationToken.None).Result;
+
+
+            EkProduct[] products;
+            List<Offer> collectionProducts = new List<Offer>();
+            collectionProducts.Add(p);
+            var exchangeRate = await GetExchangeRateAsync();
+
+            products = collectionProducts.Select(x => EkConvertHelper.EkAllegroPlOfferToProduct(x, exchangeRate))
+                .ToArray();
+
+
+            return new EkKioskProductSearchInEuropeGetResponse()
+            {
+                Products = products,
+                // Total = collectionProducts.Total,
+                // TranslatedTerm = collectionProducts.TranslatedPhrase,
+            };
+        }
+        public class DashboardViewModel
+        {
+            public string Name { set; get; }
+            public string Location { set; get; }
+            public List<string> Interests { set; get; }
+        }
+        public IList<EkProduct> AddToCartSession(EkProduct product)
+        {
+            var cartListJson = HttpContext.Session.GetString("cartList");
+            IList<EkProduct> cartList = new List<EkProduct>();
+            if (cartListJson != null)
+            {
+                cartList = JsonSerializer.Deserialize<IList<EkProduct>>(cartListJson);
+            }
+
+            cartList.Add(product);
+
+            HttpContext.Session.SetString("cartList", JsonSerializer.Serialize(cartList));
+
+            return cartList;
+        }
+        
+        public ActionResult CartView(string selectedProductId)
+        {
+            var p = HttpContext.Session.GetString("person");
+            EkProduct[] list10Products = JsonSerializer.Deserialize<EkProduct[]>(p);
+            EkProduct cartProduct = list10Products.Where(x => x.SourceId == selectedProductId).FirstOrDefault();
+            IList<EkProduct> cartList = AddToCartSession(cartProduct);
+
+            return View(cartList);
+        }
 
         [HttpPost]
         public ActionResult Submit(string selectedDepartment)
@@ -79,17 +132,17 @@ namespace WebApplication.Controllers
         }
 
         public ActionResult Delivery(string area, string city)
-        {            
+        {
             var allData = _novaPoshtaClient.GetDataFromFile();
             //var areas = GetAllNovaPoshtaAreas();
-            var areas = allData.Select(x => new AreasSearchItem() { Description = x.AreaDescription, Ref = x.Ref }).GroupBy(x=>x.Description).Select(g=>g.First()).ToArray();
+            var areas = allData.Select(x => new AreasSearchItem() { Description = x.AreaDescription, Ref = x.Ref }).GroupBy(x => x.Description).Select(g => g.First()).ToArray();
             NovaPoshtaViewModel npView = new NovaPoshtaViewModel
             {
                 Areas = areas,
                 Cities = string.IsNullOrEmpty(area) ? new List<WarehouseSearchItem>() : allData.Where(x => x.AreaDescription == area).ToList(),
                 Departments = string.IsNullOrEmpty(city) ? new WarehouseSearchItem[0] : GetAllNovaPoshtaCityDepts(city).Result
             };
-            return area==null && city==null ? (ActionResult)View(npView) : Json(npView);
+            return area == null && city == null ? (ActionResult)View(npView) : Json(npView);
         }
 
         public ActionResult Cities(string area)
@@ -105,8 +158,8 @@ namespace WebApplication.Controllers
             };
             return Json(npView);
         }
-        
-       
+
+
 
         private async Task<decimal> GetExchangeRateAsync()
         {
@@ -122,14 +175,14 @@ namespace WebApplication.Controllers
             }
 
             return exchangeRate.Value;
-        }        
-        
+        }
+
         private async Task<WarehouseSearchItem[]> GetAllNovaPoshtaCityDepts(string city)
         {
             var result = await _novaPoshtaClient.GetAllDepartmentsOfTheCity(CancellationToken.None, city);
             return result;
         }
-        
+
         public ProductViewModel GetProductInfo(string id)
         {
             var p = _allegroPlClient.GetOfferById(_translateService, id, CancellationToken.None).Result;
@@ -166,6 +219,6 @@ namespace WebApplication.Controllers
         {
             return View();
         }
-        
+
     }
 }

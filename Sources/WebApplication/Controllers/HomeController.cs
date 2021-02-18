@@ -19,11 +19,17 @@ using KioskBrains.Server.Domain.Managers;
 using KioskBrains.Common.EK.Api;
 using KioskBrains.Server.Domain.Helpers.Dates;
 using KioskBrains.Server.Domain.Actions.EkKiosk;
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace WebApplication.Controllers
 {
+    
     public class HomeController : Controller
     {
+        public static EkCarTypeEnum _topCategoryCarType;
         private AllegroPlClient _allegroPlClient;
         private ILogger<AllegroPlClient> _logger;
         private IOptions<AllegroPlClientSettings> _settings;
@@ -50,17 +56,19 @@ namespace WebApplication.Controllers
 
         public IActionResult Index()
         {
+            _topCategoryCarType = EkCarTypeEnum.Car;
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == EkCarTypeEnum.Car).Select(x => x.Manufacturers).FirstOrDefault();
             return View(new RightTreeViewModel() { ManufacturerList = carTree });
         }
-        public IActionResult ShowMainView()
+        public IActionResult ShowMainView(string topCategoryId)
         {
-            var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == EkCarTypeEnum.Car).Select(x => x.Manufacturers).FirstOrDefault();
+            _topCategoryCarType = new GetCarTypeEnumByNumber().GetCarTypeEnum(topCategoryId);
+            var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
             return View("_CarTree", new RightTreeViewModel() { ManufacturerList = carTree });
         }
         public IActionResult SelectManufactureAndModel(string carManufactureName)
         {
-            var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == EkCarTypeEnum.Car).Select(x => x.Manufacturers).FirstOrDefault();
+            var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
             var modelTree = carTree.Where(x => x.Name == carManufactureName).Select(y => y.CarModels).FirstOrDefault();
 
             return View("_CarModels", new RightTreeViewModel() { ManufacturerSelected = carManufactureName, ModelsList= modelTree.Select(x => x.Name) });
@@ -107,6 +115,8 @@ namespace WebApplication.Controllers
             if (autoPartsSubChildCategories == null)
             {
                 var responceAllegro = GetDetailsFromTree(carManufactureName, carModel, subCategoryId, null).Result;
+                HttpContext.Session.SetString("person", JsonSerializer.Serialize(responceAllegro.Products));
+
                 return View("_ProductsList", new RightTreeViewModel()
                 {
                     ManufacturerSelected = carManufactureName,
@@ -142,6 +152,7 @@ namespace WebApplication.Controllers
         public IActionResult ShowProductList(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName, string subChildId, string subChildName)
         {
             var responceAllegro = GetDetailsFromTree(carManufactureName, carModel, subChildId, null).Result;
+
             RightTreeViewModel treeView = new RightTreeViewModel()
             {
                 ManufacturerSelected = carManufactureName,
@@ -155,7 +166,6 @@ namespace WebApplication.Controllers
                 FunctionReturnFromProducts = String.Format("selectSubMainCategory('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName),
                 AllegroOfferList = responceAllegro.Products
             };
-            
             return View("_ProductsList", treeView);
         }
         // ============Block for left part of site

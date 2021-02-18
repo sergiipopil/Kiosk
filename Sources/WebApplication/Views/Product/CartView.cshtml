@@ -1,4 +1,4 @@
-﻿@model KioskBrains.Common.EK.Api.EkProduct
+﻿@model IList<KioskBrains.Common.EK.Api.EkProduct>
 <!DOCTYPE html>
 
 <html>
@@ -16,13 +16,22 @@
             <span style="color:white;font-size:30px;">У Вас в корзине</span>
             <div style="padding:10px 0px;">
                 <div style="display:inline-block;vertical-align:middle;"><img src="~/images/CartWidgetEmpty.png"></div>
-                <div style="font-size:18px;color:white;display:inline-block;vertical-align:middle;">1 товар</div>
+                <div style="font-size:18px;color:white;display:inline-block;vertical-align:middle;">
+                    @foreach (var item in @Model)
+                    {
+                        <label style="font-size:14px;">
+                            @item.Name.Last().Value
+                        </label>
+                    }
+                </div>
             </div>
             <div style="background:#635aa0;height:1px;width:100%;margin-top:15px;"></div>
             <div style="color:white;">
-                <label style="font-size:68px;">@Model.Price</label><label style="font-size:39px;">грн</label>
+                <label style="font-size:68px;">
+                    @Model.Select(x => x.Price).Sum()
+                </label><label style="font-size:39px;">грн</label>
             </div>
-           
+
             <div id="buyBtn" style="margin: 57px 0px 0px 0px">
                 <form action="@Url.Action("Delivery")">
                     <button class="btnBuy">

@@ -47,13 +47,15 @@
                     <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">доставка в Украину <br /> 2-5 дней</p>
                 </div>
 
-                <form action="@Url.Action("CartView", "Product", @item)" method="post">
+                @*<form action="@Url.Action("CartView", "Product",  @item)" method="post">*@
+                
+                <div onclick="goToCart('@item.SourceId')">
                     <button class="btnBuyList">
                         <img src="~/images/Buy.png" />
-                        <span>Купить</span>
+                        <span>Купити</span>
                     </button>
-                </form>
-
+                </div>
+                @*</form>*@
             </div>
         </div>
     }

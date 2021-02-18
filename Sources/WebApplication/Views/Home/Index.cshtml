@@ -21,7 +21,10 @@
                 $('#divCarManufactures').html(data);
             }
         });
-    }
+        }
+        function topCategorySelected() {
+            ViewData["Title"] = "Home Page";
+        }
         function back() {
             showMainView();
             $("input#inputPartValue").val("");
@@ -30,15 +33,15 @@
             $('#divSelectTopCategory').show();
         }
         function BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName) {
-        $('#divBreadcrumbsItems').empty();        
+        $('#divBreadcrumbsItems').empty();
         $('#divBreadcrumbs').show();
         $('#divSearchByPartNumber').hide();
         $('#divSelectTopCategory').hide();
 
             $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsManufacture"><div class="parentDivBreadCrumbs">
-        <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/Model_Logo/${manufacture}.png" class="manufactureImageBreadcrumbs" /></div></div></div>`);            
+        <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/Model_Logo/${manufacture}.png" class="manufactureImageBreadcrumbs" /></div></div></div>`);
             if (model != null) {
-            
+
                 $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDivBreadCrumbs" style="display:grid;">
                 <div style="min-width:155px;min-height:100px;max-height:100px;text-align:center;"><img src="/images/Catalog/CarModel/${manufacture}/${model}.png" class="manufactureImageBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${model}</span>
                             </div></div>`);
@@ -121,17 +124,23 @@
                 $('#divCarManufactures').html(data);
             }
         });
-    }
-    function showMainView() {
+        }
+        
+        function goToCart(selectedProductId) {
+            window.location.href = '/Product/CartView/' + "?selectedProductId=" + selectedProductId;           
+        }
+        function showMainView(topCategoryId) {
+            $('div[id*="divTopCategory_"]').removeClass("selected");
+            $('#divTopCategory_' + topCategoryId).addClass("selected");
         $.ajax({
             type: "GET",
-            url: '@Url.Action("ShowMainView", "Home")',
+            url: '@Url.Action("ShowMainView", "Home")' + "?topCategoryId=" + topCategoryId,
             success: function (data) {
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
             }
         });
-        }        
+        }
     </script>
 </head>
 <body>
@@ -175,7 +184,7 @@
                     <div class="mainBlockTitle">Виберіть розділ</div>
                     <div style="padding: 0px 0px 14px 0px;">
                         <div class="inline-block">
-                            <div class="topCategoryDiv selected" style="display:grid;" id="divTopCars">
+                            <div class="topCategoryDiv selected" style="display:grid;" id="divTopCategory_620" onclick="showMainView('620')">
                                 <div style="text-align:center;">
                                     <img src="~/images/Catalog/Categories/New/Europe_CarTruckParts.png" class="TopCategoryImage" />
                                 </div>
@@ -185,7 +194,7 @@
                             </div>
                         </div>
                         <div class="inline-block">
-                            <div class="topCategoryDiv" style="display:grid;">
+                            <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_622" onclick="showMainView('621')">
                                 <div style="text-align:center;">
                                     <img src="~/images/Catalog/Categories/New/Europe_TruckParts.png" class="TopCategoryImage" />
                                 </div>
@@ -195,9 +204,9 @@
                             </div>
                         </div>
                         <div class="inline-block">
-                            <div class="topCategoryDiv" style="display:grid;">
+                            <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_621" onclick="showMainView('622')">
                                 <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/Europe_BusParts.png" class="TopCategoryImage" />
+                                    <img src="~/images/Catalog/Categories/New/Europe_BusParts.png"  class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureText">
                                     <span>Автобуси</span>
@@ -205,7 +214,7 @@
                             </div>
                         </div>
                         <div class="inline-block">
-                            <div class="topCategoryDiv" style="display:grid;">
+                            <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_99022" onclick="showMainView('99022')">
                                 <div style="text-align:center;">
                                     <img src="~/images/Catalog/Categories/New/CarType_Special.png" class="TopCategoryImage" />
                                 </div>
@@ -215,7 +224,7 @@
                             </div>
                         </div>
                         <div class="inline-block">
-                            <div class="topCategoryDiv" style="display:grid;">
+                            <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_156" onclick="showMainView('156')">
                                 <div style="text-align:center;">
                                     <img src="~/images/Catalog/Categories/New/CarType_Moto.png" class="TopCategoryImage" />
                                 </div>
