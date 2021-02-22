@@ -14,6 +14,8 @@ using KioskBrains.Clients.YandexTranslate;
 using KioskBrains.Server.Domain.Config;
 using Microsoft.EntityFrameworkCore;
 using KioskBrains.Server.Domain.Entities.DbStorage;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 namespace WebApplication
 {
@@ -57,7 +59,7 @@ namespace WebApplication
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
-
+            services.AddSingleton(HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic }));
             services.UpdateDatabase<KioskBrainsContext, DbInitializer>(services.BuildServiceProvider());
             services.AddControllersWithViews();
         }

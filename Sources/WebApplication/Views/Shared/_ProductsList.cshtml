@@ -48,8 +48,8 @@
                 </div>
 
                 @*<form action="@Url.Action("CartView", "Product",  @item)" method="post">*@
-                
-                <div onclick="goToCart('@item.SourceId')">
+               
+                <div onclick="goToCart('@item.SourceId', '@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.SubCategoryId', '@Model.SubCategoryName', '@Model.SubChildCategoryId', '@Model.SubChildCategoryName')">
                     <button class="btnBuyList">
                         <img src="~/images/Buy.png" />
                         <span>Купити</span>

@@ -7,10 +7,42 @@
 <html>
 <head>
     <link href="~/css/site.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
+    <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1" />
     <style>
     </style>
-    <script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (window.location.toString().includes("carManufactureName")) // This doesn't work, any suggestions?
+            {                               
+                var carManufactureName = getUrlParameter('carManufactureName');
+                var carModel = getUrlParameter('amp;carModel');
+                var mainCategoryId = getUrlParameter('amp;mainCategoryId');
+                var mainCategoryName = getUrlParameter('amp;mainCategoryName');
+                var subCategoryId = getUrlParameter('amp;subCategoryId');
+                var subCategoryName = getUrlParameter('amp;subCategoryName');
+                var subChildId = getUrlParameter('amp;subChildId');
+                var subChildName = getUrlParameter('amp;subChildName');
+
+                selectSubMainCategory(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName);
+                //getAllegroData(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName);                
+            }
+        });
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+                }
+            }
+            return false;
+        };
     function submit() {
         $.ajax({
             type: "GET",
@@ -88,12 +120,16 @@
         });
     }
         function selectSubMainCategory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName) {
+            $('#divCarManufactures').empty();
+            $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" width="100px" /></div>');
+
         $('#divSelectTopCategory').hide();
         $.ajax({
             type: "GET",
             url: '@Url.Action("ShowMainSubChildsCategories", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
                  "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName,
             success: function (data) {
+                console.log("start");
                 BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName);
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
@@ -125,9 +161,10 @@
             }
         });
         }
-        
-        function goToCart(selectedProductId) {
-            window.location.href = '/Product/CartView/' + "?selectedProductId=" + selectedProductId;           
+
+        function goToCart(selectedProductId, manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName) {
+            window.location.href = '/Product/CartView/' + "?selectedProductId=" + selectedProductId + "&carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
+                "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName;
         }
         function showMainView(topCategoryId) {
             $('div[id*="divTopCategory_"]').removeClass("selected");
@@ -255,7 +292,7 @@
                         </div>
                     </div>
                 </div>
-                @*CAR MANUFACTURE TREE*@
+                @*CAR MANUFACTURE TREE*@                
                 <div id="divCarManufactures">
                     @Html.Partial("_CarTree", @Model)
                 </div>

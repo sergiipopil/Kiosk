@@ -163,6 +163,19 @@ body {
     align-items: center;
     margin-top: 2vmin;
     margin-left: 1vmin;
+    width: 210px;
+    height: 150px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    padding: 10px;
+}
+
+.parentDivManufacturer {
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2vmin;
+    margin-left: 1vmin;
     width: 170px;
     height: 150px;
     box-shadow: 0 0 4px rgba(0,0,0,0.5);
@@ -219,7 +232,7 @@ body {
     font-weight: bold;
 }
 
-.parentDiv:hover, .topCategoryDiv:hover, .parentDivAutoParts:hover {
+.parentDiv:hover, .topCategoryDiv:hover, .parentDivAutoParts:hover, .parentDivManufacturer:hover {
     box-shadow: 0 0 12px rgba(0,0,0,0.5);
 }
 
@@ -267,7 +280,7 @@ input {
     max-height: 65px;
 }
 .modelImage {
-    max-width: 158px;
+    max-width: 195px;
     max-height: 115px;
     padding-top: 20px;
 }

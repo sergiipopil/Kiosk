@@ -7,8 +7,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1" />
     <title></title>
+    <script>
+
+        function backToProductList() {
+            window.location.href = '/Home/Index/' + '@ViewBag.TestString';
+        }
+    </script>
 </head>
 <body>
     <div>
@@ -28,10 +34,17 @@
             <div style="background:#635aa0;height:1px;width:100%;margin-top:15px;"></div>
             <div style="color:white;">
                 <label style="font-size:68px;">
+                    @ViewBag.carManufactureName
                     @Model.Select(x => x.Price).Sum()
                 </label><label style="font-size:39px;">грн</label>
             </div>
-
+            <div id="continueBtn" style="margin: 57px 0px 0px 0px">
+                <div onclick="backToProductList()">
+                    <button class="btnBuy">
+                        <span>Продовжити покупки</span>
+                    </button>
+                </div>
+            </div>
             <div id="buyBtn" style="margin: 57px 0px 0px 0px">
                 <form action="@Url.Action("Delivery")">
                     <button class="btnBuy">
