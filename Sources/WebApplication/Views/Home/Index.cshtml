@@ -23,9 +23,12 @@
                 var subCategoryName = getUrlParameter('amp;subCategoryName');
                 var subChildId = getUrlParameter('amp;subChildId');
                 var subChildName = getUrlParameter('amp;subChildName');
-
-                selectSubMainCategory(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName);
-                //getAllegroData(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName);                
+                if (subChildId == "" && subChildName == "") {
+                    selectSubMainCategory(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName);
+                }
+                else {
+                    getAllegroData(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName);  
+                }
             }
         });
         var getUrlParameter = function getUrlParameter(sParam) {

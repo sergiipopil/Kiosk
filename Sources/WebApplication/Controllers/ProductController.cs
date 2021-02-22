@@ -110,12 +110,12 @@ namespace WebApplication.Controllers
         
         public ActionResult CartView(string selectedProductId, string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName, string subChildId, string subChildName)
         {
-            ViewBag.TestString = "?carManufactureName=" + carManufactureName + "&carModel=" + carModel + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
+            ViewBag.RequestParams = "?carManufactureName=" + carManufactureName + "&carModel=" + carModel + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
                 "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName;
             
             //HttpContext.Session.SetString("functionBackToProducts", );
-            var p = HttpContext.Session.GetString("person");
-            EkProduct[] list10Products = JsonSerializer.Deserialize<EkProduct[]>(p);
+            var productList = HttpContext.Session.GetString("productList");
+            EkProduct[] list10Products = JsonSerializer.Deserialize<EkProduct[]>(productList);
             EkProduct cartProduct = list10Products.Where(x => x.SourceId == selectedProductId).FirstOrDefault();
             IList<EkProduct> cartList = AddToCartSession(cartProduct);
 

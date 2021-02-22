@@ -115,7 +115,7 @@ namespace WebApplication.Controllers
             if (autoPartsSubChildCategories == null)
             {
                 var responceAllegro = GetDetailsFromTree(carManufactureName, carModel, subCategoryId, null).Result;
-                HttpContext.Session.SetString("person", JsonSerializer.Serialize(responceAllegro.Products));
+                HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
 
                 return View("_ProductsList", new RightTreeViewModel()
                 {
@@ -152,7 +152,7 @@ namespace WebApplication.Controllers
         public IActionResult ShowProductList(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName, string subChildId, string subChildName)
         {
             var responceAllegro = GetDetailsFromTree(carManufactureName, carModel, subChildId, null).Result;
-
+            HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
             RightTreeViewModel treeView = new RightTreeViewModel()
             {
                 ManufacturerSelected = carManufactureName,
