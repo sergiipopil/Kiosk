@@ -115,6 +115,7 @@ namespace WebApplication.Controllers
             if (autoPartsSubChildCategories == null)
             {
                 var responceAllegro = GetDetailsFromTree(carManufactureName, carModel, subCategoryId, null).Result;
+                long pages = responceAllegro.Total / 10;
                 HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
                 RightTreeViewModel treeViewModel = new RightTreeViewModel()
                 {
@@ -171,78 +172,6 @@ namespace WebApplication.Controllers
             };
             HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
             return View("_ProductsList", treeView);
-        }
-        private OfferStateEnum GetStateEnumValue(string state)
-        {
-            switch (state)
-            {
-                case "All":
-                    return OfferStateEnum.All;
-                case "New":
-                    return OfferStateEnum.New;
-                case "Used":
-                    return OfferStateEnum.Used;
-                case "Recovered":
-                    return OfferStateEnum.Recovered;
-                default:
-                    return OfferStateEnum.All;
-            }
-        }
-
-        private OfferSortingEnum GetSortingEnumValue(string sorting)
-        {
-            switch (sorting)
-            {
-                case "Relevance":
-                    return OfferSortingEnum.Relevance;
-                case "PriceDesc":
-                    return OfferSortingEnum.PriceDesc;
-                case "PriceAsc":
-                    return OfferSortingEnum.PriceAsc;               
-                default:
-                    return OfferSortingEnum.Relevance;
-            }
-        }
-        public IActionResult FilteredList(string state, string sorting)
-        {
-            var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
-            RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
-
-            OfferStateEnum stateEnum = GetStateEnumValue(state);
-            OfferSortingEnum sortingEnum = GetSortingEnumValue(sorting);
-
-            switch (rightTree.ControllerName) {
-                case "ShowProductList":
-                    var responceAllegro = GetDetailsFromTree(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubChildCategoryId, null, stateEnum, sortingEnum).Result;
-                    rightTree.AllegroOfferList = responceAllegro.Products;
-                    rightTree.OfferState = stateEnum;
-                    rightTree.OfferSorting = sortingEnum;
-                    HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
-                    HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
-                    return View("_ProductsList", rightTree);
-
-                case "PartNumberInput":
-                    var responceAllegroNumberMode = GetDetailsFromTree(null, null, null, rightTree.PartNumberValue, stateEnum, sortingEnum).Result;
-                    rightTree.AllegroOfferList = responceAllegroNumberMode.Products;
-                    rightTree.OfferState = stateEnum;
-                    rightTree.OfferSorting = sortingEnum;
-                    HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegroNumberMode.Products));
-                    HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
-                    return View("_ProductsList", rightTree);
-
-
-                case "ShowMainSubChildsCategories":
-                    var responceAllegroSubCategories = GetDetailsFromTree(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubCategoryId, null, stateEnum, sortingEnum).Result;
-                    rightTree.AllegroOfferList = responceAllegroSubCategories.Products;
-                    rightTree.OfferState = stateEnum;
-                    rightTree.OfferSorting = sortingEnum;
-                    HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegroSubCategories.Products));
-                    HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
-                    return View("_ProductsList", rightTree);
-            }
-
-           
-            return View("_ProductsList", rightTree);
         }
         // ============Block for left part of site
         public IActionResult PartNumberInput(string partNumber)
@@ -325,6 +254,79 @@ namespace WebApplication.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public IActionResult FilteredList(string state, string sorting)
+        {
+            var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
+            RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
+
+            OfferStateEnum stateEnum = GetStateEnumValue(state);
+            OfferSortingEnum sortingEnum = GetSortingEnumValue(sorting);
+
+            switch (rightTree.ControllerName)
+            {
+                case "ShowProductList":
+                    var responceAllegro = GetDetailsFromTree(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubChildCategoryId, null, stateEnum, sortingEnum).Result;
+                    rightTree.AllegroOfferList = responceAllegro.Products;
+                    rightTree.OfferState = stateEnum;
+                    rightTree.OfferSorting = sortingEnum;
+                    HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
+                    HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
+                    return View("_ProductsList", rightTree);
+
+                case "PartNumberInput":
+                    var responceAllegroNumberMode = GetDetailsFromTree(null, null, null, rightTree.PartNumberValue, stateEnum, sortingEnum).Result;
+                    rightTree.AllegroOfferList = responceAllegroNumberMode.Products;
+                    rightTree.OfferState = stateEnum;
+                    rightTree.OfferSorting = sortingEnum;
+                    HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegroNumberMode.Products));
+                    HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
+                    return View("_ProductsList", rightTree);
+
+
+                case "ShowMainSubChildsCategories":
+                    var responceAllegroSubCategories = GetDetailsFromTree(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubCategoryId, null, stateEnum, sortingEnum).Result;
+                    rightTree.AllegroOfferList = responceAllegroSubCategories.Products;
+                    rightTree.OfferState = stateEnum;
+                    rightTree.OfferSorting = sortingEnum;
+                    HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegroSubCategories.Products));
+                    HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
+                    return View("_ProductsList", rightTree);
+            }
+
+
+            return View("_ProductsList", rightTree);
+        }
+        private OfferStateEnum GetStateEnumValue(string state)
+        {
+            switch (state)
+            {
+                case "All":
+                    return OfferStateEnum.All;
+                case "New":
+                    return OfferStateEnum.New;
+                case "Used":
+                    return OfferStateEnum.Used;
+                case "Recovered":
+                    return OfferStateEnum.Recovered;
+                default:
+                    return OfferStateEnum.All;
+            }
+        }
+
+        private OfferSortingEnum GetSortingEnumValue(string sorting)
+        {
+            switch (sorting)
+            {
+                case "Relevance":
+                    return OfferSortingEnum.Relevance;
+                case "PriceDesc":
+                    return OfferSortingEnum.PriceDesc;
+                case "PriceAsc":
+                    return OfferSortingEnum.PriceAsc;
+                default:
+                    return OfferSortingEnum.Relevance;
+            }
         }
     }
 }
