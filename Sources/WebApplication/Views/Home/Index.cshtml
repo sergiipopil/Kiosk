@@ -14,7 +14,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             if (window.location.toString().includes("carManufactureName")) // This doesn't work, any suggestions?
-            {                               
+            {
                 var carManufactureName = getUrlParameter('carManufactureName');
                 var carModel = getUrlParameter('amp;carModel');
                 var mainCategoryId = getUrlParameter('amp;mainCategoryId');
@@ -27,8 +27,12 @@
                     selectSubMainCategory(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName);
                 }
                 else {
-                    getAllegroData(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName);  
+                    getAllegroData(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName);
                 }
+            }
+            if (getUrlParameter('partNumber') != false) {
+                $("#inputPartValue").val(getUrlParameter('partNumber'));
+                submit();
             }
         });
         var getUrlParameter = function getUrlParameter(sParam) {
@@ -46,12 +50,14 @@
             }
             return false;
         };
-    function submit() {
+        function submit() {
+            $('#divSelectTopCategory').hide();
+            $('#divCarManufactures').empty();
+            $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" width="100px" /></div>');
         $.ajax({
             type: "GET",
             url: '@Url.Action("PartNumberInput", "Home")' + "?partNumber=" + $("#inputPartValue").val(),
             success: function (data) {
-                $('#divSelectTopCategory').hide();
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
             }
@@ -152,7 +158,19 @@
             }
         });
     }
-
+        function FilteredList(state, sorting) {
+            $('#divCarManufactures').empty();
+            $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" width="100px" /></div>');
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("FilteredList", "Home")' + "?state=" + state + "&sorting=" + sorting,
+            success: function (data) {
+               $('#divCarManufactures').empty();
+                $('#divCarManufactures').html(data);
+                console.log(data);
+            }
+        });
+        }
     function selectManufacturer(carManufactureName) {
         $.ajax({
             type: "GET",
@@ -165,9 +183,9 @@
         });
         }
 
-        function goToCart(selectedProductId, manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName) {
+        function goToCart(selectedProductId, manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, partNumber) {
             window.location.href = '/Product/CartView/' + "?selectedProductId=" + selectedProductId + "&carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
-                "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName;
+                "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName + "&partNumber=" + partNumber;
         }
         function showMainView(topCategoryId) {
             $('div[id*="divTopCategory_"]').removeClass("selected");

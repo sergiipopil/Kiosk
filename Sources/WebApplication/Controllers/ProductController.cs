@@ -108,11 +108,13 @@ namespace WebApplication.Controllers
             return cartList;
         }
         
-        public ActionResult CartView(string selectedProductId, string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName, string subChildId, string subChildName)
+        public ActionResult CartView(string selectedProductId, string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName, string subChildId, string subChildName, string partNumber)
         {
             ViewBag.RequestParams = "?carManufactureName=" + carManufactureName + "&carModel=" + carModel + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
                 "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName;
-            
+            if (!String.IsNullOrEmpty(partNumber)) {
+                ViewBag.RequestParams = "?partNumber="+ partNumber;
+            }
             //HttpContext.Session.SetString("functionBackToProducts", );
             var productList = HttpContext.Session.GetString("productList");
             EkProduct[] list10Products = JsonSerializer.Deserialize<EkProduct[]>(productList);
@@ -125,6 +127,8 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Submit(string selectedDepartment)
         {
+
+            var productList = HttpContext.Session.GetString("productList");
             //_transaction = TransactionManager.Current.StartNewTransaction<EkTransaction>();
             //_transaction.TotalPriceCurrencyCode = "UAH";
             //_transaction.SetCustomerInfo(new EkCustomerInfo()

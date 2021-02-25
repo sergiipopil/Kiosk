@@ -26,7 +26,7 @@ using System.Text.Json.Serialization;
 
 namespace WebApplication.Controllers
 {
-    
+
     public class HomeController : Controller
     {
         public static EkCarTypeEnum _topCategoryCarType;
@@ -71,12 +71,12 @@ namespace WebApplication.Controllers
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
             var modelTree = carTree.Where(x => x.Name == carManufactureName).Select(y => y.CarModels).FirstOrDefault();
 
-            return View("_CarModels", new RightTreeViewModel() { ManufacturerSelected = carManufactureName, ModelsList= modelTree.Select(x => x.Name) });
+            return View("_CarModels", new RightTreeViewModel() { ManufacturerSelected = carManufactureName, ModelsList = modelTree.Select(x => x.Name) });
         }
         public IActionResult ShowCategoryAutoParts(string carManufactureName, string carModel)
         {
             var autoParts = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == "620").FirstOrDefault().Children;
-            
+
             foreach (var item in autoParts)
             {
                 if (item.Children != null && !item.CategoryId.Contains("GROUP_"))
@@ -98,13 +98,13 @@ namespace WebApplication.Controllers
                     item.CategoryId = "GROUP_" + item.CategoryId;
                 }
             }
-            RightTreeViewModel treeView = new RightTreeViewModel() 
-            { 
-                ManufacturerSelected=carManufactureName,
-                ModelSelected=carModel,
-                ProductCategoryList = autoPartsSubCategories, 
-                MainCategoryId = mainCategoryId, 
-                MainCategoryName = mainCategoryName 
+            RightTreeViewModel treeView = new RightTreeViewModel()
+            {
+                ManufacturerSelected = carManufactureName,
+                ModelSelected = carModel,
+                ProductCategoryList = autoPartsSubCategories,
+                MainCategoryId = mainCategoryId,
+                MainCategoryName = mainCategoryName
             };
             return View("_AutoPartsSubTree", treeView);
         }
@@ -116,8 +116,7 @@ namespace WebApplication.Controllers
             {
                 var responceAllegro = GetDetailsFromTree(carManufactureName, carModel, subCategoryId, null).Result;
                 HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
-
-                return View("_ProductsList", new RightTreeViewModel()
+                RightTreeViewModel treeViewModel = new RightTreeViewModel()
                 {
                     ManufacturerSelected = carManufactureName,
                     ModelSelected = carModel,
@@ -126,8 +125,11 @@ namespace WebApplication.Controllers
                     SubCategoryId = subCategoryId,
                     SubCategoryName = subCategoryName,
                     FunctionReturnFromProducts = String.Format("selectMainCategory('{0}', '{1}', '{2}', '{3}')", carManufactureName, carModel, mainCategoryId, mainCategoryName),
-                    AllegroOfferList=responceAllegro.Products
-                });
+                    AllegroOfferList = responceAllegro.Products,
+                    ControllerName = "ShowMainSubChildsCategories"
+                };
+                HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeViewModel));
+                return View("_ProductsList", treeViewModel);
             }
             foreach (var item in autoPartsSubChildCategories)
             {
@@ -164,9 +166,83 @@ namespace WebApplication.Controllers
                 SubChildCategoryId = subChildId,
                 SubChildCategoryName = subChildName,
                 FunctionReturnFromProducts = String.Format("selectSubMainCategory('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName),
-                AllegroOfferList = responceAllegro.Products
+                AllegroOfferList = responceAllegro.Products,
+                ControllerName = "ShowProductList"
             };
+            HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
             return View("_ProductsList", treeView);
+        }
+        private OfferStateEnum GetStateEnumValue(string state)
+        {
+            switch (state)
+            {
+                case "All":
+                    return OfferStateEnum.All;
+                case "New":
+                    return OfferStateEnum.New;
+                case "Used":
+                    return OfferStateEnum.Used;
+                case "Recovered":
+                    return OfferStateEnum.Recovered;
+                default:
+                    return OfferStateEnum.All;
+            }
+        }
+
+        private OfferSortingEnum GetSortingEnumValue(string sorting)
+        {
+            switch (sorting)
+            {
+                case "Relevance":
+                    return OfferSortingEnum.Relevance;
+                case "PriceDesc":
+                    return OfferSortingEnum.PriceDesc;
+                case "PriceAsc":
+                    return OfferSortingEnum.PriceAsc;               
+                default:
+                    return OfferSortingEnum.Relevance;
+            }
+        }
+        public IActionResult FilteredList(string state, string sorting)
+        {
+            var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
+            RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
+
+            OfferStateEnum stateEnum = GetStateEnumValue(state);
+            OfferSortingEnum sortingEnum = GetSortingEnumValue(sorting);
+
+            switch (rightTree.ControllerName) {
+                case "ShowProductList":
+                    var responceAllegro = GetDetailsFromTree(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubChildCategoryId, null, stateEnum, sortingEnum).Result;
+                    rightTree.AllegroOfferList = responceAllegro.Products;
+                    rightTree.OfferState = stateEnum;
+                    rightTree.OfferSorting = sortingEnum;
+                    HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
+                    HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
+                    return View("_ProductsList", rightTree);
+
+                case "PartNumberInput":
+                    var responceAllegroNumberMode = GetDetailsFromTree(null, null, null, rightTree.PartNumberValue, stateEnum, sortingEnum).Result;
+                    rightTree.AllegroOfferList = responceAllegroNumberMode.Products;
+                    rightTree.OfferState = stateEnum;
+                    rightTree.OfferSorting = sortingEnum;
+                    HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegroNumberMode.Products));
+                    HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
+                    return View("_ProductsList", rightTree);
+
+
+                case "ShowMainSubChildsCategories":
+                    var responceAllegroSubCategories = GetDetailsFromTree(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubCategoryId, null, stateEnum, sortingEnum).Result;
+                    rightTree.AllegroOfferList = responceAllegroSubCategories.Products;
+                    rightTree.OfferState = stateEnum;
+                    rightTree.OfferSorting = sortingEnum;
+                    HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegroSubCategories.Products));
+                    HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
+                    return View("_ProductsList", rightTree);
+            }
+
+           
+            return View("_ProductsList", rightTree);
         }
         // ============Block for left part of site
         public IActionResult PartNumberInput(string partNumber)
@@ -175,11 +251,16 @@ namespace WebApplication.Controllers
             RightTreeViewModel treeView = new RightTreeViewModel()
             {
                 AllegroOfferList = responceAllegro.Products,
-                FunctionReturnFromProducts = "back()"
+                FunctionReturnFromProducts = "back()",
+                ControllerName = "PartNumberInput",
+                PartNumberValue = partNumber
             };
+            HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
+            HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
             return View("_ProductsList", treeView);
+
         }
-        
+
         private async Task<decimal> GetExchangeRateAsync()
         {
             var ukrainianNow = TimeZones.GetTimeZoneNow(TimeZones.UkrainianTime);
@@ -195,17 +276,18 @@ namespace WebApplication.Controllers
 
             return exchangeRate.Value;
         }
-        public async Task<EkKioskProductSearchInEuropeGetResponse> GetDetailsFromTree(string carManufactureName, string carModel, string selectedCategoryId, string inputPartNumber)
+        public async Task<EkKioskProductSearchInEuropeGetResponse> GetDetailsFromTree(string carManufactureName, string carModel, string selectedCategoryId, string inputPartNumber, OfferStateEnum state = OfferStateEnum.All, OfferSortingEnum sortingPrice = OfferSortingEnum.Relevance)
         {
             SearchOffersResponse searchOffersResponse;
             if (inputPartNumber == null)
             {
-                searchOffersResponse = await _allegroPlClient.SearchOffersAsync(String.Format("{0} {1}", carManufactureName, carModel), null, selectedCategoryId, KioskBrains.Clients.AllegroPl.Models.OfferStateEnum.All, KioskBrains.Clients.AllegroPl.Models.OfferSortingEnum.Relevance, 0, 10, System.Threading.CancellationToken.None);
+                searchOffersResponse = await _allegroPlClient.SearchOffersAsync(String.Format("{0} {1}", carManufactureName, carModel), null, selectedCategoryId, state, sortingPrice, 0, 10, System.Threading.CancellationToken.None);
             }
-            else {
-                searchOffersResponse = await _allegroPlClient.SearchOffersAsync(inputPartNumber, inputPartNumber, "3", KioskBrains.Clients.AllegroPl.Models.OfferStateEnum.All, KioskBrains.Clients.AllegroPl.Models.OfferSortingEnum.Relevance, 0, 10, System.Threading.CancellationToken.None);
+            else
+            {
+                searchOffersResponse = await _allegroPlClient.SearchOffersAsync(inputPartNumber, inputPartNumber, "3", state, sortingPrice, 0, 10, System.Threading.CancellationToken.None);
             }
-                try
+            try
             {
                 await _allegroPlClient.ApplyTranslations(_translateService, searchOffersResponse.Offers, String.Format("{0} {1}", carManufactureName, carModel), null, System.Threading.CancellationToken.None);
             }

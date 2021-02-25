@@ -25,6 +25,9 @@ namespace WebApplication.Models
         public string SubChildCategoryId { get; set; }
         public string SubChildCategoryName { get; set; }
         public string FunctionReturnFromProducts { get; set; }
+        public string ControllerName { get; set; }
+        public OfferStateEnum OfferState { get; set; }
+        public OfferSortingEnum OfferSorting { get; set; }
 
     }
 }

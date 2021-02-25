@@ -17,6 +17,29 @@
         </div>
         <div style="display:inline-block;">Список запчастин</div>
     </div>
+    <div style="padding-top:10px;">
+        <table>
+            <tr>
+                <td style="padding: 0px 10px 0px 20px;">Стан</td>
+                <td class="filterItemAllState_@Model.OfferState" onclick="FilteredList('All', '@Model.OfferSorting')">Всі</td>
+                <td class="filterItemNewState_@Model.OfferState" onclick="FilteredList('New', '@Model.OfferSorting')">Нові</td>
+                <td class="filterItemUsedState_@Model.OfferState" onclick="FilteredList('Used', '@Model.OfferSorting')">Б/у</td>
+                <td class="filterItemRecoverState_@Model.OfferState" onclick="FilteredList('Recovered', null)">Відновлені</td>
+                <td style="padding:0px 10px 0px 20px;">Ціна</td>
+                <td class="filterItemRelevanceSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'Relevance')">Звичайна</td>
+                <td class="filterItemDescSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceDesc')">Дорожчі</td>
+                <td class="filterItemAscSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceAsc')">Дешевші</td>
+            </tr>
+        </table>
+    </div>
+    @if (@Model.AllegroOfferList.Count() == 0)
+    {
+        <div style="width: 100%; font-size: 30px; text-align: center; padding: 30% 30% 0 30%; font-weight: bold; color: #504593;">
+            Нічого не знайдено.
+            Повторіть пошук з другим значенням або
+            спробуте в другому розділі
+        </div>
+    }
     @foreach (var item in Model.AllegroOfferList)
     {
         <div style="background: white; padding: 10px; margin: 10px 20px; border: 1px solid #c1c1c1; border-left: 4px solid blue;min-height:180px;max-height:180px;">
@@ -48,8 +71,8 @@
                 </div>
 
                 @*<form action="@Url.Action("CartView", "Product",  @item)" method="post">*@
-               
-                <div onclick="goToCart('@item.SourceId', '@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.SubCategoryId', '@Model.SubCategoryName', '@Model.SubChildCategoryId', '@Model.SubChildCategoryName')">
+
+                <div onclick="goToCart('@item.SourceId', '@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.SubCategoryId', '@Model.SubCategoryName', '@Model.SubChildCategoryId', '@Model.SubChildCategoryName', '@Model.PartNumberValue')">
                     <button class="btnBuyList">
                         <img src="~/images/Buy.png" />
                         <span>Купити</span>

@@ -1,7 +1,5 @@
 ﻿@model WebApplication.Models.NovaPoshtaViewModel
-@{
-        Layout = null;
-    }
+
 <!DOCTYPE html>
 
 <html>
@@ -13,12 +11,17 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
 
-
+    <script type="text/javascript" src="~/js/masked/jquery.maskedinput.js"></script>
+    <script type="text/javascript" src="~/js/masked/jquery.maskedinput.min.js"></script>
 
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    <style>
+        .caret {
+            display: none;
+        }
+    </style>
 
     <script type="text/javascript">
 
@@ -98,43 +101,47 @@ function showDeliveryFields(divName) {
 <body>
     <div style="color:white;">
         <form method="post">
-            <div style="display:inline-block;vertical-align:top; border-right: 1px solid white; padding-right: 20px; margin-right: 30px;">
-                <div style="text-align:center;">
-                    <div tabindex="1" id="divBtnNova" class="deliveryBoxDesign" onclick="showDeliveryFields('#nova')">
-                        <div><img src="~/images/Delivery/NovaPoshtaUkraine.png" /></div>
-                        <div style="font-size: 22px; text-align: center;">Нова Пошта</div>
-                    </div>
-                    <div tabindex="2" id="divBtnCourier" class="deliveryBoxDesign" onclick="showDeliveryFields('#courier')">
-                        <div>
-                            <img src="~/images/Delivery/Courier.png" />
+            <table>
+                <tr>
+                    <td style="vertical-align:top; border-right: 1px solid white; padding-right: 20px; width:30%;">
+                        <div style="text-align:center;">
+                            <div tabindex="1" id="divBtnNova" class="deliveryBoxDesign" onclick="showDeliveryFields('#nova')">
+                                <div><img src="~/images/Delivery/NovaPoshtaUkraine.png" /></div>
+                                <div style="font-size: 22px; text-align: center;">Нова Пошта</div>
+                            </div>
+                            <div tabindex="2" id="divBtnCourier" class="deliveryBoxDesign" onclick="showDeliveryFields('#courier')">
+                                <div>
+                                    <img src="~/images/Delivery/Courier.png" />
+                                </div>
+                                <div style="font-size: 22px; text-align: center;">
+                                    Доставка курьером
+                                </div>
+                            </div>
                         </div>
-                        <div style="font-size: 22px; text-align: center;">
-                            Доставка курьером
+                    </td>
+                    <td style="vertical-align:top;padding-top:20px;padding-left:20px;">
+                        <input type="text" placeholder="Прізвище та ім`я" class="form-control" aria-label="Default">
+                        <input type="text" placeholder="Мобільний номер" id="txtBuyerPhone" class="form-control" aria-label="Default" maxlength="12">
+
+                        <div id="nova" style="display:none;">
+                            @Html.DropDownListFor(model => model.SelectedArea, new SelectList(Model.Areas, "Description", "Description"), " - Виберіть область - ", new { @id = "cbArea", @style = "color: black;width:100%;", @class = "form-control selectpicker", @onchange = "onAreaChanged()" })
+                            @Html.DropDownListFor(model => model.SelectedCity, new SelectList(Model.Cities, "Description", "Description"), " - Виберіть місто - ", new { @id = "cbCity", @style = "color: black;width:100%;", @class = "form-control", @onchange = "onCityChanged()" })
+                            @Html.DropDownListFor(model => model.SelectedDepartment, new SelectList(Model.Departments, "Description", "Description"), " - Виберіть відділення - ", new { @id = "cbDepartment", @style = "color: black;width:100%;", @class = "form-control" })
+
+                            <div style="background:red" onclick="submit()">Submit</div>
+
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div style="display:inline-block;vertical-align:top;padding-top:20px;">
-                <input type="text" placeholder="Прізвище та ім`я" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" width="20%">
-                <input type="text" placeholder="Мобільний номер" class="form-control" aria-label="Default" value="+38" aria-describedby="inputGroup-sizing-default" data-mask="+38 (999) 999-99-99">
-
-                <div id="nova" style="display:none;">
-                    @Html.DropDownListFor(model => model.SelectedArea, new SelectList(Model.Areas, "Description", "Description"), " - Виберіть область - ", new { @id = "cbArea", @style = "color: black;", @class = "form-control selectpicker", @onchange = "onAreaChanged()" })
-                    @Html.DropDownListFor(model => model.SelectedCity, new SelectList(Model.Cities, "Description", "Description"), " - Виберіть місто - ", new { @id = "cbCity", @style = "color: black;", @class = "form-control", @onchange = "onCityChanged()" })
-                    @Html.DropDownListFor(model => model.SelectedDepartment, new SelectList(Model.Departments, "Description", "Description"), " - Виберіть відділення - ", new { @id = "cbDepartment", @style = "color: black;", @class = "form-control" })
-
-                    <div style="background:red" onclick="submit()">Submit</div>
-
-                </div>
-                <div id="courier" style="display:none;">
-                    Delivery by courier
-                </div>
-            </div>
+                        <div id="courier" style="display:none;">
+                            Delivery by courier
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </form>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
-            console.log('start');
+            $("#txtBuyerPhone").mask("+38 (999) 999-99-99");
             $('.selectpicker').selectpicker({
                 liveSearch: true,
                 showSubtext: true

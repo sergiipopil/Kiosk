@@ -1,0 +1,52 @@
+﻿@model IList<KioskBrains.Common.EK.Api.EkProduct>
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/site.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+    @foreach (var item in Model)
+    {
+        <div style="background: white; padding: 10px; margin: 10px 20px; border: 1px solid #c1c1c1; border-left: 4px solid blue;min-height:180px;max-height:180px;">
+
+            <div class="inline-block" style="width:15%;">
+                <div id="imageBlock" class="detailBlock" style="text-align:center;background:white;">
+                    <a href=@item.Photos[0].Url data-fancybox="@String.Format("gallery{0}", item.Key)" class="noneDecoration">
+                        <img id="mainImageProduct" src="@item.Photos[0].Url" style="max-width:100%;max-height:160px;" />
+                    </a>
+                    <div style="display:none;">
+                        @foreach (var photo in @item.Photos)
+                        {
+                            @if (@photo.Url != @item.Photos[0].Url)
+                            {
+                                <a href=@photo.Url data-fancybox="@String.Format("gallery{0}", item.Key)" class="noneDecoration">
+                                    <img src=@photo.Url class="smallPhotoes">
+                                </a>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div style="vertical-align: top; font-weight: bold; font-size: 18px; padding-left: 20px;display:inline-block;">@item.Name.Last().Value</div>
+            <div class="inline-block" style="float:right;border-left: 1px solid #c3c4c5; padding: 0px 30px;">
+                <div style="color: #e87619;font-weight:bold;">
+                    <span style="font-size:34px;">@item.Price</span>
+                    <span style="font-size:18px;">@item.PriceCurrencyCode</span>
+                    <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">доставка в Украину <br /> 2-5 дней</p>
+                </div>
+
+                @*<form action="@Url.Action("CartView", "Product",  @item)" method="post">*@
+
+                
+                @*</form>*@
+            </div>
+        </div>
+    }
+</body>
+</html>

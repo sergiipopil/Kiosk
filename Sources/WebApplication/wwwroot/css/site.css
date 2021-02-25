@@ -5,12 +5,39 @@ for details on configuring this project to bundle and minify static web assets. 
         width: 100% !important;
     }
 }
+.filterItemAllState_All, .filterItemNewState_All, .filterItemUsedState_All, .filterItemRecoverState_All,
+.filterItemAllState_New, .filterItemNewState_New, .filterItemUsedState_New, .filterItemRecoverState_New,
+.filterItemAllState_Used, .filterItemNewState_Used, .filterItemUsedState_Used, .filterItemRecoverState_Used,
+.filterItemAllState_Recovered, .filterItemNewState_Recovered, .filterItemUsedState_Recovered, .filterItemRecoverState_Recovered,
+.filterItemRelevanceSorting_Relevance, .filterItemDescSorting_Relevance, .filterItemAscSorting_Relevance,
+.filterItemDescSorting_PriceDesc, .filterItemDescSorting_PriceDesc, .filterItemDescSorting_PriceDesc,
+.filterItemAscSorting_PriceAsc, .filterItemAscSorting_PriceAsc, .filterItemAscSorting_PriceAsc {
+    border-right: 1px solid #c3c4c7;
+    padding: 5px 20px;
+    display: inline-block;
+    color: white;
+    background: #504593;
+}
+
+    .filterItemAllState_All, .filterItemNewState_New, .filterItemUsedState_Used, .filterItemRecoverState_Recovered,
+    .filterItemRelevanceSorting_Relevance, .filterItemDescSorting_PriceDesc, filterItemAscSorting_PriceAsc,
+    .filterItemAllState_All:hover, filterItemNewState_All:hover, filterItemUsedState_All:hover, filterItemRecoverState_All:hover,
+    .filterItemAllState_New:hover, filterItemNewState_New:hover, filterItemUsedState_New:hover, filterItemRecoverState_New:hover,
+    .filterItemAllState_Used:hover, filterItemNewState_Used:hover, filterItemUsedState_Used:hover, filterItemRecoverState_Used:hover,
+    .filterItemAllState_Recovered:hover, filterItemNewState_Recovered:hover, filterItemUsedState_Recovered:hover, filterItemRecoverState_Recovered:hover,
+    .filterItemRelevanceSorting_Relevance:hover, .filterItemRelevanceSorting_Relevance:hover, .filterItemRelevanceSorting_Relevance:hover,
+    .filterItemDescSorting_PriceDesc:hover, .filterItemDescSorting_PriceDesc:hover, .filterItemDescSorting_PriceDesc:hover,
+    .filterItemAscSorting_PriceAsc:hover, .filterItemAscSorting_PriceAsc:hover, .filterItemAscSorting_PriceAsc:hover {
+        box-shadow: 0px 0px 10px #504593;
+        background: white;
+        color: black;
+    }
 .deliveryBoxDesign {
     border: 2px solid white;
     padding: 20px;
     margin: 20px;
     box-shadow: 0px 0px 10px white;
-    border-radius:10px;
+    border-radius: 10px;
 }
     .deliveryBoxDesign:hover, .deliveryBoxDesign.selected {
         box-shadow: 0px 0px 10px yellow;
@@ -48,6 +75,13 @@ body {
     width: 80%;
     border: 1px solid #e87619;
 }
+.btnBuyCart {
+    background: #e87619;
+    height: 51px;
+    color: #411f0c;
+    width: 40%;
+    border: 1px solid #e87619;
+}
 .btnBuyList {
     background: linear-gradient(90deg, #e87619, #FFB21D);
     height: 42px;
@@ -59,12 +93,17 @@ body {
     border:0px;
 }
 
-    .btnBuy img, .btnBuy span, .btnBuyList img, .btnBuyList span {
+    .btnBuy img, .btnBuy span, .btnBuyList img, .btnBuyList span, .btnBuyCart img {
         vertical-align: middle;
-        font-weight:bold;
-        padding-left:5px;
+        font-weight: bold;
+        padding-left: 5px;
     }
-
+.btnBuyCart span {
+    vertical-align: middle;
+    font-weight: bold;
+    padding-left: 5px;
+    font-size:20px;
+}
 input#btnContinueBuys {
     border: 1px solid #474c7c;
     color: #3b328d;
