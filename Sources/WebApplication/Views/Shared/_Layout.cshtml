@@ -82,7 +82,11 @@
                                 <div class="menuItemPic"><img src="~/images/Menu/Home.png" /></div><div class="inline-block" style="color:#848ac2;">На головну</div>
                             </a>
                         </div>
-                        <div style="padding:20px 0px;text-align:center;color:#848ac2;">Ваша корзина пуста</div>
+                        <div style="padding:20px 0px;text-align:center;color:#848ac2;">
+                            @{
+                                Html.RenderPartial("CartWidget");
+                            }
+                        </div>
                         @*<div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/ServiceStations.png" /></div><div class="inline-block" style="color:#848ac2;">Послуги СТО</div></div>
                             <div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/Map.png" /></div><div class="inline-block" style="color:#848ac2;">Карта терміналів</div></div>*@
                         <div class="menuItemDiv">
