@@ -250,6 +250,23 @@ namespace WebApplication.Controllers
             return View();
         }
 
+        public IActionResult _UseTerms()
+        {
+            return PartialView();
+        }
+        public IActionResult _Details(string id)
+        {
+            return PartialView("_Details", id);
+        }
+        public IActionResult _DetailsTest(string id)
+        {
+            return PartialView("_DetailsTest", id);
+        }
+
+        public virtual ActionResult EditFeed(string id)
+        {
+            return View("_Details", id);
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

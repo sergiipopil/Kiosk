@@ -202,7 +202,7 @@ body {
     align-items: center;
     margin-top: 2vmin;
     margin-left: 1vmin;
-    width: 210px;
+    width: 200px;
     height: 150px;
     box-shadow: 0 0 4px rgba(0,0,0,0.5);
     padding: 10px;
@@ -215,7 +215,7 @@ body {
     align-items: center;
     margin-top: 2vmin;
     margin-left: 1vmin;
-    width: 170px;
+    width: 165px;
     height: 150px;
     box-shadow: 0 0 4px rgba(0,0,0,0.5);
     padding: 10px;
@@ -240,7 +240,7 @@ body {
     align-items: center;
     margin-top: 2vmin;
     margin-left: 1vmin;
-    width: 208px;
+    width: 200px;
     height: 185px;
     box-shadow: 0 0 4px rgba(0,0,0,0.5);
     padding: 6px;
@@ -252,7 +252,7 @@ body {
     align-items: center;
     margin-top: 2vmin;
     margin-left: 1vmin;
-    width: 148px;
+    width: 143px;
     height: 130px;
     box-shadow: 0 0 4px rgba(0,0,0,0.5);
     padding: 10px;
@@ -289,8 +289,8 @@ input {
         box-shadow: 0 0 4px rgba(0,0,0,0.5);
     }
 .leftIndexPanel {
-    width: 35%;
-    min-width: 35%;
+    width: 33%;
+    min-width: 33%;
     color: white;
     font-size: 40px;
     background: #504593;
@@ -319,7 +319,7 @@ input {
     max-height: 65px;
 }
 .modelImage {
-    max-width: 195px;
+    max-width: 185px;
     max-height: 115px;
     padding-top: 20px;
 }

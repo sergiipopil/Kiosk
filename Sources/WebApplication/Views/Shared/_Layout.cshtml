@@ -7,11 +7,50 @@
     <title>@ViewData["Title"] - WebApplication</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="~/bootstrap/js/bootstrap.js"></script>
+    <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="~/bootstrap/js/bootstrap.bundle.min.js"></script>
+    @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+
+
+
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <style>
+        .menuItemDiv {
+            padding: 15px 10px 15px 10px;
+            margin: 0px 10px 0px 10px;
+            border-bottom: 1px solid #3a3e69;
+        }
+
+            .menuItemDiv:hover {
+                box-shadow: 0px 0px 10px #F97008;
+            }
+
+        .menuItemPic {
+            display: inline-block;
+            vertical-align: middle;
+            width: 35px;
+        }
+
+        .simpleBtn {
+            padding: 0;
+            border: none;
+            font: inherit;
+            color: inherit;
+            background-color: transparent;
+            /* отображаем курсор в виде руки при наведении; некоторые
+        считают, что необходимо оставлять стрелочный вид для кнопок */
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body style="background:#23274d;">
+    <div id="modDialog" class="modal fade">
+        <div id="dialogContent" class="modal-dialog"></div>
+    </div>
     <header>
         <div style="display:inline-block;vertical-align:middle;">
             <img src="~/images/Logo.png" style="margin:10px 30px;" />
@@ -22,29 +61,63 @@
         <div style="display:inline-block;vertical-align:middle;">
             <span style="margin-left:18px;font-size:30px;color:white;">+38 (050) 508 81 08</span>
         </div>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Автозапчасти 24/7</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    </header>
+    <div>
+        <div id="showmodal_PopUp" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document" style="width:60%;max-width:60%;">
+                <div class="modal-content">
+                    @{
+                        Html.RenderPartial("PopUpMenuBlock");
+                    }
                 </div>
             </div>
-        </nav>
-    </header>
-    <div style="margin:0px 50px 0px 50px;" @*class="container"*@>
+        </div>
+
         <main role="main">
-            @RenderBody()
+            <table style="width:100%;">
+                <tr>
+                    <td style="vertical-align:top;color:white; white-space:nowrap;width:10%;">
+                        <div class="menuItemDiv">
+                            <a asp-area="" asp-controller="Home" asp-action="Index">
+                                <div class="menuItemPic"><img src="~/images/Menu/Home.png" /></div><div class="inline-block" style="color:#848ac2;">На головну</div>
+                            </a>
+                        </div>
+                        <div style="padding:20px 0px;text-align:center;color:#848ac2;">Ваша корзина пуста</div>
+                        @*<div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/ServiceStations.png" /></div><div class="inline-block" style="color:#848ac2;">Послуги СТО</div></div>
+                            <div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/Map.png" /></div><div class="inline-block" style="color:#848ac2;">Карта терміналів</div></div>*@
+                        <div class="menuItemDiv">
+                            <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="instructionsItem">
+                                <div class="menuItemPic"><img src="~/images/Menu/Instructions.png" /></div><div class="inline-block" style="color:#848ac2;">
+                                    Інструкція
+                                </div>
+                            </button>
+                        </div>
+                        <div class="menuItemDiv">
+                            <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="warrantyItem">
+                                <div class="menuItemPic"><img src="~/images/Menu/Warranty.png" /></div><div class="inline-block" style="color:#848ac2;">Гарантія</div>
+                            </button>
+                        </div>
+                        <div class="menuItemDiv">
+                            <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="deliveryItem">
+                                <div class="menuItemPic"><img src="~/images/Menu/Delivery.png" /></div><div class="inline-block" style="color:#848ac2;">Доставка</div>
+                            </button>
+                        </div>
+                        <div class="menuItemDiv">
+                            <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="returnItem">
+                                <div class="menuItemPic"><img src="~/images/Menu/Return.png" /></div><div class="inline-block" style="color:#848ac2;">Повернення</div>
+                            </button>
+                        </div>
+                        <div class="menuItemDiv">
+                            <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="partnershipItem">
+                                <div class="menuItemPic"><img src="~/images/Menu/Partnership.png" /></div><div class="inline-block" style="color:#848ac2;">Партнерство</div>
+                            </button>
+                        </div>
+                    </td>
+                    <td style="vertical-align:top;">
+                        @RenderBody()
+                    </td>
+                </tr>
+            </table>
         </main>
     </div>
 
@@ -53,6 +126,6 @@
             &copy; 2021 - WebApplication - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    
+
 </body>
 </html>
