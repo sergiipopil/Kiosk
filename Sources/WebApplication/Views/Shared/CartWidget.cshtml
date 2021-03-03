@@ -1,4 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-Корзина пуста
+﻿<script type="text/javascript">
+    function ReturnToCart() {
+        window.location.href = '/Product/CartView/'
+    }
+</script>
+@if (@ViewData["CartWidgetPrice"] == null) { 
+<div>
+    <div>Ваша корзина пуста</div>
+    <img src="~/images/Cart/CartWidgetEmptyBig.png" />
+</div>
+}
+else {
+    <div onclick="ReturnToCart()">
+        Переглянути
+    </div>
+    @ViewData["CartWidgetPrice"]
+}
+    

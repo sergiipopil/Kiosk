@@ -56,6 +56,7 @@ namespace WebApplication.Controllers
 
         public IActionResult Index()
         {
+            ViewData["CartWidgetPrice"] = HttpContext.Session.GetString("cartWidgetPrice");
             _topCategoryCarType = EkCarTypeEnum.Car;
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == EkCarTypeEnum.Car).Select(x => x.Manufacturers).FirstOrDefault();
             return View(new RightTreeViewModel() { ManufacturerList = carTree });

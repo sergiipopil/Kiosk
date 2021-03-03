@@ -107,21 +107,43 @@ namespace WebApplication.Controllers
 
             return cartList;
         }
-        
+        public IList<EkProduct> GetCartProducts()
+        {
+            var cartListJson = HttpContext.Session.GetString("cartList");
+            IList<EkProduct> cartList = new List<EkProduct>();
+            if (cartListJson != null)
+            {
+                cartList = JsonSerializer.Deserialize<IList<EkProduct>>(cartListJson);
+            }
+            return cartList;
+        }
+
         public ActionResult CartView(string selectedProductId, string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName, string subChildId, string subChildName, string partNumber)
         {
+            ViewData["CartWidgetPrice"] = HttpContext.Session.GetString("cartWidgetPrice");
+            if (String.IsNullOrEmpty(selectedProductId) && String.IsNullOrEmpty(partNumber))
+            {
+                return View(GetCartProducts());
+            }
             ViewBag.RequestParams = "?carManufactureName=" + carManufactureName + "&carModel=" + carModel + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
                 "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName;
-            if (!String.IsNullOrEmpty(partNumber)) {
-                ViewBag.RequestParams = "?partNumber="+ partNumber;
+            if (!String.IsNullOrEmpty(partNumber))
+            {
+                ViewBag.RequestParams = "?partNumber=" + partNumber;
             }
             //HttpContext.Session.SetString("functionBackToProducts", );
             var productList = HttpContext.Session.GetString("productList");
+
             EkProduct[] list10Products = JsonSerializer.Deserialize<EkProduct[]>(productList);
             EkProduct cartProduct = list10Products.Where(x => x.SourceId == selectedProductId).FirstOrDefault();
             IList<EkProduct> cartList = AddToCartSession(cartProduct);
-
+            var totalCartPrice = cartList.Select(x => x.Price).Sum();
+            HttpContext.Session.SetString("cartWidgetPrice", totalCartPrice.ToString());
+            ViewData["CartWidgetPrice"] = totalCartPrice;
+            CartWidgetController cartWidget = new CartWidgetController();
+            cartWidget.CartWidget();
             return View(cartList);
+
         }
 
         [HttpPost]
@@ -141,6 +163,7 @@ namespace WebApplication.Controllers
 
         public ActionResult Delivery(string area, string city)
         {
+            ViewData["CartWidgetPrice"] = HttpContext.Session.GetString("cartWidgetPrice");
             var allData = _novaPoshtaClient.GetDataFromFile();
             //var areas = GetAllNovaPoshtaAreas();
             var areas = allData.Select(x => new AreasSearchItem() { Description = x.AreaDescription, Ref = x.Ref }).GroupBy(x => x.Description).Select(g => g.First()).ToArray();
