@@ -16,7 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using KioskBrains.Server.Domain.Entities.DbStorage;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
-
+using KioskBrains.Clients.Ek4Car;
 namespace WebApplication
 {
     public class Startup
@@ -43,7 +43,7 @@ namespace WebApplication
         {
             services.Configure<AllegroPlClientSettings>(options => Configuration.GetSection("AllegroPlClientSettings").Bind(options));
             services.Configure<YandexTranslateClientSettings>(options => Configuration.GetSection("YandexTranslateClientSettings").Bind(options));
-
+            services.Configure<Ek4CarClientSettings>(options => Configuration.GetSection("Ek4CarClientSettings").Bind(options));
 
             services.AddMvc();
             services.AddDbContext<KioskBrainsContext>(options =>
@@ -59,7 +59,9 @@ namespace WebApplication
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+            
             services.AddSingleton(HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic }));
+            services.AddScoped<Ek4CarClient>();
             services.UpdateDatabase<KioskBrainsContext, DbInitializer>(services.BuildServiceProvider());
             services.AddControllersWithViews();
         }
@@ -79,7 +81,7 @@ namespace WebApplication
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
             app.UseRouting();
 
             app.UseAuthorization();

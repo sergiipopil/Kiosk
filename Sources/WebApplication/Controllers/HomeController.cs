@@ -19,10 +19,8 @@ using KioskBrains.Server.Domain.Managers;
 using KioskBrains.Common.EK.Api;
 using KioskBrains.Server.Domain.Helpers.Dates;
 using KioskBrains.Server.Domain.Actions.EkKiosk;
-using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace WebApplication.Controllers
 {
@@ -61,12 +59,14 @@ namespace WebApplication.Controllers
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == EkCarTypeEnum.Car).Select(x => x.Manufacturers).FirstOrDefault();
             return View(new RightTreeViewModel() { ManufacturerList = carTree });
         }
+        //====================METHOD TO SWITCH TYPE CAR TOP CATEGORY ======================================
         public IActionResult ShowMainView(string topCategoryId)
         {
-            _topCategoryCarType = new GetCarTypeEnumByNumber().GetCarTypeEnum(topCategoryId);
+            _topCategoryCarType = new EkSiteFactory().GetCarTypeEnum(topCategoryId);
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
             return View("_CarTree", new RightTreeViewModel() { ManufacturerList = carTree });
         }
+        //====================METHOD TO SHOW CAR MODELS ======================================
         public IActionResult SelectManufactureAndModel(string carManufactureName)
         {
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
@@ -74,6 +74,7 @@ namespace WebApplication.Controllers
 
             return View("_CarModels", new RightTreeViewModel() { ManufacturerSelected = carManufactureName, ModelsList = modelTree.Select(x => x.Name) });
         }
+        //====================METHOD TO SHOW PRODUCTS CATEGORIES ======================================
         public IActionResult ShowCategoryAutoParts(string carManufactureName, string carModel)
         {
             var autoParts = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == "620").FirstOrDefault().Children;
@@ -88,6 +89,7 @@ namespace WebApplication.Controllers
 
             return View("_AutoPartsTree", new RightTreeViewModel() { ProductCategoryList = autoParts, ManufacturerSelected = carManufactureName, ModelSelected = carModel });
         }
+        //====================METHOD TO SHOW PRODUCTS SUBCATEGORIES ======================================
         public IActionResult ShowMainSubcategories(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName)
         {
             var autoPartsSubCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == "620").FirstOrDefault().Children.Where(x => x.CategoryId == mainCategoryId).Select(x => x.Children).FirstOrDefault();
@@ -109,13 +111,14 @@ namespace WebApplication.Controllers
             };
             return View("_AutoPartsSubTree", treeView);
         }
+        //====================METHOD TO SHOW PRODUCTS(ENTERED IN PRE-LAST GROUP OF AUTOPARTS) ======================================
         public IActionResult ShowMainSubChildsCategories(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName)
         {
             var autoPartsSubChildCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == "620").FirstOrDefault().Children.Where(x => x.CategoryId == mainCategoryId).Select(x => x.Children).FirstOrDefault();
             autoPartsSubChildCategories = autoPartsSubChildCategories.Where(x => x.CategoryId == subCategoryId).Select(x => x.Children).FirstOrDefault();
             if (autoPartsSubChildCategories == null)
             {
-                var responceAllegro = GetDetailsFromTree(carManufactureName, carModel, subCategoryId, null).Result;
+                var responceAllegro = GetAllegroProducts(carManufactureName, carModel, subCategoryId, null).Result;
                 long pages = responceAllegro.Total / 10;
                 HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
                 RightTreeViewModel treeViewModel = new RightTreeViewModel()
@@ -153,9 +156,10 @@ namespace WebApplication.Controllers
             return View("_AutoPartsSubChildsTree", treeView);
 
         }
+        //====================METHOD TO SHOW PRODUCTS(ENTERED IN LAST GROUP OF AUTOPARTS) ======================================
         public IActionResult ShowProductList(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName, string subChildId, string subChildName)
         {
-            var responceAllegro = GetDetailsFromTree(carManufactureName, carModel, subChildId, null).Result;
+            var responceAllegro = GetAllegroProducts(carManufactureName, carModel, subChildId, null).Result;
             HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
             RightTreeViewModel treeView = new RightTreeViewModel()
             {
@@ -174,10 +178,10 @@ namespace WebApplication.Controllers
             HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
             return View("_ProductsList", treeView);
         }
-        // ============Block for left part of site
+        //==================== METHOD TO GET ALLEGRO PRODUCTS BY INPUT VALUE  ======================================
         public IActionResult PartNumberInput(string partNumber)
         {
-            var responceAllegro = GetDetailsFromTree(null, null, null, partNumber).Result;
+            var responceAllegro = GetAllegroProducts(null, null, null, partNumber).Result;
             RightTreeViewModel treeView = new RightTreeViewModel()
             {
                 AllegroOfferList = responceAllegro.Products,
@@ -190,7 +194,7 @@ namespace WebApplication.Controllers
             return View("_ProductsList", treeView);
 
         }
-
+        //==================== METHOD FOR GET Exchange Rate ======================================
         private async Task<decimal> GetExchangeRateAsync()
         {
             var ukrainianNow = TimeZones.GetTimeZoneNow(TimeZones.UkrainianTime);
@@ -206,7 +210,8 @@ namespace WebApplication.Controllers
 
             return exchangeRate.Value;
         }
-        public async Task<EkKioskProductSearchInEuropeGetResponse> GetDetailsFromTree(string carManufactureName, string carModel, string selectedCategoryId, string inputPartNumber, OfferStateEnum state = OfferStateEnum.All, OfferSortingEnum sortingPrice = OfferSortingEnum.Relevance)
+        //==================== METHOD FOR GET ALLEGRO PRODUCTS ======================================
+        public async Task<EkKioskProductSearchInEuropeGetResponse> GetAllegroProducts(string carManufactureName, string carModel, string selectedCategoryId, string inputPartNumber, OfferStateEnum state = OfferStateEnum.All, OfferSortingEnum sortingPrice = OfferSortingEnum.Relevance)
         {
             SearchOffersResponse searchOffersResponse;
             if (inputPartNumber == null)
@@ -245,46 +250,20 @@ namespace WebApplication.Controllers
                 TranslatedTerm = searchOffersResponse.TranslatedPhrase,
             };
         }
-        // ============Block for left part of site
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
-        public IActionResult _UseTerms()
-        {
-            return PartialView();
-        }
-        public IActionResult _Details(string id)
-        {
-            return PartialView("_Details", id);
-        }
-        public IActionResult _DetailsTest(string id)
-        {
-            return PartialView("_DetailsTest", id);
-        }
-
-        public virtual ActionResult EditFeed(string id)
-        {
-            return View("_Details", id);
-        }
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        //================= METHOD FILTERING LIST PRODUCTS =======================
         public IActionResult FilteredList(string state, string sorting)
         {
             var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
             RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
 
-            OfferStateEnum stateEnum = GetStateEnumValue(state);
-            OfferSortingEnum sortingEnum = GetSortingEnumValue(sorting);
+            OfferStateEnum stateEnum = new EkSiteFactory().GetStateEnumValue(state);
+            OfferSortingEnum sortingEnum = new EkSiteFactory().GetSortingEnumValue(sorting);
 
             switch (rightTree.ControllerName)
             {
                 case "ShowProductList":
-                    var responceAllegro = GetDetailsFromTree(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubChildCategoryId, null, stateEnum, sortingEnum).Result;
+                    var responceAllegro = GetAllegroProducts(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubChildCategoryId, null, stateEnum, sortingEnum).Result;
                     rightTree.AllegroOfferList = responceAllegro.Products;
                     rightTree.OfferState = stateEnum;
                     rightTree.OfferSorting = sortingEnum;
@@ -293,7 +272,7 @@ namespace WebApplication.Controllers
                     return View("_ProductsList", rightTree);
 
                 case "PartNumberInput":
-                    var responceAllegroNumberMode = GetDetailsFromTree(null, null, null, rightTree.PartNumberValue, stateEnum, sortingEnum).Result;
+                    var responceAllegroNumberMode = GetAllegroProducts(null, null, null, rightTree.PartNumberValue, stateEnum, sortingEnum).Result;
                     rightTree.AllegroOfferList = responceAllegroNumberMode.Products;
                     rightTree.OfferState = stateEnum;
                     rightTree.OfferSorting = sortingEnum;
@@ -303,7 +282,7 @@ namespace WebApplication.Controllers
 
 
                 case "ShowMainSubChildsCategories":
-                    var responceAllegroSubCategories = GetDetailsFromTree(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubCategoryId, null, stateEnum, sortingEnum).Result;
+                    var responceAllegroSubCategories = GetAllegroProducts(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubCategoryId, null, stateEnum, sortingEnum).Result;
                     rightTree.AllegroOfferList = responceAllegroSubCategories.Products;
                     rightTree.OfferState = stateEnum;
                     rightTree.OfferSorting = sortingEnum;
@@ -311,40 +290,23 @@ namespace WebApplication.Controllers
                     HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
                     return View("_ProductsList", rightTree);
             }
-
-
             return View("_ProductsList", rightTree);
         }
-        private OfferStateEnum GetStateEnumValue(string state)
+        //=============DEFAULT ACTIONS ==============
+        public IActionResult Privacy()
         {
-            switch (state)
-            {
-                case "All":
-                    return OfferStateEnum.All;
-                case "New":
-                    return OfferStateEnum.New;
-                case "Used":
-                    return OfferStateEnum.Used;
-                case "Recovered":
-                    return OfferStateEnum.Recovered;
-                default:
-                    return OfferStateEnum.All;
-            }
+            return View();
         }
 
-        private OfferSortingEnum GetSortingEnumValue(string sorting)
+        public IActionResult _UseTerms()
         {
-            switch (sorting)
-            {
-                case "Relevance":
-                    return OfferSortingEnum.Relevance;
-                case "PriceDesc":
-                    return OfferSortingEnum.PriceDesc;
-                case "PriceAsc":
-                    return OfferSortingEnum.PriceAsc;
-                default:
-                    return OfferSortingEnum.Relevance;
-            }
+            return PartialView();
         }
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
     }
 }

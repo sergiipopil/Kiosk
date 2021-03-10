@@ -12,8 +12,6 @@ using KioskBrains.Clients.YandexTranslate;
 using KioskBrains.Common.Constants;
 using KioskBrains.Common.Contracts;
 using KioskBrains.Common.EK.Api;
-using KioskBrains.Server.Common.Log;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using SoapService;

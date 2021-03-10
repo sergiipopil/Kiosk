@@ -12,4 +12,8 @@
     <ProjectReference Include="..\KioskBrains.Common\KioskBrains.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Cart\" />
+  </ItemGroup>
+
 </Project>

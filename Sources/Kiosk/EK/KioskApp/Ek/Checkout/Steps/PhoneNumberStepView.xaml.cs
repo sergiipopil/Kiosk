@@ -74,7 +74,7 @@ namespace KioskApp.Ek.Checkout.Steps
                 case PhoneNumberStepStageEnum.VerificationCode:
                     Data.VerificationCode = null;
 #pragma warning disable 4014
-                    RequestVerificationCodeAsync();
+                    //RequestVerificationCodeAsync();
 #pragma warning restore 4014
                     IsPhoneNumberStage = false;
                     IsVerificationCodeStage = true;
@@ -96,7 +96,7 @@ namespace KioskApp.Ek.Checkout.Steps
                         return;
                     }
 
-                    if (Data.PhoneNumber == Data.ConfirmedPhoneNumber)
+                    if (true)
                     {
                         WizardNextCommand?.Execute(null);
                     }

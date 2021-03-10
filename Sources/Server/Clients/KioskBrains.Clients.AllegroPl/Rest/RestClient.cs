@@ -14,6 +14,7 @@ using KioskBrains.Common.Contracts;
 using KioskBrains.Common.EK.Api;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace KioskBrains.Clients.AllegroPl.Rest
 {

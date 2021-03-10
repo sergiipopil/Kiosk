@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using KioskBrains.Clients.AllegroPl.Rest;
 using KioskBrains.Common.Constants;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,22 +16,23 @@ using KioskBrains.Clients.YandexTranslate;
 using KioskBrains.Server.Domain.Actions.EkKiosk;
 using KioskBrains.Common.EK.Api;
 using KioskBrains.Server.Domain.Managers;
-using KioskBrains.Server.Domain.Entities.DbStorage;
-using KioskBrains.Server.Domain.Config;
 using WebApplication.NovaPoshtaUkraine;
 using KioskBrains.Server.Domain.Helpers.Dates;
 using WebApplication.NovaPoshtaUkraine.Models;
+using System.Net.Http;
 using KioskBrains.Common.EK.Transactions;
-using WebApplication.Entity;
 using KioskBrains.Clients.AllegroPl.Models;
 using System.Text.Json;
-using System.Text.Json.Serialization;
+using KioskBrains.Server.Domain.Entities.DbStorage;
+using KioskBrains.Clients.Ek4Car.Models;
+using KioskBrains.Server.EK.Integration.Jobs;
+using KioskBrains.Clients.Ek4Car;
 
 namespace WebApplication.Controllers
 {
     public class ProductController : Controller
     {
-        private EkTransaction _transaction;
+        private KioskBrains.Server.Domain.Entities.EK.EkTransaction _transaction;
         private EkProduct ekProduct;
         private AllegroPlClient _allegroPlClient;
         private NovaPoshtaUkraineClient _novaPoshtaClient;
@@ -41,13 +42,13 @@ namespace WebApplication.Controllers
         private ILogger<AllegroPlClient> _logger;
         private IOptions<AllegroPlClientSettings> _settings;
         private IOptions<YandexTranslateClientSettings> _yandexSettings;
-        private CancellationTokenSource _tokenSource;
-
+        private readonly KioskBrainsContext _dbContext;
         public ProductController(ILogger<AllegroPlClient> logger,
             IOptions<AllegroPlClientSettings> settings,
             IOptions<YandexTranslateClientSettings> yandexApiClientSettings,
-            ITranslateService translateService, CentralBankExchangeRateManager centralBankExchangeRateManager, NovaPoshtaUkraineClient novaPoshtaUkraineClient)
+            ITranslateService translateService, CentralBankExchangeRateManager centralBankExchangeRateManager, NovaPoshtaUkraineClient novaPoshtaUkraineClient, KioskBrainsContext dbContext)
         {
+            _dbContext = dbContext;
             _logger = logger;
             _settings = settings;
             _yandexSettings = yandexApiClientSettings;
@@ -60,37 +61,10 @@ namespace WebApplication.Controllers
             _novaPoshtaClient = novaPoshtaUkraineClient;
         }
         // GET: ProductController
+        
         public ActionResult Index()
         {
             return View();
-        }
-
-        public async Task<EkKioskProductSearchInEuropeGetResponse> GeEkProductData(string productId)
-        {
-            var p = _allegroPlClient.GetOfferById(_translateService, productId, CancellationToken.None).Result;
-
-
-            EkProduct[] products;
-            List<Offer> collectionProducts = new List<Offer>();
-            collectionProducts.Add(p);
-            var exchangeRate = await GetExchangeRateAsync();
-
-            products = collectionProducts.Select(x => EkConvertHelper.EkAllegroPlOfferToProduct(x, exchangeRate))
-                .ToArray();
-
-
-            return new EkKioskProductSearchInEuropeGetResponse()
-            {
-                Products = products,
-                // Total = collectionProducts.Total,
-                // TranslatedTerm = collectionProducts.TranslatedPhrase,
-            };
-        }
-        public class DashboardViewModel
-        {
-            public string Name { set; get; }
-            public string Location { set; get; }
-            public List<string> Interests { set; get; }
         }
         public IList<EkProduct> AddToCartSession(EkProduct product)
         {
@@ -131,7 +105,6 @@ namespace WebApplication.Controllers
             {
                 ViewBag.RequestParams = "?partNumber=" + partNumber;
             }
-            //HttpContext.Session.SetString("functionBackToProducts", );
             var productList = HttpContext.Session.GetString("productList");
 
             EkProduct[] list10Products = JsonSerializer.Deserialize<EkProduct[]>(productList);
@@ -145,27 +118,94 @@ namespace WebApplication.Controllers
             return View(cartList);
 
         }
-
+        public class CartProduct
+        {
+            public Product Product { get; set; }
+            public int Quantity { get; set; }
+        }
+        public IList<CartProduct> Products
+        {
+            get {
+                return new List<CartProduct>();
+            }
+        }
         [HttpPost]
         public ActionResult Submit(string selectedDepartment)
         {
-
-            var productList = HttpContext.Session.GetString("productList");
-            //_transaction = TransactionManager.Current.StartNewTransaction<EkTransaction>();
-            //_transaction.TotalPriceCurrencyCode = "UAH";
-            //_transaction.SetCustomerInfo(new EkCustomerInfo()
-            //{
-            //    FullName = "Sergii",
-            //    Phone = "380678040010",
-            //});
+            var transac = TestInsertDB().Result;           
             return View(selectedDepartment);
         }
 
+        
+        
+        private async Task<KioskBrains.Server.Domain.Entities.EK.EkTransaction> TestInsertDB() {
+            KioskBrains.Common.EK.Transactions.EkTransaction tempTransactions = new KioskBrains.Common.EK.Transactions.EkTransaction();
+            var productList = HttpContext.Session.GetString("productList");
+
+            tempTransactions.SetCustomerInfo(new EkCustomerInfo()
+            {
+                FullName = "SITE ORDER",
+                Phone = "+380678040010"//PhoneNumberHelper.GetCleanedPhoneNumber(_phoneNumberStepData.PhoneNumber),
+            });
+            var deliveryValueBuilder = new StringBuilder();
+            deliveryValueBuilder.Append("Самовывоз, Новая Почта");
+            var ekDeliveryInfo = new EkDeliveryInfo
+            {
+                Type = EkDeliveryTypeEnum.DeliveryServiceStore,//_deliveryInfoStepData.Type ?? EkDeliveryTypeEnum.Courier,
+                DeliveryService = EkDeliveryServiceEnum.NovaPoshtaUkraine,//_deliveryInfoStepData.DeliveryService,
+                StoreId = "1",
+                Address = new EkTransactionAddress()
+                {
+                    City = "Дрогобич",
+                    AddressLine1 = "Адреса в Дрогобичі",
+                }
+            };
+
+            tempTransactions.SetDeliveryInfo(ekDeliveryInfo);
+
+            tempTransactions.TotalPrice = 777;
+            tempTransactions.TotalPriceCurrencyCode = "UAH";
+
+            var cartListJson = HttpContext.Session.GetString("cartList");
+            IList<EkProduct> cartList = new List<EkProduct>();
+            if (cartListJson != null)
+            {
+                cartList = JsonSerializer.Deserialize<IList<EkProduct>>(cartListJson);
+            }
+
+
+            var cartProducts = Products
+                .Select(x => new
+                {
+                    x.Product,
+                    x.Quantity,
+                })
+                .ToArray();
+
+            var transactionProducts = cartList
+                .Select(x => EkTransactionProduct.FromProduct(x, x.Description, 1))
+                .ToArray();
+
+            tempTransactions.SetProducts(transactionProducts);
+            tempTransactions.ReceiptNumber = "132-25";
+            tempTransactions.CompletionStatus = KioskBrains.Common.Transactions.TransactionCompletionStatusEnum.Success;
+            tempTransactions.Status = KioskBrains.Common.Transactions.TransactionStatusEnum.Completed;
+            tempTransactions.UniqueId = $"{Guid.NewGuid():N}{Guid.NewGuid():N}";
+            tempTransactions.LocalStartedOn = DateTime.Now;
+            var serialize = Newtonsoft.Json.JsonConvert.SerializeObject(tempTransactions);
+            var tempser = new StringContent(serialize, Encoding.UTF8, "application/json");
+            var apiEkTransaction = JsonSerializer.Deserialize<KioskBrains.Common.EK.Transactions.EkTransaction>(serialize);
+            var ekTransaction = KioskBrains.Server.Domain.Entities.EK.EkTransaction.FromApiModel(116, DateTime.Now, apiEkTransaction);
+            ekTransaction.IsSentToEkSystem = false;
+            _dbContext.EkTransactions.Add(ekTransaction);
+            await _dbContext.SaveChangesAsync();
+            
+            return ekTransaction;
+        }
         public ActionResult Delivery(string area, string city)
         {
             ViewData["CartWidgetPrice"] = HttpContext.Session.GetString("cartWidgetPrice");
             var allData = _novaPoshtaClient.GetDataFromFile();
-            //var areas = GetAllNovaPoshtaAreas();
             var areas = allData.Select(x => new AreasSearchItem() { Description = x.AreaDescription, Ref = x.Ref }).GroupBy(x => x.Description).Select(g => g.First()).ToArray();
             NovaPoshtaViewModel npView = new NovaPoshtaViewModel
             {
@@ -189,9 +229,42 @@ namespace WebApplication.Controllers
             };
             return Json(npView);
         }
+        private async Task<WarehouseSearchItem[]> GetAllNovaPoshtaCityDepts(string city)
+        {
+            var result = await _novaPoshtaClient.GetAllDepartmentsOfTheCity(CancellationToken.None, city);
+            return result;
+        }
 
+        
+        // GET: ProductController/Details/5        
+        public ActionResult Details(string id)
+        {
+            return View(GetProductInfo(id));
+        }
+        public ProductViewModel GetProductInfo(string id)
+        {
+            var p = _allegroPlClient.GetOfferById(_translateService, id, CancellationToken.None).Result;
 
+            List<string> test = new List<string>();
+            foreach (var item in p.Parameters)
+            {
+                test.Add(item.Name[Languages.RussianCode] + ": " + item.Value[Languages.RussianCode]);
+            }
 
+            var rate = GetExchangeRateAsync().Result;
+            ekProduct = EkConvertHelper.EkAllegroPlOfferToProduct(p, rate);
+
+            var product = new ProductViewModel()
+            {
+                Id = id,
+                Title = p.Name[Languages.RussianCode],
+                Description = p.Description[Languages.RussianCode],
+                Images = p.Images,
+                Parameters = test,
+                Price = ekProduct.Price
+            };
+            return product;
+        }
         private async Task<decimal> GetExchangeRateAsync()
         {
             var ukrainianNow = TimeZones.GetTimeZoneNow(TimeZones.UkrainianTime);
@@ -207,44 +280,6 @@ namespace WebApplication.Controllers
 
             return exchangeRate.Value;
         }
-
-        private async Task<WarehouseSearchItem[]> GetAllNovaPoshtaCityDepts(string city)
-        {
-            var result = await _novaPoshtaClient.GetAllDepartmentsOfTheCity(CancellationToken.None, city);
-            return result;
-        }
-
-        public ProductViewModel GetProductInfo(string id)
-        {
-            var p = _allegroPlClient.GetOfferById(_translateService, id, CancellationToken.None).Result;
-
-            List<string> test = new List<string>();
-            foreach (var item in p.Parameters)
-            {
-                test.Add(item.Name[Languages.RussianCode] + ": " + item.Value[Languages.RussianCode]);
-            }
-
-            var rate = GetExchangeRateAsync().Result;
-            ekProduct = EkConvertHelper.EkAllegroPlOfferToProduct(p, rate);
-
-
-            var product = new ProductViewModel()
-            {
-                Id = id,
-                Title = p.Name[Languages.RussianCode],
-                Description = p.Description[Languages.RussianCode],
-                Images = p.Images,
-                Parameters = test,
-                Price = ekProduct.Price
-            };
-            return product;
-        }
-        // GET: ProductController/Details/5        
-        public ActionResult Details(string id)
-        {
-            return View(GetProductInfo(id));
-        }
-
         // GET: ProductController/Create
         public ActionResult Create()
         {
