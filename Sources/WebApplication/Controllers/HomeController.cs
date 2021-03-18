@@ -21,6 +21,7 @@ using KioskBrains.Server.Domain.Helpers.Dates;
 using KioskBrains.Server.Domain.Actions.EkKiosk;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
+using X.PagedList;
 
 namespace WebApplication.Controllers
 {
@@ -28,6 +29,7 @@ namespace WebApplication.Controllers
     public class HomeController : Controller
     {
         public static EkCarTypeEnum _topCategoryCarType;
+        public static int pageSize=10;
         private AllegroPlClient _allegroPlClient;
         private ILogger<AllegroPlClient> _logger;
         private IOptions<AllegroPlClientSettings> _settings;
@@ -35,6 +37,14 @@ namespace WebApplication.Controllers
 
         private readonly CentralBankExchangeRateManager _centralBankExchangeRateManager;
         private IOptions<YandexTranslateClientSettings> _yandexSettings;
+
+        public class Phone
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+        List<Phone> phones;
+       
         public HomeController(ILogger<AllegroPlClient> logger,
             IOptions<AllegroPlClientSettings> settings,
             IOptions<YandexTranslateClientSettings> yandexApiClientSettings,
@@ -49,6 +59,168 @@ namespace WebApplication.Controllers
                 logger);
             _translateService = translateService;
             _centralBankExchangeRateManager = centralBankExchangeRateManager;
+            phones = new List<Phone>();
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 9, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 10, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 11, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 12, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 13, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 14, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 15, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 16, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 17, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 18, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 19, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
+            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
+            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
+            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
+            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
+            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
+            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
+
         }
 
 
@@ -111,6 +283,15 @@ namespace WebApplication.Controllers
             };
             return View("_AutoPartsSubTree", treeView);
         }
+        public List<string> FakeListForPager(long quantity)
+        {
+            List<string> tempList = new List<string>();
+            for (int i = 0; i < quantity; i++)
+            {
+                tempList.Add("");
+            }
+            return tempList;
+        }
         //====================METHOD TO SHOW PRODUCTS(ENTERED IN PRE-LAST GROUP OF AUTOPARTS) ======================================
         public IActionResult ShowMainSubChildsCategories(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName)
         {
@@ -119,7 +300,6 @@ namespace WebApplication.Controllers
             if (autoPartsSubChildCategories == null)
             {
                 var responceAllegro = GetAllegroProducts(carManufactureName, carModel, subCategoryId, null).Result;
-                long pages = responceAllegro.Total / 10;
                 HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
                 RightTreeViewModel treeViewModel = new RightTreeViewModel()
                 {
@@ -129,8 +309,10 @@ namespace WebApplication.Controllers
                     MainCategoryName = mainCategoryName,
                     SubCategoryId = subCategoryId,
                     SubCategoryName = subCategoryName,
+                    PageNumber = 1,
                     FunctionReturnFromProducts = String.Format("selectMainCategory('{0}', '{1}', '{2}', '{3}')", carManufactureName, carModel, mainCategoryId, mainCategoryName),
                     AllegroOfferList = responceAllegro.Products,
+                    FakeAllegroList = FakeListForPager(responceAllegro.Total),
                     ControllerName = "ShowMainSubChildsCategories"
                 };
                 HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeViewModel));
@@ -171,9 +353,11 @@ namespace WebApplication.Controllers
                 SubCategoryName = subCategoryName,
                 SubChildCategoryId = subChildId,
                 SubChildCategoryName = subChildName,
+                PageNumber = 1,
                 FunctionReturnFromProducts = String.Format("selectSubMainCategory('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName),
                 AllegroOfferList = responceAllegro.Products,
-                ControllerName = "ShowProductList"
+                ControllerName = "ShowProductList",
+                FakeAllegroList = FakeListForPager(responceAllegro.Total),
             };
             HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
             return View("_ProductsList", treeView);
@@ -185,9 +369,11 @@ namespace WebApplication.Controllers
             RightTreeViewModel treeView = new RightTreeViewModel()
             {
                 AllegroOfferList = responceAllegro.Products,
+                FakeAllegroList = FakeListForPager(responceAllegro.Total),
                 FunctionReturnFromProducts = "back()",
                 ControllerName = "PartNumberInput",
-                PartNumberValue = partNumber
+                PartNumberValue = partNumber,
+                PageNumber = 1
             };
             HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
             HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
@@ -211,16 +397,17 @@ namespace WebApplication.Controllers
             return exchangeRate.Value;
         }
         //==================== METHOD FOR GET ALLEGRO PRODUCTS ======================================
-        public async Task<EkKioskProductSearchInEuropeGetResponse> GetAllegroProducts(string carManufactureName, string carModel, string selectedCategoryId, string inputPartNumber, OfferStateEnum state = OfferStateEnum.All, OfferSortingEnum sortingPrice = OfferSortingEnum.Relevance)
+        public async Task<EkKioskProductSearchInEuropeGetResponse> GetAllegroProducts(string carManufactureName, string carModel, string selectedCategoryId, string inputPartNumber, OfferStateEnum state = OfferStateEnum.All, OfferSortingEnum sortingPrice = OfferSortingEnum.Relevance, int pageNumber=1)
         {
+            int offset = pageNumber == 1 ? 0 : pageNumber * 10;
             SearchOffersResponse searchOffersResponse;
             if (inputPartNumber == null)
             {
-                searchOffersResponse = await _allegroPlClient.SearchOffersAsync(String.Format("{0} {1}", carManufactureName, carModel), null, selectedCategoryId, state, sortingPrice, 0, 10, System.Threading.CancellationToken.None);
+                searchOffersResponse = await _allegroPlClient.SearchOffersAsync(String.Format("{0} {1}", carManufactureName, carModel), null, selectedCategoryId, state, sortingPrice, offset, 10, System.Threading.CancellationToken.None);
             }
             else
             {
-                searchOffersResponse = await _allegroPlClient.SearchOffersAsync(inputPartNumber, inputPartNumber, "3", state, sortingPrice, 0, 10, System.Threading.CancellationToken.None);
+                searchOffersResponse = await _allegroPlClient.SearchOffersAsync(inputPartNumber, inputPartNumber, "3", state, sortingPrice, offset, 10, System.Threading.CancellationToken.None);
             }
             try
             {
@@ -252,8 +439,9 @@ namespace WebApplication.Controllers
         }
 
         //================= METHOD FILTERING LIST PRODUCTS =======================
-        public IActionResult FilteredList(string state, string sorting)
+        public IActionResult FilteredList(string state, string sorting, int page)
         {
+            page = page==0 ? 1 : page;
             var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
             RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
 
@@ -263,29 +451,35 @@ namespace WebApplication.Controllers
             switch (rightTree.ControllerName)
             {
                 case "ShowProductList":
-                    var responceAllegro = GetAllegroProducts(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubChildCategoryId, null, stateEnum, sortingEnum).Result;
+                    var responceAllegro = GetAllegroProducts(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubChildCategoryId, null, stateEnum, sortingEnum, page).Result;
                     rightTree.AllegroOfferList = responceAllegro.Products;
+                    rightTree.FakeAllegroList = FakeListForPager(responceAllegro.Total);
                     rightTree.OfferState = stateEnum;
                     rightTree.OfferSorting = sortingEnum;
+                    rightTree.PageNumber = page;
                     HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
                     HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
                     return View("_ProductsList", rightTree);
 
                 case "PartNumberInput":
-                    var responceAllegroNumberMode = GetAllegroProducts(null, null, null, rightTree.PartNumberValue, stateEnum, sortingEnum).Result;
+                    var responceAllegroNumberMode = GetAllegroProducts(null, null, null, rightTree.PartNumberValue, stateEnum, sortingEnum, page).Result;
                     rightTree.AllegroOfferList = responceAllegroNumberMode.Products;
+                    rightTree.FakeAllegroList = FakeListForPager(responceAllegroNumberMode.Total);
                     rightTree.OfferState = stateEnum;
                     rightTree.OfferSorting = sortingEnum;
+                    rightTree.PageNumber = page;
                     HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegroNumberMode.Products));
                     HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
                     return View("_ProductsList", rightTree);
 
 
                 case "ShowMainSubChildsCategories":
-                    var responceAllegroSubCategories = GetAllegroProducts(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubCategoryId, null, stateEnum, sortingEnum).Result;
+                    var responceAllegroSubCategories = GetAllegroProducts(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubCategoryId, null, stateEnum, sortingEnum, page).Result;
                     rightTree.AllegroOfferList = responceAllegroSubCategories.Products;
+                    rightTree.FakeAllegroList = FakeListForPager(responceAllegroSubCategories.Total);
                     rightTree.OfferState = stateEnum;
                     rightTree.OfferSorting = sortingEnum;
+                    rightTree.PageNumber = page;
                     HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegroSubCategories.Products));
                     HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
                     return View("_ProductsList", rightTree);
@@ -307,6 +501,12 @@ namespace WebApplication.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
+       
+        public IActionResult TestPager(int? page)
+        {
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(phones.ToPagedList(pageNumber, pageSize));
+        }
     }
 }

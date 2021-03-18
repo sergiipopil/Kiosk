@@ -103,7 +103,14 @@
                             </div></div>`);
             }
     }
-
+        function onAjaxFailure(xhr, status, error) {
+            $("#targetElement").html("<strong>An error occurred retrieving data:" + error + "<br/>.</strong>");
+        }
+        function onAjaxSuccess(data, status, xhr) {
+            if (!$.trim(data)) {
+                $("#targetElement").html("<div class='text-center'><strong>No results found for search.</strong></div>");
+            }
+        }
     function selectCarModel(manufacture, model) {
         $('#divSelectTopCategory').hide();
         $.ajax({
@@ -158,12 +165,12 @@
             }
         });
     }
-        function FilteredList(state, sorting) {
+        function FilteredList(state, sorting, page) {
             $('#divCarManufactures').empty();
             $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" width="100px" /></div>');
             $.ajax({
                 type: "GET",
-                url: '@Url.Action("FilteredList", "Home")' + "?state=" + state + "&sorting=" + sorting,
+                url: '@Url.Action("FilteredList", "Home")' + "?state=" + state + "&sorting=" + sorting + "&page=" + page,
             success: function (data) {
                $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
@@ -171,6 +178,7 @@
             }
         });
         }
+
     function selectManufacturer(carManufactureName) {
         $.ajax({
             type: "GET",
@@ -182,7 +190,7 @@
             }
         });
         }
-
+         
         function goToCart(selectedProductId, manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, partNumber) {
             window.location.href = '/Product/CartView/' + "?selectedProductId=" + selectedProductId + "&carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
                 "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName + "&partNumber=" + partNumber;
@@ -205,10 +213,9 @@
     <table style="min-height: 100vh;min-width:100%;">
         <tr>
             @*LEFT PANEL*@
+            <div id="targetElement"></div>
             <td class="leftIndexPanel">
-
                 <div id="divSearchByPartNumber">
-
                     <img src="~/images/Catalog/LoupeBackground1.png" style="margin-top:15%" />
                     @*FIND DETAIL BY INPUT SEARCH*@
                     <div style="font-size:60px;vertical-align:top;text-align:center;">
@@ -264,7 +271,7 @@
                         <div class="inline-block">
                             <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_622" onclick="showMainView('622')">
                                 <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/Europe_BusParts.png"  class="TopCategoryImage" />
+                                    <img src="~/images/Catalog/Categories/New/Europe_BusParts.png" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureText">
                                     <span>Автобуси</span>
@@ -313,7 +320,7 @@
                         </div>
                     </div>
                 </div>
-                @*CAR MANUFACTURE TREE*@                
+                @*CAR MANUFACTURE TREE*@
                 <div id="divCarManufactures">
                     @Html.Partial("_CarTree", @Model)
                 </div>

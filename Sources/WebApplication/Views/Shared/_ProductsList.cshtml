@@ -2,6 +2,9 @@
 @{
     Layout = null;
 }
+@using X.PagedList;
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Common
 <html>
 <head>
     <link rel="stylesheet" href="~/css/site.css" type="text/css" />
@@ -9,6 +12,22 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+        $(function () {
+            $('#myPager').on('click', 'a', function () {
+                $.ajax({
+                    url: this.href,
+                    type: 'GET',
+                    cache: false,
+                    success: function (result) {
+                        $('#divCarManufactures').empty();
+                        $('#divCarManufactures').html(result);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>    
 </head>
 <body>
     <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
@@ -18,20 +37,30 @@
         <div style="display:inline-block;">Список запчастин</div>
     </div>
     <div style="padding-top:10px;">
-        <table>
+        <table style="width:100%;">
             <tr>
                 <td style="padding: 0px 10px 0px 20px;">Стан</td>
-                <td class="filterItemAllState_@Model.OfferState" onclick="FilteredList('All', '@Model.OfferSorting')">Всі</td>
-                <td class="filterItemNewState_@Model.OfferState" onclick="FilteredList('New', '@Model.OfferSorting')">Нові</td>
-                <td class="filterItemUsedState_@Model.OfferState" onclick="FilteredList('Used', '@Model.OfferSorting')">Б/у</td>
-                <td class="filterItemRecoverState_@Model.OfferState" onclick="FilteredList('Recovered', null)">Відновлені</td>
+                <td class="filterItemAllState_@Model.OfferState" onclick="FilteredList('All', '@Model.OfferSorting', '@Model.PageNumber')">Всі</td>
+                <td class="filterItemNewState_@Model.OfferState" onclick="FilteredList('New', '@Model.OfferSorting', '@Model.PageNumber')">Нові</td>
+                <td class="filterItemUsedState_@Model.OfferState" onclick="FilteredList('Used', '@Model.OfferSorting', '@Model.PageNumber')">Б/у</td>
+                <td class="filterItemRecoverState_@Model.OfferState" onclick="FilteredList('Recovered', '@Model.OfferSorting', '@Model.PageNumber')">Відновлені</td>
                 <td style="padding:0px 10px 0px 20px;">Ціна</td>
-                <td class="filterItemRelevanceSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'Relevance')">Звичайна</td>
-                <td class="filterItemDescSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceDesc')">Дорожчі</td>
-                <td class="filterItemAscSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceAsc')">Дешевші</td>
+                <td class="filterItemRelevanceSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'Relevance', '@Model.PageNumber')">Звичайна</td>
+                <td class="filterItemDescSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceDesc', '@Model.PageNumber')">Дорожчі</td>
+                <td class="filterItemAscSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceAsc', '@Model.PageNumber')">Дешевші</td>
+                <td id="myPager">
+                        @Html.PagedListPager(Model.FakeAllegroList.ToPagedList(@Model.PageNumber, 10), page => Url.Action("FilteredList", "Home", new { state = @Model.OfferState, sorting = @Model.OfferSorting, page }), new PagedListRenderOptions
+                    {
+                       LinkToFirstPageFormat = " << ",
+                       LinkToPreviousPageFormat = " < ",
+                       LinkToNextPageFormat = " > ",
+                       LinkToLastPageFormat = " >> ",
+                    })
+                </td>
             </tr>
         </table>
     </div>
+
     @if (@Model.AllegroOfferList.Count() == 0)
     {
         <div style="width: 100%; font-size: 30px; text-align: center; padding: 30% 30% 0 30%; font-weight: bold; color: #504593;">

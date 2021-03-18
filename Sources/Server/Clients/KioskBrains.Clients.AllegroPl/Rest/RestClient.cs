@@ -308,7 +308,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             try
             {
                 HtmlWeb web = new HtmlWeb();
-                HtmlDocument doc = web.Load("https://allegro.pl/oferta/" + id);
+                HtmlDocument doc = web.Load("http://allegro.pl/oferta/" + id);
                 text = doc.ParsedText;
 
 

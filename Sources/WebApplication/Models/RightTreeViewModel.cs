@@ -5,16 +5,18 @@ using System.Threading.Tasks;
 using KioskBrains.Common.EK.Api.CarTree;
 using KioskBrains.Common.EK.Api;
 using KioskBrains.Clients.AllegroPl.Models;
+using X.PagedList;
 
 namespace WebApplication.Models
 {
     public class RightTreeViewModel
     {
         public EkProduct[] AllegroOfferList { get; set; }
+        public List<string> FakeAllegroList { get; set; }
         public EkCarManufacturer[] ManufacturerList { get; set; }
         public IEnumerable<string> ModelsList { get; set; }
         public EkProductCategory[] ProductCategoryList { get; set; }
-
+        public int PageNumber { get; set; }
         public string PartNumberValue { get; set; }
         public string ManufacturerSelected { get; set; }
         public string ModelSelected { get; set; }
