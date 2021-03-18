@@ -1,0 +1,61 @@
+﻿@model IList<KioskBrains.Common.EK.Api.EkProduct>
+@{
+    Layout = null;
+}
+<table style="min-height: 100vh;min-width:100%;">
+    <tr>
+        <td style="vertical-align:top;padding-right:4%;">
+            <div style="background:#514593;width:100%;text-align:center;padding:20px 0px;">
+                <span style="color:white;font-size:30px;">У Вас в корзине</span>
+                <div style="padding:10px 0px;">
+                    <div style="display:inline-block;vertical-align:middle;"><img src="~/images/CartWidgetEmpty.png"></div>
+                    @if (Model != null)
+                    {
+                        <div style="font-size:18px;color:white;display:inline-block;vertical-align:middle;">
+                            @foreach (var item in @Model)
+                            {
+                                <label style="font-size:14px;display:block;">
+                                    @item.Name.Last().Value
+                                </label>
+                            }
+                        </div>
+                    }
+                </div>
+                <div style="background:#635aa0;height:1px;width:100%;margin-top:15px;"></div>
+                @if (Model != null)
+                {
+                    <div style="color:white;">
+                        <label id="mainCartTotalPrice" style="font-size:68px;">
+                            @Model.Select(x => x.Price).Sum()
+                        </label><label style="font-size:39px;">грн</label>
+                    </div>
+                }
+                <div id="continueBtn" style="margin: 57px 0px 0px 0px">
+                    <div onclick="backToProductList()">
+                        <button class="btnBuy">
+                            <span>Продовжити покупки</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="buyBtn" style="margin: 57px 0px 0px 0px">
+                    <form action="@Url.Action("Delivery")">
+                        <button class="btnBuy">
+                            <img src="~/images/Buy.png" />
+                            <span>Оформити замовлення</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </td>
+        <td class="rightIndexPanel" style="width:60%;">
+            <div style="background:#DCDEFF;">
+                @if (Model.Count == 0)
+                { <div style = "width: 100%; font-size: 30px; text-align: center; padding: 30% 30% 0 30%; font-weight: bold; color: #504593;"> Корзина пуста</div> }
+                else
+                {
+                    @Html.Partial("_CartListItem", Model)
+                }
+            </div>
+        </td>
+    </tr>
+</table>

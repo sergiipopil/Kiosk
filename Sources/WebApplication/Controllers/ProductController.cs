@@ -91,8 +91,21 @@ namespace WebApplication.Controllers
             }
             return cartList;
         }
+        public ActionResult EditCartItemQuantity(string cartItemId, string quantity)
+        {   
+            IList<EkProduct> cartList = GetCartProducts();
+            decimal totalPrice = cartList.Where(x => x.SourceId == cartItemId).Select(x => x.Price).FirstOrDefault() * Convert.ToInt32(quantity);
+            return Json(totalPrice);
+        }
+        public ActionResult DeleteProductFromCart(string cartItemId) {
+            IList<EkProduct> cartList123 = GetCartProducts();
 
-        public ActionResult CartView(string selectedProductId, string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName, string subChildId, string subChildName, string partNumber)
+            cartList123.Remove(cartList123.Where(x => x.SourceId == cartItemId).FirstOrDefault());
+            HttpContext.Session.SetString("cartList", JsonSerializer.Serialize(cartList123));
+            return View("CartViewInner", cartList123);
+        }
+
+        public ActionResult CartView(string selectedProductId=null, string carManufactureName = null, string carModel = null, string mainCategoryId = null, string mainCategoryName = null, string subCategoryId = null, string subCategoryName = null, string subChildId = null, string subChildName = null, string partNumber = null)
         {
             ViewData["CartWidgetPrice"] = HttpContext.Session.GetString("cartWidgetPrice");
             if (String.IsNullOrEmpty(selectedProductId) && String.IsNullOrEmpty(partNumber))

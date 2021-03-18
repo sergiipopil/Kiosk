@@ -36,17 +36,51 @@
             <div style="vertical-align: top; font-weight: bold; font-size: 18px; padding-left: 20px;display:inline-block;">@item.Name.Last().Value</div>
             <div class="inline-block" style="float:right;border-left: 1px solid #c3c4c5; padding: 0px 30px;">
                 <div style="color: #e87619;font-weight:bold;">
-                    <span style="font-size:34px;">@item.Price</span>
+                    <span style="font-size:32px;">@item.Price</span>
                     <span style="font-size:18px;">@item.PriceCurrencyCode</span>
-                    <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">доставка в Украину <br /> 2-5 дней</p>
+                    <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;margin-bottom:0px;">доставка в Украину <br /> 2-5 дней</p>
                 </div>
-
-                @*<form action="@Url.Action("CartView", "Product",  @item)" method="post">*@
-
-                
-                @*</form>*@
+                <div style="padding:4px 0px;">
+                    <span>
+                        <input type="text" id="@item.SourceId" value="1" class="cartQuantity" />
+                    </span>
+                    <span>
+                        <a class="quantityBtn" onclick="refreshCartItem('@item.SourceId')">Оновити к-ть</a>
+                    </span>
+                </div>
+                <div onclick="deleteProduct('@item.SourceId')">
+                    <button class="btnDeleteCartItem">
+                        <img src="~/images/Cart/Delete.png" />
+                        <span>Видалити</span>
+                    </button>
+                </div>
             </div>
         </div>
     }
+    <script>
+        function refreshCartItem(idControl) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("EditCartItemQuantity", "Product")' + "?cartItemId=" + idControl + "&quantity=" + $("#" + idControl).val(),
+                success: function (data) {
+                    $("#cartWidgetPrice").text(data);
+                    $("#mainCartTotalPrice").text(data);
+                }
+            });
+    }
+    function deleteProduct(idControl) {
+
+        $.ajax({
+                type: "GET",
+                url: '@Url.Action("DeleteProductFromCart", "Product")' + "?cartItemId=" + idControl,
+            success: function (data) {
+                $('#divCartViewControl').empty();
+                $('#divCartViewControl').html(data);
+                   // $("#cartWidgetPrice").text(data);
+                    //$("#mainCartTotalPrice").text(data);
+                }
+            });
+    }
+    </script>
 </body>
 </html>
