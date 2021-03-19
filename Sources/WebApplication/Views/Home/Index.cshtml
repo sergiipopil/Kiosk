@@ -191,9 +191,8 @@
         });
         }
          
-        function goToCart(selectedProductId, manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, partNumber) {
-            window.location.href = '/Product/CartView/' + "?selectedProductId=" + selectedProductId + "&carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
-                "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName + "&partNumber=" + partNumber;
+        function goToCart(selectedProductId) {
+            window.location.href = '/Product/CartView/' + "?selectedProductId=" + selectedProductId;
         }
         function showMainView(topCategoryId) {
             $('div[id*="divTopCategory_"]').removeClass("selected");
@@ -299,7 +298,7 @@
                             </div>
                         </div>
                         <div class="inline-block">
-                            <div class="topCategoryDiv" style="display:grid;">
+                            <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_99193" onclick="showMainView('99193')">
                                 <div style="text-align:center;">
                                     <img src="~/images/Catalog/Categories/New/Europe_TiresAndRims.png" class="TopCategoryImage" />
                                 </div>
@@ -309,7 +308,7 @@
                             </div>
                         </div>
                         <div class="inline-block">
-                            <div class="topCategoryDiv" style="display:grid;">
+                            <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_18554" onclick="showMainView('18554')">
                                 <div style="text-align:center;">
                                     <img src="~/images/Catalog/Categories/New/Europe_Tools.png" class="TopCategoryImage" />
                                 </div>

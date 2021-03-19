@@ -1,4 +1,4 @@
-﻿@model IList<KioskBrains.Common.EK.Api.EkProduct>
+﻿@model IList<WebApplication.Classes.CartProduct>
 @{
     Layout = null;
 }
@@ -17,15 +17,15 @@
 
             <div class="inline-block" style="width:15%;">
                 <div id="imageBlock" class="detailBlock" style="text-align:center;background:white;">
-                    <a href=@item.Photos[0].Url data-fancybox="@String.Format("gallery{0}", item.Key)" class="noneDecoration">
-                        <img id="mainImageProduct" src="@item.Photos[0].Url" style="max-width:100%;max-height:160px;" />
+                    <a href=@item.Product.Photos[0].Url data-fancybox="@String.Format("gallery{0}", item.Product.Key)" class="noneDecoration">
+                        <img id="mainImageProduct" src="@item.Product.Photos[0].Url" style="max-width:100%;max-height:160px;" />
                     </a>
                     <div style="display:none;">
-                        @foreach (var photo in @item.Photos)
+                        @foreach (var photo in @item.Product.Photos)
                         {
-                            @if (@photo.Url != @item.Photos[0].Url)
+                            @if (@photo.Url != @item.Product.Photos[0].Url)
                             {
-                                <a href=@photo.Url data-fancybox="@String.Format("gallery{0}", item.Key)" class="noneDecoration">
+                                <a href=@photo.Url data-fancybox="@String.Format("gallery{0}", item.Product.Key)" class="noneDecoration">
                                     <img src=@photo.Url class="smallPhotoes">
                                 </a>
                             }
@@ -33,22 +33,22 @@
                     </div>
                 </div>
             </div>
-            <div style="vertical-align: top; font-weight: bold; font-size: 18px; padding-left: 20px;display:inline-block;">@item.Name.Last().Value</div>
+            <div style="vertical-align: top; font-weight: bold; font-size: 18px; padding-left: 20px;display:inline-block;">@item.Product.Name.Last().Value</div>
             <div class="inline-block" style="float:right;border-left: 1px solid #c3c4c5; padding: 0px 30px;">
                 <div style="color: #e87619;font-weight:bold;">
-                    <span style="font-size:32px;">@item.Price</span>
-                    <span style="font-size:18px;">@item.PriceCurrencyCode</span>
+                    <span style="font-size:32px;">@item.Product.Price</span>
+                    <span style="font-size:18px;">@item.Product.PriceCurrencyCode</span>
                     <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;margin-bottom:0px;">доставка в Украину <br /> 2-5 дней</p>
                 </div>
                 <div style="padding:4px 0px;">
                     <span>
-                        <input type="text" id="@item.SourceId" value="1" class="cartQuantity" />
+                        <input type="text" id="@item.Product.SourceId" value="@item.Quantity" class="cartQuantity" />
                     </span>
                     <span>
-                        <a class="quantityBtn" onclick="refreshCartItem('@item.SourceId')">Оновити к-ть</a>
+                        <a class="quantityBtn" onclick="refreshCartItem('@item.Product.SourceId')">Оновити к-ть</a>
                     </span>
                 </div>
-                <div onclick="deleteProduct('@item.SourceId')">
+                <div onclick="deleteProduct('@item.Product.SourceId')">
                     <button class="btnDeleteCartItem">
                         <img src="~/images/Cart/Delete.png" />
                         <span>Видалити</span>
@@ -63,8 +63,9 @@
                 type: "GET",
                 url: '@Url.Action("EditCartItemQuantity", "Product")' + "?cartItemId=" + idControl + "&quantity=" + $("#" + idControl).val(),
                 success: function (data) {
-                    $("#cartWidgetPrice").text(data);
-                    $("#mainCartTotalPrice").text(data);
+                    $('#divCartViewControl').empty();
+                    $('#divCartViewControl').html(data);
+                    $("#cartWidgetPrice").text($("#mainCartTotalPrice").text());
                 }
             });
     }
@@ -76,8 +77,12 @@
             success: function (data) {
                 $('#divCartViewControl').empty();
                 $('#divCartViewControl').html(data);
-                   // $("#cartWidgetPrice").text(data);
-                    //$("#mainCartTotalPrice").text(data);
+
+                $("#cartWidgetPrice").text($("#mainCartTotalPrice").text());
+                //if (data.is("#emptyCart")) {
+                //    $("#cartWidgetEmpty").show();
+                //    $("#cartWidgetValue").hide();
+                //}
                 }
             });
     }

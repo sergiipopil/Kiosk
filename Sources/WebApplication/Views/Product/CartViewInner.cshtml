@@ -1,4 +1,4 @@
-﻿@model IList<KioskBrains.Common.EK.Api.EkProduct>
+﻿@model IList<WebApplication.Classes.CartProduct>
 @{
     Layout = null;
 }
@@ -15,21 +15,21 @@
                             @foreach (var item in @Model)
                             {
                                 <label style="font-size:14px;display:block;">
-                                    @item.Name.Last().Value
+                                    @item.Product.Name.Last().Value (@item.Quantity шт.)
                                 </label>
                             }
                         </div>
                     }
                 </div>
                 <div style="background:#635aa0;height:1px;width:100%;margin-top:15px;"></div>
-                @if (Model != null)
-                {
-                    <div style="color:white;">
-                        <label id="mainCartTotalPrice" style="font-size:68px;">
-                            @Model.Select(x => x.Price).Sum()
-                        </label><label style="font-size:39px;">грн</label>
-                    </div>
-                }
+                <div style="color:white;">
+                    <label id="mainCartTotalPrice" style="font-size:68px;">
+                        @if (@ViewData["CartWidgetPrice"] == null)
+                        {<span>0</span> }
+                        else
+                        {@ViewData["CartWidgetPrice"]}
+                    </label><label style="font-size:39px;">грн</label>
+                </div>
                 <div id="continueBtn" style="margin: 57px 0px 0px 0px">
                     <div onclick="backToProductList()">
                         <button class="btnBuy">
@@ -37,20 +37,23 @@
                         </button>
                     </div>
                 </div>
-                <div id="buyBtn" style="margin: 57px 0px 0px 0px">
-                    <form action="@Url.Action("Delivery")">
-                        <button class="btnBuy">
-                            <img src="~/images/Buy.png" />
-                            <span>Оформити замовлення</span>
-                        </button>
-                    </form>
-                </div>
+                @if (Model.Count > 0)
+                {
+                    <div id="buyBtn" style="margin: 57px 0px 0px 0px">
+                        <form action="@Url.Action("Delivery")">
+                            <button class="btnBuy">
+                                <img src="~/images/Buy.png" />
+                                <span>Оформити замовлення</span>
+                            </button>
+                        </form>
+                    </div>
+                }
             </div>
         </td>
         <td class="rightIndexPanel" style="width:60%;">
             <div style="background:#DCDEFF;">
-                @if (Model.Count == 0)
-                { <div style = "width: 100%; font-size: 30px; text-align: center; padding: 30% 30% 0 30%; font-weight: bold; color: #504593;"> Корзина пуста</div> }
+                @if (Model == null || Model.Count == 0)
+                {<div id="emptyCart" style="width: 100%; font-size: 30px; text-align: center; padding: 30% 30% 0 30%; font-weight: bold; color: #504593;"> Корзина пуста</div> }
                 else
                 {
                     @Html.Partial("_CartListItem", Model)

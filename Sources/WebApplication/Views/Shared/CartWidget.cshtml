@@ -4,17 +4,19 @@
     }
 </script>
 @if (@ViewData["CartWidgetPrice"] == null) { 
-<div>
+<div id="cartWidgetEmpty">
     <div>Ваша корзина пуста</div>
     <img src="~/images/Cart/CartWidgetEmptyBig.png" />
 </div>
 }
 else {
+<div id="cartWidgetValue">
     <div onclick="ReturnToCart()">
         Переглянути
     </div>
     <div>
         <span id="cartWidgetPrice">@ViewData["CartWidgetPrice"]</span> грн.
     </div>
+</div>
 }
     

@@ -22,7 +22,7 @@ namespace WebApplication.Classes
                 case "156":
                     return EkCarTypeEnum.Moto;
                 case "99022":
-                    return EkCarTypeEnum.Special;
+                    return EkCarTypeEnum.Special;               
                 default:
                     return EkCarTypeEnum.Car;
             }

@@ -235,6 +235,10 @@ namespace WebApplication.Controllers
         public IActionResult ShowMainView(string topCategoryId)
         {
             _topCategoryCarType = new EkSiteFactory().GetCarTypeEnum(topCategoryId);
+            if (topCategoryId == "99193" || topCategoryId== "18554") {
+                var tempC = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == topCategoryId).FirstOrDefault().Children;
+                return View("_AutoPartsTree", new RightTreeViewModel() { ProductCategoryList = tempC });
+            }
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
             return View("_CarTree", new RightTreeViewModel() { ManufacturerList = carTree });
         }

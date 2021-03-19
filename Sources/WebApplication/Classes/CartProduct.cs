@@ -9,11 +9,6 @@ namespace WebApplication.Classes
     public class CartProduct
     {
         public EkProduct Product { get; set; }
-        public int Quantity { get; set; }
-        public CartProduct(EkProduct product, int quantity)
-        {
-            Product = product;
-            Quantity = quantity;
-        }
+        public int Quantity { get; set; }        
     }
 }

@@ -21,12 +21,10 @@ using KioskBrains.Server.Domain.Helpers.Dates;
 using WebApplication.NovaPoshtaUkraine.Models;
 using System.Net.Http;
 using KioskBrains.Common.EK.Transactions;
-using KioskBrains.Clients.AllegroPl.Models;
 using System.Text.Json;
 using KioskBrains.Server.Domain.Entities.DbStorage;
 using KioskBrains.Clients.Ek4Car.Models;
-using KioskBrains.Server.EK.Integration.Jobs;
-using KioskBrains.Clients.Ek4Car;
+using CustomCartProduct = WebApplication.Classes.CartProduct;
 
 namespace WebApplication.Controllers
 {
@@ -66,82 +64,120 @@ namespace WebApplication.Controllers
         {
             return View();
         }
-        public IList<EkProduct> AddToCartSession(EkProduct product)
+        public IList<CustomCartProduct> AddToCartSession(CustomCartProduct cartItem)
         {
             var cartListJson = HttpContext.Session.GetString("cartList");
-            IList<EkProduct> cartList = new List<EkProduct>();
+            IList<CustomCartProduct> cartList = new List<CustomCartProduct>();
             if (cartListJson != null)
             {
-                cartList = JsonSerializer.Deserialize<IList<EkProduct>>(cartListJson);
+                cartList = JsonSerializer.Deserialize<IList<WebApplication.Classes.CartProduct>>(cartListJson);
             }
 
-            cartList.Add(product);
+            cartList.Add(cartItem);
 
             HttpContext.Session.SetString("cartList", JsonSerializer.Serialize(cartList));
 
             return cartList;
         }
-        public IList<EkProduct> GetCartProducts()
+        public IList<CustomCartProduct> GetCartProducts()
         {
             var cartListJson = HttpContext.Session.GetString("cartList");
-            IList<EkProduct> cartList = new List<EkProduct>();
+            IList<WebApplication.Classes.CartProduct> cartList = new List<WebApplication.Classes.CartProduct>();
             if (cartListJson != null)
             {
-                cartList = JsonSerializer.Deserialize<IList<EkProduct>>(cartListJson);
+                cartList = JsonSerializer.Deserialize<IList<WebApplication.Classes.CartProduct>>(cartListJson);
             }
             return cartList;
         }
         public ActionResult EditCartItemQuantity(string cartItemId, string quantity)
         {   
-            IList<EkProduct> cartList = GetCartProducts();
-            decimal totalPrice = cartList.Where(x => x.SourceId == cartItemId).Select(x => x.Price).FirstOrDefault() * Convert.ToInt32(quantity);
-            return Json(totalPrice);
+            IList<CustomCartProduct> cartList = GetCartProducts();
+            cartList.Where(w => w.Product.SourceId == cartItemId).ToList().ForEach(s => s.Quantity = Convert.ToInt32(quantity));
+
+            decimal tempAllPrice = 0;
+            foreach (var item in cartList)
+            {
+                tempAllPrice += item.Product.Price * item.Quantity;
+            }
+            HttpContext.Session.SetString("cartList", JsonSerializer.Serialize(cartList));
+            HttpContext.Session.SetString("cartWidgetPrice", tempAllPrice.ToString());
+            ViewData["CartWidgetPrice"] = tempAllPrice;
+            return View("CartViewInner", cartList);
         }
         public ActionResult DeleteProductFromCart(string cartItemId) {
-            IList<EkProduct> cartList123 = GetCartProducts();
+            IList<CustomCartProduct> cartList123 = GetCartProducts();
 
-            cartList123.Remove(cartList123.Where(x => x.SourceId == cartItemId).FirstOrDefault());
+            cartList123.Remove(cartList123.Where(x => x.Product.SourceId == cartItemId).FirstOrDefault());
+            HttpContext.Session.SetString("cartList", JsonSerializer.Serialize(cartList123));
+            if (cartList123.Count > 0)
+            {
+                decimal tempAllPrice = 0;
+                foreach (var item in cartList123)
+                {
+                    tempAllPrice += item.Product.Price * item.Quantity;
+                }
+                HttpContext.Session.SetString("cartWidgetPrice", tempAllPrice.ToString());
+                ViewData["CartWidgetPrice"] = tempAllPrice;
+                new CartWidgetController().CartWidget();
+            }
+            else {
+                HttpContext.Session.Remove("cartWidgetPrice");
+                ViewData["CartWidgetPrice"] = null;
+                new CartWidgetController().CartWidget();
+            }
             HttpContext.Session.SetString("cartList", JsonSerializer.Serialize(cartList123));
             return View("CartViewInner", cartList123);
+
+            
         }
 
-        public ActionResult CartView(string selectedProductId=null, string carManufactureName = null, string carModel = null, string mainCategoryId = null, string mainCategoryName = null, string subCategoryId = null, string subCategoryName = null, string subChildId = null, string subChildName = null, string partNumber = null)
+        public ActionResult CartView(string selectedProductId=null)
         {
+            var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
+            RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
+
+            //set price to CartWidget in left panel
             ViewData["CartWidgetPrice"] = HttpContext.Session.GetString("cartWidgetPrice");
-            if (String.IsNullOrEmpty(selectedProductId) && String.IsNullOrEmpty(partNumber))
+
+            if (String.IsNullOrEmpty(selectedProductId) && String.IsNullOrEmpty(rightTree.PartNumberValue))
             {
                 return View(GetCartProducts());
             }
-            ViewBag.RequestParams = "?carManufactureName=" + carManufactureName + "&carModel=" + carModel + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
-                "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName;
-            if (!String.IsNullOrEmpty(partNumber))
-            {
-                ViewBag.RequestParams = "?partNumber=" + partNumber;
-            }
-            var productList = HttpContext.Session.GetString("productList");
+            //======================= START -- RETURN TO LIST PARAMS ----------- =================
+            ViewBag.RequestParams = "?carManufactureName=" + rightTree.ManufacturerSelected + "&carModel=" + rightTree.ModelSelected + "&mainCategoryId=" + rightTree.MainCategoryId +"&mainCategoryName=" + rightTree.MainCategoryName +
+                "&subCategoryId=" + rightTree.SubCategoryId + "&subCategoryName=" + rightTree.SubCategoryName + "&subChildId=" + rightTree.SubChildCategoryId + "&subChildName=" + rightTree.SubChildCategoryName;
 
+            if (!String.IsNullOrEmpty(rightTree.PartNumberValue))
+            {
+                ViewBag.RequestParams = "?partNumber=" + rightTree.PartNumberValue;
+            }
+            //======================= END -- RETURN TO LIST PARAMS ----------- =================
+
+            var productList = HttpContext.Session.GetString("productList");
             EkProduct[] list10Products = JsonSerializer.Deserialize<EkProduct[]>(productList);
-            EkProduct cartProduct = list10Products.Where(x => x.SourceId == selectedProductId).FirstOrDefault();
-            IList<EkProduct> cartList = AddToCartSession(cartProduct);
-            var totalCartPrice = cartList.Select(x => x.Price).Sum();
-            HttpContext.Session.SetString("cartWidgetPrice", totalCartPrice.ToString());
-            ViewData["CartWidgetPrice"] = totalCartPrice;
+            EkProduct productTemp = list10Products.Where(x => x.SourceId == selectedProductId).FirstOrDefault();
+
+            CustomCartProduct cartProduct = new CustomCartProduct() { 
+                 Product=productTemp,
+                 Quantity=1
+            };
+
+            IList<CustomCartProduct> cartList = AddToCartSession(cartProduct);
+            decimal tempAllPrice=0;
+            foreach (var item in cartList)
+            {
+                tempAllPrice += item.Product.Price * item.Quantity;
+            }
+
+
+            HttpContext.Session.SetString("cartWidgetPrice", tempAllPrice.ToString());
+            ViewData["CartWidgetPrice"] = tempAllPrice;
             CartWidgetController cartWidget = new CartWidgetController();
             cartWidget.CartWidget();
             return View(cartList);
 
         }
-        public class CartProduct
-        {
-            public Product Product { get; set; }
-            public int Quantity { get; set; }
-        }
-        public IList<CartProduct> Products
-        {
-            get {
-                return new List<CartProduct>();
-            }
-        }
+        
         [HttpPost]
         public ActionResult Submit(string selectedDepartment)
         {
@@ -180,23 +216,15 @@ namespace WebApplication.Controllers
             tempTransactions.TotalPriceCurrencyCode = "UAH";
 
             var cartListJson = HttpContext.Session.GetString("cartList");
-            IList<EkProduct> cartList = new List<EkProduct>();
+            IList<WebApplication.Classes.CartProduct> cartList = new List<WebApplication.Classes.CartProduct>();
             if (cartListJson != null)
             {
-                cartList = JsonSerializer.Deserialize<IList<EkProduct>>(cartListJson);
+                cartList = JsonSerializer.Deserialize<IList<WebApplication.Classes.CartProduct>>(cartListJson);
             }
 
 
-            var cartProducts = Products
-                .Select(x => new
-                {
-                    x.Product,
-                    x.Quantity,
-                })
-                .ToArray();
-
             var transactionProducts = cartList
-                .Select(x => EkTransactionProduct.FromProduct(x, x.Description, 1))
+                .Select(x => EkTransactionProduct.FromProduct(x.Product, x.Product.Description, x.Quantity))
                 .ToArray();
 
             tempTransactions.SetProducts(transactionProducts);
@@ -210,8 +238,8 @@ namespace WebApplication.Controllers
             var apiEkTransaction = JsonSerializer.Deserialize<KioskBrains.Common.EK.Transactions.EkTransaction>(serialize);
             var ekTransaction = KioskBrains.Server.Domain.Entities.EK.EkTransaction.FromApiModel(116, DateTime.Now, apiEkTransaction);
             ekTransaction.IsSentToEkSystem = false;
-            _dbContext.EkTransactions.Add(ekTransaction);
-            await _dbContext.SaveChangesAsync();
+            //_dbContext.EkTransactions.Add(ekTransaction);
+            //await _dbContext.SaveChangesAsync();
             
             return ekTransaction;
         }
