@@ -14,5 +14,12 @@ namespace WebApplication.Models
         public AreasSearchItem SelectedArea { get; set; }
         public WarehouseSearchItem SelectedCity { get; set; }
         public WarehouseSearchItem SelectedDepartment { get; set; }
+
+        public string CustomerFullName { get; set; }
+        public string CustomerPhoneNumber { get; set; }
+        public bool isCourier { get; set; }
+
+        public string City { get; set; }
+        public string Address { get; set; }
     }
 }

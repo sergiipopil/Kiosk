@@ -179,41 +179,37 @@ namespace WebApplication.Controllers
         }
         
         [HttpPost]
-        public ActionResult Submit(string selectedDepartment)
+        public ActionResult Submit(string customerFullName, string customerPhoneNumber, string selectedCity, string selectedDepartment, string inputCity, string inputAddress)
         {
-            var transac = TestInsertDB().Result;           
-            return View(selectedDepartment);
+            var ordered = MakeOrder(customerFullName, customerPhoneNumber, selectedCity, selectedDepartment).Result;
+            ClearAllSessions();
+            return Json("Finish");
         }
+        private async Task<KioskBrains.Server.Domain.Entities.EK.EkTransaction> MakeOrder(string customerFullUserName, string customerPhoneNumber, string selectedCity=null, string selectedDepartment = null, string inputCity = null, string inputStreet = null) {
+            KioskBrains.Common.EK.Transactions.EkTransaction eKTransactions = new KioskBrains.Common.EK.Transactions.EkTransaction();
 
-        
-        
-        private async Task<KioskBrains.Server.Domain.Entities.EK.EkTransaction> TestInsertDB() {
-            KioskBrains.Common.EK.Transactions.EkTransaction tempTransactions = new KioskBrains.Common.EK.Transactions.EkTransaction();
-            var productList = HttpContext.Session.GetString("productList");
-
-            tempTransactions.SetCustomerInfo(new EkCustomerInfo()
+            eKTransactions.SetCustomerInfo(new EkCustomerInfo()
             {
-                FullName = "SITE ORDER",
-                Phone = "+380678040010"//PhoneNumberHelper.GetCleanedPhoneNumber(_phoneNumberStepData.PhoneNumber),
+                FullName = customerFullUserName,
+                Phone = customerPhoneNumber,
             });
-            var deliveryValueBuilder = new StringBuilder();
-            deliveryValueBuilder.Append("Самовывоз, Новая Почта");
             var ekDeliveryInfo = new EkDeliveryInfo
             {
-                Type = EkDeliveryTypeEnum.DeliveryServiceStore,//_deliveryInfoStepData.Type ?? EkDeliveryTypeEnum.Courier,
-                DeliveryService = EkDeliveryServiceEnum.NovaPoshtaUkraine,//_deliveryInfoStepData.DeliveryService,
-                StoreId = "1",
+                Type = String.IsNullOrEmpty(inputCity) ? EkDeliveryTypeEnum.DeliveryServiceStore : EkDeliveryTypeEnum.Courier,
+                DeliveryService = null, // String.IsNullOrEmpty(inputCity) ? EkDeliveryServiceEnum.NovaPoshtaUkraine : null,
+                StoreId = "0",
                 Address = new EkTransactionAddress()
                 {
-                    City = "Дрогобич",
-                    AddressLine1 = "Адреса в Дрогобичі",
-                }
+                    City = String.IsNullOrEmpty(inputCity) ? selectedCity : inputCity,
+                    AddressLine1 = String.IsNullOrEmpty(inputCity) ? selectedDepartment : inputStreet,
+                }                
             };
+            if (String.IsNullOrEmpty(inputCity))
+            {
+                ekDeliveryInfo.DeliveryService = EkDeliveryServiceEnum.NovaPoshtaUkraine;
+            }
 
-            tempTransactions.SetDeliveryInfo(ekDeliveryInfo);
-
-            tempTransactions.TotalPrice = 777;
-            tempTransactions.TotalPriceCurrencyCode = "UAH";
+            eKTransactions.SetDeliveryInfo(ekDeliveryInfo);
 
             var cartListJson = HttpContext.Session.GetString("cartList");
             IList<WebApplication.Classes.CartProduct> cartList = new List<WebApplication.Classes.CartProduct>();
@@ -222,19 +218,24 @@ namespace WebApplication.Controllers
                 cartList = JsonSerializer.Deserialize<IList<WebApplication.Classes.CartProduct>>(cartListJson);
             }
 
-
             var transactionProducts = cartList
                 .Select(x => EkTransactionProduct.FromProduct(x.Product, x.Product.Description, x.Quantity))
                 .ToArray();
 
-            tempTransactions.SetProducts(transactionProducts);
-            tempTransactions.ReceiptNumber = "132-25";
-            tempTransactions.CompletionStatus = KioskBrains.Common.Transactions.TransactionCompletionStatusEnum.Success;
-            tempTransactions.Status = KioskBrains.Common.Transactions.TransactionStatusEnum.Completed;
-            tempTransactions.UniqueId = $"{Guid.NewGuid():N}{Guid.NewGuid():N}";
-            tempTransactions.LocalStartedOn = DateTime.Now;
-            var serialize = Newtonsoft.Json.JsonConvert.SerializeObject(tempTransactions);
-            var tempser = new StringContent(serialize, Encoding.UTF8, "application/json");
+            foreach (var item in cartList)
+            {
+                eKTransactions.TotalPrice += item.Product.Price * item.Quantity;
+            }
+
+            eKTransactions.TotalPriceCurrencyCode = "UAH";
+            eKTransactions.SetProducts(transactionProducts);
+
+            eKTransactions.ReceiptNumber = $"{116}-{DateTime.Now:yyyyMMddHHmm}" ;
+            eKTransactions.CompletionStatus = KioskBrains.Common.Transactions.TransactionCompletionStatusEnum.Success;
+            eKTransactions.Status = KioskBrains.Common.Transactions.TransactionStatusEnum.Completed;
+            eKTransactions.UniqueId = $"{Guid.NewGuid():N}{Guid.NewGuid():N}";
+            eKTransactions.LocalStartedOn = DateTime.Now;
+            var serialize = Newtonsoft.Json.JsonConvert.SerializeObject(eKTransactions);           
             var apiEkTransaction = JsonSerializer.Deserialize<KioskBrains.Common.EK.Transactions.EkTransaction>(serialize);
             var ekTransaction = KioskBrains.Server.Domain.Entities.EK.EkTransaction.FromApiModel(116, DateTime.Now, apiEkTransaction);
             ekTransaction.IsSentToEkSystem = false;
@@ -256,7 +257,12 @@ namespace WebApplication.Controllers
             };
             return area == null && city == null ? (ActionResult)View(npView) : Json(npView);
         }
-
+        public void ClearAllSessions() {
+            HttpContext.Session.Remove("cartWidgetPrice");
+            HttpContext.Session.Remove("cartList");
+            HttpContext.Session.Remove("rightTreeViewModel");
+            HttpContext.Session.Remove("productList");
+        }
         public ActionResult Cities(string area)
         {
             var allData = _novaPoshtaClient.GetDataFromFile();

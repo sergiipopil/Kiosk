@@ -80,15 +80,26 @@ function showDeliveryFields(divName) {
 
 
         function submit() {
-            console.log("submit");
             $.ajax({
                 type: "POST",
                 url:'@Url.Action("Submit", "Product")',
                 //data:"",
-                data: { selectedDepartment: $('#cbDepartment').val()},
+                data: {
+                    customerFullName: $('#txtFullUserName').val(),
+                    customerPhoneNumber: $('#txtBuyerPhone').val(),                    
+                    selectedCity: $('#cbCity').val(),
+                    selectedDepartment: $('#cbDepartment').val(),
+                    inputCity: $('#txtCustomCity').val(),
+                    inputAddress: $('#txtCustomAddress').val(),
+                },
                 success: function (data) {
-                    Disable(id, data);
-                    //alert("Cool");
+                    $("#deliveryControls").hide();
+                    $("#divSuccessOrder").show();
+                    //setTimeout(function () {
+                    //    window.location.href = '/Home/Index/';
+                    //}, 5000);
+                    
+
                 }
             });
         }
@@ -101,7 +112,7 @@ function showDeliveryFields(divName) {
 <body>
     <div style="color:white; background: #504593; border-radius: 10px; padding: 10px;">
         <form method="post">
-            <table>
+            <table id="deliveryControls">
                 <tr>
                     <td style="vertical-align:top; border-right: 1px solid white; padding-right: 20px; width:30%;">
                         <div style="text-align:center;">
@@ -114,31 +125,42 @@ function showDeliveryFields(divName) {
                                     <img src="~/images/Delivery/Courier.png" />
                                 </div>
                                 <div style="font-size: 22px; text-align: center;">
-                                    Доставка курьером
+                                    Доставка кур`єром
                                 </div>
                             </div>
                         </div>
                     </td>
                     <td style="vertical-align:top;padding-top:20px;padding-left:20px;">
-                        <input type="text" placeholder="Прізвище та ім`я" class="form-control" aria-label="Default">
-                        <input type="text" placeholder="Мобільний номер" id="txtBuyerPhone" class="form-control" aria-label="Default" maxlength="12">
+                        @Html.TextBoxFor(model => model.CustomerFullName, Model.CustomerFullName, new { @id = "txtFullUserName", @class = "form-control", @placeholder = "- Ваше ім`я та прізвище -", @style = "color: black;" })
+                        @Html.TextBoxFor(model => model.CustomerPhoneNumber, Model.CustomerPhoneNumber, new { @id = "txtBuyerPhone", @class = "form-control", @maxlength = "12", @placeholder = "- Ваш мобільний номер -", @style = "color: black;" })
+                        @*<input type="text" placeholder="Прізвище та ім`я" class="form-control" aria-label="Default">
+        <input type="text" placeholder="Мобільний номер" id="txtBuyerPhone" class="form-control" aria-label="Default" maxlength="12">*@
 
-                        <div id="nova" style="display:none;">
+                        <div id="nova" style="display:none;padding:10px 0px;">
+                            <div>Вкажіть дані відділення доставки службою Нова Пошта</div>
                             @Html.DropDownListFor(model => model.SelectedArea, new SelectList(Model.Areas, "Description", "Description"), " - Виберіть область - ", new { @id = "cbArea", @style = "color: black;width:100%;", @class = "form-control selectpicker", @onchange = "onAreaChanged()" })
                             @Html.DropDownListFor(model => model.SelectedCity, new SelectList(Model.Cities, "Description", "Description"), " - Виберіть місто - ", new { @id = "cbCity", @style = "color: black;width:100%;", @class = "form-control", @onchange = "onCityChanged()" })
                             @Html.DropDownListFor(model => model.SelectedDepartment, new SelectList(Model.Departments, "Description", "Description"), " - Виберіть відділення - ", new { @id = "cbDepartment", @style = "color: black;width:100%;", @class = "form-control" })
-
-                            <div style="background:red" onclick="submit()">Submit</div>
-
+                            <div style="color:#ff9120;text-align:center;padding-top:20px;">При підтверджені замовлення Ви отримаєте смс на свій мобільний номер з посиланням на оплату рахунку в системі LiqPay</div>
+                            <div onclick="submit()" style="text-align:center;padding:20px;color: white; font-size: 16px;"><button class="btnBuyCart">Підвтердити замовлення</button></div>
                         </div>
-                        <div id="courier" style="display:none;">
-                            Delivery by courier
+                        <div id="courier" style="display:none;padding:10px 0px;">
+                            <div>Вкажіть дані для кур`єрської доставки</div>
+                            @Html.TextBoxFor(model => model.CustomerFullName, Model.CustomerFullName, new { @id = "txtCustomCity", @class = "form-control", @placeholder = "- Ваше місто -", @style = "color: black;" })
+                            @Html.TextBoxFor(model => model.CustomerPhoneNumber, Model.CustomerPhoneNumber, new { @id = "txtCustomAddress", @class = "form-control", @maxlength = "12", @placeholder = "- Ваша адреса -", @style = "color: black;" })
+                            <div style="color:#ff9120;text-align:center;padding-top:20px;">При підтверджені замовлення Ви отримаєте смс на свій мобільний номер з посиланням на оплату рахунку в системі LiqPay</div>
+                            <div onclick="submit()" style="text-align:center;padding:20px;color: white; font-size: 16px;"><button class="btnBuyCart">Підвтердити замовлення</button></div>
                         </div>
+                        
                     </td>
                 </tr>
             </table>
+            <div id="divSuccessOrder" style="width: 100%; font-size: 30px; text-align: center; padding: 0% 30% 0 30%; font-weight: bold; color: white; display:none;">
+               <div><img src="~/images/ok-icon.png" style="margin:5%;" /></div><div style="margin:5%;">Дякуємо за замовлення, очікуйте смс з даними про оплату</div>
+            </div>
         </form>
     </div>
+    
     <script type="text/javascript">
         $(document).ready(function () {
             $("#txtBuyerPhone").mask("+38 (999) 999-99-99");

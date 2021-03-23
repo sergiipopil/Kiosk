@@ -33,7 +33,9 @@ for details on configuring this project to bundle and minify static web assets. 
         background: white;
         color: black;
     }
-
+.form-control {
+    margin:5px 0px;
+}
 .deliveryBoxDesign {
     border: 2px solid white;
     padding: 20px;
