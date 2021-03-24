@@ -181,9 +181,9 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Submit(string customerFullName, string customerPhoneNumber, string selectedCity, string selectedDepartment, string inputCity, string inputAddress)
         {
-            var ordered = MakeOrder(customerFullName, customerPhoneNumber, selectedCity, selectedDepartment).Result;
+            var ordered = MakeOrder(customerFullName, customerPhoneNumber, selectedCity, selectedDepartment, inputCity, inputAddress).Result;
             ClearAllSessions();
-            return Json("Finish");
+            return Json(customerFullName);
         }
         private async Task<KioskBrains.Server.Domain.Entities.EK.EkTransaction> MakeOrder(string customerFullUserName, string customerPhoneNumber, string selectedCity=null, string selectedDepartment = null, string inputCity = null, string inputStreet = null) {
             KioskBrains.Common.EK.Transactions.EkTransaction eKTransactions = new KioskBrains.Common.EK.Transactions.EkTransaction();
@@ -229,15 +229,14 @@ namespace WebApplication.Controllers
 
             eKTransactions.TotalPriceCurrencyCode = "UAH";
             eKTransactions.SetProducts(transactionProducts);
-
-            eKTransactions.ReceiptNumber = $"{116}-{DateTime.Now:yyyyMMddHHmm}" ;
+            eKTransactions.ReceiptNumber = $"{ HttpContext.Session.GetString("kioskId")}-{DateTime.Now:yyyyMMddHHmm}" ;
             eKTransactions.CompletionStatus = KioskBrains.Common.Transactions.TransactionCompletionStatusEnum.Success;
             eKTransactions.Status = KioskBrains.Common.Transactions.TransactionStatusEnum.Completed;
             eKTransactions.UniqueId = $"{Guid.NewGuid():N}{Guid.NewGuid():N}";
             eKTransactions.LocalStartedOn = DateTime.Now;
             var serialize = Newtonsoft.Json.JsonConvert.SerializeObject(eKTransactions);           
             var apiEkTransaction = JsonSerializer.Deserialize<KioskBrains.Common.EK.Transactions.EkTransaction>(serialize);
-            var ekTransaction = KioskBrains.Server.Domain.Entities.EK.EkTransaction.FromApiModel(116, DateTime.Now, apiEkTransaction);
+            var ekTransaction = KioskBrains.Server.Domain.Entities.EK.EkTransaction.FromApiModel(Convert.ToInt32(HttpContext.Session.GetString("kioskId")), DateTime.Now, apiEkTransaction);
             ekTransaction.IsSentToEkSystem = false;
             //_dbContext.EkTransactions.Add(ekTransaction);
             //await _dbContext.SaveChangesAsync();

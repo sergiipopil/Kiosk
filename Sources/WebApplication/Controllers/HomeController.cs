@@ -38,13 +38,7 @@ namespace WebApplication.Controllers
         private readonly CentralBankExchangeRateManager _centralBankExchangeRateManager;
         private IOptions<YandexTranslateClientSettings> _yandexSettings;
 
-        public class Phone
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-        }
-        List<Phone> phones;
-       
+             
         public HomeController(ILogger<AllegroPlClient> logger,
             IOptions<AllegroPlClientSettings> settings,
             IOptions<YandexTranslateClientSettings> yandexApiClientSettings,
@@ -59,173 +53,13 @@ namespace WebApplication.Controllers
                 logger);
             _translateService = translateService;
             _centralBankExchangeRateManager = centralBankExchangeRateManager;
-            phones = new List<Phone>();
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 9, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 10, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 11, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 12, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 13, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 14, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 15, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 16, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 17, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 18, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 19, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-            phones.Add(new Phone { Id = 1, Name = "Samsung Galaxi" });
-            phones.Add(new Phone { Id = 2, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 3, Name = "Samsung Galaxi II" });
-            phones.Add(new Phone { Id = 4, Name = "Samsung ACE" });
-            phones.Add(new Phone { Id = 5, Name = "Samsung ACE II" });
-            phones.Add(new Phone { Id = 6, Name = "HTC One S" });
-            phones.Add(new Phone { Id = 7, Name = "HTC One X" });
-            phones.Add(new Phone { Id = 8, Name = "Nokia N9" });
-
         }
 
 
         public IActionResult Index()
         {
+            var kioskId = "111";
+            HttpContext.Session.SetString("kioskId", kioskId==null ? "116" : kioskId);
             ViewData["CartWidgetPrice"] = HttpContext.Session.GetString("cartWidgetPrice");
             _topCategoryCarType = EkCarTypeEnum.Car;
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == EkCarTypeEnum.Car).Select(x => x.Manufacturers).FirstOrDefault();
