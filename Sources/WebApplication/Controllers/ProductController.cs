@@ -238,8 +238,8 @@ namespace WebApplication.Controllers
             var apiEkTransaction = JsonSerializer.Deserialize<KioskBrains.Common.EK.Transactions.EkTransaction>(serialize);
             var ekTransaction = KioskBrains.Server.Domain.Entities.EK.EkTransaction.FromApiModel(Convert.ToInt32(HttpContext.Session.GetString("kioskId")), DateTime.Now, apiEkTransaction);
             ekTransaction.IsSentToEkSystem = false;
-            //_dbContext.EkTransactions.Add(ekTransaction);
-            //await _dbContext.SaveChangesAsync();
+            _dbContext.EkTransactions.Add(ekTransaction);
+            await _dbContext.SaveChangesAsync();
             
             return ekTransaction;
         }

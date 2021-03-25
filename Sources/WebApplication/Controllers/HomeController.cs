@@ -56,9 +56,8 @@ namespace WebApplication.Controllers
         }
 
 
-        public IActionResult Index()
+        public IActionResult Index(string kioskId)
         {
-            var kioskId = "111";
             HttpContext.Session.SetString("kioskId", kioskId==null ? "116" : kioskId);
             ViewData["CartWidgetPrice"] = HttpContext.Session.GetString("cartWidgetPrice");
             _topCategoryCarType = EkCarTypeEnum.Car;
