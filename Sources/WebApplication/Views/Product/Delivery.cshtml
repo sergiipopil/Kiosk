@@ -85,8 +85,8 @@ function showDeliveryFields(divName) {
                 url:'@Url.Action("Submit", "Product")',
                 //data:"",
                 data: {
-                    customerFullName: $('#txtFullUserName').val(),
-                    customerPhoneNumber: $('#txtBuyerPhone').val(),                    
+                    customerFullName: $('#txtSurname').val() + " " + $('#txtUserName').val() + " " + $('#txtUserFather').val(),
+                    customerPhoneNumber: $('#txtBuyerPhone').val(),
                     selectedCity: $('#cbCity').val(),
                     selectedDepartment: $('#cbDepartment').val(),
                     inputCity: $('#txtCustomCity').val(),
@@ -95,10 +95,10 @@ function showDeliveryFields(divName) {
                 success: function (data) {
                     $("#deliveryControls").hide();
                     $("#divSuccessOrder").show();
-                    setTimeout(function () {
-                        window.location.href = '/Home/Index/';
-                    }, 5000);
-                    
+                    //setTimeout(function () {
+                    //    window.location.href = '/Home/Index/';
+                    //}, 5000);
+
 
                 }
             });
@@ -110,56 +110,83 @@ function showDeliveryFields(divName) {
     <title></title>
 </head>
 <body>
-    <div style="color:white; background: #504593; border-radius: 10px; padding: 10px;" id="deliveryControls">
+    <div style="background: #504593; color:white; padding: 10px 10px 30px 0px;margin-top:40px;" id="deliveryControls">
+        <div style="text-align:center;padding-bottom:10px;"><h1>Оформлення замовлення</h1></div>
         <form method="post">
-            <table>
-                <tr>
-                    <td style="vertical-align:top; border-right: 1px solid white; padding-right: 20px; width:30%;">
-                        <div style="text-align:center;">
-                            <div tabindex="1" id="divBtnNova" class="deliveryBoxDesign" onclick="showDeliveryFields('#nova')">
-                                <div><img src="~/images/Delivery/NovaPoshtaUkraine.png" /></div>
-                                <div style="font-size: 22px; text-align: center;">Нова Пошта</div>
-                            </div>
-                            <div tabindex="2" id="divBtnCourier" class="deliveryBoxDesign" onclick="showDeliveryFields('#courier')">
-                                <div>
-                                    <img src="~/images/Delivery/Courier.png" />
+            <div class="row" style="padding-top:60px;">
+                <div class="col-md-5" style="padding: 30px;">
+                    <table style="width:100%;">
+                        <tr>
+                            <td style="vertical-align:top;">
+                                <div style="padding:0px 20px 20px 20px;">
+                                    <div style="text-align:center;"><h3>Ваші контактні дані</h3></div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <input id="txtUserName" class="form-control" placeholder="* Ім`я" style="color: black;" />
+                                            <input id="txtUserFather" class="form-control" placeholder="* По батькові" style="color: black;" />
+                                        </div>
+                                        <div class="col">
+                                            <input id="txtSurname" class="form-control" placeholder="* Прізвище" style="color: black;" />
+                                            <input id="txtBuyerPhone" class="form-control" placeholder="* Ваш мобільний номер" style="color: black;" maxlength="12" />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div style="font-size: 22px; text-align: center;">
-                                    Доставка кур`єром
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align:top;padding-top:20px;">
+                                <div style="padding: 0px 20px 20px 20px;">
+                                    <div style="text-align:center;padding-bottom:40px;">
+                                        <h3>Виберіть тип доставки</h3>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div tabindex="1" id="divBtnNova" class="deliveryBoxDesign" onclick="showDeliveryFields('#nova')">
+                                                <div class="inline-block"><img src="~/images/Delivery/NovaPoshtaUkraine.png" style="width:60px;" /></div>
+                                                <div class="inline-block" style="font-size: 20px; text-align: center;">Нова Пошта</div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div tabindex="2" id="divBtnCourier" class="deliveryBoxDesign" onclick="showDeliveryFields('#courier')">
+                                                <div class="inline-block">
+                                                    <img src="~/images/Delivery/Courier.png" style="width:60px;" />
+                                                </div>
+                                                <div class="inline-block" style="font-size: 20px; text-align: center;">
+                                                    Доставка кур`єром
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="nova" style="display:none;padding:40px 0px 0px 0px;">
+                                        @Html.DropDownListFor(model => model.SelectedArea, new SelectList(Model.Areas, "Description", "Description"), " - Виберіть область - ", new { @id = "cbArea", @style = "color: black;width:100%;", @class = "form-control selectpicker", @onchange = "onAreaChanged()" })
+                                        @Html.DropDownListFor(model => model.SelectedCity, new SelectList(Model.Cities, "Description", "Description"), " - Виберіть місто - ", new { @id = "cbCity", @style = "color: black;width:100%;", @class = "form-control", @onchange = "onCityChanged()" })
+                                        @Html.DropDownListFor(model => model.SelectedDepartment, new SelectList(Model.Departments, "Description", "Description"), " - Виберіть відділення - ", new { @id = "cbDepartment", @style = "color: black;width:100%;", @class = "form-control" })
+                                        <div onclick="submit()" class="btnOrder">Підтвердити замовлення</div>
+                                    </div>
+                                    <div id="courier" style="display:none;padding:40px 0px 0px 0px;">
+                                        <div>Вкажіть дані для кур`єрської доставки</div>
+                                        @Html.TextBoxFor(model => model.CustomerFullName, Model.CustomerFullName, new { @id = "txtCustomCity", @class = "form-control", @placeholder = "- Ваше місто -", @style = "color: black;" })
+                                        @Html.TextBoxFor(model => model.CustomerPhoneNumber, Model.CustomerPhoneNumber, new { @id = "txtCustomAddress", @class = "form-control", @maxlength = "12", @placeholder = "- Ваша адреса -", @style = "color: black;" })
+                                        <div onclick="submit()" class="btnOrder">Підтвердити замовлення</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </td>
-                    <td style="vertical-align:top;padding-top:20px;padding-left:20px;">
-                        @Html.TextBoxFor(model => model.CustomerFullName, Model.CustomerFullName, new { @id = "txtFullUserName", @class = "form-control", @placeholder = "- Ваше ім`я та прізвище -", @style = "color: black;" })
-                        @Html.TextBoxFor(model => model.CustomerPhoneNumber, Model.CustomerPhoneNumber, new { @id = "txtBuyerPhone", @class = "form-control", @maxlength = "12", @placeholder = "- Ваш мобільний номер -", @style = "color: black;" })
-                        @*<input type="text" placeholder="Прізвище та ім`я" class="form-control" aria-label="Default">
-                            <input type="text" placeholder="Мобільний номер" id="txtBuyerPhone" class="form-control" aria-label="Default" maxlength="12">*@
-
-                        <div id="nova" style="display:none;padding:10px 0px;">
-                            <div>Вкажіть дані відділення доставки службою Нова Пошта</div>
-                            @Html.DropDownListFor(model => model.SelectedArea, new SelectList(Model.Areas, "Description", "Description"), " - Виберіть область - ", new { @id = "cbArea", @style = "color: black;width:100%;", @class = "form-control selectpicker", @onchange = "onAreaChanged()" })
-                            @Html.DropDownListFor(model => model.SelectedCity, new SelectList(Model.Cities, "Description", "Description"), " - Виберіть місто - ", new { @id = "cbCity", @style = "color: black;width:100%;", @class = "form-control", @onchange = "onCityChanged()" })
-                            @Html.DropDownListFor(model => model.SelectedDepartment, new SelectList(Model.Departments, "Description", "Description"), " - Виберіть відділення - ", new { @id = "cbDepartment", @style = "color: black;width:100%;", @class = "form-control" })
-                            <div style="color:#ff9120;text-align:center;padding-top:20px;">При підтверджені замовлення Ви отримаєте смс на свій мобільний номер з посиланням на оплату рахунку в системі LiqPay</div>
-                            <div onclick="submit()" style="text-align:center;padding:20px;color: white; font-size: 16px;">Підвтердити замовлення</div>
-                        </div>
-                        <div id="courier" style="display:none;padding:10px 0px;">
-                            <div>Вкажіть дані для кур`єрської доставки</div>
-                            @Html.TextBoxFor(model => model.CustomerFullName, Model.CustomerFullName, new { @id = "txtCustomCity", @class = "form-control", @placeholder = "- Ваше місто -", @style = "color: black;" })
-                            @Html.TextBoxFor(model => model.CustomerPhoneNumber, Model.CustomerPhoneNumber, new { @id = "txtCustomAddress", @class = "form-control", @maxlength = "12", @placeholder = "- Ваша адреса -", @style = "color: black;" })
-                            <div style="color:#ff9120;text-align:center;padding-top:20px;">При підтверджені замовлення Ви отримаєте смс на свій мобільний номер з посиланням на оплату рахунку в системі LiqPay</div>
-                            <div onclick="submit()" style="text-align:center;padding:20px;color: white; font-size: 16px;" class="btnBuyCart">Підвтердити замовлення</div>
-                        </div>
-
-                    </td>
-                </tr>
-            </table>
-
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-7" style="padding:30px 0px 0px 60px;">
+                    <div>
+                        @Html.Partial("_OrderItem", Model.CartProducts)
+                    </div>
+                </div>
+            </div>
         </form>
     </div>
-    <div id="divSuccessOrder" style="width: 100%; font-size: 30px; text-align: center; padding: 0% 30% 0 30%; font-weight: bold; color: white; display:none;">
-        <div><img src="~/images/ok-icon.png" style="margin:5%;" /></div><div style="margin:5%;">Дякуємо за замовлення, очікуйте смс з даними про оплату</div>
+    <div id="divSuccessOrder" style="width: 100%; font-size: 50px; text-align: center; padding: 6% 10%; font-weight: bold; color: white; display:none;">
+        <div>Ваше замовлення успішно оформлено!</div>
+        <div><img src="~/images/ok-icon.png" style="margin:5%;" /></div>
+        <span>Дякуємо Вам за замовлення, очікуйте смс на свій мобільний номер з посиланням на оплату рахунку в системі <span style="padding-left:30px;">LiqPay</span></span>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {

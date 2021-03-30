@@ -308,6 +308,9 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             try
             {
                 HtmlWeb web = new HtmlWeb();
+                web.UseCookies = true;
+                web.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.192 Safari/537.36 OPR/74.0.3911.232";
+                
                 HtmlDocument doc = web.Load("http://allegro.pl/oferta/" + id);
                 text = doc.ParsedText;
 

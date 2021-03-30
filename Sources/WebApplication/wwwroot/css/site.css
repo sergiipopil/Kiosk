@@ -33,15 +33,30 @@ for details on configuring this project to bundle and minify static web assets. 
         background: white;
         color: black;
     }
+
 .form-control {
-    margin:5px 0px;
+    margin: 25px 0px;
+    height: 55px !important;
+    font-size: 18px !important;
 }
+
+.bootstrap-select > .dropdown-toggle.bs-placeholder, .bootstrap-select > .dropdown-toggle.bs-placeholder:active, .bootstrap-select > .dropdown-toggle.bs-placeholder:focus, .bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
+    color: black !important;
+    font-size: 18px;
+    height: 55px;
+}
+
+h3 {
+    margin: 20px 0px !important;
+}
+
 .deliveryBoxDesign {
     border: 2px solid white;
-    padding: 20px;
-    margin: 20px;
+    background: whitesmoke;
+    color: #504593;
     box-shadow: 0px 0px 10px white;
     border-radius: 10px;
+    text-align: center;
 }
 
     .deliveryBoxDesign:hover, .deliveryBoxDesign.selected {
@@ -100,32 +115,75 @@ ul.pagination li {
     .quantityBtn:hover {
         color: #6d6bff !important;
         text-decoration: none !important;
-        cursor:pointer;
+        cursor: pointer;
     }
 
 .btnBuy {
     background: #e87619;
     height: 51px;
-    color: #411f0c;
+    color: white;
     width: 80%;
     border: 1px solid #e87619;
 }
 
+.btnBuyNew {
+    background: white;
+    height: 51px;
+    color: #e87619;
+    width: 100%;
+    border: 1px solid #e87619;
+    font-size: 28px;
+}
+
+    .btnBuyNew:hover {
+        box-shadow: 0 0 6px white;
+    }
+
 .btnBuyCart {
     background: #e87619;
     height: 51px;
-    color: #411f0c;
+    color: white;
     width: 40%;
     border: 1px solid #e87619;
+}
+
+.productTitle {
+    font-size: 22px;
+    font-weight: normal;
+    color: #222;
+    font-family: Roboto,sans-serif;
+    text-transform: uppercase;
+    color: black;
 }
 
 .btnBuyList {
     background: linear-gradient(90deg, #e87619, #FFB21D);
     height: 42px;
-    color: #411f0c;
+    color: white;
     width: 100%;
     border: 0px;
 }
+
+.row {
+    margin: 0px !important;
+}
+
+.btnOrder {
+    background: linear-gradient(90deg, #e87619, #FFB21D);
+    font-size: 36px;
+    color: white;
+    width: 100%;
+    border: 0px;
+    text-align: center;
+    cursor: pointer;
+    padding: 10px 0px;
+    margin: 10px 0px;
+}
+
+    .btnOrder:hover {
+        box-shadow: 0 0 6px white;
+        color: #002bff;
+    }
 
 .btnDeleteCartItem {
     border: 1px solid #FFB21D;
@@ -147,7 +205,6 @@ ul.pagination li {
 
 .btnBuy img, .btnBuy span, .btnBuyList img, .btnBuyList span, .btnBuyCart img, .btnDeleteCartItem img, .btnDeleteCartItem span {
     vertical-align: middle;
-    font-weight: bold;
     padding-left: 5px;
 }
 

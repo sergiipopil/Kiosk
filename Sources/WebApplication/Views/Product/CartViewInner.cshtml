@@ -5,20 +5,23 @@
 <table style="min-height: 100vh;min-width:100%;">
     <tr>
         <td style="vertical-align:top;padding-right:4%;">
-            <div style="background:#514593;width:100%;text-align:center;padding:20px 0px;">
-                <span style="color:white;font-size:30px;">У Вас в корзине</span>
-                <div style="padding:10px 0px;">
-                    <div style="display:inline-block;vertical-align:middle;"><img src="~/images/CartWidgetEmpty.png"></div>
+            <div style="background:#514593;width:100%;text-align:center;padding:60px 0px;">
+                <span style="color:white;font-size:30px;">У Вас в кошику</span>
+                <div style="padding:50px 0px;">
+
                     @if (Model != null)
                     {
-                        <div style="font-size:18px;color:white;display:inline-block;vertical-align:middle;">
-                            @foreach (var item in @Model)
-                            {
-                                <label style="font-size:14px;display:block;">
-                                    @item.Product.Name.Last().Value (@item.Quantity шт.)
-                                </label>
-                            }
-                        </div>
+                        @foreach (var item in @Model)
+                        {
+                            <div style="padding:15px 10px;">
+                                <div class="inline-block"><img src="~/images/CartWidgetEmpty.png"></div>
+                                <div class="inline-block">
+                                    <label style="font-size:21px;color:white;">
+                                        @item.Product.Name.Last().Value (@item.Quantity шт.)
+                                    </label>
+                                </div>
+                            </div>
+                        }
                     }
                 </div>
                 <div style="background:#635aa0;height:1px;width:100%;margin-top:15px;"></div>
@@ -30,24 +33,7 @@
                         {@ViewData["CartWidgetPrice"]}
                     </label><label style="font-size:39px;">грн</label>
                 </div>
-                <div id="continueBtn" style="margin: 57px 0px 0px 0px">
-                    <div onclick="backToProductList()">
-                        <button class="btnBuy">
-                            <span>Продовжити покупки</span>
-                        </button>
-                    </div>
-                </div>
-                @if (Model.Count > 0)
-                {
-                    <div id="buyBtn" style="margin: 57px 0px 0px 0px">
-                        <form action="@Url.Action("Delivery")">
-                            <button class="btnBuy">
-                                <img src="~/images/Buy.png" />
-                                <span>Оформити замовлення</span>
-                            </button>
-                        </form>
-                    </div>
-                }
+
             </div>
         </td>
         <td class="rightIndexPanel" style="width:60%;">
@@ -58,6 +44,31 @@
                 {
                     @Html.Partial("_CartListItem", Model)
                 }
+                <table style="width:100%;margin-top:80px;">
+                    <tr>
+                        <td style="padding:0px 20px;">
+                            <div id="continueBtn" class="inline-block" style="width:100%;">
+                                <div onclick="backToProductList()">
+                                    <button class="btnBuyNew">
+                                        <span>Продовжити покупки</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="padding:0px 20px;">
+                            @if (Model.Count > 0)
+                            {
+                                <div id="buyBtn" class="inline-block" style="width:100%;">
+                                    <form action="@Url.Action("Delivery")">
+                                        <button class="btnBuyNew">
+                                            <span>Оформити замовлення</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                </table>
             </div>
         </td>
     </tr>

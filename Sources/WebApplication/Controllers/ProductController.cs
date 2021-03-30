@@ -238,13 +238,15 @@ namespace WebApplication.Controllers
             var apiEkTransaction = JsonSerializer.Deserialize<KioskBrains.Common.EK.Transactions.EkTransaction>(serialize);
             var ekTransaction = KioskBrains.Server.Domain.Entities.EK.EkTransaction.FromApiModel(Convert.ToInt32(HttpContext.Session.GetString("kioskId")), DateTime.Now, apiEkTransaction);
             ekTransaction.IsSentToEkSystem = false;
-            _dbContext.EkTransactions.Add(ekTransaction);
-            await _dbContext.SaveChangesAsync();
+            //_dbContext.EkTransactions.Add(ekTransaction);
+            //await _dbContext.SaveChangesAsync();
             
             return ekTransaction;
         }
         public ActionResult Delivery(string area, string city)
         {
+            IList<CustomCartProduct> cartProducts = GetCartProducts();
+
             ViewData["CartWidgetPrice"] = HttpContext.Session.GetString("cartWidgetPrice");
             var allData = _novaPoshtaClient.GetDataFromFile();
             var areas = allData.Select(x => new AreasSearchItem() { Description = x.AreaDescription, Ref = x.Ref }).GroupBy(x => x.Description).Select(g => g.First()).ToArray();
@@ -252,7 +254,8 @@ namespace WebApplication.Controllers
             {
                 Areas = areas,
                 Cities = string.IsNullOrEmpty(area) ? new List<WarehouseSearchItem>() : allData.Where(x => x.AreaDescription == area).ToList(),
-                Departments = string.IsNullOrEmpty(city) ? new WarehouseSearchItem[0] : GetAllNovaPoshtaCityDepts(city).Result
+                Departments = string.IsNullOrEmpty(city) ? new WarehouseSearchItem[0] : GetAllNovaPoshtaCityDepts(city).Result,
+                CartProducts = cartProducts
             };
             return area == null && city == null ? (ActionResult)View(npView) : Json(npView);
         }
@@ -281,11 +284,10 @@ namespace WebApplication.Controllers
             return result;
         }
 
-        
         // GET: ProductController/Details/5        
         public ActionResult Details(string id)
         {
-            return View(GetProductInfo(id));
+            return View();
         }
         public ProductViewModel GetProductInfo(string id)
         {
