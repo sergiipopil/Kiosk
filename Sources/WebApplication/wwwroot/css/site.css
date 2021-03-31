@@ -35,15 +35,18 @@ for details on configuring this project to bundle and minify static web assets. 
     }
 
 .form-control {
-    margin: 25px 0px;
-    height: 55px !important;
+    margin: 15px 0px;
+    height: 45px !important;
     font-size: 18px !important;
 }
 
 .bootstrap-select > .dropdown-toggle.bs-placeholder, .bootstrap-select > .dropdown-toggle.bs-placeholder:active, .bootstrap-select > .dropdown-toggle.bs-placeholder:focus, .bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
     color: black !important;
     font-size: 18px;
-    height: 55px;
+    height: 45px;
+}
+.bootstrap-select > .dropdown-toggle {
+    height: 45px;
 }
 
 h3 {
@@ -52,16 +55,17 @@ h3 {
 
 .deliveryBoxDesign {
     border: 2px solid white;
-    background: whitesmoke;
+    background: white;
     color: #504593;
-    box-shadow: 0px 0px 10px white;
-    border-radius: 10px;
+    box-shadow: 0px 0px 5px white;
+    border-radius: 5px;
     text-align: center;
+    padding:4px;
 }
 
     .deliveryBoxDesign:hover, .deliveryBoxDesign.selected {
-        box-shadow: 0px 0px 10px yellow;
-        border: 2px solid yellow;
+        box-shadow: 0px 0px 5px #ff5a00;
+        border: 2px solid #ff5a00;
     }
 
 .detailBlock {
@@ -94,8 +98,8 @@ body {
 }
 
 ul.pagination li {
-    padding: 0px 2px;
-    font-size: 16px;
+    padding: 0px 8px;
+    font-size: 20px;
 }
 
 .pagination {
@@ -170,7 +174,7 @@ ul.pagination li {
 
 .btnOrder {
     background: linear-gradient(90deg, #e87619, #FFB21D);
-    font-size: 36px;
+    font-size: 26px;
     color: white;
     width: 100%;
     border: 0px;
@@ -464,7 +468,8 @@ input {
     text-transform: uppercase;
     padding: 6px;
     font-weight: bold;
-    color: #F97008;
+    color: #ff5a00;
+    font-family: Open Sans,sans-serif;
     width: 100%
 }
 

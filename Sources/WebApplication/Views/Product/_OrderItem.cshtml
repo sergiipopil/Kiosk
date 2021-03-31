@@ -4,12 +4,17 @@
 }
 <html>
 <body>
-    <div style="text-align:center;">
+    @*<div class="mainBlockTitle" style="background: #EEEFFF;">
+        <div onclick="ReturnToCart()" style="color: white; padding: 0px 10px; font-weight: normal; border-radius: 10px; font-size: 23px; width:100px; text-transform: capitalize; background: #ff5a00;">
+            <span>Назад</span>
+        </div>
+    </div>*@    
+    <div style="text-align:center;color:#504593;">
         <h3>У Вас в корзині</h3>
     </div>
     @foreach (var item in Model)
     {
-        <div style="background: white; padding: 10px; margin: 45px 20px 20px 0px; border: 1px solid #c1c1c1; border-left: 4px solid blue;min-height:120px;max-height:120px;">
+        <div style="background: white; padding: 10px; margin: 25px 20px 20px 0px; border: 1px solid #c1c1c1; border-left: 4px solid blue;min-height:120px;max-height:120px;">
             <div class="row">
                 <div class="col-lg-2">
                     <div id="imageBlock" class="detailBlock" style="text-align:center;background:white;">
@@ -40,28 +45,21 @@
                                     <span style="font-size:18px;">@item.Product.PriceCurrencyCode</span>
                                 </div>
                             </td>
-                            <td>
-                                <div onclick="deleteProduct('@item.Product.SourceId')">
-                                    <button class="btnDeleteCartItem" style="border:0px;">
-                                        <img src="~/images/Cart/Delete.png" />
-                                    </button>
-                                </div>
-                            </td>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
     }
-<div style="text-align:center;">
-    <label id="mainCartTotalPrice" style="font-size:22px;font-weight:normal;">
-     Загальна сума:
-        @if (@ViewData["CartWidgetPrice"] == null)
-        {<span>0</span> }
-        else
-        {@ViewData["CartWidgetPrice"]}
-    </label><label style="font-size:18px;"> грн</label>
-</div>
+    <div style="text-align:center;color:#504593;">
+        <label id="mainCartTotalPrice" style="font-size:22px;font-weight:normal;">
+            Загальна сума:
+            @if (@ViewData["CartWidgetPrice"] == null)
+            {<span>0</span> }
+            else
+            {@ViewData["CartWidgetPrice"]}
+        </label><label style="font-size:18px;"> грн</label>
+    </div>
     <script>
         function refreshCartItem(idControl) {
             $.ajax({
