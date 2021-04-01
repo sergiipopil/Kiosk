@@ -1,25 +1,88 @@
 ﻿<html>
+<head>
+
+    <style>
+        .block-popup {
+            position: absolute;
+            background: #fff;
+            width: 37%;
+            height: 135px;
+            /*top: 50%;
+            left: 50%;*/
+            transform: translate(-50%, -50%);
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 12px 20px -10px;
+            text-align: center;
+            display: none;
+        }
+
+            .block-popup span {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                cursor: pointer;
+            }
+
+        .overlay {
+            /*width: 100%;
+            height: 100%;*/
+            background: rgba(51, 51, 51, 0.78);
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+    </style>
+</head>
 <body>
+    @*<div class="open-modal" style="font-size:40px;color:white;">OPEN</div>*@
+    <div class="block-popup">
+        <h3>Оставьте свой Email, чтобы не пропускать новых выпусков</h3>
+        <form>
+            <input type="email" placeholder="Введите email" name="email-popup" />
+            <input type="button" name="btn-form-popup" value="Отправить" />
+        </form>
+        <span>&times;</span>
+    </div>
+    <div class="overlay"></div>
     <div class="container-fluid">
         <div class="row">
             <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;border-bottom:1px solid #504593;">
-                <div onclick="ReturnToCart()" style="color: white; padding: 0px 10px; font-weight: normal; display: inline-block; border-radius: 10px; font-size: 23px; float: left; text-transform: capitalize; background: #ff5a00;">
+                <div onclick="ReturnToDelivery()" style="color: white; padding: 0px 10px; font-weight: normal; display: inline-block; border-radius: 10px; font-size: 23px; float: left; text-transform: capitalize; background: #ff5a00;">
                     <span>Назад</span>
                 </div>
                 <div style="display:inline-block;">Виберіть спосіб оплати</div>
             </div>
             <div class="col-md-5" style="background:#504593;min-height: 100vh;">
-                <div class="row" style="padding-top:50px;">
+                <div class="row" style="padding-top:50px;padding-bottom:60px;">
                     <div class="col-4">
                         <img src="~/images/OrderAdvert/GarantedPay.png" style="width:inherit;" />
                     </div>
-                    <div class="col" style="color:white; color: white; font-size: 40px; padding-top: 50px;">
+                    <div class="col" style="color:white; font-size: 40px; padding-top: 50px;">
                         <div>
                             Гарантований платіж
                         </div>
                         <div>
                             Безпечна покупка
                         </div>
+                    </div>
+                </div>
+                <div class="row"  style="color:white;padding-bottom:60px;">
+                    <div class="col-4">
+                        <img src="~/images/OrderAdvert/dostavka100.png" style="width:inherit;" />
+                    </div>
+                    <div class="col" style="font-size: 40px;">
+                        Безплатна доставка до 30кг
+                    </div>
+                </div>
+                <div class="row" style="color:white;">
+                    <div class="col-4">
+                        <img src="~/images/OrderAdvert/User100.png" style="width:inherit;" />
+                    </div>
+                    <div class="col" style="font-size: 40px;padding-top:100px;">
+                        Захист клієнта
                     </div>
                 </div>
             </div>
@@ -62,4 +125,15 @@
         </div>
     </div>
 </body>
+<script type="text/javascript">
+    $('.open-modal').mouseover(function () {
+        $('.block-popup, .overlay').fadeIn();
+    })
+    $('.open-modal').click(function () {
+        $('.block-popup, .overlay').fadeIn();
+    })
+    $('.block-popup span').click(function () {
+        $('.block-popup, .overlay').fadeOut();
+    })
+</script>
 </html>
