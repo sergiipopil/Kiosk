@@ -35,7 +35,7 @@ for details on configuring this project to bundle and minify static web assets. 
     }
 
 .form-control {
-    margin: 15px 0px;
+    margin: 25px 0px;
     height: 45px !important;
     font-size: 18px !important;
 }
@@ -133,13 +133,15 @@ ul.pagination li {
 .btnBuyNew {
     background: white;
     height: 51px;
-    color: #e87619;
+    color: #ff5a00;
     width: 100%;
-    border: 1px solid #e87619;
+    border: 1px solid #ff5a00;
     font-size: 28px;
 }
 
     .btnBuyNew:hover {
+        background:#ff5a00;
+        color:white;
         box-shadow: 0 0 6px white;
     }
 
@@ -159,9 +161,15 @@ ul.pagination li {
     text-transform: uppercase;
     color: black;
 }
-
+.enlargePhoto {
+    background-image: url(/images/PhotoEnlargeIcon.png);
+    background-position: left;
+    background-repeat: no-repeat;
+    padding: 4px;
+    margin: 0px 10px;
+}
 .btnBuyList {
-    background: linear-gradient(90deg, #e87619, #FFB21D);
+    background: linear-gradient(90deg, #ff5a00, #FFB21D);
     height: 42px;
     color: white;
     width: 100%;
@@ -173,7 +181,7 @@ ul.pagination li {
 }
 
 .btnOrder {
-    background: linear-gradient(90deg, #e87619, #FFB21D);
+    background: linear-gradient(90deg, #ff5a00, #FFB21D);
     font-size: 26px;
     color: white;
     width: 100%;
@@ -185,8 +193,9 @@ ul.pagination li {
 }
 
     .btnOrder:hover {
+        background: linear-gradient(90deg, #FFB21D, #ff5a00);
         box-shadow: 0 0 6px white;
-        color: #002bff;
+        color: white;
     }
 
 .btnDeleteCartItem {
@@ -233,13 +242,21 @@ input#btnCloseDetailWindow {
     height: 51px;
     width: 20%;
 }
-
-.smallPhotoes {
-    max-width: 26%;
-    max-height: 100px;
-    margin: 10px;
-    vertical-align: middle;
+.paymentMethod {
+    border: 1px solid #c3c4c7;
+    margin: 20px;
+    padding:20px;
+    background: white;
 }
+    .paymentMethod:hover {
+        box-shadow: 0 0 20px #c3c4c7;
+    }
+    .smallPhotoes {
+        max-width: 26%;
+        max-height: 100px;
+        margin: 10px;
+        vertical-align: middle;
+    }
 
 a.navbar-brand {
     white-space: normal;
@@ -470,7 +487,8 @@ input {
     font-weight: bold;
     color: #ff5a00;
     font-family: Open Sans,sans-serif;
-    width: 100%
+    width: 100%;
+    letter-spacing:1px;
 }
 
 .inline-block {

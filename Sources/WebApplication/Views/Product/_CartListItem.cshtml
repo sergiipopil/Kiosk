@@ -13,19 +13,24 @@
 <body>
     @foreach (var item in Model)
     {
-        <div style="background: white; padding: 10px; margin: 10px 20px; border: 1px solid #c1c1c1; border-left: 4px solid blue;min-height:200px;max-height:200px;">
+        <div style="background: white; padding: 10px; margin: 10px 20px; border: 1px solid #c1c1c1; border-left: 4px solid blue;min-height:220px;max-height:220px;">
             <div class="row">
                 <div class="col-lg-3">
-                    <div id="imageBlock" class="detailBlock" style="text-align:center;background:white;">
-                        <a href=@item.Product.Photos[0].Url data-fancybox="@String.Format("gallery{0}", item.Product.Key)" class="noneDecoration">
+                    <div id="imageBlock" class="detailBlock" style="text-align:center;background:white;">                        
                             <img id="mainImageProduct" src="@item.Product.Photos[0].Url" style="max-width:100%;max-height:160px;" />
-                        </a>
+                        @if (item.Product.Photos.Count() > 1)
+                        {
+                    <a href=@item.Product.Photos[0].Url data-fancybox="@String.Format("galleryProduct{0}", item.Product.Key)" class="noneDecoration" style="color:#ff5a00;font-weight:500;">                         
+                        <div class="enlargePhoto"> ФОТО+ (@item.Product.Photos.Count())</div>
+                    </a>
+
+                        }
                         <div style="display:none;">
                             @foreach (var photo in @item.Product.Photos)
                             {
                                 @if (@photo.Url != @item.Product.Photos[0].Url)
                                 {
-                                    <a href=@photo.Url data-fancybox="@String.Format("gallery{0}", item.Product.Key)" class="noneDecoration">
+                                    <a href=@photo.Url data-fancybox="@String.Format("galleryProduct{0}", item.Product.Key)" class="noneDecoration">
                                         <img src=@photo.Url class="smallPhotoes">
                                     </a>
                                 }
@@ -38,20 +43,20 @@
 
                 <div class="col-lg-3">
                     <div class="inline-block" style="border-left: 1px solid #c3c4c5;padding-left:20px;">
-                        <div style="color: #e87619;font-weight:bold;">
+                        <div style="color: #ff5a00;font-weight:bold;">
                             <span style="font-size:32px;">@item.Product.Price</span>
                             <span style="font-size:18px;">@item.Product.PriceCurrencyCode</span>
-                            <span id="priceDeliveryComment" style="color:#e87619;font-size:14px;font-weight:normal;display:block;">* ціна з урахуванням доставки</span>
-                            <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">доставка в Україну <br /> 2-5 днів</p>
+                            <span id="priceDeliveryComment" style="color:#ff5a00;font-size:16px;font-weight:700;display:block;">* ціна з урахуванням доставки</span>
+                            <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">2-5 днів</p>
                         </div>
                         @*<div style="padding:4px 0px;">
-                            <span>
-                                <input type="number" id="@item.Product.SourceId" value="@item.Quantity" class="cartQuantity" />
-                            </span>
-                            <span>
-                                <a class="quantityBtn" onclick="refreshCartItem('@item.Product.SourceId')">Оновити к-ть</a>
-                            </span>
-                        </div>*@
+                                <span>
+                                    <input type="number" id="@item.Product.SourceId" value="@item.Quantity" class="cartQuantity" />
+                                </span>
+                                <span>
+                                    <a class="quantityBtn" onclick="refreshCartItem('@item.Product.SourceId')">Оновити к-ть</a>
+                                </span>
+                            </div>*@
                         <div onclick="deleteProduct('@item.Product.SourceId')">
                             <button class="btnDeleteCartItem">
                                 <img src="~/images/Cart/Delete.png" />

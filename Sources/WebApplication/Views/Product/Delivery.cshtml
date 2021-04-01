@@ -93,8 +93,9 @@ function showDeliveryFields(divName) {
                     inputAddress: $('#txtCustomAddress').val(),
                 },
                 success: function (data) {
-                    $("#deliveryControls").hide();
-                    $("#divSuccessOrder").show();
+                    //$("#deliveryControls").hide();
+                    window.location.href = '/Product/Order/';
+                    //$("#divSuccessOrder").show();
                     //setTimeout(function () {
                     //    window.location.href = '/Home/Index/';
                     //}, 5000);
@@ -121,16 +122,17 @@ function showDeliveryFields(divName) {
             </div>
             @*<div style="text-align:center;color:white;padding-bottom:20px;"><h1>Оформлення замовлення</h1></div>*@
             <div class="row">
-                <div class="col-md-5" style="background:#504593;min-height: 100vh;">
+                <div class="col-md-5" style="background:#EEEFFF;min-height: 100vh;">
                     <table style="width:100%;">
                         <tr>
                             <td style="vertical-align:top;">
                                 <div style="padding:0px 20px 20px 20px;">
-                                    <div style="text-align:center;color:white;"><h3>Ваші контактні дані</h3></div>
+                                    <div style="text-align:center;color:#504593;"><h3>Ваші контактні дані</h3></div>
                                     <input id="txtUserName" class="form-control" placeholder="* Ім`я" style="color: black;" />
-                                    <input id="txtUserFather" class="form-control" placeholder="* По батькові" style="color: black;" />
                                     <input id="txtSurname" class="form-control" placeholder="* Прізвище" style="color: black;" />
+                                    <input id="txtUserFather" class="form-control" placeholder="* По батькові" style="color: black;" />
                                     <input id="txtBuyerPhone" class="form-control" placeholder="* Ваш мобільний номер" style="color: black;" maxlength="12" />
+                                    <div style="text-align:center;color:#504593;padding-bottom:20px;"><h3>Оберіть тип доставки</h3></div>
                                     <div class="row">
                                         <div class="col" style="padding:0px 10px 0px 0px;">
                                             <div tabindex="1" id="divBtnNova" class="deliveryBoxDesign selected" onclick="showDeliveryFields('#nova')">
@@ -162,12 +164,13 @@ function showDeliveryFields(divName) {
                                         <div onclick="submit()" class="btnOrder">Підтвердити замовлення</div>
                                     </div>
                                 </div>
+                                <div style="text-align:center;color:#504593;"><h3>Виберіть спосіб оплати для даного замовлення</h3></div>
                             </td>
                         </tr>
 
                     </table>
                 </div>
-                <div class="col-md-7" style="background:#EEEFFF;min-height: 100vh;box-shadow:0 20px 20px rgb(0 0 0 / 50%);">
+                <div class="col-md-7" style="background:#504593;min-height: 100vh;box-shadow:0 20px 20px rgb(0 0 0 / 50%);">
                     <div>
                         @Html.Partial("_OrderItem", Model.CartProducts)
                     </div>

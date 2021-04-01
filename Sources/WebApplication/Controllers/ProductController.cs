@@ -64,6 +64,10 @@ namespace WebApplication.Controllers
         {
             return View();
         }
+        public ActionResult Order()
+        {
+            return View();
+        }
         public IList<CustomCartProduct> AddToCartSession(CustomCartProduct cartItem)
         {
             var cartListJson = HttpContext.Session.GetString("cartList");
