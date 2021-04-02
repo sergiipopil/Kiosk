@@ -32,13 +32,12 @@
         .zoom {
             z-index: 100;
         }
+
             .zoom:hover {
                 z-index: 999999;
-                position:relative;
-                right:200px;
-                padding-right:200px;
-                margin-right:200px;
-                transform: scale(1.3); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+                position: relative;
+                right: 80px;
+                transform: scale(1.2);
             }
     </style>
 </head>
@@ -75,46 +74,48 @@
     }
     @foreach (var item in Model.AllegroOfferList)
     {
-    <div style="background: white; padding: 10px; margin: 10px 20px; border: 1px solid #c1c1c1; border-left: 4px solid blue;min-height:220px;max-height:220px;" class="zoom">
-        <div class="row">
-            <div class="col-lg-3">
-                <div id="imageBlock" class="detailBlock" style="text-align:center;background:white;">
-                    <img id="mainImageProduct" src="@item.Photos[0].Url" style="max-width:100%;max-height:160px;" />
-                    <a href=@item.Photos[0].Url data-fancybox="@String.Format("gallery{0}", item.Key)" class="noneDecoration" style="color:#ff5a00;font-weight:500;">
-                        <div class="enlargePhoto"> ФОТО+ (@item.Photos.Count())</div>
-                    </a>
-                    <div style="display:none;">
-                        @foreach (var photo in @item.Photos)
-                            {
-                        @if (@photo.Url != @item.Photos[0].Url)
-                                {
-                        <a href=@photo.Url data-fancybox="@String.Format("gallery{0}", item.Key)" class="noneDecoration">
-                            <img src=@photo.Url class="smallPhotoes">
+    <div class="container-fluid">
+        <div style="background: white; padding: 10px; margin: 10px 20px; border: 1px solid #c1c1c1; border-left: 4px solid blue;min-height:220px;max-height:220px;" class="zoom">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div id="imageBlock" class="detailBlock" style="text-align:center;background:white;">
+                        <img id="mainImageProduct" src="@item.Photos[0].Url" style="max-width:100%;max-height:160px;" />
+                        <a href=@item.Photos[0].Url data-fancybox="@String.Format("gallery{0}", item.Key)" class="noneDecoration" style="color:#ff5a00;font-weight:500;">
+                            <div class="enlargePhoto"> ФОТО+ (@item.Photos.Count())</div>
                         </a>
+                        <div style="display:none;">
+                            @foreach (var photo in @item.Photos)
+                            {
+                            @if (@photo.Url != @item.Photos[0].Url)
+                                {
+                            <a href=@photo.Url data-fancybox="@String.Format("gallery{0}", item.Key)" class="noneDecoration">
+                                <img src=@photo.Url class="smallPhotoes">
+                            </a>
                                 }
                             }
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <div style="vertical-align: top;">
-                    <span class="productTitle">@item.Name.Last().Value</span>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="inline-block" style="border-left: 1px solid #c3c4c5;padding-left:20px;">
-                    <div style="color: #ff5a00;font-weight:bold;">
-                        <span style="font-size:34px;">@item.Price</span>
-                        <span style="font-size:18px;">@item.PriceCurrencyCode</span>
-                        <span id="priceDeliveryComment" style="color:#ff5a00;font-size:16px;font-weight:700;display:block;">* ціна з урахуванням доставки</span>
-                        <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">2-5 днів</p>
+                <div class="col-lg-6">
+                    <div style="vertical-align: top;">
+                        <span class="productTitle">@item.Name.Last().Value</span>
                     </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="inline-block" style="border-left: 1px solid #c3c4c5;padding-left:20px;">
+                        <div style="color: #ff5a00;font-weight:bold;">
+                            <span style="font-size:34px;">@item.Price</span>
+                            <span style="font-size:18px;">@item.PriceCurrencyCode</span>
+                            <span id="priceDeliveryComment" style="color:#ff5a00;font-size:16px;font-weight:700;display:block;">* ціна з урахуванням доставки</span>
+                            <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">2-5 днів</p>
+                        </div>
 
-                    <div onclick="goToCart('@item.SourceId')">
-                        <button class="btnBuyList">
-                            <img src="~/images/Buy.png" />
-                            <span>Купити</span>
-                        </button>
+                        <div onclick="goToCart('@item.SourceId')">
+                            <button class="btnBuyList">
+                                <img src="~/images/Buy.png" />
+                                <span>Купити</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

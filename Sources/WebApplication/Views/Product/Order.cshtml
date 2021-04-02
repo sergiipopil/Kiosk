@@ -2,14 +2,13 @@
 <head>
 
     <style>
-        .block-popup {
+        .block-popup, .block-popupUserDefend {
             position: absolute;
+            top: 120px;
+            z-index: 99999;
+            left: 20%;
+            right: 20%;
             background: #fff;
-            width: 37%;
-            height: 135px;
-            /*top: 50%;
-            left: 50%;*/
-            transform: translate(-50%, -50%);
             border-radius: 5px;
             border: 1px solid #ccc;
             padding: 10px;
@@ -18,16 +17,18 @@
             display: none;
         }
 
-            .block-popup span {
+            .block-popup span, .block-popupUserDefend span {
                 position: absolute;
-                top: 5px;
+                top: -15px;
+                font-size: 40px;
                 right: 5px;
                 cursor: pointer;
             }
 
         .overlay {
-            /*width: 100%;
-            height: 100%;*/
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
             background: rgba(51, 51, 51, 0.78);
             position: fixed;
             top: 0;
@@ -35,18 +36,28 @@
             display: none;
         }
     </style>
+    <script src="https://pay.fondy.eu/static_common/v1/checkout/ipsp.js"></script>
+    <script>
+        var button = $ipsp.get('button');
+        button.setMerchantId(1396424);
+        button.setAmount(500, 'UAH', true);
+        button.setResponseUrl('https://bi-bi.com.ua');
+        button.setHost('pay.fondy.eu');
+        button.addField({
+            label: 'Платник',
+            name: 'fio',
+            value: 'Попіль Сергій Осипович',
+            required: true
+        });
+        button.addField({
+            label: 'Замовлення №777777',
+            name: 'description',
+            value: 'Оплата за товар',
+            readonly: true
+        });
+    </script>
 </head>
 <body>
-    @*<div class="open-modal" style="font-size:40px;color:white;">OPEN</div>*@
-    <div class="block-popup">
-        <h3>Оставьте свой Email, чтобы не пропускать новых выпусков</h3>
-        <form>
-            <input type="email" placeholder="Введите email" name="email-popup" />
-            <input type="button" name="btn-form-popup" value="Отправить" />
-        </form>
-        <span>&times;</span>
-    </div>
-    <div class="overlay"></div>
     <div class="container-fluid">
         <div class="row">
             <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;border-bottom:1px solid #504593;">
@@ -56,11 +67,11 @@
                 <div style="display:inline-block;">Виберіть спосіб оплати</div>
             </div>
             <div class="col-md-5" style="background:#504593;min-height: 100vh;">
-                <div class="row" style="padding-top:50px;padding-bottom:60px;">
+                <div class="row" style="margin: 50px 20px !important; padding: 30px 20px; box-shadow: 0px 0px 13px white; min-height: 240px; max-height: 240px;">
                     <div class="col-4">
                         <img src="~/images/OrderAdvert/GarantedPay.png" style="width:inherit;" />
                     </div>
-                    <div class="col" style="color:white; font-size: 40px; padding-top: 50px;">
+                    <div class="col" style="color:white; font-size: 40px;">
                         <div>
                             Гарантований платіж
                         </div>
@@ -69,26 +80,28 @@
                         </div>
                     </div>
                 </div>
-                <div class="row"  style="color:white;padding-bottom:60px;">
+                <div class="row" style="margin: 50px 20px !important; padding: 30px 20px; box-shadow: 0px 0px 13px white;min-height: 240px; max-height: 240px;">
                     <div class="col-4">
                         <img src="~/images/OrderAdvert/dostavka100.png" style="width:inherit;" />
                     </div>
-                    <div class="col" style="font-size: 40px;">
+                    <div class="col" style="font-size: 40px;color:white;">
                         Безплатна доставка до 30кг
                     </div>
                 </div>
-                <div class="row" style="color:white;">
+                <div class="row" style="margin: 50px 20px !important; padding: 30px 20px; box-shadow: 0px 0px 13px white; min-height: 240px; max-height: 240px;">
+                    @*<div class="open-modalUserDefend">*@
                     <div class="col-4">
-                        <img src="~/images/OrderAdvert/User100.png" style="width:inherit;" />
+                        <img src="~/images/OrderAdvert/User100.png" style="width:80%;" />
                     </div>
-                    <div class="col" style="font-size: 40px;padding-top:100px;">
-                        Захист клієнта
+                    <div class="col" style="font-size: 40px;color:white;">
+                        Захист споживача
                     </div>
+                    @*</div>*@
                 </div>
             </div>
             <div class="col-md-7" style="color:#504593;background:#EEEFFF;min-height: 100vh;">
                 <div class="row">
-                    <div class="col" style="text-align:center;">
+                    <div class="col" style="text-align:center;" onclick="location.href=button.getUrl()">
                         <div class="paymentMethod">
                             <div><img src="~/images/Payment/CreditCardBig.png" /></div>
                             Visa / Mastercard
@@ -120,20 +133,63 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
+    <div class="block-popupUserDefend">
+        <div class="blockPopUp">
+            Програма Захисту Покупців передбачає можливість отримати компенсацію в сумі до 10 000 грн. для покупців, замовлення яких були оплачені, але не відправлені продавцем.
+
+            Для отримання компенсації потрібно виконати три умови:
+
+            1. Коректно оформити всі позиції замовлення через корзину на bi-bi.com.ua і надати Службі нашої роботи у номер цього замовлення.
+            Номер замовлення ви отримуєте в листі-підтвердженні після оформлення замовлення.
+
+            2. Надати документ і чек, що підтверджує оплату замовлення за реквізитами, отриманими через майданчик BI-BI.com.ua3. Надати документ, що підтверджує ваше звернення в правоохоронні органи за фактом шахрайства продавця (талон-повідомлення, що підтверджує прийняття вашої заяви)
+
+            Процедура звернення до правоохоронних органів
+
+            рядок подачі заяви регламентується двома законами - «Про поліцію» і «Про порядок розгляду звернень громадян УКРАЇНИ.
+            У заяві необхідно вказати наступну інформацію:
+            дату і час події;
+            якої шкоди завдано: що саме сталося і від яких саме дій ви постраждали, опис обставин, які підтверджують вчинення правопорушення-шахрайства (опишіть ситуацію із замовленням в хронологічному порядку, вкажіть назву компанії продавця і адреса її сайту, ім'я контактної особи, з яким ви спілкувалися , додайте копію листування по електронній пошті і т. п.);
+            докази, які підтверджують вищевказану інформацію (документи, що підтверджують оплату замовленого товару);
+            ПІБ заявника, адреса, телефон та інші ваші контакти.
+            Черговий співробітник поліції реєструє звернення в спеціальній Книзі обліку повідомлень про події і видає вам талон-повідомлення. У ньому повинні бути дані співробітника, який прийняв заяву, реєстраційний номер, найменування територіального органу МВС України, адреса і службовий телефон, дата прийому і підпис, ініціали та прізвище оперативного чергового
+
+            Рекомендації
+
+            Уважно вивчіть інформацію про товар;
+            Оформляйте замовлення через корзину BI-BI.com.ua, уважно заповнюйте свої дані і номер контактного телефону;
+            Ніколи не передавайте персональні дані третім особам;
+            Зберігайте всі документи, які стосуються угоді;
+            Завжди перевіряйте товар при отриманні.
+            Гарантією безпеки покупок є ваша уважність і дотримання вищевказаних рекомендацій.                                                                                                           Коли покупець не зможе скористатися Програмою Захисту Покупців?
+
+            Угода на порталі BI-BI.com.ua був оформлений не через кошик;
+            Реквізити для оплати замовлення отримані поза системою BI-BI.com.ua. Наприклад через sms повідомлення, особисту пошту, в телефонному режимі або інші канали спілкування;
+            Товар доставлений, але не відповідає замовленням або товар виявився неналежної якості (в такому випадку обмін або повернення товару здійснюється відповідно до Закону України "Про захист прав споживачів");
+            Місце відправлення або місце отримання товару знаходиться за межами України;
+            З моменту оформлення замовлення пройшло більше 14 календарних днів;
+            Товар не був доставлений або був пошкоджений з вини служби доставки (зверніться до відділення перевізника для уточнення процедури компенсації);
+            На момент звернення покупець уже отримав компенсацію за угодою від продавця або платіжної системи;
+            Замовлено послуга.
+            * Звернення на виплату компенсації можуть подавати тільки особи, дані яких вказані в замовленні. Заявки від третіх осіб не розглядаються.
+
+        </div>
+        <span>&times;</span>
+    </div>
+    <div class="overlay"></div>
+    <script type="text/javascript">
+        $('.open-modalUserDefend').mouseover(function () {
+            $('.block-popupUserDefend, .overlay').fadeIn();
+        })
+        $('.open-modalUserDefend').click(function () {
+            $('.block-popupUserDefend, .overlay').fadeIn();
+        })
+        $('.block-popupUserDefend span').click(function () {
+            $('.block-popupUserDefend, .overlay').fadeOut();
+        })
+    </script>
 </body>
-<script type="text/javascript">
-    $('.open-modal').mouseover(function () {
-        $('.block-popup, .overlay').fadeIn();
-    })
-    $('.open-modal').click(function () {
-        $('.block-popup, .overlay').fadeIn();
-    })
-    $('.block-popup span').click(function () {
-        $('.block-popup, .overlay').fadeOut();
-    })
-</script>
+
 </html>
