@@ -13,22 +13,28 @@
     </style>
     <script type="text/javascript">
         $(document).ready(function () {
-            if (window.location.toString().includes("carManufactureName")) // This doesn't work, any suggestions?
+            if (window.location.toString().includes("carManufactureName"))
             {
                 var carManufactureName = getUrlParameter('carManufactureName');
-                var carModel = getUrlParameter('amp;carModel');
-                var mainCategoryId = getUrlParameter('amp;mainCategoryId');
-                var mainCategoryName = getUrlParameter('amp;mainCategoryName');
-                var subCategoryId = getUrlParameter('amp;subCategoryId');
-                var subCategoryName = getUrlParameter('amp;subCategoryName');
-                var subChildId = getUrlParameter('amp;subChildId');
-                var subChildName = getUrlParameter('amp;subChildName');
-                if (subChildId == "" && subChildName == "") {
-                    selectSubMainCategory(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName);
+                var carModel = getUrlParameter('carModel');
+                if (carManufactureName != "" && carModel == false) {
+                    selectManufacturer(carManufactureName);
                 }
-                else {
-                    getAllegroData(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName);
+                var mainCategoryId = getUrlParameter('mainCategoryId');
+                if (carManufactureName != "" && carModel != "" && mainCategoryId == false) {
+                    selectCarModel(carManufactureName, carModel);
                 }
+                //var mainCategoryName = getUrlParameter('amp;mainCategoryName');
+                //var subCategoryId = getUrlParameter('amp;subCategoryId');
+                //var subCategoryName = getUrlParameter('amp;subCategoryName');
+                //var subChildId = getUrlParameter('amp;subChildId');
+                //var subChildName = getUrlParameter('amp;subChildName');
+                //if (subChildId == "" && subChildName == "") {
+                //    selectSubMainCategory(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName);
+                //}
+                //else {
+                //    getAllegroData(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName);
+                //}
             }
             if (getUrlParameter('partNumber') != false) {
                 $("#inputPartValue").val(getUrlParameter('partNumber'));
@@ -120,8 +126,10 @@
                 BreadCrumbsHistory(manufacture, model);
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
+                window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model);
             }
         });
+        return false;
     }
         function selectMainCategory(manufacture, model, mainCategoryId, mainCategoryName) {
         $('#divSelectTopCategory').hide();
@@ -174,7 +182,6 @@
             success: function (data) {
                $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
-                console.log(data);
             }
         });
         }
@@ -187,8 +194,10 @@
                 BreadCrumbsHistory(carManufactureName);
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
+                window.history.pushState($('#filter'), 'title', "?carManufactureName=" + carManufactureName);
             }
         });
+        return false;
         }
          
         function goToCart(selectedProductId) {

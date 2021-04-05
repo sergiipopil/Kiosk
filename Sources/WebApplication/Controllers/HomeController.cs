@@ -76,6 +76,7 @@ namespace WebApplication.Controllers
             return View("_CarTree", new RightTreeViewModel() { ManufacturerList = carTree });
         }
         //====================METHOD TO SHOW CAR MODELS ======================================
+        
         public IActionResult SelectManufactureAndModel(string carManufactureName)
         {
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
@@ -150,7 +151,8 @@ namespace WebApplication.Controllers
                     FunctionReturnFromProducts = String.Format("selectMainCategory('{0}', '{1}', '{2}', '{3}')", carManufactureName, carModel, mainCategoryId, mainCategoryName),
                     AllegroOfferList = responceAllegro.Products,
                     FakeAllegroList = FakeListForPager(responceAllegro.Total),
-                    ControllerName = "ShowMainSubChildsCategories"
+                    ControllerName = "ShowMainSubChildsCategories",
+                    OfferSorting = OfferSortingEnum.PriceAsc
                 };
                 HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeViewModel));
                 return View("_ProductsList", treeViewModel);
@@ -195,6 +197,7 @@ namespace WebApplication.Controllers
                 AllegroOfferList = responceAllegro.Products,
                 ControllerName = "ShowProductList",
                 FakeAllegroList = FakeListForPager(responceAllegro.Total),
+                OfferSorting = OfferSortingEnum.PriceAsc
             };
             HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
             return View("_ProductsList", treeView);
@@ -210,6 +213,7 @@ namespace WebApplication.Controllers
                 FunctionReturnFromProducts = "back()",
                 ControllerName = "PartNumberInput",
                 PartNumberValue = partNumber,
+                OfferSorting = OfferSortingEnum.PriceAsc,
                 PageNumber = 1
             };
             HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
@@ -234,7 +238,7 @@ namespace WebApplication.Controllers
             return exchangeRate.Value;
         }
         //==================== METHOD FOR GET ALLEGRO PRODUCTS ======================================
-        public async Task<EkKioskProductSearchInEuropeGetResponse> GetAllegroProducts(string carManufactureName, string carModel, string selectedCategoryId, string inputPartNumber, OfferStateEnum state = OfferStateEnum.All, OfferSortingEnum sortingPrice = OfferSortingEnum.Relevance, int pageNumber=1)
+        public async Task<EkKioskProductSearchInEuropeGetResponse> GetAllegroProducts(string carManufactureName, string carModel, string selectedCategoryId, string inputPartNumber, OfferStateEnum state = OfferStateEnum.All, OfferSortingEnum sortingPrice = OfferSortingEnum.PriceAsc, int pageNumber=1)
         {
             int offset = pageNumber == 1 ? 0 : pageNumber * 10;
             SearchOffersResponse searchOffersResponse;
@@ -278,7 +282,7 @@ namespace WebApplication.Controllers
         //================= METHOD FILTERING LIST PRODUCTS =======================
         public IActionResult FilteredList(string state, string sorting, int page)
         {
-            page = page==0 ? 1 : page;
+            page = page == 0 ? 1 : page;
             var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
             RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
 

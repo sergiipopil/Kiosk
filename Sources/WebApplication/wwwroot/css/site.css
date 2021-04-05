@@ -9,10 +9,11 @@ for details on configuring this project to bundle and minify static web assets. 
 .filterItemAllState_All, .filterItemNewState_All, .filterItemUsedState_All, .filterItemRecoverState_All,
 .filterItemAllState_New, .filterItemNewState_New, .filterItemUsedState_New, .filterItemRecoverState_New,
 .filterItemAllState_Used, .filterItemNewState_Used, .filterItemUsedState_Used, .filterItemRecoverState_Used,
-.filterItemAllState_Recovered, .filterItemNewState_Recovered, .filterItemUsedState_Recovered, .filterItemRecoverState_Recovered,
-.filterItemRelevanceSorting_Relevance, .filterItemDescSorting_Relevance, .filterItemAscSorting_Relevance,
+.filterItemAllState_Recovered, .filterItemNewState_Recovered, .filterItemUsedState_Recovered, .filterItemRecoverState_Recovered, .filterItemAscSorting_PriceDesc,
+.filterItemRelevanceSorting_Relevance, .filterItemDescSorting_Relevance, .filterItemAscSorting_Relevance, .filterItemRelevanceSorting_PriceDesc,
 .filterItemDescSorting_PriceDesc, .filterItemDescSorting_PriceDesc, .filterItemDescSorting_PriceDesc,
-.filterItemAscSorting_PriceAsc, .filterItemAscSorting_PriceAsc, .filterItemAscSorting_PriceAsc {
+.filterItemAscSorting_PriceAsc, .filterItemAscSorting_PriceAsc, .filterItemAscSorting_PriceAsc,
+.filterItemRelevanceSorting_PriceAsc, .filterItemDescSorting_PriceAsc {
     border-right: 1px solid #c3c4c7;
     padding: 5px 20px;
     display: inline-block;
@@ -21,14 +22,16 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
     .filterItemAllState_All, .filterItemNewState_New, .filterItemUsedState_Used, .filterItemRecoverState_Recovered,
-    .filterItemRelevanceSorting_Relevance, .filterItemDescSorting_PriceDesc, filterItemAscSorting_PriceAsc,
-    .filterItemAllState_All:hover, filterItemNewState_All:hover, filterItemUsedState_All:hover, filterItemRecoverState_All:hover,
-    .filterItemAllState_New:hover, filterItemNewState_New:hover, filterItemUsedState_New:hover, filterItemRecoverState_New:hover,
-    .filterItemAllState_Used:hover, filterItemNewState_Used:hover, filterItemUsedState_Used:hover, filterItemRecoverState_Used:hover,
-    .filterItemAllState_Recovered:hover, filterItemNewState_Recovered:hover, filterItemUsedState_Recovered:hover, filterItemRecoverState_Recovered:hover,
+    .filterItemRelevanceSorting_Relevance, .filterItemDescSorting_PriceDesc, .filterItemAscSorting_PriceAsc,
+    .filterItemAllState_All:hover, .filterItemNewState_All:hover, .filterItemUsedState_All:hover, .filterItemRecoverState_All:hover,
+    .filterItemAllState_New:hover, .filterItemNewState_New:hover, .filterItemUsedState_New:hover, .filterItemRecoverState_New:hover,
+    .filterItemAllState_Used:hover, .filterItemNewState_Used:hover, .filterItemUsedState_Used:hover, .filterItemRecoverState_Used:hover,
+    .filterItemAllState_Recovered:hover, .filterItemNewState_Recovered:hover, .filterItemUsedState_Recovered:hover, .filterItemRecoverState_Recovered:hover
     .filterItemRelevanceSorting_Relevance:hover, .filterItemRelevanceSorting_Relevance:hover, .filterItemRelevanceSorting_Relevance:hover,
     .filterItemDescSorting_PriceDesc:hover, .filterItemDescSorting_PriceDesc:hover, .filterItemDescSorting_PriceDesc:hover,
-    .filterItemAscSorting_PriceAsc:hover, .filterItemAscSorting_PriceAsc:hover, .filterItemAscSorting_PriceAsc:hover {
+    .filterItemAscSorting_PriceAsc:hover, .filterItemAscSorting_PriceAsc:hover, .filterItemAscSorting_PriceAsc:hover, filterItemDescSorting_PriceAsc:hover, .filterItemRelevanceSorting_PriceAsc:hover,
+    filterItemDescSorting_Relevance:hover, .filterItemAscSorting_Relevance:hover, .filterItemDescSorting_PriceAsc:hover, .filterItemDescSorting_Relevance:hover,
+    .filterItemAscSorting_PriceDesc:hover, .filterItemRelevanceSorting_PriceDesc:hover{
         box-shadow: 0px 0px 10px #504593;
         background: white;
         color: black;
@@ -165,10 +168,11 @@ ul.pagination li {
 
 .enlargePhoto {
     background-image: url(/images/PhotoEnlargeIcon.png);
-    background-position: left;
+    background-position: 20px 5px;
     background-repeat: no-repeat;
-    padding: 4px;
+    padding: 5px 4px 10px 30px;
     margin: 0px 10px;
+    width: 170px;
 }
 
 .btnBuyList {
@@ -200,7 +204,14 @@ ul.pagination li {
         box-shadow: 0 0 6px white;
         color: white;
     }
-
+.hide {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 .btnDeleteCartItem {
     border: 1px solid #FFB21D;
     height: 34px;
