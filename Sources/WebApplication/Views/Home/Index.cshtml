@@ -24,17 +24,28 @@
                 if (carManufactureName != "" && carModel != "" && mainCategoryId == false) {
                     selectCarModel(carManufactureName, carModel);
                 }
+                if (carManufactureName != "" && carModel != "" && mainCategoryId == false) {
+                    selectCarModel(carManufactureName, carModel);
+                }
+                var mainCategoryName = getUrlParameter('mainCategoryName');
+                var subCategoryId = getUrlParameter('subCategoryId');
+                var subCategoryName = getUrlParameter('subCategoryName');
+                var subChildId = getUrlParameter('subChildId');
+                var subChildName = getUrlParameter('subChildName');
+                if (carManufactureName != "" && carModel != "" && mainCategoryId != "" && subCategoryId == false) {
+                    selectMainCategory(carManufactureName, carModel, mainCategoryId, mainCategoryName);
+                }
                 //var mainCategoryName = getUrlParameter('amp;mainCategoryName');
                 //var subCategoryId = getUrlParameter('amp;subCategoryId');
                 //var subCategoryName = getUrlParameter('amp;subCategoryName');
                 //var subChildId = getUrlParameter('amp;subChildId');
                 //var subChildName = getUrlParameter('amp;subChildName');
-                //if (subChildId == "" && subChildName == "") {
-                //    selectSubMainCategory(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName);
-                //}
-                //else {
-                //    getAllegroData(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName);
-                //}
+                if (subChildId == "" && subChildName == "") {
+                    selectSubMainCategory(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName);
+                }
+                else {
+                    getAllegroData(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName);
+                }
             }
             if (getUrlParameter('partNumber') != false) {
                 $("#inputPartValue").val(getUrlParameter('partNumber'));
@@ -140,6 +151,7 @@
                 BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName);
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
+                window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName);
             }
         });
     }
@@ -157,6 +169,8 @@
                 BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName);
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
+                window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
+                    "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName);
             }
         });
     }
@@ -169,7 +183,9 @@
             success: function (data) {
                BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName);
                $('#divCarManufactures').empty();
-               $('#divCarManufactures').html(data);
+                $('#divCarManufactures').html(data);
+                window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
+                    "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName);
             }
         });
     }
@@ -199,7 +215,7 @@
         });
         return false;
         }
-         
+
         function goToCart(selectedProductId) {
             window.location.href = '/Product/CartView/' + "?selectedProductId=" + selectedProductId;
         }

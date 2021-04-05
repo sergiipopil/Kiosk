@@ -40,13 +40,13 @@
     <script>
         var button = $ipsp.get('button');
         button.setMerchantId(1396424);
-        button.setAmount(500, 'UAH', true);
+        button.setAmount('@ViewData["TransactionAmount"]', 'UAH', true);
         button.setResponseUrl('https://bi-bi.com.ua');
         button.setHost('pay.fondy.eu');
         button.addField({
             label: 'Платник',
             name: 'fio',
-            value: 'Попіль Сергій Осипович',
+            value: '@ViewData["TransactionUser"]',
             required: true
         });
         button.addField({

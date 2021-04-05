@@ -66,6 +66,8 @@ namespace WebApplication.Controllers
         }
         public ActionResult Order()
         {
+            @ViewData["TransactionAmount"] = HttpContext.Session.GetString("transactionTotalPrice");
+            @ViewData["TransactionUser"] = HttpContext.Session.GetString("transactionUserName");
             return View();
         }
         public IList<CustomCartProduct> AddToCartSession(CustomCartProduct cartItem)
@@ -242,9 +244,11 @@ namespace WebApplication.Controllers
             var apiEkTransaction = JsonSerializer.Deserialize<KioskBrains.Common.EK.Transactions.EkTransaction>(serialize);
             var ekTransaction = KioskBrains.Server.Domain.Entities.EK.EkTransaction.FromApiModel(Convert.ToInt32(HttpContext.Session.GetString("kioskId")), DateTime.Now, apiEkTransaction);
             ekTransaction.IsSentToEkSystem = false;
+            HttpContext.Session.SetString("transactionTotalPrice", ekTransaction.TotalPrice.ToString());
+            HttpContext.Session.SetString("transactionUserName", customerFullUserName);
             //_dbContext.EkTransactions.Add(ekTransaction);
             //await _dbContext.SaveChangesAsync();
-            
+
             return ekTransaction;
         }
         public ActionResult Delivery(string area, string city)
