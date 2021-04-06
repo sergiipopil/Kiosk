@@ -2,7 +2,7 @@
 <head>
 
     <style>
-        .block-popup, .block-popupUserDefend {
+        .block-popup, .block-popupUserDefend, .block-popupGarantedPay, .block-popupGarantedDelivery {
             position: absolute;
             top: 120px;
             z-index: 99999;
@@ -17,7 +17,7 @@
             display: none;
         }
 
-            .block-popup span, .block-popupUserDefend span {
+            .block-popup span, .block-popupUserDefend span, .block-popupGarantedPay span, .block-popupGarantedDelivery span {
                 position: absolute;
                 top: -15px;
                 font-size: 40px;
@@ -67,36 +67,40 @@
                 <div style="display:inline-block;">Виберіть спосіб оплати</div>
             </div>
             <div class="col-md-5" style="background:#504593;min-height: 100vh;">
-                <div class="row" style="margin: 50px 20px !important; padding: 30px 20px; box-shadow: 0px 0px 13px white; min-height: 240px; max-height: 240px;">
-                    <div class="col-4">
-                        <img src="~/images/OrderAdvert/GarantedPay.png" style="width:inherit;" />
-                    </div>
-                    <div class="col" style="color:white; font-size: 40px;">
-                        <div>
-                            Гарантований платіж
+                <div class="open-modalGarantedPay">
+                    <div class="row" style="margin: 50px 20px !important; padding:30px 20px; box-shadow: 0px 0px 13px white; min-height: 240px; max-height: 240px;">
+                        <div class="col-4">
+                            <img src="~/images/OrderAdvert/GarantedPay.png" style="width:inherit;" />
                         </div>
-                        <div>
-                            Безпечна покупка
+                        <div class="col" style="color:white; font-size: 40px;">
+                            <div>
+                                Гарантований платіж
+                            </div>
+                            <div>
+                                Безпечна покупка
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row" style="margin: 50px 20px !important; padding: 30px 20px; box-shadow: 0px 0px 13px white;min-height: 240px; max-height: 240px;">
-                    <div class="col-4">
-                        <img src="~/images/OrderAdvert/dostavka100.png" style="width:inherit;" />
-                    </div>
-                    <div class="col" style="font-size: 40px;color:white;">
-                        Безплатна доставка до 30кг
+                <div class="open-modalGarantedDelivery">
+                    <div class="row" style="margin: 50px 20px !important; padding: 60px 20px 0px 20px; box-shadow: 0px 0px 13px white;min-height: 240px; max-height: 240px;">
+                        <div class="col-4">
+                            <img src="~/images/OrderAdvert/dostavka100.png" style="width:inherit;" />
+                        </div>
+                        <div class="col" style="font-size: 40px;color:white;">
+                            Безплатна доставка до 30кг
+                        </div>
                     </div>
                 </div>
-                <div class="row" style="margin: 50px 20px !important; padding: 30px 20px; box-shadow: 0px 0px 13px white; min-height: 240px; max-height: 240px;">
-                    @*<div class="open-modalUserDefend">*@
-                    <div class="col-4">
-                        <img src="~/images/OrderAdvert/User100.png" style="width:80%;" />
+                <div class="open-modalUserDefend">
+                    <div class="row" style="margin: 50px 20px !important; padding: 30px 20px; box-shadow: 0px 0px 13px white; min-height: 240px; max-height: 240px;">
+                        <div class="col-4">
+                            <img src="~/images/OrderAdvert/User100.png" style="width:80%;" />
+                        </div>
+                        <div class="col" style="font-size: 40px;color:white;padding-top:50px;">
+                            Захист споживача
+                        </div>
                     </div>
-                    <div class="col" style="font-size: 40px;color:white;">
-                        Захист споживача
-                    </div>
-                    @*</div>*@
                 </div>
             </div>
             <div class="col-md-7" style="color:#504593;background:#EEEFFF;min-height: 100vh;">
@@ -135,6 +139,56 @@
             </div>
         </div>
     </div>
+    <div class="block-popupGarantedPay">
+        <div class="blockPopUp">
+            Безпечна угода
+
+            Більше 80 автомагазинів по всій Україні.
+            Захищений платіж.
+            Оплата підтверджується чеком.
+            Гарантія отримання товару.
+            Гарантія на новий товар.
+            Прийом платежів на розрахунковий рахунок компанії.
+            Безпека гарантують платіжні сервіси, отримати компенсацію в сумі до 10 000 грн. для покупців, замовлення яких були оплачені, але не відправлені продавцем.
+
+            ОНЛАЙН ОПЛАТА ЗАМОВЛЕННЯ КАРТОЮ (VISA / MASTERCARD)
+
+            Оплатити покупку на сайті bi-bi.com.ua можна за допомогою платіжної картки Visa або MasterCard.
+            При оформленні замовлення, виберіть спосіб Оплати платіжною карткою (VISA / Mastercard), в розділі Способи оплати.
+            Переконайтеся, що контактна інформація заповнена правильно, клікнути на кнопку «Завершити оформлення».
+            Далі система переадресує Вас на сторінку платіжного сервісу, де необхідно буде ввести дані банківської картки і підтвердити замовлення натисканням на кнопку «Оплатити». Доставка товару можлива тільки після підтвердження платежу.
+            ЗВЕРНІТЬ УВАГУ! При оплаті замовлення онлайн ваш банк може стягувати додаткову комісію.
+
+            Оплата безготівкою
+
+            Якщо при реєстрації в нашому магазині Ви вказали, що представляєте юридичну особу, Ви можете скористатися безготівковим способом оплати. Після узгодження деталей замовлення та надання реквізитів організації Ви отримаєте рахунок для оплати. Не забудьте оформити довіреність з підписом керівника і печаткою підприємства на особу, яка буде отримувати покупку. Оплата рахунку можлива фізичною особою через касу будь-якого банку або через онлайн сервіси. Товар буде відвантажено протягом 1-2 днів робочих з моменту надходження грошових коштів на наш розрахунковий рахунок. Увага: термін надходження грошових коштів за безготівковим розрахунком від 1-го до 3-х банківських днів.
+            Ціни на сайті вказані без урахування ПДВ.
+
+            LiqPay
+            Оплатити покупку на сайті можна за допомогою платіжної картки Visa або MasterCard LIQPAY
+            ЗРУЧНИЙ ПРИЙОМ ПЛАТЕЖІВ
+            з карт Mastercard / Visa
+            готівкою
+            інтернет банкінг Приват24
+
+            ШВИДКЕ ЗАРАХУВАННЯ
+            на карти Mastercard / Visa
+            на розрахунковий рахунок
+            Зарахування коштів протягом 1 банківського дня
+            Оплатити зможе кожен!
+        </div>
+        <span>&times;</span>
+    </div>
+    <div class="block-popupGarantedDelivery">
+        <div class="blockPopUp">
+            В інтернет магазині bi-bi.com.ua ціна на товар вказана з урахуванням доставки якщо замовлений Вами товар не перевищує вагу більше 30 кг, довжина кожної сторони  не перевищує  70 см. 
+
+            Доплата за ручну обробку.
+
+            Якщо відправлення вагою до 30 кг, довжиною до 120 см і іншими сторонами до 70 см, упаковано не по стандартам упаковки - тариф між відділеннями множиться на коефіцієнт 1,5.
+        </div>
+        <span>&times;</span>
+    </div>
     <div class="block-popupUserDefend">
         <div class="blockPopUp">
             Програма Захисту Покупців передбачає можливість отримати компенсацію в сумі до 10 000 грн. для покупців, замовлення яких були оплачені, але не відправлені продавцем.
@@ -144,7 +198,9 @@
             1. Коректно оформити всі позиції замовлення через корзину на bi-bi.com.ua і надати Службі нашої роботи у номер цього замовлення.
             Номер замовлення ви отримуєте в листі-підтвердженні після оформлення замовлення.
 
-            2. Надати документ і чек, що підтверджує оплату замовлення за реквізитами, отриманими через майданчик BI-BI.com.ua3. Надати документ, що підтверджує ваше звернення в правоохоронні органи за фактом шахрайства продавця (талон-повідомлення, що підтверджує прийняття вашої заяви)
+            2. Надати документ і чек, що підтверджує оплату замовлення за реквізитами, отриманими через майданчик bi-bi.com.ua
+
+            3. Надати документ, що підтверджує ваше звернення в правоохоронні органи за фактом шахрайства продавця (талон-повідомлення, що підтверджує прийняття вашої заяви)
 
             Процедура звернення до правоохоронних органів
 
@@ -159,14 +215,14 @@
             Рекомендації
 
             Уважно вивчіть інформацію про товар;
-            Оформляйте замовлення через корзину BI-BI.com.ua, уважно заповнюйте свої дані і номер контактного телефону;
+            Оформляйте замовлення через корзину bi-bi.com.ua, уважно заповнюйте свої дані і номер контактного телефону;
             Ніколи не передавайте персональні дані третім особам;
             Зберігайте всі документи, які стосуються угоді;
             Завжди перевіряйте товар при отриманні.
             Гарантією безпеки покупок є ваша уважність і дотримання вищевказаних рекомендацій.                                                                                                           Коли покупець не зможе скористатися Програмою Захисту Покупців?
 
-            Угода на порталі BI-BI.com.ua був оформлений не через кошик;
-            Реквізити для оплати замовлення отримані поза системою BI-BI.com.ua. Наприклад через sms повідомлення, особисту пошту, в телефонному режимі або інші канали спілкування;
+            Угода на порталі bi-bi.com.ua був оформлений не через кошик;
+            Реквізити для оплати замовлення отримані поза системою bi-bi.com.ua. Наприклад через sms повідомлення, особисту пошту, в телефонному режимі або інші канали спілкування;
             Товар доставлений, але не відповідає замовленням або товар виявився неналежної якості (в такому випадку обмін або повернення товару здійснюється відповідно до Закону України "Про захист прав споживачів");
             Місце відправлення або місце отримання товару знаходиться за межами України;
             З моменту оформлення замовлення пройшло більше 14 календарних днів;
@@ -188,6 +244,27 @@
         })
         $('.block-popupUserDefend span').click(function () {
             $('.block-popupUserDefend, .overlay').fadeOut();
+        })
+
+
+        $('.open-modalGarantedPay').mouseover(function () {
+            $('.block-popupGarantedPay, .overlay').fadeIn();
+        })
+        $('.open-modalGarantedPay').click(function () {
+            $('.block-popupGarantedPay, .overlay').fadeIn();
+        })
+        $('.block-popupGarantedPay span').click(function () {
+            $('.block-popupGarantedPay, .overlay').fadeOut();
+        })
+
+        $('.open-modalGarantedDelivery').mouseover(function () {
+            $('.block-popupGarantedDelivery, .overlay').fadeIn();
+        })
+        $('.open-modalGarantedDelivery').click(function () {
+            $('.block-popupGarantedDelivery, .overlay').fadeIn();
+        })
+        $('.block-popupGarantedDelivery span').click(function () {
+            $('.block-popupGarantedDelivery, .overlay').fadeOut();
         })
     </script>
 </body>
