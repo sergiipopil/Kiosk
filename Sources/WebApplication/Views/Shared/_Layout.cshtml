@@ -42,8 +42,6 @@
             font: inherit;
             color: inherit;
             background-color: transparent;
-            /* отображаем курсор в виде руки при наведении; некоторые
-        считают, что необходимо оставлять стрелочный вид для кнопок */
             cursor: pointer;
         }
     </style>
@@ -53,14 +51,8 @@
         <div id="dialogContent" class="modal-dialog"></div>
     </div>
     <header>
-        <div style="display:inline-block;vertical-align:middle;cursor:pointer;" onclick="backToMainPage()" >
+        <div style="cursor:pointer;" onclick="backToMainPage()">
             <img src="~/images/Logo.png" style="margin:10px 30px;" />
-        </div>
-        <div style="display:inline-block;vertical-align:middle;margin-left:30px;">
-            <img src="~/images/SupportPhone.png" />
-        </div>
-        <div style="display:inline-block;vertical-align:middle;">
-            <span style="margin-left:18px;font-size:30px;color:white;">+38 (050) 508 81 08</span>
         </div>
     </header>
     <div>
@@ -127,8 +119,27 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - Інтернет магазин bi-bi.com.ua - <a asp-area="" asp-controller="Home" asp-action="Privacy">Політика конфіденційності</a>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">&copy; 2021 - Інтернет магазин bi-bi.com.ua - <a asp-area="" asp-controller="Home" asp-action="Privacy">Політика конфіденційності</a></div>
+                <div style="display:inline-block;vertical-align:middle;">
+                </div>
+                <div class="col">
+                    <div class="row">
+                        <div class="col" style="cursor:pointer;" onclick="window.open('https://www.facebook.com/Автозапчастини-247-103538094588098')"><img src="~/images/Social/facebook.png" style="width:40%;" /></div>
+                        <div class="col" style="cursor:pointer;" onclick="window.open('https://www.instagram.com/ek4car_cn/')"><img src="~/images/Social/instagram.png" style="width:40%;" /></div>
+                        <div class="col" style="cursor:pointer;"><img src="~/images/Social/youtube.png" style="width:40%;" /></div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div>
+                        <span style="font-size:18px;color:#a7a7a7;">Гаряча лінія: 050 508 81 08</span>
+                    </div>
+                </div>
+                <div class="col">
+                    <span>© 2021 «EK4CAR & BI-BI». Всі права захищені</span>
+                </div>
+            </div>
         </div>
     </footer>
 
