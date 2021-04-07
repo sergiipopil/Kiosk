@@ -294,6 +294,7 @@ namespace WebApplication.Controllers
         // GET: ProductController/Details/5        
         public ActionResult Details(string id)
         {
+            GetProductInfo(id);
             return View();
         }
         public ProductViewModel GetProductInfo(string id)

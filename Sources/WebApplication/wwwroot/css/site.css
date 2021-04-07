@@ -340,13 +340,9 @@ html {
     min-height: 100%;
 }
 
-body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-}
-
 .footer {
-    position: relative;
+    background: #23274d;
+    position: inherit;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
