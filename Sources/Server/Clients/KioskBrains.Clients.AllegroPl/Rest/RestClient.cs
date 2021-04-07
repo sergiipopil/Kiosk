@@ -300,6 +300,13 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             try
             {
                 HtmlWeb web = new HtmlWeb();
+                web.UseCookies = true;
+                web.UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36";
+                web.PreRequest += (request) =>
+                {
+                    request.Headers.Add("Accept", "*/*");
+                    return true;
+                };
                 HtmlDocument doc = web.Load("https://allegro.pl/oferta/" + id);
                 text = doc.ParsedText;
                 var divsDesc = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Description'] div._2d49e_5pK0q div");
