@@ -38,7 +38,7 @@ for details on configuring this project to bundle and minify static web assets. 
     }
 
 .form-control {
-    margin: 25px 0px;
+    margin-top: 30px;
     height: 45px !important;
     font-size: 18px !important;
 }
@@ -346,7 +346,7 @@ body {
 }
 
 .footer {
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
     white-space: nowrap;
@@ -514,7 +514,32 @@ input {
     letter-spacing: 1px;
 }
 
+
 .inline-block {
     display: inline-block;
     vertical-align: middle;
+}
+.field-validation-error {
+    color: red;
+    font-size:16px;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
 }

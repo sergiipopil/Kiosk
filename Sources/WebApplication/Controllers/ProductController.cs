@@ -64,10 +64,15 @@ namespace WebApplication.Controllers
         {
             return View();
         }
-        public ActionResult Order()
+        [HttpPost]
+        public ActionResult Order(string CustomerName, string CustomerSurName, string CustomerFatherName, string CustomerPhoneNumber, string SelectedCity, string SelectedDepartment, string City, string Address)
         {
             @ViewData["TransactionAmount"] = HttpContext.Session.GetString("transactionTotalPrice");
             @ViewData["TransactionUser"] = HttpContext.Session.GetString("transactionUserName");
+            
+            string customerFullName = String.Format("{0} {1} {2}", CustomerSurName, CustomerName, CustomerFatherName);
+            var ordered = MakeOrder(customerFullName, CustomerPhoneNumber, SelectedCity, SelectedDepartment, City, Address).Result;
+            //ClearAllSessions();
             return View();
         }
         public IList<CustomCartProduct> AddToCartSession(CustomCartProduct cartItem)
@@ -184,13 +189,7 @@ namespace WebApplication.Controllers
 
         }
         
-        [HttpPost]
-        public ActionResult Submit(string customerFullName, string customerPhoneNumber, string selectedCity, string selectedDepartment, string inputCity, string inputAddress)
-        {
-            var ordered = MakeOrder(customerFullName, customerPhoneNumber, selectedCity, selectedDepartment, inputCity, inputAddress).Result;
-            ClearAllSessions();
-            return Json(customerFullName);
-        }
+       
         private async Task<KioskBrains.Server.Domain.Entities.EK.EkTransaction> MakeOrder(string customerFullUserName, string customerPhoneNumber, string selectedCity=null, string selectedDepartment = null, string inputCity = null, string inputStreet = null) {
             KioskBrains.Common.EK.Transactions.EkTransaction eKTransactions = new KioskBrains.Common.EK.Transactions.EkTransaction();
 
