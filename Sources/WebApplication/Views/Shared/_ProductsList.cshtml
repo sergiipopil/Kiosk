@@ -27,6 +27,9 @@
                 return false;
             });
         });
+        function openDetails(advertId) {
+            window.open('/Product/Details/' + "?id=" + advertId, "_blank");
+        } 
     </script>
     <style>
         .zoom {
@@ -100,6 +103,7 @@
                     <div style="vertical-align: top;" class="hide">
                         <span class="productTitle">@item.Name.Last().Value</span>
                     </div>
+                    <div onclick="openDetails('@item.SourceId')">Детальіше</div>
                 </div>
                 <div class="col-lg-3">
                     <div class="inline-block" style="border-left: 1px solid #c3c4c5;padding-left:20px;">

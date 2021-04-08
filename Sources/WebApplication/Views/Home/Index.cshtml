@@ -209,7 +209,7 @@
         }
 
         function goToCart(selectedProductId) {
-            window.location.href = '/Product/CartView/' + "?selectedProductId=" + selectedProductId;
+            window.open('/Product/CartView/' + "?selectedProductId=" + selectedProductId);
         }
         function showMainView(topCategoryId) {
             $('div[id*="divTopCategory_"]').removeClass("selected");
