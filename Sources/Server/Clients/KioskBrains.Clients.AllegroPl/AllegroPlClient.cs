@@ -551,7 +551,8 @@ namespace KioskBrains.Clients.AllegroPl
                 .Replace("\n ", "\n").Replace("&amp;", "&")
                 .Trim();
 
-            return html.Length > MaxDescriptionLength ? html.Substring(0, MaxDescriptionLength - 3) + "..." : html;
+            //return html.Length > MaxDescriptionLength ? html.Substring(0, MaxDescriptionLength - 3) + "..." : html;
+            return html;
         }
 
         #endregion

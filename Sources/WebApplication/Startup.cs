@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using KioskBrains.Server.Domain.Entities.DbStorage;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
+using WebApplication.Classes;
 using KioskBrains.Clients.Ek4Car;
 namespace WebApplication
 {

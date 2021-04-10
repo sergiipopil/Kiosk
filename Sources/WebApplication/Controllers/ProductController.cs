@@ -25,6 +25,8 @@ using System.Text.Json;
 using KioskBrains.Server.Domain.Entities.DbStorage;
 using KioskBrains.Clients.Ek4Car.Models;
 using CustomCartProduct = WebApplication.Classes.CartProduct;
+using WebApplication.Classes;
+using System.Security.Cryptography;
 
 namespace WebApplication.Controllers
 {
@@ -59,21 +61,81 @@ namespace WebApplication.Controllers
             _novaPoshtaClient = novaPoshtaUkraineClient;
         }
         // GET: ProductController
-        
+        private string _paymentPublicKey="i93808059847";
+        private string _paymentPrivate_key = "YS1ku34S1ixt8FqyxSXCdegYKfhdtvsO7TVp0Qnm";
         public ActionResult Index()
         {
             return View();
         }
+       
+        public PaymentLinkData GetPaymentLinkData(string paymentSettings) {
+            string data = Convert.ToBase64String(Encoding.UTF8.GetBytes(paymentSettings));
+            string sign_string = _paymentPrivate_key + data + _paymentPrivate_key;
+            string signature = Hash(Encoding.UTF8.GetBytes(sign_string));
+            return new PaymentLinkData() { Data = data, Signature = signature };
+        }
         [HttpPost]
         public ActionResult Order(string CustomerName, string CustomerSurName, string CustomerFatherName, string CustomerPhoneNumber, string SelectedCity, string SelectedDepartment, string City, string Address)
         {
-            @ViewData["TransactionAmount"] = HttpContext.Session.GetString("transactionTotalPrice");
-            @ViewData["TransactionUser"] = HttpContext.Session.GetString("transactionUserName");
-            
             string customerFullName = String.Format("{0} {1} {2}", CustomerSurName, CustomerName, CustomerFatherName);
             var ordered = MakeOrder(customerFullName, CustomerPhoneNumber, SelectedCity, SelectedDepartment, City, Address).Result;
+
+            OrderPaymentSettings privat24Settings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "privat24");
+            string privat24Json = JsonSerializer.Serialize(privat24Settings);
+            PaymentLinkData privat24DataLink = GetPaymentLinkData(privat24Json);
+
+            OrderPaymentSettings QRSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "qr");
+            string QRJson = JsonSerializer.Serialize(QRSettings);
+            PaymentLinkData QRDataLink = GetPaymentLinkData(QRJson);
+
+            OrderPaymentSettings APaySettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "apay");
+            string APayJson = JsonSerializer.Serialize(APaySettings);
+            PaymentLinkData APayDataLink = GetPaymentLinkData(APayJson);
+
+            OrderPaymentSettings GPaySettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "gpay");
+            string GPayJson = JsonSerializer.Serialize(GPaySettings);
+            PaymentLinkData GPayDataLink = GetPaymentLinkData(GPayJson);
+
+            OrderPaymentSettings cardSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "card");
+            string cardJson = JsonSerializer.Serialize(cardSettings);
+            PaymentLinkData cardDataLink = GetPaymentLinkData(cardJson);
+
+            OrderPaymentSettings liqpaySettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "liqpay");
+            string liqpayJson = JsonSerializer.Serialize(liqpaySettings);
+            PaymentLinkData liqpayDataLink = GetPaymentLinkData(liqpayJson);
+
+            OrderPaymentSettings masterpassSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "masterpass");
+            string masterpassJson = JsonSerializer.Serialize(masterpassSettings);
+            PaymentLinkData masterpassDataLink = GetPaymentLinkData(masterpassJson);
+
+            OrderPaymentSettings moment_partSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "moment_part");
+            string moment_partSettingsJson = JsonSerializer.Serialize(moment_partSettings);
+            PaymentLinkData moment_partDataLink = GetPaymentLinkData(moment_partSettingsJson);
+
+            OrderPaymentSettings cashSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "cash");
+            string cashJson = JsonSerializer.Serialize(cashSettings);
+            PaymentLinkData cashDataLink = GetPaymentLinkData(cashJson);
+
+            OrderPaymentSettings invoiceSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", " invoice");
+            string invoiceJson = JsonSerializer.Serialize(invoiceSettings);
+            PaymentLinkData invoiceDataLink = GetPaymentLinkData(invoiceJson);
+
+            PaymentViewModel paymentModel = new PaymentViewModel()
+            {
+                Privat24Data = privat24DataLink,
+                QRData = QRDataLink,
+                APayData = APayDataLink,
+                GPayData = GPayDataLink,
+                cardData = cardDataLink,
+                liqpayData =liqpayDataLink,
+                masterpassData=masterpassDataLink,
+                moment_partData= moment_partDataLink,
+                cashData= cashDataLink,
+                invoiceData=invoiceDataLink
+            };
+
             //ClearAllSessions();
-            return View();
+            return View(paymentModel);
         }
         public IList<CustomCartProduct> AddToCartSession(CustomCartProduct cartItem)
         {
@@ -242,11 +304,11 @@ namespace WebApplication.Controllers
             var serialize = Newtonsoft.Json.JsonConvert.SerializeObject(eKTransactions);           
             var apiEkTransaction = JsonSerializer.Deserialize<KioskBrains.Common.EK.Transactions.EkTransaction>(serialize);
             var ekTransaction = KioskBrains.Server.Domain.Entities.EK.EkTransaction.FromApiModel(Convert.ToInt32(HttpContext.Session.GetString("kioskId")), DateTime.Now, apiEkTransaction);
-            ekTransaction.IsSentToEkSystem = false;
+            ekTransaction.IsSentToEkSystem = true;
             HttpContext.Session.SetString("transactionTotalPrice", ekTransaction.TotalPrice.ToString());
             HttpContext.Session.SetString("transactionUserName", customerFullUserName);
-            //_dbContext.EkTransactions.Add(ekTransaction);
-            //await _dbContext.SaveChangesAsync();
+            _dbContext.EkTransactions.Add(ekTransaction);
+            await _dbContext.SaveChangesAsync();
 
             return ekTransaction;
         }
@@ -292,9 +354,11 @@ namespace WebApplication.Controllers
         }
 
         // GET: ProductController/Details/5        
-        public ActionResult Details(string id)
+        public ActionResult Details(string id, string price)
         {
-            return View("Details", GetProductInfo(id));
+            ProductViewModel model = GetProductInfo(id);
+            model.Price = price;
+            return View("Details", model);
         }
         public ProductViewModel GetProductInfo(string id)
         {
@@ -305,9 +369,7 @@ namespace WebApplication.Controllers
             {
                 test.Add(item.Name[Languages.RussianCode] + ": " + item.Value[Languages.RussianCode]);
             }
-
-            var rate = GetExchangeRateAsync().Result;
-            ekProduct = EkConvertHelper.EkAllegroPlOfferToProduct(p, rate);
+            
 
             var product = new ProductViewModel()
             {
@@ -315,25 +377,9 @@ namespace WebApplication.Controllers
                 Title = p.Name[Languages.RussianCode],
                 Description = p.Description[Languages.RussianCode],
                 Images = p.Images,
-                Parameters = test,
-                Price = ekProduct.Price
+                Parameters = test
             };
             return product;
-        }
-        private async Task<decimal> GetExchangeRateAsync()
-        {
-            var ukrainianNow = TimeZones.GetTimeZoneNow(TimeZones.UkrainianTime);
-            const string LocalCurrencyCode = "UAH";
-            const string ForeignCurrencyCode = "PLN";
-
-            // todo: cache
-            var exchangeRate = await _centralBankExchangeRateManager.GetCurrentRateAsync(LocalCurrencyCode, ForeignCurrencyCode, ukrainianNow);
-            if (exchangeRate == null)
-            {
-                throw new InvalidOperationException($"CB exchange rate for {LocalCurrencyCode}-{ForeignCurrencyCode} is not presented.");
-            }
-
-            return exchangeRate.Value;
         }
         // GET: ProductController/Create
         public ActionResult Create()
@@ -341,5 +387,13 @@ namespace WebApplication.Controllers
             return View();
         }
 
+        public string Hash(byte[] temp)
+        {
+            using (SHA1Managed sha1 = new SHA1Managed())
+            {
+                var hash = sha1.ComputeHash(temp);
+                return Convert.ToBase64String(hash);
+            }
+        }        
     }
 }

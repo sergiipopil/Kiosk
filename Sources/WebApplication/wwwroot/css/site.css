@@ -42,7 +42,9 @@ for details on configuring this project to bundle and minify static web assets. 
     height: 45px !important;
     font-size: 18px !important;
 }
-
+a:hover {
+    text-decoration:none !important;
+}
 .bootstrap-select > .dropdown-toggle.bs-placeholder, .bootstrap-select > .dropdown-toggle.bs-placeholder:active, .bootstrap-select > .dropdown-toggle.bs-placeholder:focus, .bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
     color: black !important;
     font-size: 18px;
@@ -199,7 +201,7 @@ ul.pagination li {
     margin: 10px 0px;
 }
 
-    .btnOrder:hover {
+    .btnOrder:hover, .btnBuyList:hover {
         background: linear-gradient(90deg, #FFB21D, #ff5a00);
         box-shadow: 0 0 6px white;
         color: white;
@@ -277,10 +279,18 @@ input#btnCloseDetailWindow {
 .smallPhotoes {
     max-width: 26%;
     max-height: 100px;
-    margin: 10px;
+    margin: 9px;
     vertical-align: middle;
 }
-
+.openProductDEtailsBtn {
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    width: 100%;
+    color: #ff5a00;
+    font-weight: 500;
+    cursor:pointer;
+}
 a.navbar-brand {
     white-space: normal;
     text-align: center;

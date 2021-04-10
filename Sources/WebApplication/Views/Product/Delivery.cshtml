@@ -37,6 +37,10 @@
 
     <script type="text/javascript">
 
+
+
+
+
 function processAjax(areaVal, cityVal, cbName) {
     $.ajax({
         type: "GET",
@@ -86,20 +90,19 @@ function showDeliveryFields(divName) {
         }
 
         function onCityChanged() {
-            $("#validateCity").hide();            
+            $("#validateCity").hide();
             console.log($('#cbCity').val());
             processAjax('', $('#cbCity').val(), 'cbDepartment');
         }
 
         function onDepartmentChanged() {
             $("#validateDepartment").hide();
-        }
+        }        
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title></title>
 </head>
-<body>
-    
+<body>    
     <div id="deliveryControls">
         @using (Html.BeginForm("Order", "Product", FormMethod.Post)) { 
             <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;border-bottom:1px solid #504593;">
@@ -184,7 +187,7 @@ function showDeliveryFields(divName) {
             $('.selectpicker').selectpicker({
                 liveSearch: true,
                 showSubtext: true
-            });            
+            });
         });
     </script>
 </body>

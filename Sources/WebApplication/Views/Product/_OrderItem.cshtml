@@ -25,18 +25,7 @@
                         <div class="enlargePhoto"> ФОТО+ (@item.Product.Photos.Count())</div>
                     </a>
 
-                        }
-                    <div style="display:none;">
-                        @foreach (var photo in @item.Product.Photos)
-                            {
-                        @if (@photo.Url != @item.Product.Photos[0].Url)
-                                {
-                        <a href=@photo.Url data-fancybox="@String.Format("galleryProduct{0}", item.Product.Key)" class="noneDecoration">
-                            <img src=@photo.Url class="smallPhotoes">
-                        </a>
-                                }
-                            }
-                    </div>
+                        }                    
                 </div>
             </div>
 
