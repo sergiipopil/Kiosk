@@ -77,49 +77,51 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Order(string CustomerName, string CustomerSurName, string CustomerFatherName, string CustomerPhoneNumber, string SelectedCity, string SelectedDepartment, string City, string Address)
         {
-            /*
             string customerFullName = String.Format("{0} {1} {2}", CustomerSurName, CustomerName, CustomerFatherName);
             var ordered = MakeOrder(customerFullName, CustomerPhoneNumber, SelectedCity, SelectedDepartment, City, Address).Result;
             EkTransactionProduct[] tempCartProducts = JsonSerializer.Deserialize<EkTransactionProduct[]>(ordered.ProductsJson);
-            var products = string.Join(",", String.Format("{0} ({1} шт) - {2}{3}", tempCartProducts.ToList().Select(x=>x.Name), tempCartProducts.ToList().Select(x => x.Quantity), tempCartProducts.ToList().Select(x => x.Price), tempCartProducts.ToList().Select(x => x.PriceCurrencyCode)) );
+            string payProducts = String.Format("№ замовлення {0}\n Оплата за товар:\n", ordered.Id);
+            foreach (var item in tempCartProducts) {
+                payProducts += String.Format("{0} ({1} шт) - {2}{3}", item.Name["ru"], item.Quantity, item.Price, item.PriceCurrencyCode) + "\n";
+            }
 
-            OrderPaymentSettings privat24Settings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "privat24");
+            OrderPaymentSettings privat24Settings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "privat24", "https://api.ek4car.com/payment/callback");
             string privat24Json = JsonSerializer.Serialize(privat24Settings);
             PaymentLinkData privat24DataLink = GetPaymentLinkData(privat24Json);
 
-            OrderPaymentSettings QRSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "qr");
+            OrderPaymentSettings QRSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "qr", "https://api.ek4car.com/payment/callback");
             string QRJson = JsonSerializer.Serialize(QRSettings);
             PaymentLinkData QRDataLink = GetPaymentLinkData(QRJson);
 
-            OrderPaymentSettings APaySettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "apay");
+            OrderPaymentSettings APaySettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "apay", "https://api.ek4car.com/payment/callback");
             string APayJson = JsonSerializer.Serialize(APaySettings);
             PaymentLinkData APayDataLink = GetPaymentLinkData(APayJson);
 
-            OrderPaymentSettings GPaySettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "gpay");
+            OrderPaymentSettings GPaySettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "gpay", "https://api.ek4car.com/payment/callback");
             string GPayJson = JsonSerializer.Serialize(GPaySettings);
             PaymentLinkData GPayDataLink = GetPaymentLinkData(GPayJson);
 
-            OrderPaymentSettings cardSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "card");
+            OrderPaymentSettings cardSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "card", "https://api.ek4car.com/payment/callback");
             string cardJson = JsonSerializer.Serialize(cardSettings);
             PaymentLinkData cardDataLink = GetPaymentLinkData(cardJson);
 
-            OrderPaymentSettings liqpaySettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "liqpay");
+            OrderPaymentSettings liqpaySettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "liqpay", "https://api.ek4car.com/payment/callback");
             string liqpayJson = JsonSerializer.Serialize(liqpaySettings);
             PaymentLinkData liqpayDataLink = GetPaymentLinkData(liqpayJson);
 
-            OrderPaymentSettings masterpassSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "masterpass");
+            OrderPaymentSettings masterpassSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "masterpass", "https://api.ek4car.com/payment/callback");
             string masterpassJson = JsonSerializer.Serialize(masterpassSettings);
             PaymentLinkData masterpassDataLink = GetPaymentLinkData(masterpassJson);
 
-            OrderPaymentSettings moment_partSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "moment_part");
+            OrderPaymentSettings moment_partSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "moment_part", "https://api.ek4car.com/payment/callback");
             string moment_partSettingsJson = JsonSerializer.Serialize(moment_partSettings);
             PaymentLinkData moment_partDataLink = GetPaymentLinkData(moment_partSettingsJson);
 
-            OrderPaymentSettings cashSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "cash");
+            OrderPaymentSettings cashSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "cash", "https://api.ek4car.com/payment/callback");
             string cashJson = JsonSerializer.Serialize(cashSettings);
             PaymentLinkData cashDataLink = GetPaymentLinkData(cashJson);
 
-            OrderPaymentSettings invoiceSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", " invoice");
+            OrderPaymentSettings invoiceSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", " invoice", "https://api.ek4car.com/payment/callback");
             string invoiceJson = JsonSerializer.Serialize(invoiceSettings);
             PaymentLinkData invoiceDataLink = GetPaymentLinkData(invoiceJson);
 
@@ -135,10 +137,10 @@ namespace WebApplication.Controllers
                 moment_partData= moment_partDataLink,
                 cashData= cashDataLink,
                 invoiceData=invoiceDataLink
-            };*/
-            return View();
+            };
+
             //ClearAllSessions();
-            //return View(paymentModel);
+            return View(paymentModel);
         }
         public IList<CustomCartProduct> AddToCartSession(CustomCartProduct cartItem)
         {
@@ -361,6 +363,9 @@ namespace WebApplication.Controllers
         {
             ProductViewModel model = GetProductInfo(id);
             model.Price = price;
+            var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
+            RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
+            model.ReturnFunction = rightTree.FunctionReturnFromProducts;
             return View("Details", model);
         }
         public ProductViewModel GetProductInfo(string id)

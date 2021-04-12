@@ -16,7 +16,8 @@ namespace WebApplication.Classes
         public string order_id { get; set; }
         public string language { get; set; }
         public string paytypes { get; set; }
-        public OrderPaymentSettings(string public_keyVal, string versionVal, string actionVal, string amountVal, string currencyVal, string descriptionVal, string order_idVal, string languageVal, string paytypesVal)
+        public string server_url { get; set; }
+        public OrderPaymentSettings(string public_keyVal, string versionVal, string actionVal, string amountVal, string currencyVal, string descriptionVal, string order_idVal, string languageVal, string paytypesVal, string server_urlVal)
         {
             public_key = public_keyVal;
             version = versionVal;
@@ -27,6 +28,7 @@ namespace WebApplication.Classes
             order_id = order_idVal;
             language = languageVal;
             paytypes = paytypesVal;
+            server_url = server_urlVal;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace WebApplication.Models
         public string Title { get; set; }
         public string Description { get; set; }   
         public string Name { get; set; }
-
+        public string ReturnFunction { get; set; }
         public string Price { get; set; }
         public List<string> Parameters { get; set; }
         public OfferImage[] Images
