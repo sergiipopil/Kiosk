@@ -5,3 +5,6 @@
 function backToMainPage() {
     window.location.href = '/Home/Index/';
 }
+function openDetails(advertId, advertPrice) {
+    window.open('/Product/Details/' + "?id=" + advertId + "&price=" + advertPrice, "_blank");
+}

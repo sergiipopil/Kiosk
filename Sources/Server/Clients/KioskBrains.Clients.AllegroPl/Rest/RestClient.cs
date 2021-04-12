@@ -334,8 +334,15 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 }
                 var tempdesc = doc.DocumentNode.QuerySelectorAll("div._2d49e_5pK0q");
                 var desc = divsDesc.Any() ? divsDesc[0].InnerHtml : "";
-
-
+                string newDesc = "";
+                if (divsDesc.Any()) {
+                    if (divsDesc.Count() > 0) {
+                        foreach (var item in divsDesc)
+                        {
+                            newDesc += item.InnerHtml;
+                        }
+                    }
+                }
                 var liParams = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Parameters'] li div._f8818_3-1jj");
                 
                 var tempPrice = doc.DocumentNode.QuerySelector("meta[itemprop='price']");
@@ -359,8 +366,8 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
                 var descMulti = new MultiLanguageString()
                 {
-                    [Languages.PolishCode] = desc,
-                    [Languages.RussianCode] = desc
+                    [Languages.PolishCode] = newDesc,
+                    [Languages.RussianCode] = newDesc
                 };
 
                 return new Offer()

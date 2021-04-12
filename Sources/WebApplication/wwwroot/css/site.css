@@ -213,6 +213,7 @@ ul.pagination li {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    display:block !important;
 }
 .btnDeleteCartItem {
     border: 1px solid #FFB21D;
@@ -267,9 +268,9 @@ input#btnCloseDetailWindow {
 
 .paymentMethod {
     border: 1px solid #c3c4c7;
-    margin: 20px;
-    padding: 20px;
+    margin-bottom:25px;
     background: white;
+    padding:5px;
 }
 
     .paymentMethod:hover {
@@ -513,7 +514,25 @@ input {
     font-size: 24px;
     text-transform: uppercase;
     padding: 6px;
-    font-weight: bold;
+    font-weight: 500;
+    color: #ff5a00;
+    font-family: Open Sans,sans-serif;
+    width: 100%;
+    letter-spacing: 1px;
+}
+.inputPart {
+    font-size: 20px;
+    height: 62px;
+    width: 90%;
+}
+.mainBlockTitleOrder {
+    box-shadow: 0 0 6px rgba(0,0,0,0.5);
+    background: #EEEFFF;
+    text-align: center;
+    font-size: 32px;
+    text-transform: uppercase;
+    padding: 23px 16px;
+    font-weight: 400;
     color: #ff5a00;
     font-family: Open Sans,sans-serif;
     width: 100%;

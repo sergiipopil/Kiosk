@@ -77,8 +77,11 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Order(string CustomerName, string CustomerSurName, string CustomerFatherName, string CustomerPhoneNumber, string SelectedCity, string SelectedDepartment, string City, string Address)
         {
+            /*
             string customerFullName = String.Format("{0} {1} {2}", CustomerSurName, CustomerName, CustomerFatherName);
             var ordered = MakeOrder(customerFullName, CustomerPhoneNumber, SelectedCity, SelectedDepartment, City, Address).Result;
+            EkTransactionProduct[] tempCartProducts = JsonSerializer.Deserialize<EkTransactionProduct[]>(ordered.ProductsJson);
+            var products = string.Join(",", String.Format("{0} ({1} шт) - {2}{3}", tempCartProducts.ToList().Select(x=>x.Name), tempCartProducts.ToList().Select(x => x.Quantity), tempCartProducts.ToList().Select(x => x.Price), tempCartProducts.ToList().Select(x => x.PriceCurrencyCode)) );
 
             OrderPaymentSettings privat24Settings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", customerFullName, ordered.Id.ToString(), "uk", "privat24");
             string privat24Json = JsonSerializer.Serialize(privat24Settings);
@@ -132,10 +135,10 @@ namespace WebApplication.Controllers
                 moment_partData= moment_partDataLink,
                 cashData= cashDataLink,
                 invoiceData=invoiceDataLink
-            };
-
+            };*/
+            return View();
             //ClearAllSessions();
-            return View(paymentModel);
+            //return View(paymentModel);
         }
         public IList<CustomCartProduct> AddToCartSession(CustomCartProduct cartItem)
         {
