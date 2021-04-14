@@ -13,6 +13,7 @@ using Serilog;
 using KioskBrains.Server.Domain.Config;
 using static KioskBrains.Server.Domain.Automapper.AutofacModule;
 using KioskBrains.Server.Domain.Entities.DbStorage;
+using KioskBrains.Clients.Ek4Car;
 
 namespace WebApplication
 {
@@ -33,7 +34,7 @@ namespace WebApplication
                 {
                     containerBuilder.RegisterModule<AutofacModule>();
                     containerBuilder.RegisterType<NovaPoshtaUkraine.NovaPoshtaUkraineClient>();
-                    //containerBuilder.RegisterModule(new IntegrationEventsAutofacModule<MessageBusListener>(context.Configuration));
+                    containerBuilder.RegisterType<Ek4CarClient>();
                     containerBuilder.RegisterModule(new DataAccessEventsAutofacModule<KioskBrainsContext>());
                 })
                 .ConfigureWebHostDefaults(webBuilder =>

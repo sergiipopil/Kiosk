@@ -9,13 +9,16 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.28" />
     <PackageReference Include="HtmlAgilityPack.CssSelectors.NetCore" Version="1.2.1" />
+    <PackageReference Include="Microsoft.Bot.Builder.Integration.AspNet.Core" Version="4.12.2" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Mono.HttpUtility" Version="1.0.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.ServiceModel.Duplex" Version="4.4.*" />
     <PackageReference Include="System.ServiceModel.Http" Version="4.4.*" />
     <PackageReference Include="System.ServiceModel.NetTcp" Version="4.4.*" />
     <PackageReference Include="System.ServiceModel.Security" Version="4.4.*" />
+    <PackageReference Include="System.Web.Mvc.Extensions" Version="1.1.1.2" />
   </ItemGroup>
 
   <ItemGroup>

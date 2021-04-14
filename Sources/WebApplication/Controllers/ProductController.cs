@@ -61,8 +61,12 @@ namespace WebApplication.Controllers
             _novaPoshtaClient = novaPoshtaUkraineClient;
         }
         // GET: ProductController
-        private string _paymentPublicKey="i93808059847";
-        private string _paymentPrivate_key = "YS1ku34S1ixt8FqyxSXCdegYKfhdtvsO7TVp0Qnm";
+        private string _paymentPublicKey = "i48356791714";
+        private string _paymentPrivate_key = "nNgO8jvGMxbqO8EGpithJb5WeiCNI1IFT3VW5U7s";
+
+
+        //private string _paymentPublicKey="i93808059847";
+        //private string _paymentPrivate_key = "YS1ku34S1ixt8FqyxSXCdegYKfhdtvsO7TVp0Qnm";
         public ActionResult Index()
         {
             return View();
@@ -101,7 +105,7 @@ namespace WebApplication.Controllers
             string GPayJson = JsonSerializer.Serialize(GPaySettings);
             PaymentLinkData GPayDataLink = GetPaymentLinkData(GPayJson);
 
-            OrderPaymentSettings cardSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "card", "https://api.ek4car.com/payment/callback");
+            OrderPaymentSettings cardSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", "10", "UAH", payProducts, ordered.Id.ToString(), "uk", "card", "https://api.ek4car.com/payment/callback");
             string cardJson = JsonSerializer.Serialize(cardSettings);
             PaymentLinkData cardDataLink = GetPaymentLinkData(cardJson);
 

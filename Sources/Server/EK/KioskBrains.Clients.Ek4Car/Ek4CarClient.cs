@@ -9,7 +9,9 @@ using KioskBrains.Server.Common.Constants;
 using KioskBrains.Server.Common.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System.Web;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace KioskBrains.Clients.Ek4Car
 {
@@ -63,7 +65,7 @@ namespace KioskBrains.Clients.Ek4Car
                             new StringContent(requestJson, Encoding.UTF8, "application/json"),
                             cancellationToken);
                         responseBody = await httpResponse.Content.ReadAsStringAsync();
-
+                        
                         integrationLogManager.LogToResponse("StatusCode", ((int)httpResponse.StatusCode).ToString());
                         integrationLogManager.LogToResponse("Body", responseBody);
 

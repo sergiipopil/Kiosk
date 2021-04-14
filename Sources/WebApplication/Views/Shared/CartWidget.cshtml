@@ -6,20 +6,17 @@
         window.location.href = '/Product/Delivery/'
     }
 </script>
-@if (@ViewData["CartWidgetPrice"] == null) { 
-<div id="cartWidgetEmpty">
-    <div>Ваша корзина пуста</div>
-</div>
-}
-else {
-<div id="cartWidgetValue">
-    <div onclick="ReturnToCart()">
-        Переглянути
+<div style="padding-bottom:30px;">Ваша корзина</div>
+@if (@ViewData["CartWidgetPrice"] != null)
+{
+    <div id="cartWidgetValue">
+        <div onclick="ReturnToCart()">
+            Переглянути
+        </div>
+        <div>
+            <span id="cartWidgetPrice">@ViewData["CartWidgetPrice"]</span> грн.
+        </div>
     </div>
-    <div>
-        <span id="cartWidgetPrice">@ViewData["CartWidgetPrice"]</span> грн.
-    </div>
-</div>
 }
 <img src="~/images/Cart/CartWidgetEmptyBig.png" />
-    
+

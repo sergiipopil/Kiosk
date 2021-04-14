@@ -14,6 +14,7 @@ using KioskBrains.Common.Contracts;
 using KioskBrains.Common.EK.Api;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.IO;
 using System.Net;
 
 namespace KioskBrains.Clients.AllegroPl.Rest
@@ -301,21 +302,34 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             var o = GetOfferInit(id);
             return new OfferExtraData() { Description = o.Description, Parameters = o.Parameters };
         }
+        public static String code(string Url)
+        {
+            HttpWebRequest myRequest = (HttpWebRequest)WebRequest.Create(Url);
+            myRequest.Method = "GET";
+            WebResponse myResponse = myRequest.GetResponse();
+            StreamReader sr = new StreamReader(myResponse.GetResponseStream(), System.Text.Encoding.UTF8);
+            string result = sr.ReadToEnd();
+            sr.Close();
+            myResponse.Close();
 
+            return result;
+        }
         public Offer GetOfferInit(string id)
         {
             var text = "";
             try
             {
                 HtmlWeb web = new HtmlWeb();
-                web.UseCookies = true;
-                web.UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36";
-                web.PreRequest += (request) =>
-                {
-                    request.Headers.Add("Accept", "*/*");
-                    return true;
-                };
-                HtmlDocument doc = web.Load("http://allegro.pl/oferta/" + id);
+                //web.UseCookies = true;
+                //web.UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36";
+                //web.PreRequest += (request) =>
+                //{
+                //    request.Headers.Add("Accept", "*/*");
+                //    return true;
+                //};
+                string s = code("http://api.scrapeup.com/?api_key=41f9cbb0dae6469ac6771b992224a0bd&url=http://allegro.pl/oferta/" + id+ "country_code=uk");
+                HtmlDocument doc = new HtmlDocument(); // web.Load("http://api.scrapeup.com/?api_key=41f9cbb0dae6469ac6771b992224a0bd&url=http://allegro.pl/oferta/" + id + "country_code=us");
+                doc.LoadHtml(s);
                 text = doc.ParsedText;
 
 
