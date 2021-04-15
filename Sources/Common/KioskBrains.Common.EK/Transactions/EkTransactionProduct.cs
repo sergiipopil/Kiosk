@@ -5,42 +5,42 @@ namespace KioskBrains.Common.EK.Transactions
 {
     public class EkTransactionProduct
     {
-        public string Key { get; set; }
+        public string key { get; set; }
 
-        public string BrandName { get; set; }
+        public string brandName { get; set; }
 
-        public string PartNumber { get; set; }
+        public string partNumber { get; set; }
 
-        public EkProductSourceEnum Source { get; set; }
+        public EkProductSourceEnum source { get; set; }
 
-        public string SourceId { get; set; }
+        public string sourceId { get; set; }
 
         /// <summary>
         /// Used for Allegro-based product price calculations.
         /// </summary>
-        public string CategoryId { get; set; }
+        public string categoryId { get; set; }
 
-        public MultiLanguageString Name { get; set; }
+        public MultiLanguageString name { get; set; }
 
-        public MultiLanguageString Description { get; set; }
+        public MultiLanguageString description { get; set; }
 
-        public string ThumbnailUrl { get; set; }
+        public string thumbnailUrl { get; set; }
 
-        public decimal BasePrice { get; set; }
+        public decimal basePrice { get; set; }
 
-        public string BasePriceCurrencyCode { get; set; }
+        public string basePriceCurrencyCode { get; set; }
 
-        public decimal DeliveryPrice { get; set; }
+        public decimal deliveryPrice { get; set; }
 
-        public decimal Price { get; set; }
+        public decimal price { get; set; }
 
-        public string PriceCurrencyCode { get; set; }
+        public string priceCurrencyCode { get; set; }
 
-        public string PriceCalculationInfo { get; set; }
+        public string priceCalculationInfo { get; set; }
 
-        public EkProductStateEnum State { get; set; }
+        public EkProductStateEnum state { get; set; }
 
-        public int Quantity { get; set; }
+        public int quantity { get; set; }
 
         public static EkTransactionProduct FromProduct(EkProduct product, MultiLanguageString description, int quantity)
         {
@@ -48,23 +48,23 @@ namespace KioskBrains.Common.EK.Transactions
 
             return new EkTransactionProduct()
                 {
-                    Key = product.Key,
-                    Source = product.Source,
-                    SourceId = product.SourceId,
-                    BrandName = product.BrandName,
-                    PartNumber = product.PartNumber,
-                    CategoryId = product.CategoryId,
-                    Name = product.Name,
-                    Description = description,
-                    ThumbnailUrl = product.GetThumbnailUrl(),
-                    BasePrice = product.BasePrice,
-                    BasePriceCurrencyCode = product.BasePriceCurrencyCode,
-                    DeliveryPrice = product.DeliveryPrice,
-                    Price = product.Price,
-                    PriceCurrencyCode = product.PriceCurrencyCode,
-                    PriceCalculationInfo = product.PriceCalculationInfo,
-                    State = product.State,
-                    Quantity = quantity,
+                   key = product.Key,
+                    source = product.Source,
+                    sourceId = product.SourceId,
+                    brandName = product.BrandName,
+                    partNumber = product.PartNumber,
+                    categoryId = product.CategoryId,
+                    name = product.Name,
+                    description = description,
+                    thumbnailUrl = product.GetThumbnailUrl(),
+                    basePrice = product.BasePrice,
+                    basePriceCurrencyCode = product.BasePriceCurrencyCode,
+                    deliveryPrice = product.DeliveryPrice,
+                    price = product.Price,
+                    priceCurrencyCode = product.PriceCurrencyCode,
+                    priceCalculationInfo = product.PriceCalculationInfo,
+                    state = product.State,
+                    quantity = quantity,
                 };
         }
     }

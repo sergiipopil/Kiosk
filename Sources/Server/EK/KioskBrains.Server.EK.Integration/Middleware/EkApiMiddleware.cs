@@ -142,8 +142,8 @@ namespace KioskBrains.Server.EK.Integration.Middleware
                 // success
                 var apiResponse = new ResponseWrapper<object>()
                     {
-                        Success = true,
-                        Data = response,
+                        success = true,
+                        data = response,
                     };
                 _responseJson = JsonConvert.SerializeObject(apiResponse);
                 _responseStatusCode = 200;
@@ -195,8 +195,8 @@ namespace KioskBrains.Server.EK.Integration.Middleware
         {
             var response = new ResponseWrapper<object>()
                 {
-                    Success = false,
-                    Error = new ResponseErrorInfo()
+                    success = false,
+                    error = new ResponseErrorInfo()
                         {
                             Message = message,
                         }

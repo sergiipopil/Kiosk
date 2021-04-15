@@ -2,18 +2,18 @@
 {
     public class EkDeliveryInfo
     {
-        public EkDeliveryTypeEnum Type { get; set; }
+        public EkDeliveryTypeEnum type { get; set; }
 
         /// <summary>
         /// Non-empty for <see cref="EkDeliveryTypeEnum.EkStore" /> and <see cref="EkDeliveryTypeEnum.DeliveryServiceStore" />.
         /// </summary>
-        public string StoreId { get; set; }
+        public string storeId { get; set; }
 
         /// <summary>
         /// Non-empty for <see cref="EkDeliveryTypeEnum.DeliveryServiceStore" />.
         /// </summary>
-        public EkDeliveryServiceEnum? DeliveryService { get; set; }
+        public EkDeliveryServiceEnum? deliveryService { get; set; }
 
-        public EkTransactionAddress Address { get; set; }
+        public EkTransactionAddress address { get; set; }
     }
 }

@@ -97,7 +97,20 @@ function showDeliveryFields(divName) {
 
         function onDepartmentChanged() {
             $("#validateDepartment").hide();
-        }        
+        }
+        function submit() {
+            console.log("submit");
+            $.ajax({
+                type: "POST",
+                url:'@Url.Action("Order", "Product")',
+                //data:"",
+                data: { selectedDepartment: $('#cbDepartment').val()},
+                success: function (data) {
+                    Disable(id, data);
+                    //alert("Cool");
+                }
+            });
+        }
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title></title>
@@ -163,6 +176,7 @@ function showDeliveryFields(divName) {
                                     <input type="submit" class="btnOrder" value="Підтвердити замовлення" />
                                 </div>
                             </div>
+                            <div onclick="submit()" style="background:black;color:greenyellow;">SUBMIT</div>
                         </td>
                     </tr>
 

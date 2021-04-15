@@ -15,17 +15,17 @@ namespace KioskBrains.Server.EK.Integration.Jobs
 
             return new Order()
                 {
-                    Id = ekTransaction.Id,
-                    KioskId = ekTransaction.KioskId,
-                    CreatedOnLocalTime = ekTransaction.LocalStartedOn,
-                    PreferableLanguageCode = Languages.RussianCode,
-                    Products = JsonConvert.DeserializeObject<EkTransactionProduct[]>(ekTransaction.ProductsJson),
-                    TotalPrice = ekTransaction.TotalPrice,
-                    TotalPriceCurrencyCode = ekTransaction.TotalPriceCurrencyCode,
-                    UserCode = ekTransaction.PromoCode,
-                    Customer = JsonConvert.DeserializeObject<EkCustomerInfo>(ekTransaction.CustomerInfoJson),
-                    Delivery = JsonConvert.DeserializeObject<EkDeliveryInfo>(ekTransaction.DeliveryInfoJson),
-                    ReceiptNumber = ekTransaction.ReceiptNumber,
+                    id = ekTransaction.Id,
+                    kioskId = ekTransaction.KioskId,
+                    createdOnLocalTime = ekTransaction.LocalStartedOn,
+                    preferableLanguageCode = Languages.RussianCode,
+                    products = JsonConvert.DeserializeObject<EkTransactionProduct[]>(ekTransaction.ProductsJson),
+                    totalPrice = ekTransaction.TotalPrice,
+                    totalPriceCurrencyCode = ekTransaction.TotalPriceCurrencyCode,
+                    userCode = ekTransaction.PromoCode,
+                    customer = JsonConvert.DeserializeObject<EkCustomerInfo>(ekTransaction.CustomerInfoJson),
+                    delivery = JsonConvert.DeserializeObject<EkDeliveryInfo>(ekTransaction.DeliveryInfoJson),
+                    receiptNumber = ekTransaction.ReceiptNumber,
                 };
         }
     }

@@ -9,6 +9,7 @@ using KioskBrains.Server.Common.Constants;
 using KioskBrains.Server.Common.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System.Text.RegularExpressions;
 using System.Web;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
@@ -103,14 +104,14 @@ namespace KioskBrains.Clients.Ek4Car
                     throw new Ek4CarRequestException("API response is null.");
                 }
 
-                if (!response.Success)
+                if (!response.success)
                 {
-                    throw new Ek4CarRequestException($"API request failed, error: '{response.Error?.Message}'.");
+                    throw new Ek4CarRequestException($"API request failed, error: '{response.error?.Message}'.");
                 }
 
                 await integrationLogManager.CompleteLogRecordAsync();
 
-                return response.Data;
+                return response.data;
             }
             catch (OperationCanceledException)
             {
@@ -124,6 +125,98 @@ namespace KioskBrains.Clients.Ek4Car
 
                 await integrationLogManager.CompleteLogRecordAsync();
 
+                throw;
+            }
+        }
+        public class Ek4CarResponse { 
+            public bool success { get; set; }
+            public string data { get; set; }
+            public string error { get; set; }
+        }
+       
+        private async Task<Ek4CarResponse> SendPostRequestAsyncTest<TData>(
+            string actionPath,
+            object request,
+            CancellationToken cancellationToken)
+            where TData : class, new()
+        {
+            Assure.ArgumentNotNull(actionPath, nameof(actionPath));
+            if (!actionPath.StartsWith("/"))
+            {
+                actionPath = "/" + actionPath;
+            }
+
+            // request new integration log manager
+           
+
+            try
+            {
+                string responseBody;
+                try
+                {
+                    var requestJson = JsonConvert.SerializeObject(request);
+                    string sss= Regex.Replace(requestJson, "^[a-z]", m => m.Value.ToLower());
+                    var test = 123;
+                    
+                    using (var httpClient = new HttpClient())
+                    {
+                        httpClient.DefaultRequestHeaders.Add("X-API-KEY", "KWLG@10213FKWll@)=!kkf!_dfWN");
+                        var httpResponse = await httpClient.PostAsync(
+                            new Uri(_settings.ApiUrl + actionPath),
+                            new StringContent(requestJson, Encoding.UTF8, "application/json"),
+                            cancellationToken);
+                        responseBody = await httpResponse.Content.ReadAsStringAsync();
+                       
+
+                        if (!httpResponse.IsSuccessStatusCode)
+                        {
+                            throw new Ek4CarRequestException($"Request to API failed, response code {(int)httpResponse.StatusCode}, body: {responseBody}");
+                        }
+                    }
+                }
+                catch (OperationCanceledException)
+                {
+                    throw;
+                }
+                catch (Ek4CarRequestException)
+                {
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    throw new Ek4CarRequestException("Request to API failed, no response.", ex);
+                }
+
+                Ek4CarResponse response;
+                try
+                {
+                    response = JsonConvert.DeserializeObject<Ek4CarResponse>(responseBody);
+                }
+                catch (Exception ex)
+                {
+                    throw new Ek4CarRequestException("Bad format of API response.", ex);
+                }
+
+                if (response == null)
+                {
+                    throw new Ek4CarRequestException("API response is null.");
+                }
+
+                if (!response.success)
+                {
+                    throw new Ek4CarRequestException($"API request failed, error: '{response.error}'.");
+                }                
+
+                return response;
+            }
+            catch (OperationCanceledException)
+            {
+                // cancelled - do not save log record
+
+                throw;
+            }
+            catch (Exception ex)
+            {                
                 throw;
             }
         }
@@ -143,6 +236,15 @@ namespace KioskBrains.Clients.Ek4Car
             CancellationToken cancellationToken)
         {
             return SendPostRequestAsync<EmptyData>(
+                "/orders",
+                order,
+                cancellationToken);
+        }
+        public Task<Ek4CarResponse> SendOrderAsyncTest(
+            Order order,
+            CancellationToken cancellationToken)
+        {
+            return SendPostRequestAsyncTest<EmptyData>(
                 "/orders",
                 order,
                 cancellationToken);

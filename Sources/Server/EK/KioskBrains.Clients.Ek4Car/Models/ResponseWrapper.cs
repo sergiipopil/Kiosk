@@ -3,10 +3,10 @@
     public class ResponseWrapper<TData>
         where TData : class, new()
     {
-        public bool Success { get; set; }
+        public bool success { get; set; }
 
-        public TData Data { get; set; }
+        public TData data { get; set; }
 
-        public ResponseErrorInfo Error { get; set; }
+        public ResponseErrorInfo error { get; set; }
     }
 }

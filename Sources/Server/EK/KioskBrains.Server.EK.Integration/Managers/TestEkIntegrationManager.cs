@@ -62,11 +62,11 @@ namespace KioskBrains.Server.EK.Integration.Managers
 
             var order = new Order()
                 {
-                    Id = orderId,
-                    KioskId = 1,
-                    CreatedOnLocalTime = createdOn,
-                    PreferableLanguageCode = "ru",
-                    Products = Enumerable.Range(1, 3)
+                    id = orderId,
+                    kioskId = 1,
+                    createdOnLocalTime = createdOn,
+                    preferableLanguageCode = "ru",
+                    products = Enumerable.Range(1, 3)
                         .Select(x =>
                             {
                                 var source = x%2 == 0
@@ -74,58 +74,58 @@ namespace KioskBrains.Server.EK.Integration.Managers
                                     : EkProductSourceEnum.AllegroPl;
                                 var product = new EkTransactionProduct()
                                     {
-                                        Key = new EkProductKey(source, x.ToString()).ToKey(),
-                                        Source = source,
-                                        Name = new MultiLanguageString()
+                                        key = new EkProductKey(source, x.ToString()).ToKey(),
+                                        source = source,
+                                        name = new MultiLanguageString()
                                             {
                                                 [Languages.RussianCode] = $"Продукт {x}",
                                             },
-                                        Description = new MultiLanguageString()
+                                        description = new MultiLanguageString()
                                             {
                                                 [Languages.RussianCode] = $"Описание продукта {x}",
                                             },
-                                        BasePrice = 125*x,
-                                        BasePriceCurrencyCode = source == EkProductSourceEnum.AllegroPl
+                                        basePrice = 125*x,
+                                        basePriceCurrencyCode = source == EkProductSourceEnum.AllegroPl
                                             ? "PLN"
                                             : "UAH",
-                                        Quantity = x,
+                                        quantity = x,
                                     };
 
                                 if (source == EkProductSourceEnum.AllegroPl)
                                 {
-                                    product.Price = Math.Ceiling(product.BasePrice*7.93m*1.5m);
-                                    product.PriceCurrencyCode = "UAH";
-                                    product.PriceCalculationInfo = "BasePrice x 7.93 (exchange rate) x 1.2";
+                                    product.price = Math.Ceiling(product.basePrice*7.93m*1.5m);
+                                    product.priceCurrencyCode = "UAH";
+                                    product.priceCalculationInfo = "BasePrice x 7.93 (exchange rate) x 1.2";
                                 }
                                 else
                                 {
-                                    product.Price = Math.Ceiling(product.BasePrice*1.2m);
-                                    product.PriceCurrencyCode = product.BasePriceCurrencyCode;
-                                    product.PriceCalculationInfo = "BasePrice x 1.2";
+                                    product.price = Math.Ceiling(product.basePrice*1.2m);
+                                    product.priceCurrencyCode = product.basePriceCurrencyCode;
+                                    product.priceCalculationInfo = "BasePrice x 1.2";
                                 }
 
                                 return product;
                             })
                         .ToArray(),
-                    Customer = new EkCustomerInfo()
+                    customer = new EkCustomerInfo()
                         {
-                            FullName = "Тимчик Вадим",
-                            Phone = "+380977861272",
+                            fullName = "Тимчик Вадим",
+                            phone = "+380977861272",
                         },
-                    Delivery = new EkDeliveryInfo()
+                    delivery = new EkDeliveryInfo()
                         {
-                            Type = EkDeliveryTypeEnum.Courier,
-                            Address = new EkTransactionAddress()
+                            type = EkDeliveryTypeEnum.Courier,
+                            address = new EkTransactionAddress()
                                 {
-                                    City = "Киев",
-                                    AddressLine1 = "ул. Предславинская 30, оф. 25",
+                                    city = "Киев",
+                                    addressLine1 = "ул. Предславинская 30, оф. 25",
                                 },
                         },
-                    ReceiptNumber = $"XXX-{orderId}",
+                    receiptNumber = $"XXX-{orderId}",
                 };
 
-            order.TotalPrice = order.Products.Sum(x => x.Price*x.Quantity);
-            order.TotalPriceCurrencyCode = "UAH";
+            order.totalPrice = order.products.Sum(x => x.price*x.quantity);
+            order.totalPriceCurrencyCode = "UAH";
 
             return order;
         }

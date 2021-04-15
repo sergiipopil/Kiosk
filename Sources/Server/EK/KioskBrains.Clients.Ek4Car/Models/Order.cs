@@ -8,32 +8,32 @@ namespace KioskBrains.Clients.Ek4Car.Models
         /// <summary>
         /// Order ID in KioskBrains portal.
         /// </summary>
-        public int Id { get; set; }
+        public int id { get; set; }
 
         /// <summary>
         /// Kiosk ID in KioskBrains portal.
         /// </summary>
-        public int KioskId { get; set; }
+        public int kioskId { get; set; }
 
-        public DateTime CreatedOnLocalTime { get; set; }
+        public DateTime createdOnLocalTime { get; set; }
 
         /// <summary>
         /// 2-symbol code.
         /// </summary>
-        public string PreferableLanguageCode { get; set; }
+        public string preferableLanguageCode { get; set; }
 
-        public EkTransactionProduct[] Products { get; set; }
+        public EkTransactionProduct[] products { get; set; }
 
-        public decimal TotalPrice { get; set; }
+        public decimal totalPrice { get; set; }
 
-        public string TotalPriceCurrencyCode { get; set; }
+        public string totalPriceCurrencyCode { get; set; }
 
-        public string UserCode { get; set; }
+        public string userCode { get; set; }
 
-        public EkCustomerInfo Customer { get; set; }
+        public EkCustomerInfo customer { get; set; }
 
-        public EkDeliveryInfo Delivery { get; set; }
+        public EkDeliveryInfo delivery { get; set; }
 
-        public string ReceiptNumber { get; set; }
+        public string receiptNumber { get; set; }
     }
 }

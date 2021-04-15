@@ -27,6 +27,7 @@ using KioskBrains.Clients.Ek4Car.Models;
 using CustomCartProduct = WebApplication.Classes.CartProduct;
 using WebApplication.Classes;
 using System.Security.Cryptography;
+using KioskBrains.Clients.Ek4Car;
 
 namespace WebApplication.Controllers
 {
@@ -37,7 +38,7 @@ namespace WebApplication.Controllers
         private AllegroPlClient _allegroPlClient;
         private NovaPoshtaUkraineClient _novaPoshtaClient;
         private ITranslateService _translateService;
-
+        private Ek4CarClient _ek4CarClient;
         private readonly CentralBankExchangeRateManager _centralBankExchangeRateManager;
         private ILogger<AllegroPlClient> _logger;
         private IOptions<AllegroPlClientSettings> _settings;
@@ -46,8 +47,9 @@ namespace WebApplication.Controllers
         public ProductController(ILogger<AllegroPlClient> logger,
             IOptions<AllegroPlClientSettings> settings,
             IOptions<YandexTranslateClientSettings> yandexApiClientSettings,
-            ITranslateService translateService, CentralBankExchangeRateManager centralBankExchangeRateManager, NovaPoshtaUkraineClient novaPoshtaUkraineClient, KioskBrainsContext dbContext)
+            ITranslateService translateService, CentralBankExchangeRateManager centralBankExchangeRateManager, NovaPoshtaUkraineClient novaPoshtaUkraineClient, KioskBrainsContext dbContext, Ek4CarClient ek4CarClient)
         {
+            _ek4CarClient = ek4CarClient;
             _dbContext = dbContext;
             _logger = logger;
             _settings = settings;
@@ -83,49 +85,50 @@ namespace WebApplication.Controllers
         {
             string customerFullName = String.Format("{0} {1} {2}", CustomerSurName, CustomerName, CustomerFatherName);
             var ordered = MakeOrder(customerFullName, CustomerPhoneNumber, SelectedCity, SelectedDepartment, City, Address).Result;
+            Ek4CarClient.Ek4CarResponse response = SendRequstToEk4Car(ordered).Result;
             EkTransactionProduct[] tempCartProducts = JsonSerializer.Deserialize<EkTransactionProduct[]>(ordered.ProductsJson);
-            string payProducts = String.Format("№ замовлення {0}\n Оплата за товар:\n", ordered.Id);
+            string payProducts = String.Format("№ замовлення {0}\n Оплата за товар:\n", response.data);
             foreach (var item in tempCartProducts) {
-                payProducts += String.Format("{0} ({1} шт) - {2}{3}", item.Name["ru"], item.Quantity, item.Price, item.PriceCurrencyCode) + "\n";
+                payProducts += String.Format("{0} ({1} шт) - {2}{3}", item.name["ru"], item.quantity, item.price, item.priceCurrencyCode) + "\n";
             }
 
-            OrderPaymentSettings privat24Settings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "privat24", "https://api.ek4car.com/payment/callback");
+            OrderPaymentSettings privat24Settings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, response.data, "uk", "privat24", "https://api.ek4car.com/payment/callback");
             string privat24Json = JsonSerializer.Serialize(privat24Settings);
             PaymentLinkData privat24DataLink = GetPaymentLinkData(privat24Json);
 
-            OrderPaymentSettings QRSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "qr", "https://api.ek4car.com/payment/callback");
+            OrderPaymentSettings QRSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, response.data, "uk", "qr", "https://api.ek4car.com/payment/callback");
             string QRJson = JsonSerializer.Serialize(QRSettings);
             PaymentLinkData QRDataLink = GetPaymentLinkData(QRJson);
 
-            OrderPaymentSettings APaySettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "apay", "https://api.ek4car.com/payment/callback");
+            OrderPaymentSettings APaySettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, response.data, "uk", "apay", "https://api.ek4car.com/payment/callback");
             string APayJson = JsonSerializer.Serialize(APaySettings);
             PaymentLinkData APayDataLink = GetPaymentLinkData(APayJson);
 
-            OrderPaymentSettings GPaySettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "gpay", "https://api.ek4car.com/payment/callback");
+            OrderPaymentSettings GPaySettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, response.data, "uk", "gpay", "https://api.ek4car.com/payment/callback");
             string GPayJson = JsonSerializer.Serialize(GPaySettings);
             PaymentLinkData GPayDataLink = GetPaymentLinkData(GPayJson);
 
-            OrderPaymentSettings cardSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", "10", "UAH", payProducts, ordered.Id.ToString(), "uk", "card", "https://api.ek4car.com/payment/callback");
+            OrderPaymentSettings cardSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", "10", "UAH", payProducts, response.data, "uk", "card", "https://api.ek4car.com/payment/callback");
             string cardJson = JsonSerializer.Serialize(cardSettings);
             PaymentLinkData cardDataLink = GetPaymentLinkData(cardJson);
 
-            OrderPaymentSettings liqpaySettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "liqpay", "https://api.ek4car.com/payment/callback");
+            OrderPaymentSettings liqpaySettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, response.data, "uk", "liqpay", "https://api.ek4car.com/payment/callback");
             string liqpayJson = JsonSerializer.Serialize(liqpaySettings);
             PaymentLinkData liqpayDataLink = GetPaymentLinkData(liqpayJson);
 
-            OrderPaymentSettings masterpassSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "masterpass", "https://api.ek4car.com/payment/callback");
+            OrderPaymentSettings masterpassSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, response.data, "uk", "masterpass", "https://api.ek4car.com/payment/callback");
             string masterpassJson = JsonSerializer.Serialize(masterpassSettings);
             PaymentLinkData masterpassDataLink = GetPaymentLinkData(masterpassJson);
 
-            OrderPaymentSettings moment_partSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "moment_part", "https://api.ek4car.com/payment/callback");
+            OrderPaymentSettings moment_partSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, response.data, "uk", "moment_part", "https://api.ek4car.com/payment/callback");
             string moment_partSettingsJson = JsonSerializer.Serialize(moment_partSettings);
             PaymentLinkData moment_partDataLink = GetPaymentLinkData(moment_partSettingsJson);
 
-            OrderPaymentSettings cashSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", "cash", "https://api.ek4car.com/payment/callback");
+            OrderPaymentSettings cashSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, response.data, "uk", "cash", "https://api.ek4car.com/payment/callback");
             string cashJson = JsonSerializer.Serialize(cashSettings);
             PaymentLinkData cashDataLink = GetPaymentLinkData(cashJson);
 
-            OrderPaymentSettings invoiceSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, ordered.Id.ToString(), "uk", " invoice", "https://api.ek4car.com/payment/callback");
+            OrderPaymentSettings invoiceSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, response.data, "uk", " invoice", "https://api.ek4car.com/payment/callback");
             string invoiceJson = JsonSerializer.Serialize(invoiceSettings);
             PaymentLinkData invoiceDataLink = GetPaymentLinkData(invoiceJson);
 
@@ -266,23 +269,23 @@ namespace WebApplication.Controllers
 
             eKTransactions.SetCustomerInfo(new EkCustomerInfo()
             {
-                FullName = customerFullUserName,
-                Phone = customerPhoneNumber,
+                fullName = customerFullUserName,
+                phone = customerPhoneNumber,
             });
             var ekDeliveryInfo = new EkDeliveryInfo
             {
-                Type = String.IsNullOrEmpty(inputCity) ? EkDeliveryTypeEnum.DeliveryServiceStore : EkDeliveryTypeEnum.Courier,
-                DeliveryService = null, // String.IsNullOrEmpty(inputCity) ? EkDeliveryServiceEnum.NovaPoshtaUkraine : null,
-                StoreId = "0",
-                Address = new EkTransactionAddress()
+                type = String.IsNullOrEmpty(inputCity) ? EkDeliveryTypeEnum.DeliveryServiceStore : EkDeliveryTypeEnum.Courier,
+                deliveryService = null,// String.IsNullOrEmpty(inputCity) ? EkDeliveryServiceEnum.NovaPoshtaUkraine : null,
+                storeId = "1",
+                address = new EkTransactionAddress()
                 {
-                    City = String.IsNullOrEmpty(inputCity) ? selectedCity : inputCity,
-                    AddressLine1 = String.IsNullOrEmpty(inputCity) ? selectedDepartment : inputStreet,
+                    city = String.IsNullOrEmpty(inputCity) ? selectedCity : inputCity,
+                    addressLine1 = String.IsNullOrEmpty(inputCity) ? selectedDepartment : inputStreet,
                 }                
             };
             if (String.IsNullOrEmpty(inputCity))
             {
-                ekDeliveryInfo.DeliveryService = EkDeliveryServiceEnum.NovaPoshtaUkraine;
+                ekDeliveryInfo.deliveryService = EkDeliveryServiceEnum.NovaPoshtaUkraine;
             }
 
             eKTransactions.SetDeliveryInfo(ekDeliveryInfo);
@@ -318,8 +321,13 @@ namespace WebApplication.Controllers
             HttpContext.Session.SetString("transactionUserName", customerFullUserName);
             _dbContext.EkTransactions.Add(ekTransaction);
             await _dbContext.SaveChangesAsync();
-
+           
             return ekTransaction;
+        }
+        private async Task<Ek4CarClient.Ek4CarResponse> SendRequstToEk4Car(KioskBrains.Server.Domain.Entities.EK.EkTransaction transac) {
+            Order order = KioskBrains.Server.EK.Integration.Jobs.EkTransactionExtensions.ToEkOrder(transac);
+             Ek4CarClient.Ek4CarResponse ek4CarResponse = await _ek4CarClient.SendOrderAsyncTest(order, CancellationToken.None);
+            return ek4CarResponse;
         }
         public ActionResult Delivery(string area, string city)
         {
