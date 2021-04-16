@@ -58,6 +58,7 @@ namespace WebApplication.Controllers
 
         public IActionResult Index(string kioskId)
         {
+            HttpContext.Session.Remove("topCategoryId");
             HttpContext.Session.SetString("kioskId", kioskId==null ? "116" : kioskId);
             ViewData["CartWidgetPrice"] = HttpContext.Session.GetString("cartWidgetPrice");
             _topCategoryCarType = EkCarTypeEnum.Car;
@@ -68,6 +69,7 @@ namespace WebApplication.Controllers
         public IActionResult ShowMainView(string topCategoryId)
         {
             _topCategoryCarType = new EkSiteFactory().GetCarTypeEnum(topCategoryId);
+            HttpContext.Session.SetString("topCategoryId", topCategoryId);
             if (topCategoryId == "99193" || topCategoryId== "18554") {
                 var tempC = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == topCategoryId).FirstOrDefault().Children;
                 return View("_AutoPartsTree", new RightTreeViewModel() { ProductCategoryList = tempC });
@@ -79,6 +81,11 @@ namespace WebApplication.Controllers
         
         public IActionResult SelectManufactureAndModel(string carManufactureName)
         {
+            if (String.IsNullOrEmpty(carManufactureName)) {
+                HttpContext.Session.Remove("topCategoryId");
+                var mainTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == EkCarTypeEnum.Car).Select(x => x.Manufacturers).FirstOrDefault();
+                return View("_CarTree", new RightTreeViewModel() { ManufacturerList = mainTree });
+            }
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
             var modelTree = carTree.Where(x => x.Name == carManufactureName).Select(y => y.CarModels).FirstOrDefault();
 
@@ -87,7 +94,8 @@ namespace WebApplication.Controllers
         //====================METHOD TO SHOW PRODUCTS CATEGORIES ======================================
         public IActionResult ShowCategoryAutoParts(string carManufactureName, string carModel)
         {
-            var autoParts = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == "620").FirstOrDefault().Children;
+            string topCategoryId = String.IsNullOrEmpty(HttpContext.Session.GetString("topCategoryId")) ? "620" : HttpContext.Session.GetString("topCategoryId");
+            var autoParts = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == topCategoryId).FirstOrDefault().Children;
 
             foreach (var item in autoParts)
             {
@@ -102,7 +110,8 @@ namespace WebApplication.Controllers
         //====================METHOD TO SHOW PRODUCTS SUBCATEGORIES ======================================
         public IActionResult ShowMainSubcategories(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName)
         {
-            var autoPartsSubCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == "620").FirstOrDefault().Children.Where(x => x.CategoryId == mainCategoryId).Select(x => x.Children).FirstOrDefault();
+            string topCategoryId = String.IsNullOrEmpty(HttpContext.Session.GetString("topCategoryId")) ? "620" : HttpContext.Session.GetString("topCategoryId");
+            var autoPartsSubCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == topCategoryId).FirstOrDefault().Children.Where(x => x.CategoryId == mainCategoryId).Select(x => x.Children).FirstOrDefault();
 
             foreach (var item in autoPartsSubCategories)
             {
@@ -133,7 +142,8 @@ namespace WebApplication.Controllers
         //====================METHOD TO SHOW PRODUCTS(ENTERED IN PRE-LAST GROUP OF AUTOPARTS) ======================================
         public IActionResult ShowMainSubChildsCategories(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName)
         {
-            var autoPartsSubChildCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == "620").FirstOrDefault().Children.Where(x => x.CategoryId == mainCategoryId).Select(x => x.Children).FirstOrDefault();
+            string topCategoryId = String.IsNullOrEmpty(HttpContext.Session.GetString("topCategoryId")) ? "620" : HttpContext.Session.GetString("topCategoryId");
+            var autoPartsSubChildCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == topCategoryId).FirstOrDefault().Children.Where(x => x.CategoryId == mainCategoryId).Select(x => x.Children).FirstOrDefault();
             autoPartsSubChildCategories = autoPartsSubChildCategories.Where(x => x.CategoryId == subCategoryId).Select(x => x.Children).FirstOrDefault();
             if (autoPartsSubChildCategories == null)
             {

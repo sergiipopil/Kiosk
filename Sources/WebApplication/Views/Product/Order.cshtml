@@ -1,6 +1,11 @@
 ﻿@model WebApplication.Models.PaymentViewModel
 <html>
 <head>
+    <script type="text/javascript">
+        function callMethodPay(method) {
+            $(method).submit();
+        }
+    </script>
 </head>
 <body>
     <div class="container-fluid">
@@ -48,60 +53,60 @@
             <div class="col" style="color:#504593;background:#EEEFFF;min-height: 100vh;">
                 <div class="container-fluid" style="padding-top:50px;">
                     <div class="row">
-                        <div class="col-4" style="text-align:center;">
+                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formCard')">
                             <div class="paymentMethod">
                                 <img src="~/images/Payment/CreditCardBig.png" />
-                                <form method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
+                                <form id="formCard" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.cardData.Data" />
                                     <input type="hidden" name="signature" value="@Model.cardData.Signature" />
                                     <input type="submit" value="Visa / Mastercard" style="background:white;" />
                                 </form>
                             </div>
                         </div>
-                        <div class="col-4" style="text-align:center;">
+                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formCardPrivat')">
                             <div class="paymentMethod">
                                 <img src="~/images/Payment/Privat24Big.png" />
-                                <form method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
+                                <form id="formCardPrivat" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.Privat24Data.Data" />
                                     <input type="hidden" name="signature" value="@Model.Privat24Data.Signature" />
                                     <input type="submit" value="На карту ПриватБанка" style="background:white;" />
                                 </form>
                             </div>
                         </div>
-                        <div class="col-4" style="text-align:center;">
+                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formTerminalPrivat')">
                             <div class="paymentMethod">
                                 <img src="~/images/Payment/CashInTerminalBig.png" />
-                                <form method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
+                                <form id="formTerminalPrivat" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.cashData.Data" />
                                     <input type="hidden" name="signature" value="@Model.cashData.Signature" />
                                     <input type="submit" value="Оплата в терміналі ПриватБанка" style="background:white;" />
                                 </form>
                             </div>
                         </div>
-                        <div class="col-4" style="text-align:center;">
+                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formQR')">
                             <div class="paymentMethod">
                                 <img src="~/images/Payment/qrCode1.jpg" />
-                                <form method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
+                                <form id="formQR" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.QRData.Data" />
                                     <input type="hidden" name="signature" value="@Model.QRData.Signature" />
                                     <input type="submit" value="Оплата через QR код" style="background:white;" />
                                 </form>
                             </div>
                         </div>
-                        <div class="col-4" style="text-align:center;">
+                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formLIQPAY')">
                             <div class="paymentMethod">
                                 <img src="~/images/Payment/liqpayNew.png" />
-                                <form method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
+                                <form id="formLIQPAY" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.liqpayData.Data" />
                                     <input type="hidden" name="signature" value="@Model.liqpayData.Signature" />
                                     <input type="submit" value="Оплата через LIQPAY" style="background:white;" />
                                 </form>
                             </div>
                         </div>
-                        <div class="col-4" style="text-align:center;">
+                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formGooglePay')">
                             <div class="paymentMethod">
                                 <img src="~/images/Payment/GPAY.jpg" />
-                                <form method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
+                                <form id="formGooglePay" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.GPayData.Data" />
                                     <input type="hidden" name="signature" value="@Model.GPayData.Signature" />
                                     <input type="submit" value="Оплата через Google Pay" style="background:white;" />

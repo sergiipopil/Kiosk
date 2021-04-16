@@ -27,6 +27,7 @@ namespace WebApplication.Classes
                     return EkCarTypeEnum.Car;
             }
         }
+       
         public OfferStateEnum GetStateEnumValue(string state)
         {
             switch (state)

@@ -23,7 +23,7 @@
                 var mainCategoryId = getUrlParameter('mainCategoryId');
                 if (carManufactureName != "" && carModel != "" && mainCategoryId == false) {
                     selectCarModel(carManufactureName, carModel);
-                }                
+                }
                 var mainCategoryName = getUrlParameter('mainCategoryName');
                 var subCategoryId = getUrlParameter('subCategoryId');
                 var subCategoryName = getUrlParameter('subCategoryName');
@@ -83,19 +83,20 @@
             $('#divSelectTopCategory').show();
         }
         function BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName) {
-        $('#divBreadcrumbsItems').empty();
-        $('#divBreadcrumbs').show();
-        $('#divSearchByPartNumber').hide();
-        $('#divSelectTopCategory').hide();
-
-            $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsManufacture" onclick="selectManufacturer('${manufacture}')"><div class="parentDivBreadCrumbs">
-        <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/Model_Logo/${manufacture}.png" class="manufactureImageBreadcrumbs" /></div></div></div>`);
-            if (model != null) {
+            $('#divBreadcrumbsItems').empty();
+            $('#divBreadcrumbs').show();
+            $('#divSearchByPartNumber').hide();
+            $('#divSelectTopCategory').hide();
+            if (manufacture != null && manufacture != "") {
+                $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsManufacture" onclick="selectManufacturer('${manufacture}')"><div class="parentDivBreadCrumbs">
+                <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/Model_Logo/${manufacture}.png" class="manufactureImageBreadcrumbs" /></div></div></div>`);
+            }
+            if (model != null && model != "") {
 
                 $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDivBreadCrumbs" onclick="selectCarModel('${manufacture}', '${model}')" style="display:grid;">
                 <div style="min-width:155px;min-height:100px;max-height:100px;text-align:center;"><img src="/images/Catalog/CarModel/${manufacture}/${model}.png" class="manufactureImageBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${model}</span>
                             </div></div>`);
-        }
+            }
             if (mainCategoryName != null) {
                 $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsMainCategory" class="parentDivBreadCrumbs" onclick="selectMainCategory('${manufacture}', '${model}', '${mainCategoryId}', '${mainCategoryName}')" style="display:grid;">
                 <div style="min-width:155px;min-height:90px;text-align:center;"><img src="/images/Catalog/AutoParts/${mainCategoryId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${mainCategoryName}</span>
@@ -111,7 +112,7 @@
                 <div style="min-width:155px;min-height:90px;text-align:center;"><img src="/images/Catalog/AutoParts/${subChildId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${subChildName}</span>
                             </div></div>`);
             }
-    }
+        }
         function onAjaxFailure(xhr, status, error) {
             $("#targetElement").html("<strong>An error occurred retrieving data:" + error + "<br/>.</strong>");
         }
@@ -126,10 +127,19 @@
             type: "GET",
             url: '@Url.Action("ShowCategoryAutoParts", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model,
             success: function (data) {
-                BreadCrumbsHistory(manufacture, model);
+                if (model != "" && model != null) {
+                    BreadCrumbsHistory(manufacture, model);
+                }
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
-                window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model);
+                if (model != "" && model != null) {
+                    window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model);
+                }
+                else {
+                    $('#divBreadcrumbs').hide();
+                    $('#divSearchByPartNumber').show();
+                    $('#divSelectTopCategory').show();
+                }
             }
         });
         return false;
@@ -201,10 +211,21 @@
             type: "GET",
             url: '@Url.Action("SelectManufactureAndModel", "Home")' + "?carManufactureName=" + carManufactureName,
             success: function (data) {
-                BreadCrumbsHistory(carManufactureName);
+                if (carManufactureName != "" && carManufactureName != null) {
+                    BreadCrumbsHistory(carManufactureName);
+                }
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
-                window.history.pushState($('#filter'), 'title', "?carManufactureName=" + carManufactureName);
+                if (carManufactureName != "" && carManufactureName != null) {
+                    window.history.pushState($('#filter'), 'title', "?carManufactureName=" + carManufactureName);
+                }
+                else {
+                    $('#divBreadcrumbs').hide();
+                    $('#divSearchByPartNumber').show();
+                    $('#divSelectTopCategory').show();
+                    $('div[id*="divTopCategory_"]').removeClass("selected");
+                    $('#divTopCategory_620').addClass("selected");
+                }
             }
         });
         return false;
@@ -242,7 +263,7 @@
                     </div>
                     <div>
                         <div style="margin:80px 25px 0px 25px; background:white;padding:0px 10px 8px 10px;box-shadow:0px 0px 10px #ff5a00;">
-                            <div style="display:inline-block;vertical-align:middle;width:85%;">@Html.TextBoxFor(m => m.PartNumberValue, new { @placeholder = "Що шукаєте?", @id = "inputPartValue", @class="inputPart" })</div>
+                            <div style="display:inline-block;vertical-align:middle;width:85%;">@Html.TextBoxFor(m => m.PartNumberValue, new { @placeholder = "Що шукаєте?", @id = "inputPartValue", @class = "inputPart" })</div>
                             <div class="loopBtn" onclick="submit()"><img style="padding-bottom:10px;" src="~/images/Catalog/InputLoupe.png"></div>
                         </div>
                     </div>

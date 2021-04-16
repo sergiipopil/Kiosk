@@ -28,7 +28,7 @@ using CustomCartProduct = WebApplication.Classes.CartProduct;
 using WebApplication.Classes;
 using System.Security.Cryptography;
 using KioskBrains.Clients.Ek4Car;
-
+using ScraperApi;
 namespace WebApplication.Controllers
 {
     public class ProductController : Controller
@@ -71,6 +71,7 @@ namespace WebApplication.Controllers
         //private string _paymentPrivate_key = "YS1ku34S1ixt8FqyxSXCdegYKfhdtvsO7TVp0Qnm";
         public ActionResult Index()
         {
+            
             return View();
         }
        
@@ -108,7 +109,7 @@ namespace WebApplication.Controllers
             string GPayJson = JsonSerializer.Serialize(GPaySettings);
             PaymentLinkData GPayDataLink = GetPaymentLinkData(GPayJson);
 
-            OrderPaymentSettings cardSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", "10", "UAH", payProducts, response.data, "uk", "card", "https://api.ek4car.com/payment/callback");
+            OrderPaymentSettings cardSettings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, response.data, "uk", "card", "https://api.ek4car.com/payment/callback");
             string cardJson = JsonSerializer.Serialize(cardSettings);
             PaymentLinkData cardDataLink = GetPaymentLinkData(cardJson);
 
@@ -218,6 +219,7 @@ namespace WebApplication.Controllers
 
         public ActionResult CartView(string selectedProductId=null)
         {
+           
             var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
             RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
 
