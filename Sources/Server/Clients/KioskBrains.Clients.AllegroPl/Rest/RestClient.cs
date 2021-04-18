@@ -311,21 +311,79 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             {
                 HtmlWeb web = new HtmlWeb();
                 //web.UseCookies = true;
-                //web.UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36";
-                //web.PreRequest += (request) =>
-                //{
-                //    request.Headers.Add("Accept", "*/*");
-                //    return true;
-                //};
+                web.UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36";
+                web.PreRequest += (request) =>
+                {
+                    request.Headers.Add("Accept", "*/*");
+                    return true;
+                };
                 // string s = code("http://api.scrapeup.com/?api_key=41f9cbb0dae6469ac6771b992224a0bd&url=http://allegro.pl/oferta/" + id+ "country_code=uk");
                 //HtmlDocument doc = web.Load("http://api.scraperapi.com/?api_key=715027614bace80158a839d45247c02d&url=http://allegro.pl/oferta/" + id);
-                HttpClient httpClient = new HttpClient();
-                ScraperApiClient client = new ScraperApiClient("715027614bace80158a839d45247c02d", httpClient);
+                //HttpClient httpClient = new HttpClient();
+                //ScraperApiClient client = new ScraperApiClient("715027614bace80158a839d45247c02d", httpClient);
                 
-                var sss = client.GetAsync("http://allegro.pl/oferta/" + id).Result;
-                HtmlDocument doc = new HtmlDocument();// web.Load("http://api.scraperapi.com/?api_key=715027614bace80158a839d45247c02d&url=http://allegro.pl/oferta/" + id);
-                doc.LoadHtml(sss);
+                //var sss = client.GetAsync("http://allegro.pl/oferta/" + id).Result;
+                HtmlDocument doc = web.Load("https://spolshy.com.ua/product/" + id);
+                //doc.LoadHtml(sss);
                 text = doc.ParsedText;
+
+                var divsDescNew = doc.DocumentNode.QuerySelectorAll("div.product-info__guarantee.guarantee-info.other--theme-product");
+                var divNameNew = doc.DocumentNode.QuerySelectorAll("div.product-heading.page-heading h1").FirstOrDefault().InnerText;
+
+                string newDescNew = "";
+                if (divsDescNew.Any())
+                {
+                    if (divsDescNew.Count() > 0)
+                    {
+                        foreach (var item in divsDescNew)
+                        {
+                            newDescNew += item.InnerHtml;
+                        }
+                    }
+                }
+                int index = newDescNew.IndexOf("описание запчасти (на польском)");
+                if (index != -1)
+                {
+                    newDescNew = newDescNew.Remove(index);
+                }
+                var liParamsNew = doc.DocumentNode.QuerySelectorAll("table.product-info__table.fl--order7 tr");
+                var imagesNew = doc.DocumentNode.QuerySelectorAll("img.blur-up.ls-is-cached.lazyload");
+                OfferImage[] imagePathesNew = imagesNew.Where(x => x.Attributes["data-src"].Value.Contains("allegro")).Select(x => new OfferImage() { Url = x.Attributes["data-src"].Value }).ToArray();
+
+                IList<OfferImage> successImages = new List<OfferImage>();
+                foreach (var item in imagePathesNew) {
+                    if (!successImages.Select(x=>x.Url).Contains(item.Url)) {
+                        successImages.Add(item);
+                    }
+                }
+                IEnumerable<OfferImage> tempImage = successImages.Distinct();
+                var divParamsInitNew = liParamsNew.Select(x => x.QuerySelectorAll("tr").FirstOrDefault());
+                var lineParamsDestNew = divParamsInitNew.Select(x => x.InnerText).ToList();
+
+
+                var parametersNew = lineParamsDestNew.Select(x => GetParameterFromLine(x)).ToList();
+
+                var descMultiNew = new MultiLanguageString()
+                {
+                    [Languages.PolishCode] = newDescNew,
+                    [Languages.RussianCode] = newDescNew
+                };
+
+                return new Offer()
+                {
+                    Name = new MultiLanguageString()
+                    {
+                        [Languages.PolishCode] = divNameNew.ToString(),
+                        [Languages.RussianCode] = divNameNew.ToString()
+                    },
+                    Description = descMultiNew,
+                    Parameters = parametersNew,
+                    Images = tempImage.ToArray()
+                };
+
+
+
+
 
 
                 var divName = doc.DocumentNode.QuerySelector("meta[property='og:title']");
