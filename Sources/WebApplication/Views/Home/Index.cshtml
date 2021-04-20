@@ -75,8 +75,8 @@
         function topCategorySelected() {
             ViewData["Title"] = "Home Page";
         }
-        function back() {
-            showMainView();
+        function back(categoryTop) {
+            showMainView(categoryTop);
             $("input#inputPartValue").val("");
             $('#divSearchByPartNumber').show();
             $('#divBreadcrumbs').hide();

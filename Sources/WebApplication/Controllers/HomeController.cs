@@ -68,14 +68,14 @@ namespace WebApplication.Controllers
         //====================METHOD TO SWITCH TYPE CAR TOP CATEGORY ======================================
         public IActionResult ShowMainView(string topCategoryId)
         {
-            _topCategoryCarType = new EkSiteFactory().GetCarTypeEnum(topCategoryId);
+            _topCategoryCarType = new EkSiteFactory().GetCarTypeEnum(topCategoryId == "undefined" ? HttpContext.Session.GetString("topCategoryId") : topCategoryId);
             HttpContext.Session.SetString("topCategoryId", topCategoryId);
             if (topCategoryId == "99193" || topCategoryId== "18554") {
                 var tempC = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == topCategoryId).FirstOrDefault().Children;
                 return View("_AutoPartsTree", new RightTreeViewModel() { ProductCategoryList = tempC });
             }
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
-            return View("_CarTree", new RightTreeViewModel() { ManufacturerList = carTree });
+            return View("_CarTree", new RightTreeViewModel() { ManufacturerList = carTree, TopCategoryId = HttpContext.Session.GetString("topCategoryId") });
         }
         //====================METHOD TO SHOW CAR MODELS ======================================
         
@@ -89,7 +89,7 @@ namespace WebApplication.Controllers
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
             var modelTree = carTree.Where(x => x.Name == carManufactureName).Select(y => y.CarModels).FirstOrDefault();
 
-            return View("_CarModels", new RightTreeViewModel() { ManufacturerSelected = carManufactureName, ModelsList = modelTree.Select(x => x.Name) });
+            return View("_CarModels", new RightTreeViewModel() { ManufacturerSelected = carManufactureName, ModelsList = modelTree.Select(x => x.Name), TopCategoryId= HttpContext.Session.GetString("topCategoryId") });
         }
         //====================METHOD TO SHOW PRODUCTS CATEGORIES ======================================
         public IActionResult ShowCategoryAutoParts(string carManufactureName, string carModel)
