@@ -35,5 +35,6 @@ namespace KioskBrains.Clients.Ek4Car.Models
         public EkDeliveryInfo delivery { get; set; }
 
         public string receiptNumber { get; set; }
+        public bool website { get; set; }
     }
 }

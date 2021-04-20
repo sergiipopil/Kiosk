@@ -328,6 +328,7 @@ namespace WebApplication.Controllers
         }
         private async Task<Ek4CarClient.Ek4CarResponse> SendRequstToEk4Car(KioskBrains.Server.Domain.Entities.EK.EkTransaction transac) {
             Order order = KioskBrains.Server.EK.Integration.Jobs.EkTransactionExtensions.ToEkOrder(transac);
+            order.website = true;
              Ek4CarClient.Ek4CarResponse ek4CarResponse = await _ek4CarClient.SendOrderAsyncTest(order, CancellationToken.None);
             return ek4CarResponse;
         }
