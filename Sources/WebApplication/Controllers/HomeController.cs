@@ -248,17 +248,17 @@ namespace WebApplication.Controllers
             return exchangeRate.Value;
         }
         //==================== METHOD FOR GET ALLEGRO PRODUCTS ======================================
-        public async Task<EkKioskProductSearchInEuropeGetResponse> GetAllegroProducts(string carManufactureName, string carModel, string selectedCategoryId, string inputPartNumber, OfferStateEnum state = OfferStateEnum.All, OfferSortingEnum sortingPrice = OfferSortingEnum.PriceAsc, int pageNumber=1)
+        public async Task<EkKioskProductSearchInEuropeGetResponse> GetAllegroProducts(string carManufactureName, string carModel, string selectedCategoryId, string inputPartNumber, OfferStateEnum state = OfferStateEnum.All, OfferSortingEnum sortingPrice = OfferSortingEnum.Relevance, int pageNumber=1, string position="")
         {
             int offset = pageNumber == 1 ? 0 : pageNumber * 10;
             SearchOffersResponse searchOffersResponse;
             if (inputPartNumber == null)
             {
-                searchOffersResponse = await _allegroPlClient.SearchOffersAsync(String.Format("{0} {1}", carManufactureName, carModel), null, selectedCategoryId, state, sortingPrice, offset, 10, System.Threading.CancellationToken.None);
+                searchOffersResponse = await _allegroPlClient.SearchOffersAsync(String.Format("{0} {1} {2}", carManufactureName, carModel, position), null, selectedCategoryId, state, sortingPrice, offset, 10, System.Threading.CancellationToken.None);
             }
             else
             {
-                searchOffersResponse = await _allegroPlClient.SearchOffersAsync(inputPartNumber, inputPartNumber, "3", state, sortingPrice, offset, 10, System.Threading.CancellationToken.None);
+                searchOffersResponse = await _allegroPlClient.SearchOffersAsync(inputPartNumber, null, "3", state, sortingPrice, offset, 10, System.Threading.CancellationToken.None);
             }
             try
             {
@@ -290,7 +290,7 @@ namespace WebApplication.Controllers
         }
 
         //================= METHOD FILTERING LIST PRODUCTS =======================
-        public IActionResult FilteredList(string state, string sorting, int page)
+        public IActionResult FilteredList(string state, string sorting, int page, string position)
         {
             page = page == 0 ? 1 : page;
             var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
@@ -302,7 +302,7 @@ namespace WebApplication.Controllers
             switch (rightTree.ControllerName)
             {
                 case "ShowProductList":
-                    var responceAllegro = GetAllegroProducts(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubChildCategoryId, null, stateEnum, sortingEnum, page).Result;
+                    var responceAllegro = GetAllegroProducts(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubChildCategoryId, null, stateEnum, sortingEnum, page, position).Result;
                     rightTree.AllegroOfferList = responceAllegro.Products;
                     rightTree.FakeAllegroList = FakeListForPager(responceAllegro.Total);
                     rightTree.OfferState = stateEnum;
@@ -313,7 +313,7 @@ namespace WebApplication.Controllers
                     return View("_ProductsList", rightTree);
 
                 case "PartNumberInput":
-                    var responceAllegroNumberMode = GetAllegroProducts(null, null, null, rightTree.PartNumberValue, stateEnum, sortingEnum, page).Result;
+                    var responceAllegroNumberMode = GetAllegroProducts(null, null, null, rightTree.PartNumberValue, stateEnum, sortingEnum, page, position).Result;
                     rightTree.AllegroOfferList = responceAllegroNumberMode.Products;
                     rightTree.FakeAllegroList = FakeListForPager(responceAllegroNumberMode.Total);
                     rightTree.OfferState = stateEnum;
@@ -325,7 +325,7 @@ namespace WebApplication.Controllers
 
 
                 case "ShowMainSubChildsCategories":
-                    var responceAllegroSubCategories = GetAllegroProducts(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubCategoryId, null, stateEnum, sortingEnum, page).Result;
+                    var responceAllegroSubCategories = GetAllegroProducts(rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.SubCategoryId, null, stateEnum, sortingEnum, page, position).Result;
                     rightTree.AllegroOfferList = responceAllegroSubCategories.Products;
                     rightTree.FakeAllegroList = FakeListForPager(responceAllegroSubCategories.Total);
                     rightTree.OfferState = stateEnum;

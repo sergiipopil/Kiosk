@@ -427,6 +427,8 @@ html {
 
     .topCategoryDiv.selected {
         background: white;
+        box-shadow: 0px 0px 8px #ff813c;
+        color: #ff5a00;
     }
 
 .manufactureText {

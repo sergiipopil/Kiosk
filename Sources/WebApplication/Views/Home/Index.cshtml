@@ -193,12 +193,12 @@
             }
         });
     }
-        function FilteredList(state, sorting, page) {
+        function FilteredList(state, sorting, page, position) {
             $('#divCarManufactures').empty();
             $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" width="100px" /></div>');
             $.ajax({
                 type: "GET",
-                url: '@Url.Action("FilteredList", "Home")' + "?state=" + state + "&sorting=" + sorting + "&page=" + page,
+                url: '@Url.Action("FilteredList", "Home")' + "?state=" + state + "&sorting=" + sorting + "&page=" + page + "&position=" + position,
             success: function (data) {
                $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);

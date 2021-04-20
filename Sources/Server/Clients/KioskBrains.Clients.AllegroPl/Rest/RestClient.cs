@@ -281,7 +281,6 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 default:
                     throw new ArgumentOutOfRangeException(nameof(sorting), sorting, null);
             }
-
             parameters["sort"] = sortingValue;
 
             parameters["offset"] = offset.ToString();
