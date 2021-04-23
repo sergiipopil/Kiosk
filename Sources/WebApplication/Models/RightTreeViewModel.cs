@@ -14,7 +14,8 @@ namespace WebApplication.Models
         public EkProduct[] AllegroOfferList { get; set; }
         public List<string> FakeAllegroList { get; set; }
         public EkCarManufacturer[] ManufacturerList { get; set; }
-        public IEnumerable<string> ModelsList { get; set; }
+        public IEnumerable<EkCarModel> ModelsList { get; set; }
+        public bool IsModificationList { get; set; }
         public EkProductCategory[] ProductCategoryList { get; set; }
         public int PageNumber { get; set; }
         public string PartNumberValue { get; set; }
@@ -31,6 +32,10 @@ namespace WebApplication.Models
         public string TopCategoryId { get; set; }
         public OfferStateEnum OfferState { get; set; }
         public OfferSortingEnum OfferSorting { get; set; }
+        public string OfferSortingPlacement { get; set; }
+        public string OfferSortingIsOrigin { get; set; }
+        public string OfferSortingEngineType { get; set; }
+        public string FilterName { get; set; }
 
     }
 }

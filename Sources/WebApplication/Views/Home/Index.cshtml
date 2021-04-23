@@ -143,7 +143,31 @@
             }
         });
         return false;
-    }
+        }
+        function selectCarModifications(carManufactureName, model) {
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("SelectModelModifications", "Home")' + "?carManufactureName=" + carManufactureName + "&model=" + model,
+            success: function (data) {
+                if (model != "" && model != null) {
+                    BreadCrumbsHistory(carManufactureName, model);
+                }
+                $('#divCarManufactures').empty();
+                $('#divCarManufactures').html(data);
+                if (carManufactureName != "" && carManufactureName != null) {
+                    window.history.pushState($('#filter'), 'title', "?carManufactureName=" + carManufactureName + "&model=" + model);
+                }
+                else {
+                    $('#divBreadcrumbs').hide();
+                    $('#divSearchByPartNumber').show();
+                    $('#divSelectTopCategory').show();
+                    $('div[id*="divTopCategory_"]').removeClass("selected");
+                    $('#divTopCategory_620').addClass("selected");
+                }
+            }
+        });
+        return false;
+        }
         function selectMainCategory(manufacture, model, mainCategoryId, mainCategoryName) {
         $('#divSelectTopCategory').hide();
         $.ajax({
@@ -193,12 +217,12 @@
             }
         });
     }
-        function FilteredList(state, sorting, page, position) {
+        function FilteredList(state, sorting, page, position, isorigin, enginetype) {
             $('#divCarManufactures').empty();
             $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" width="100px" /></div>');
             $.ajax({
                 type: "GET",
-                url: '@Url.Action("FilteredList", "Home")' + "?state=" + state + "&sorting=" + sorting + "&page=" + page + "&position=" + position,
+                url: '@Url.Action("FilteredList", "Home")' + "?state=" + state + "&sorting=" + sorting + "&page=" + page + "&position=" + position + "&isorigin=" + isorigin + "&enginetype=" + enginetype,
             success: function (data) {
                $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);

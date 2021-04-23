@@ -29,7 +29,7 @@
         });
         function openDetails(advertId, advertPrice) {
             window.open('/Product/Details/' + "?id=" + advertId + "&price=" + advertPrice, "_blank");
-        } 
+        }
     </script>
     <style>
         .zoom {
@@ -51,72 +51,145 @@
         </div>
         <div style="display:inline-block;">Список запчастин</div>
     </div>
-    <div style="padding-top:10px;">
+    <div style="padding: 10px 20px 20px 70px;background:white;">
         <table style="width:100%;">
             <tr>
-                <td style="padding: 0px 10px 0px 20px;">Стан</td>
-                <td class="filterItemAllState_@Model.OfferState" onclick="FilteredList('All', '@Model.OfferSorting', '@Model.PageNumber')">Всі</td>
-                <td class="filterItemNewState_@Model.OfferState" onclick="FilteredList('New', '@Model.OfferSorting', '@Model.PageNumber')">Нові</td>
-                <td class="filterItemUsedState_@Model.OfferState" onclick="FilteredList('Used', '@Model.OfferSorting', '@Model.PageNumber')">Б/у</td>
-                <td class="filterItemRecoverState_@Model.OfferState" onclick="FilteredList('Recovered', '@Model.OfferSorting', '@Model.PageNumber')">Відновлені</td>
-                <td style="padding:0px 10px 0px 20px;">Ціна</td>
-                <td class="filterItemRelevanceSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'Relevance', '@Model.PageNumber')">Звичайна</td>
-                <td class="filterItemDescSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceDesc', '@Model.PageNumber')">Дорожчі</td>
-                <td class="filterItemAscSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceAsc', '@Model.PageNumber')">Дешевші</td>
+                <td>
+                    <table>
+                        <tr>
+                            <td style="padding-bottom: 10px; text-align: center;font-weight:600;">Состояние</td>
+                        </tr>
+                        <tr>
+                            <td class="filterItemAllState_@Model.OfferState" onclick="FilteredList('All', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Все</td>
+                            <td class="filterItemNewState_@Model.OfferState" onclick="FilteredList('New', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Новые</td>
+                            <td class="filterItemUsedState_@Model.OfferState" onclick="FilteredList('Used', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Б/у</td>
+                            <td class="filterItemRecoverState_@Model.OfferState" onclick="FilteredList('Recovered', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Восстановленные</td>
+
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr><td style="padding-bottom: 10px; text-align: center;font-weight:600;">Цена</td></tr>
+                        <tr>
+                            <td class="filterItemRelevanceSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'Relevance', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Обычная</td>
+                            <td class="filterItemDescSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceDesc', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Дороже</td>
+                            <td class="filterItemAscSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceAsc', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Дешевле</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tr><td style="padding-bottom: 10px; text-align: center;font-weight:600;">Тип запчасти</td></tr>
+                        <tr>
+                            <td class="filterItemOrigin_@Model.OfferSortingIsOrigin" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', 'oryginał', '@Model.OfferSortingEngineType')">Оригинал</td>
+                            <td class="filterItemFake_@Model.OfferSortingIsOrigin" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', 'zamiennik', '@Model.OfferSortingEngineType')">Заменитель</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            </table>
+        <table style="width:100%;">
+            <tr>
+                @if (Model.FilterName != "none" && Model.FilterName != "engineType")
+                {
+                    <td style="padding-top:20px;">
+                        <table>
+                            <tr>
+                                <td style="padding-bottom: 10px; text-align: center;font-weight:600;">Сторона установки</td>
+                            </tr>
+                            @if (@Model.FilterName == "placeLR")
+                            {
+                                <tr>
+                                    <td class="filterItemPlacementLR_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'LEWY_PRAWE', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Левая+Правая</td>
+                                    <td class="filterItemPlacementL_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'LEWY', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Левая</td>
+                                    <td class="filterItemPlacementR_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'PRAWE', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Правая</td>
+                                </tr>
+                            }
+                            @if (@Model.FilterName == "placeFB")
+                            {
+                                <tr>
+                                    <td class="filterItemPlacementF_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'przód', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Передняя</td>
+                                    <td class="filterItemPlacementB_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'tył', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Задняя</td>
+                                </tr>
+                            }
+                            @if (@Model.FilterName == "placeAll")
+                            {
+                                <tr>
+                                    <td class="filterItemPlacementLF_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'lewy_przód', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Левая передняя</td>
+                                    <td class="filterItemPlacementLB_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'lewy_tył', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Левая задняя</td>
+                                    <td class="filterItemPlacementRF_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'prawy_przód', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Правая передняя</td>
+                                    <td class="filterItemPlacementRB_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'prawy_tył', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType')">Правая задняя</td>
+                                </tr>
+                            }
+                        </table>
+                    </td>
+                }
+                
+                @if (Model.FilterName == "engineType")
+                {
+                    <td style="padding-top:20px;">
+                        <table>
+                            <tr><td style="padding-bottom:10px;text-align:center;font-weight:600;">Тип топлива</td></tr>
+                            <tr>
+                                <td class="filterItemEngineBenzyn_@Model.OfferSortingEngineType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', 'benzyna')">Бензин</td>
+                                <td class="filterItemEngineDiesel_@Model.OfferSortingEngineType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', 'diesel')">Дизель</td>
+                            </tr>
+                        </table>
+                    </td>
+                }
             </tr>
         </table>
     </div>
-    @*<div>
-        <div onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'LEWY')">Левая</div>
-        <div onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'PRAWE')">Правая</div>
-    </div>*@
+
+
     @if (@Model.AllegroOfferList.Count() == 0)
     {
-    <div style="width: 100%; font-size: 30px; text-align: center; padding: 30% 30% 0 30%; font-weight: bold; color: #504593;">
-        Нічого не знайдено.
-        Повторіть пошук з другим значенням або
-        спробуте в другому розділі
-    </div>
+        <div style="width: 100%; font-size: 30px; text-align: center; padding: 30% 30% 0 30%; font-weight: bold; color: #504593;">
+            Нічого не знайдено.
+            Повторіть пошук з другим значенням або
+            спробуте в другому розділі
+        </div>
     }
     @foreach (var item in Model.AllegroOfferList)
     {
-    <div class="container-fluid">
-        <div style="background: white; padding: 10px; margin: 10px 20px; border: 1px solid #c1c1c1; border-left: 4px solid blue;min-height:220px;max-height:220px;" class="zoom">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div id="imageBlock" class="detailBlock" style="text-align:center;background:white;">
-                        <img id="mainImageProduct" src="@item.Photos[0].Url" style="max-width:100%;max-height:160px;" />
-                        <a href=@item.Photos[0].Url data-fancybox="@String.Format("gallery{0}", item.Key)" class="noneDecoration" style="color:#ff5a00;font-weight:500;">
-                            <div class="enlargePhoto"> ФОТО+ (@item.Photos.Count())</div>
-                        </a>                        
-                    </div>
-                </div>
-                <div class="col-lg-6" style="position:relative;">
-                    <div style="vertical-align: top;position:absolute;" class="hide">
-                        <span class="productTitle">@item.Name.Last().Value</span>
-                    </div>
-                    <div class="openProductDEtailsBtn" onclick="openDetails('@item.SourceId', '@item.Price')">Детальніше</div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="inline-block" style="border-left: 1px solid #c3c4c5;padding-left:20px;">
-                        <div style="color: #ff5a00;font-weight:bold;">
-                            <span style="font-size:34px;">@item.Price</span>
-                            <span style="font-size:18px;">@item.PriceCurrencyCode</span>
-                            <span id="priceDeliveryComment" style="color:#ff5a00;font-size:16px;font-weight:700;display:block;">* ціна з урахуванням доставки</span>
-                            <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">2-5 днів</p>
+        <div class="container-fluid">
+            <div style="background: white; padding: 10px; margin: 10px 20px; border: 1px solid #c1c1c1; border-left: 4px solid blue;min-height:220px;max-height:220px;" class="zoom">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div id="imageBlock" class="detailBlock" style="text-align:center;background:white;">
+                            <img id="mainImageProduct" src="@item.Photos[0].Url" style="max-width:100%;max-height:160px;" />
+                            <a href=@item.Photos[0].Url data-fancybox="@String.Format("gallery{0}", item.Key)" class="noneDecoration" style="color:#ff5a00;font-weight:500;">
+                                <div class="enlargePhoto"> ФОТО+ (@item.Photos.Count())</div>
+                            </a>
                         </div>
+                    </div>
+                    <div class="col-lg-6" style="position:relative;">
+                        <div style="vertical-align: top;position:absolute;" class="hide">
+                            <span class="productTitle">@item.Name.Last().Value</span>
+                        </div>
+                        <div class="openProductDEtailsBtn" onclick="openDetails('@item.SourceId', '@item.Price')">Детальніше</div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="inline-block" style="border-left: 1px solid #c3c4c5;padding-left:20px;">
+                            <div style="color: #ff5a00;font-weight:bold;">
+                                <span style="font-size:34px;">@item.Price</span>
+                                <span style="font-size:18px;">@item.PriceCurrencyCode</span>
+                                <span id="priceDeliveryComment" style="color:#ff5a00;font-size:16px;font-weight:700;display:block;">* ціна з урахуванням доставки</span>
+                                <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">2-5 днів</p>
+                            </div>
 
-                        <div onclick="goToCart('@item.SourceId')">
-                            <button class="btnBuyList">
-                                <img src="~/images/Buy.png" />
-                                <span>Купити</span>
-                            </button>
+                            <div onclick="goToCart('@item.SourceId')">
+                                <button class="btnBuyList">
+                                    <img src="~/images/Buy.png" />
+                                    <span>Купити</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     }
     <div id="myPager" style="float:right;padding:20px;">
         @Html.PagedListPager(Model.FakeAllegroList.ToPagedList(@Model.PageNumber, 10), page => Url.Action("FilteredList", "Home", new { state = @Model.OfferState, sorting = @Model.OfferSorting, page }), new PagedListRenderOptions

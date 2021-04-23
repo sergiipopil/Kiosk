@@ -13,12 +13,20 @@ for details on configuring this project to bundle and minify static web assets. 
 .filterItemRelevanceSorting_Relevance, .filterItemDescSorting_Relevance, .filterItemAscSorting_Relevance, .filterItemRelevanceSorting_PriceDesc,
 .filterItemDescSorting_PriceDesc, .filterItemDescSorting_PriceDesc, .filterItemDescSorting_PriceDesc,
 .filterItemAscSorting_PriceAsc, .filterItemAscSorting_PriceAsc, .filterItemAscSorting_PriceAsc,
-.filterItemRelevanceSorting_PriceAsc, .filterItemDescSorting_PriceAsc {
+.filterItemRelevanceSorting_PriceAsc, .filterItemDescSorting_PriceAsc,
+.filterItemEngineBenzyn_, .filterItemEngineDiesel_, .filterItemEngineDiesel_benzyna, .filterItemEngineBenzyn_diesel,
+.filterItemOrigin_, .filterItemFake_, .filterItemOrigin_zamiennik, .filterItemFake_oryginał,
+.filterItemPlacementLR_, .filterItemPlacementL_, .filterItemPlacementR_,
+.filterItemPlacementF_, .filterItemPlacementB_,
+.filterItemPlacementLF_, .filterItemPlacementLB_, .filterItemPlacementRF_, .filterItemPlacementRB_,
+.filterItemPlacementL_LEWY_PRAWE, .filterItemPlacementR_LEWY_PRAWE, .filterItemPlacementLR_LEWY, .filterItemPlacementR_LEWY, .filterItemPlacementLR_PRAWE, .filterItemPlacementL_PRAWE,
+.filterItemPlacementB_przód, .filterItemPlacementF_tył, .filterItemPlacementLB_lewy_przód, .filterItemPlacementRF_lewy_przód, .filterItemPlacementRB_lewy_przód, .filterItemPlacementLF_lewy_tył, .filterItemPlacementRF_lewy_tył,
+.filterItemPlacementRB_lewy_tył, .filterItemPlacementLF_prawy_przód, .filterItemPlacementLF_prawy_przód, .filterItemPlacementRB_prawy_przód, .filterItemPlacementLF_prawy_tył, .filterItemPlacementLB_prawy_tył, .filterItemPlacementRF_prawy_tył, .filterItemPlacementLB_prawy_przód {
     border-right: 1px solid #c3c4c7;
-    padding: 5px 20px;
+    padding: 2px 10px;
     display: inline-block;
-    color: white;
-    background: #504593;
+    color: black;
+    background: white;
 }
 
     .filterItemAllState_All, .filterItemNewState_New, .filterItemUsedState_Used, .filterItemRecoverState_Recovered,
@@ -31,10 +39,26 @@ for details on configuring this project to bundle and minify static web assets. 
     .filterItemDescSorting_PriceDesc:hover, .filterItemDescSorting_PriceDesc:hover, .filterItemDescSorting_PriceDesc:hover,
     .filterItemAscSorting_PriceAsc:hover, .filterItemAscSorting_PriceAsc:hover, .filterItemAscSorting_PriceAsc:hover, filterItemDescSorting_PriceAsc:hover, .filterItemRelevanceSorting_PriceAsc:hover,
     filterItemDescSorting_Relevance:hover, .filterItemAscSorting_Relevance:hover, .filterItemDescSorting_PriceAsc:hover, .filterItemDescSorting_Relevance:hover,
-    .filterItemAscSorting_PriceDesc:hover, .filterItemRelevanceSorting_PriceDesc:hover{
-        box-shadow: 0px 0px 10px #504593;
-        background: white;
-        color: black;
+    .filterItemAscSorting_PriceDesc:hover, .filterItemRelevanceSorting_PriceDesc:hover,
+    .filterItemEngineBenzyn_:hover, .filterItemEngineDiesel_:hover,
+    .filterItemEngineBenzyn_benzyna, .filterItemEngineDiesel_diesel,
+    .filterItemOrigin_:hover, .filterItemFake_:hover,
+    .filterItemOrigin_oryginał, .filterItemFake_zamiennik,
+    .filterItemPlacementLR_:hover, .filterItemPlacementL_:hover, .filterItemPlacementR_:hover,
+    .filterItemPlacementF_:hover, .filterItemPlacementB_:hover,
+    .filterItemPlacementLF_:hover, .filterItemPlacementLB_:hover, .filterItemPlacementRF_:hover, .filterItemPlacementRB_:hover,
+    .filterItemPlacementL_LEWY, .filterItemPlacementR_PRAWE, .filterItemPlacementLR_LEWY_PRAWE,
+    .filterItemPlacementL_LEWY_PRAWE:hover, .filterItemPlacementR_LEWY_PRAWE:hover, .filterItemPlacementLR_LEWY:hover, .filterItemPlacementR_LEWY:hover, .filterItemPlacementLR_PRAWE:hover,
+    .filterItemPlacementL_PRAWE:hover, .filterItemPlacementF_przód, .filterItemPlacementB_tył, .filterItemPlacementB_przód:hover, .filterItemPlacementF_tył:hover,
+    .filterItemPlacementLF_lewy_przód, .filterItemPlacementLB_lewy_tył, .filterItemPlacementRF_prawy_przód, .filterItemPlacementRB_prawy_tył, .filterItemPlacementLB_lewy_przód:hover, .filterItemPlacementRF_lewy_przód:hover,
+    .filterItemPlacementRB_lewy_przód:hover, .filterItemPlacementLF_lewy_tył:hover, .filterItemPlacementRF_lewy_tył:hover, .filterItemPlacementRB_lewy_tył:hover, .filterItemPlacementLF_prawy_przód:hover, .filterItemPlacementLF_prawy_przód:hover,
+    .filterItemPlacementRB_prawy_przód:hover, .filterItemPlacementLF_prawy_tył:hover, .filterItemPlacementLB_prawy_tył:hover, .filterItemPlacementRF_prawy_tył:hover, .filterItemPlacementLB_prawy_przód:hover {
+        
+        background: linear-gradient(90deg, #FFB21D, #ff5a00);
+        color: white;
+        border-right: 1px solid #c3c4c7;
+        padding: 2px 10px !important;
+        display: inline-block;
     }
 
 .form-control {

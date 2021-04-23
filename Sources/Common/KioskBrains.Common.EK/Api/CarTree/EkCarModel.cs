@@ -1,4 +1,6 @@
-﻿namespace KioskBrains.Common.EK.Api.CarTree
+﻿using System.Collections.Generic;
+
+namespace KioskBrains.Common.EK.Api.CarTree
 {
     public class EkCarModel
     {
@@ -7,7 +9,8 @@
         public int Id { get; set; }
 
         public string Name { get; set; }
-
+        public string DisplayName { get; set; }
+        public IEnumerable<EkCarModel> Children { get; set; }
         public string SelectedManufactureURL { get; set; }
 
         public string SelectedModelURL { get; set; }
