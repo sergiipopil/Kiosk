@@ -340,11 +340,9 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                         }
                     }
                 }
-                int index = newDescNew.IndexOf("описание запчасти (на польском)");
-                if (index != -1)
-                {
-                    newDescNew = newDescNew.Remove(index);
-                }
+
+                newDescNew = newDescNew.Replace("Описание запчасти (на польском)", "");
+                
                 var liParamsNew = doc.DocumentNode.QuerySelectorAll("table.product-info__table.fl--order7 tr");
                 var imagesNew = doc.DocumentNode.QuerySelectorAll("img.blur-up.ls-is-cached.lazyload");
                 OfferImage[] imagePathesNew = imagesNew.Where(x => x.Attributes["data-src"].Value.Contains("allegro")).Select(x => new OfferImage() { Url = x.Attributes["data-src"].Value }).ToArray();
@@ -381,73 +379,69 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 };
 
 
+                //var divName = doc.DocumentNode.QuerySelector("meta[property='og:title']");
+                //var name = divName.Attributes["content"].Value.ToString();
 
+                //var divsDesc = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Description'] div._2d49e_5pK0q div");
 
-
-
-                var divName = doc.DocumentNode.QuerySelector("meta[property='og:title']");
-                var name = divName.Attributes["content"].Value.ToString();
-
-                var divsDesc = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Description'] div._2d49e_5pK0q div");
-
-                if (!divsDesc.Any())
-                {
-                    divsDesc = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Description'] div._2d49e_5pK0q");
-                    if (!divsDesc.Any())
-                    {
-                        divsDesc = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Description']");
-                    }
-                }
-                var tempdesc = doc.DocumentNode.QuerySelectorAll("div._2d49e_5pK0q");
-                var desc = divsDesc.Any() ? divsDesc[0].InnerHtml : "";
-                string newDesc = "";
-                if (divsDesc.Any()) {
-                    if (divsDesc.Count() > 0) {
-                        foreach (var item in divsDesc)
-                        {
-                            newDesc += item.InnerHtml;
-                        }
-                    }
-                }
-                var liParams = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Parameters'] li div._f8818_3-1jj");
+                //if (!divsDesc.Any())
+                //{
+                //    divsDesc = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Description'] div._2d49e_5pK0q");
+                //    if (!divsDesc.Any())
+                //    {
+                //        divsDesc = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Description']");
+                //    }
+                //}
+                //var tempdesc = doc.DocumentNode.QuerySelectorAll("div._2d49e_5pK0q");
+                //var desc = divsDesc.Any() ? divsDesc[0].InnerHtml : "";
+                //string newDesc = "";
+                //if (divsDesc.Any()) {
+                //    if (divsDesc.Count() > 0) {
+                //        foreach (var item in divsDesc)
+                //        {
+                //            newDesc += item.InnerHtml;
+                //        }
+                //    }
+                //}
+                //var liParams = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Parameters'] li div._f8818_3-1jj");
                 
-                var tempPrice = doc.DocumentNode.QuerySelector("meta[itemprop='price']");
-                var priceStr = tempPrice.Attributes["content"].Value.ToString().Replace(",", ".");
-                decimal productPricePLN = decimal.Parse(priceStr, CultureInfo.InvariantCulture);
-                var images = doc.DocumentNode.QuerySelectorAll("img._b8e15_2LNko");//doc.DocumentNode.QuerySelectorAll("div[data-prototype-id='allegro.gallery'] img");
+                //var tempPrice = doc.DocumentNode.QuerySelector("meta[itemprop='price']");
+                //var priceStr = tempPrice.Attributes["content"].Value.ToString().Replace(",", ".");
+                //decimal productPricePLN = decimal.Parse(priceStr, CultureInfo.InvariantCulture);
+                //var images = doc.DocumentNode.QuerySelectorAll("img._b8e15_2LNko");//doc.DocumentNode.QuerySelectorAll("div[data-prototype-id='allegro.gallery'] img");
 
-                OfferImage[] imagePathes = images.Where(x => x.Attributes["src"] != null).Select(x => new OfferImage() { Url = x.Attributes["src"].Value.Replace("s128","original") }).ToArray();
-
-
-                if (!liParams.Any() && !divsDesc.Any())
-                {
-                    throw new AllegroPlRequestException("Error read https://allegro.pl/oferta/" + id + text);
-                }
-
-                var divParamsInit = liParams.Select(x => x.QuerySelectorAll("div").FirstOrDefault());
-                var lineParamsDest = divParamsInit.Where(x => x != null && x.InnerText.Contains(":")).Select(x => x.InnerText).ToList();
+                //OfferImage[] imagePathes = images.Where(x => x.Attributes["src"] != null).Select(x => new OfferImage() { Url = x.Attributes["src"].Value.Replace("s128","original") }).ToArray();
 
 
-                var parameters = lineParamsDest.Select(x => GetParameterFromLine(x)).ToList();
+                //if (!liParams.Any() && !divsDesc.Any())
+                //{
+                //    throw new AllegroPlRequestException("Error read https://allegro.pl/oferta/" + id + text);
+                //}
 
-                var descMulti = new MultiLanguageString()
-                {
-                    [Languages.PolishCode] = newDesc,
-                    [Languages.RussianCode] = newDesc
-                };
+                //var divParamsInit = liParams.Select(x => x.QuerySelectorAll("div").FirstOrDefault());
+                //var lineParamsDest = divParamsInit.Where(x => x != null && x.InnerText.Contains(":")).Select(x => x.InnerText).ToList();
 
-                return new Offer()
-                {
-                    Name = new MultiLanguageString()
-                    {
-                        [Languages.PolishCode] = name,
-                        [Languages.RussianCode] = name
-                    },
-                    Description = descMulti,
-                    Parameters = parameters,
-                    Images = imagePathes,
-                    Price = productPricePLN
-                };
+
+                //var parameters = lineParamsDest.Select(x => GetParameterFromLine(x)).ToList();
+
+                //var descMulti = new MultiLanguageString()
+                //{
+                //    [Languages.PolishCode] = newDesc,
+                //    [Languages.RussianCode] = newDesc
+                //};
+
+                //return new Offer()
+                //{
+                //    Name = new MultiLanguageString()
+                //    {
+                //        [Languages.PolishCode] = name,
+                //        [Languages.RussianCode] = name
+                //    },
+                //    Description = descMulti,
+                //    Parameters = parameters,
+                //    Images = imagePathes,
+                //    Price = productPricePLN
+                //};
             }
             catch (AllegroPlRequestException)
             {

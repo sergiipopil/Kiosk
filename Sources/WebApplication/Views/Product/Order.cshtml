@@ -14,19 +14,19 @@
                 <div onclick="ReturnToDelivery()" style="color: white; padding: 0px 10px; font-weight: normal; display: inline-block; border-radius: 10px; font-size: 23px; float: left; text-transform: capitalize; background: #ff5a00;">
                     <span>Назад</span>
                 </div>
-                <div style="display:inline-block;">Виберіть спосіб оплати</div>
+                <div style="display:inline-block;">Выберите способ оплаты</div>
             </div>
             <div class="col-4" style="background:#504593;min-height: 100vh;">
                 <div class="row" style="margin: 50px 20px !important; padding:20px 20px 30px 20px; box-shadow: 0px 0px 13px white; min-height: 240px; max-height: 240px;">
                     <div class="col-4" style="padding-top:30px;">
                         <img src="~/images/OrderAdvert/GarantedPay.png" style="width:inherit;" />
                     </div>
-                    <div class="col" style="color:white;">
+                    <div class="col-8" style="color:white;">
                         <div style="font-size: 34px;">
-                            Гарантований платіж
+                            Гарантированный платеж
                         </div>
                         <div style="font-size: 34px;">
-                            Безпечна покупка
+                            Безопасная покупка
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                         <img src="~/images/OrderAdvert/dostavka100.png" style="width:inherit;" />
                     </div>
                     <div class="col" style="color:white;">
-                        <span style="font-size:34px;">Безкоштовна доставка до 30кг</span>
+                        <span style="font-size:34px;">Бесплатная доставка до 30кг</span>
                     </div>
                 </div>
                 <div class="row" style="margin: 50px 20px !important; padding: 20px; box-shadow: 0px 0px 13px white; min-height: 240px; max-height: 240px;">
@@ -44,8 +44,8 @@
                     </div>
                     <div class="col" style="color:white;">
                         <div style="font-size:34px;">
-                            Захист споживача
-                            Гарантія на товар
+                            Защита потребителя
+                            Гарантия на товар
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                                 <form id="formTerminalPrivat" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.cashData.Data" />
                                     <input type="hidden" name="signature" value="@Model.cashData.Signature" />
-                                    <input type="submit" value="Оплата в терміналі ПриватБанка" style="background:white;" />
+                                    <input type="submit" value="Оплата в терминале ПриватБанка" style="background:white;" />
                                 </form>
                             </div>
                         </div>

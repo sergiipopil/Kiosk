@@ -15,7 +15,7 @@
     </script>-->
     @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
 
-    
+
 
     <script src="~/js/site.js" asp-append-version="true"></script>
 
@@ -51,14 +51,10 @@
         <div id="dialogContent" class="modal-dialog"></div>
     </div>
     <header>
-        <div class="container-fluid">
-            <div class="row" style="text-align: center; line-height: 90px; font-size: 2.3em; letter-spacing: 2px; word-spacing: 5px;color:white;">
-                <div class="col-1" style="cursor:pointer;" onclick="backToMainPage()">
-                    <img src="~/images/Logo.png" style="margin:10px;width:inherit;" />
-                </div>
-                <div class="col-11">АВТОРОЗБІРКИ УКРАЇНИ І ЄВРОПИ В ОДНОМУ ВІКНІ</div>
-            </div>
+        <div style="cursor:pointer;display:inline-block;vertical-align:middle;width:10%;text-align:center;" onclick="backToMainPage()">
+            <img src="~/images/Logo.png" class="headerImg" />
         </div>
+        <div style="display:inline-block;vertical-align:middle;width:85%;text-align:center;padding:0px 20px;"><span class="headerTitle">АВТОРАЗБОРКИ УКРАИНЫ И ЕВРОПЫ В ОДНОМ ОКНЕ</span></div>
     </header>
     <div class="container-fluid" style="padding:0px;">
         <div class="row">
@@ -75,10 +71,10 @@
             <main role="main" style="width:100%;">
                 <div class="container-fluid" style="padding:0px;">
                     <div class="row">
-                        <div @*style="vertical-align:top;color:white; white-space:nowrap;width:10%;max-width:10%; padding-top:2%;"*@ class="col-1" style="max-width: 9.3%; padding: 0px;">
+                        <div @*style="vertical-align:top;color:white; white-space:nowrap;width:10%;max-width:10%; padding-top:2%;"*@ class="col-1" id="divLeftMenu" style="max-width: 9.3%; padding: 0px;">
                             <div class="menuItemDiv">
                                 <a asp-area="" asp-controller="Home" asp-action="Index">
-                                    <div class="menuItemPic"><img src="~/images/Menu/Home.png" /></div><div class="inline-block" style="color:#848ac2;">На головну</div>
+                                    <div class="menuItemPic"><img src="~/images/Menu/Home.png" /></div><div class="inline-block" style="color:#848ac2;">На главную</div>
                                 </a>
                             </div>
                             <div style="padding:100px 0px 100px 0px;text-align:center;color:#848ac2;">
@@ -91,13 +87,13 @@
                             <div class="menuItemDiv">
                                 <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="instructionsItem">
                                     <div class="menuItemPic"><img src="~/images/Menu/Instructions.png" /></div><div class="inline-block" style="color:#848ac2;">
-                                        Інструкція
+                                        Инструкция
                                     </div>
                                 </button>
                             </div>
                             <div class="menuItemDiv">
                                 <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="warrantyItem">
-                                    <div class="menuItemPic"><img src="~/images/Menu/Warranty.png" /></div><div class="inline-block" style="color:#848ac2;">Гарантія</div>
+                                    <div class="menuItemPic"><img src="~/images/Menu/Warranty.png" /></div><div class="inline-block" style="color:#848ac2;">Гарантия</div>
                                 </button>
                             </div>
                             <div class="menuItemDiv">
@@ -107,7 +103,7 @@
                             </div>
                             <div class="menuItemDiv">
                                 <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="returnItem">
-                                    <div class="menuItemPic"><img src="~/images/Menu/Return.png" /></div><div class="inline-block" style="color:#848ac2;">Повернення</div>
+                                    <div class="menuItemPic"><img src="~/images/Menu/Return.png" /></div><div class="inline-block" style="color:#848ac2;">Возврат</div>
                                 </button>
                             </div>
                             <div class="menuItemDiv">
@@ -119,17 +115,17 @@
 
                             <div class="menuItemDiv" style="white-space:initial;margin:0px;">
                                 <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="GarantedPayItem">
-                                    <div class="menuItemPic" style="width:50px;"><img src="~/images/OrderAdvert/GarantedPay.png" width="50" /></div><div class="inline-block" style="color:#848ac2;text-align:center;"><div>Гарантований платіж</div><div>Безпечна покупка</div></div>
+                                    <div class="menuItemPic" style="width:50px;"><img src="~/images/OrderAdvert/GarantedPay.png" width="50" /></div><div class="inline-block" style="color:#848ac2;text-align:center;"><div>Гарантированный платеж</div><div>Безопасная покупка</div></div>
                                 </button>
                             </div>
                             <div class="menuItemDiv" style="white-space:initial;margin:0px;">
                                 <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="dostavka100Item">
-                                    <div class="menuItemPic" style="width:50px;"><img src="~/images/OrderAdvert/dostavka100.png" width="50" /></div><div class="inline-block" style="color:#848ac2;text-align:center;">Безкоштовна доставка до 30кг</div>
+                                    <div class="menuItemPic" style="width:50px;"><img src="~/images/OrderAdvert/dostavka100.png" width="50" /></div><div class="inline-block" style="color:#848ac2;text-align:center;">Бесплатная доставка до 30кг</div>
                                 </button>
                             </div>
                             <div class="menuItemDiv" style="white-space:initial;margin:0px;">
                                 <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="User100Item">
-                                    <div class="menuItemPic" style="width:50px;"><img src="~/images/OrderAdvert/User100.png" width="50" /></div><div class="inline-block" style="color:#848ac2;text-align:center;"><div>Захист споживача</div><div>Гарантія на товар</div></div>
+                                    <div class="menuItemPic" style="width:50px;"><img src="~/images/OrderAdvert/User100.png" width="50" /></div><div class="inline-block" style="color:#848ac2;text-align:center;"><div>Защита потребителя</div><div>Гарантия на товар</div></div>
                                 </button>
                             </div>
                         </div>
@@ -143,29 +139,28 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col">&copy; 2021 - Інтернет магазин bi-bi.com.ua - <a asp-area="" asp-controller="Home" asp-action="Privacy">Політика конфіденційності</a></div>
-                <div style="display:inline-block;vertical-align:middle;">
-                </div>
-                <div class="col">
-                    <div class="row">
-
-                        <div class="col" style="cursor:pointer;" onclick="window.open('https://www.facebook.com/Автозапчастини-247-103538094588098')"><img src="~/images/Social/facebook.png" style="width:40%;" /></div>
-                        <div class="col" style="cursor:pointer;" onclick="window.open('https://www.instagram.com/ek4car_cn/')"><img src="~/images/Social/instagram.png" style="width:40%;" /></div>
-                        <div class="col" style="cursor:pointer;" onclick="window.open('https://www.youtube.com/channel/UCahH44dE4C6ZSiOr-SPMqFA')"><img src="~/images/Social/youtube.png" style="width:40%;" /></div>
-                    </div>
-                </div>
-                <div class="col">
+        <table class="footerTable">
+            <tr>
+                <td>&copy; 2021 - Інтернет магазин bi-bi.com.ua - <a asp-area="" asp-controller="Home" asp-action="Privacy">Политика конфиденциальности</a></td>               
+                <td>
+                    <table  class="footerTableSocial">
+                        <tr>
+                            <td style="cursor:pointer;" onclick="window.open('https://www.facebook.com/Автозапчастини-247-103538094588098')"><img src="~/images/Social/facebook.png" style="width:40%;" class="socialIcon" /></td>
+                            <td style="cursor:pointer;" onclick="window.open('https://www.instagram.com/ek4car_cn/')"><img src="~/images/Social/instagram.png" style="width:40%;" class="socialIcon" /></td>
+                            <td style="cursor:pointer;" onclick="window.open('https://www.youtube.com/channel/UCahH44dE4C6ZSiOr-SPMqFA')"><img src="~/images/Social/youtube.png" style="width:40%;" class="socialIcon" /></td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
                     <div>
                         <span style="font-size:18px;color:#a7a7a7;">Гаряча лінія: 050 508 81 08</span>
                     </div>
-                </div>
-                <div class="col">
-                    <span>© 2021 «EK4CAR & BI-BI». Всі права захищені</span>
-                </div>
-            </div>
-        </div>
+                </td>
+                <td>
+                    <span>© 2021 «EK4CAR & BI-BI». Все права защищены</span>
+                </td>
+            </tr>
+        </table>
     </footer>
 
 </body>

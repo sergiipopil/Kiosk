@@ -14,19 +14,23 @@ for details on configuring this project to bundle and minify static web assets. 
 .filterItemDescSorting_PriceDesc, .filterItemDescSorting_PriceDesc, .filterItemDescSorting_PriceDesc,
 .filterItemAscSorting_PriceAsc, .filterItemAscSorting_PriceAsc, .filterItemAscSorting_PriceAsc,
 .filterItemRelevanceSorting_PriceAsc, .filterItemDescSorting_PriceAsc,
-.filterItemEngineBenzyn_, .filterItemEngineDiesel_, .filterItemEngineDiesel_benzyna, .filterItemEngineBenzyn_diesel,
+.filterItemEngineBenzyn_, .filterItemEngineDiesel_, .filterItemEngineElektryczne_,
 .filterItemOrigin_, .filterItemFake_, .filterItemOrigin_zamiennik, .filterItemFake_oryginał,
 .filterItemPlacementLR_, .filterItemPlacementL_, .filterItemPlacementR_,
 .filterItemPlacementF_, .filterItemPlacementB_,
 .filterItemPlacementLF_, .filterItemPlacementLB_, .filterItemPlacementRF_, .filterItemPlacementRB_,
 .filterItemPlacementL_LEWY_PRAWE, .filterItemPlacementR_LEWY_PRAWE, .filterItemPlacementLR_LEWY, .filterItemPlacementR_LEWY, .filterItemPlacementLR_PRAWE, .filterItemPlacementL_PRAWE,
 .filterItemPlacementB_przód, .filterItemPlacementF_tył, .filterItemPlacementLB_lewy_przód, .filterItemPlacementRF_lewy_przód, .filterItemPlacementRB_lewy_przód, .filterItemPlacementLF_lewy_tył, .filterItemPlacementRF_lewy_tył,
-.filterItemPlacementRB_lewy_tył, .filterItemPlacementLF_prawy_przód, .filterItemPlacementLF_prawy_przód, .filterItemPlacementRB_prawy_przód, .filterItemPlacementLF_prawy_tył, .filterItemPlacementLB_prawy_tył, .filterItemPlacementRF_prawy_tył, .filterItemPlacementLB_prawy_przód {
-    border-right: 1px solid #c3c4c7;
+.filterItemPlacementRB_lewy_tył, .filterItemPlacementLF_prawy_przód, .filterItemPlacementLF_prawy_przód, .filterItemPlacementRB_prawy_przód, .filterItemPlacementLF_prawy_tył, .filterItemPlacementLB_prawy_tył, .filterItemPlacementRF_prawy_tył, .filterItemPlacementLB_prawy_przód,
+.filterItemEngineDiesel_benzyna, .filterItemEngineElektryczne_benzyna, .filterItemEngineBenzyn_diesel, .filterItemEngineElektryczne_diesel, .filterItemEngineBenzyn_elektryczne, .filterItemEngineDiesel_elektryczne,
+.filterItemEngineDiesel_diesel, .filterItemEngineBenzyn_benzyna, .filterItemEngineElektryczne_elektryczne {
+    border-bottom: 1px solid #ff6b05;
     padding: 2px 10px;
+    margin: 0 15%;
     display: inline-block;
     color: black;
     background: white;
+    width: -webkit-fill-available;
 }
 
     .filterItemAllState_All, .filterItemNewState_New, .filterItemUsedState_Used, .filterItemRecoverState_Recovered,
@@ -40,8 +44,7 @@ for details on configuring this project to bundle and minify static web assets. 
     .filterItemAscSorting_PriceAsc:hover, .filterItemAscSorting_PriceAsc:hover, .filterItemAscSorting_PriceAsc:hover, filterItemDescSorting_PriceAsc:hover, .filterItemRelevanceSorting_PriceAsc:hover,
     filterItemDescSorting_Relevance:hover, .filterItemAscSorting_Relevance:hover, .filterItemDescSorting_PriceAsc:hover, .filterItemDescSorting_Relevance:hover,
     .filterItemAscSorting_PriceDesc:hover, .filterItemRelevanceSorting_PriceDesc:hover,
-    .filterItemEngineBenzyn_:hover, .filterItemEngineDiesel_:hover,
-    .filterItemEngineBenzyn_benzyna, .filterItemEngineDiesel_diesel,
+    .filterItemEngineBenzyn_:hover, .filterItemEngineDiesel_:hover, .filterItemEngineElektryczne_:hover,
     .filterItemOrigin_:hover, .filterItemFake_:hover,
     .filterItemOrigin_oryginał, .filterItemFake_zamiennik,
     .filterItemPlacementLR_:hover, .filterItemPlacementL_:hover, .filterItemPlacementR_:hover,
@@ -52,8 +55,9 @@ for details on configuring this project to bundle and minify static web assets. 
     .filterItemPlacementL_PRAWE:hover, .filterItemPlacementF_przód, .filterItemPlacementB_tył, .filterItemPlacementB_przód:hover, .filterItemPlacementF_tył:hover,
     .filterItemPlacementLF_lewy_przód, .filterItemPlacementLB_lewy_tył, .filterItemPlacementRF_prawy_przód, .filterItemPlacementRB_prawy_tył, .filterItemPlacementLB_lewy_przód:hover, .filterItemPlacementRF_lewy_przód:hover,
     .filterItemPlacementRB_lewy_przód:hover, .filterItemPlacementLF_lewy_tył:hover, .filterItemPlacementRF_lewy_tył:hover, .filterItemPlacementRB_lewy_tył:hover, .filterItemPlacementLF_prawy_przód:hover, .filterItemPlacementLF_prawy_przód:hover,
-    .filterItemPlacementRB_prawy_przód:hover, .filterItemPlacementLF_prawy_tył:hover, .filterItemPlacementLB_prawy_tył:hover, .filterItemPlacementRF_prawy_tył:hover, .filterItemPlacementLB_prawy_przód:hover {
-        
+    .filterItemPlacementRB_prawy_przód:hover, .filterItemPlacementLF_prawy_tył:hover, .filterItemPlacementLB_prawy_tył:hover, .filterItemPlacementRF_prawy_tył:hover, .filterItemPlacementLB_prawy_przód:hover, .filterItemEngineBenzyn_benzyna,
+    .filterItemEngineDiesel_benzyna:hover, .filterItemEngineElektryczne_benzyna:hover, .filterItemEngineDiesel_diesel, .filterItemEngineBenzyn_diesel:hover, .filterItemEngineElektryczne_diesel:hover, .filterItemEngineElektryczne_elektryczne,
+    .filterItemEngineBenzyn_elektryczne:hover, .filterItemEngineDiesel_elektryczne:hover {
         background: linear-gradient(90deg, #FFB21D, #ff5a00);
         color: white;
         border-right: 1px solid #c3c4c7;
@@ -66,9 +70,11 @@ for details on configuring this project to bundle and minify static web assets. 
     height: 45px !important;
     font-size: 18px !important;
 }
+
 a:hover {
-    text-decoration:none !important;
+    text-decoration: none !important;
 }
+
 .bootstrap-select > .dropdown-toggle.bs-placeholder, .bootstrap-select > .dropdown-toggle.bs-placeholder:active, .bootstrap-select > .dropdown-toggle.bs-placeholder:focus, .bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
     color: black !important;
     font-size: 18px;
@@ -160,7 +166,7 @@ ul.pagination li {
     border: 1px solid #e87619;
 }
 
-.btnBuyNew {
+.btnBuyNew, .btnBuyNewCart {
     background: white;
     height: 51px;
     color: #ff5a00;
@@ -169,7 +175,7 @@ ul.pagination li {
     font-size: 28px;
 }
 
-    .btnBuyNew:hover {
+    .btnBuyNew:hover, .btnBuyNewCart:hover {
         background: #ff5a00;
         color: white;
         box-shadow: 0 0 6px white;
@@ -230,6 +236,7 @@ ul.pagination li {
         box-shadow: 0 0 6px white;
         color: white;
     }
+
 .hide {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -237,8 +244,9 @@ ul.pagination li {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    display:block !important;
+    display: block !important;
 }
+
 .btnDeleteCartItem {
     border: 1px solid #FFB21D;
     height: 34px;
@@ -292,9 +300,9 @@ input#btnCloseDetailWindow {
 
 .paymentMethod {
     border: 1px solid #c3c4c7;
-    margin-bottom:25px;
+    margin-bottom: 25px;
     background: white;
-    padding:5px;
+    padding: 5px;
 }
 
     .paymentMethod:hover {
@@ -307,6 +315,7 @@ input#btnCloseDetailWindow {
     margin: 9px;
     vertical-align: middle;
 }
+
 .openProductDEtailsBtn {
     position: absolute;
     bottom: 10px;
@@ -314,8 +323,9 @@ input#btnCloseDetailWindow {
     width: 100%;
     color: #ff5a00;
     font-weight: 500;
-    cursor:pointer;
+    cursor: pointer;
 }
+
 a.navbar-brand {
     white-space: normal;
     text-align: center;
@@ -351,6 +361,640 @@ html {
     }
 }
 
+@media only screen and (max-width: 600px) {
+    .cartBackBtn {
+        font-size: 14px !important;
+        padding: 0px 5px !important;
+        width: 80px !important;
+    }
+
+    .parentDivBreadCrumbs {
+        display: inline-block !important;
+        vertical-align: middle;
+        width: 60px !important;
+        height: 50px !important;
+    }
+
+    #divBreadcrumbsManufacture {
+        display: inline-block;
+    }
+
+    .manufactureImageBreadcrumbs {
+        max-width: 50px !important;
+        vertical-align: top;
+        max-height: 40px !important;
+    }
+
+    #divBreadcrumbsItems {
+        margin: 0px 0px 10px 0px !important;
+    }
+
+    .headerTitle {
+        text-align: center;
+        font-size: 14px;
+        letter-spacing: 1px;
+        word-spacing: 2px;
+        color: white;
+    }
+
+    .headerImg {
+        margin: 10px;
+        width: 100%;
+    }
+
+    .leftIndexPanel, .rightIndexPanel {
+        width: 100% !important;
+        display: block;
+    }
+
+    #divLeftMenu {
+        display: none;
+    }
+
+    .manufactureImage {
+        max-width: 50px !important;
+        max-height: 45px !important;
+    }
+
+    .parentDivManufacturer {
+        width: 58px !important;
+        height: 60px !important;
+    }
+
+    .topCategoryDiv {
+        /*width: 75px !important;
+        height: 85px !important;*/
+        width: 39px !important;
+        height: 50px !important;
+        background: #E9EAFF;
+        display: grid !important;
+        justify-content: center;
+        padding-top: 10px;
+        box-shadow: 0 0 4px rgb(0 0 0 / 50%);
+    }
+
+    .TopCategoryImage {
+        max-width: 37px !important;
+        max-height: 26px !important;
+    }
+
+    .treeMainBlock {
+        text-align: center;
+        padding-bottom:10px;
+    }
+
+    .footer {
+        background: #23274d;
+        position: inherit;
+        bottom: 0;
+        width: 100%;
+        white-space: initial;
+        line-height: 20px; /* Vertically center the text there */
+    }
+
+    #imgLoopBack {
+        display: none;
+    }
+
+    .breadcrumbTitle {
+        font-size: 16px;
+    }
+
+    .mainBlockTitle {
+        box-shadow: 0 0 6px rgba(0,0,0,0.5);
+        background: #EEEFFF;
+        text-align: center;
+        font-size: 14px;
+        padding: 6px;
+        font-weight: 500;
+        color: #ff5a00;
+        font-family: Open Sans,sans-serif;
+        width: 100%;
+        letter-spacing: 1px;
+    }
+
+    .inputSearchTopText {
+        font-size: 14px;
+        vertical-align: top;
+        text-align: center;
+    }
+
+    .inputInsideBlock {
+        text-align: center;
+        padding-top: 10px;
+    }
+
+    .inputSearchBottomText {
+        color: #ff5a00;
+        font-size: 14px;
+    }
+
+    .inputControlBlock {
+        margin: -10px 15px 20px 15px;
+    }
+
+    .loopBtn {
+        display: inline-block;
+        vertical-align: middle;
+        width: 10%;
+    }
+
+    .manufactureTextTop {
+        display: none !important;
+        text-align: center;
+        font-size: 8px;
+        display: block;
+        width: 37px;
+        vertical-align: bottom;
+        word-break: break-all;
+    }
+
+    .divSelectTopCategoryBlock {
+        padding: 10px 0px 18px 0px;
+        text-align: center;
+    }
+
+    header {
+        padding-bottom: 10px;
+    }
+
+    .inputPart {
+        font-size: 16px;
+        height: 30px;
+        width: 90%;
+    }
+
+    .loopImgPadding {
+        padding-bottom: 0px;
+        padding-top: 10px;
+        width: 30px;
+    }
+
+    .manufactureText {
+        text-align: center;
+        font-size: 7px;
+    }
+
+    .modelImage {
+        max-width: 50px;
+        max-height: 50px;
+        padding: 0px;
+    }
+
+    .parentDiv {
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2vmin;
+        margin-left: 1vmin;
+        width: 56px;
+        height: 60px;
+        box-shadow: 0 0 4px rgba(0,0,0,0.5);
+        padding: 10px;
+    }
+
+    .divCarModelsBlock {
+        min-width: 50px;
+        max-height: 40px;
+        text-align: center;
+    }
+
+    .parentDivAutoParts {
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2vmin;
+        margin-left: 1vmin;
+        width: 70px;
+        height: 70px;
+        box-shadow: 0 0 4px rgba(0,0,0,0.5);
+        padding: 0px;
+    }
+
+    .modelImageAutoParts {
+        max-width: 51px;
+        max-height: 40px;
+        padding-top: 5px;
+    }
+
+    .btnBackModelPage {
+        color: white;
+        padding: 0px 5px;
+        font-weight: normal;
+        display: inline-block;
+        border-radius: 10px;
+        font-size: 13px;
+        float: left;
+        text-transform: capitalize;
+        background: #ff5a00;
+    }
+
+    .socialIcon {
+        width: 30px !important;
+    }
+
+    .breadcrumbsStyle2 {
+        min-width: 55px;
+        max-height: 24px;
+        text-align: center;
+    }
+
+    .breadcrumbsStyle1 {
+        min-width: 55px;
+        height: 30px;
+        text-align: center;
+    }
+
+    .manufactureImageCategoryBreadcrumbs {
+        max-width: 55px !important;
+        max-height: 25px !important;
+        vertical-align: top !important;
+    }
+
+    .manufactureTextBreadcrumbs {
+        font-size: 6px !important;
+        font-weight: normal !important;
+    }
+
+    .divProductHeadFilter {
+        padding: 10px 0px;
+        font-size: 12px;
+        background: white;
+    }
+
+    ul.pagination li {
+        padding: 0px 6px;
+        font-size: 12px;
+        color: white;
+    }
+
+    .openProductDEtailsBtn, .hide {
+        position: initial !important;
+        font-size: 12px;
+    }
+
+    .divProductListCard {
+        background: white;
+        padding: 10px;
+        text-align: center;
+        margin: 10px 0px;
+        border: 1px solid #c1c1c1;
+        min-height: 220px;
+    }
+
+    .productTitle {
+        font-size: 12px;
+    }
+
+    .enlargePhoto {
+        padding: 5px 4px 15px 30px !important;
+        margin-left: 40px;
+    }
+
+    .divProductPrice, divProductCurrency {
+        font-size: 18px !important;
+    }
+
+    #priceDeliveryComment {
+        font-size: 14px !important;
+    }
+
+    .btnBuyList {
+        height: 33px !important;
+    }
+
+    .inline-blockPrice {
+        border-top: 1px solid #c3c4c5;
+        border-left: 0px !important;
+        margin: 10px;
+        padding: 10px;
+    }
+
+    #mainImageProduct {
+        max-height: 120px !important;
+    }
+
+    .loadGif {
+        width: 50px !important;
+    }
+
+    .titleBlock {
+        padding: 0px 10px !important;
+        text-align: center !important;
+        font-size: 22px !important;
+        padding-bottom: 10px !important;
+    }
+
+    .descriptionBlock {
+        padding: 0px 10px !important;
+        text-align: left !important;
+    }
+
+    #controlBlock {
+        padding: 10px !important;
+        margin-top: 10px;
+        text-align: center !important;
+    }
+
+    .btnBuyNew {
+        height: 31px !important;
+        font-size: 16px;
+    }
+
+    .btnBuyNewCart {
+        height: 55px !important;
+        font-size: 16px !important;
+    }
+
+    .btnBuyListSpan {
+        font-size: 16px !important;
+    }
+
+    .divGoToCart {
+        padding: 0px !important;
+    }
+
+    .divDeliveryTitle {
+        padding: 0px !important;
+    }
+
+    h3 {
+        font-size: 18px !important;
+        padding: 0px !important;
+        margin: 20px 0px 0px 0px !important;
+    }
+
+    .form-control {
+        margin-top: 15px !important;
+        height: 30px !important;
+        font-size: 14px !important;
+    }
+
+    .bootstrap-select > .dropdown-toggle.bs-placeholder, .bootstrap-select > .dropdown-toggle.bs-placeholder:active, .bootstrap-select > .dropdown-toggle.bs-placeholder:focus, .bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
+        font-size: 14px !important;
+        height: 30px !important;
+    }
+
+    .btnOrder {
+        font-size: 18px;
+        padding: 5px 0px;
+    }
+
+    .cartBlockMain {
+        padding: 10px !important;
+    }
+
+    .cartTitle {
+        font-size: 16px !important;
+    }
+
+    .leftCartColumn {
+        display: block !important;
+        width: 100% !important;
+        padding-right: 0px !important;
+    }
+
+    #divDeliveryHeight {
+        min-height: auto !important;
+    }
+
+    .inline-blockDeliveryText {
+        font-size: 12px !important;
+    }
+
+    .inline-blockNovaPoshta, .inline-blockCourier {
+        display: block !important;
+    }
+
+    .cartProductsPadding {
+        padding: 0px !important;
+    }
+
+    .divCartControlButtons {
+        margin: 20px 0px !important;
+    }
+
+    #mainCartTotalPrice, .cartCurrency {
+        font-size: 24px !important;
+        margin-bottom: 0px !important;
+    }
+
+    .footerTable, .footerTableSocial {
+        width: 100%;
+    }
+
+        .footerTable td {
+            text-align: center;
+            display:block;
+            width:100%;
+            padding:10px 0px;
+        }
+        .footerTableSocial td {
+            text-align:center;
+            display:table-cell;
+        }
+        .footerTableSocial td {
+            padding: 0px 10px !important;
+            width:auto;
+        }
+}
+
+@media only screen and (min-width: 601px) {
+    .footerTable, .footerTableSocial {
+        width: 100%;
+    }
+
+        .footerTable td, .footerTableSocial td {
+            text-align: center;
+        }
+
+        .footerTableSocial td {
+            padding: 0px 10px !important;
+        }
+
+    .socialIcon {
+        width: 40px !important;
+    }
+
+    .divProductListCard {
+        background: white;
+        padding: 10px;
+        margin: 10px 20px;
+        border: 1px solid #c1c1c1;
+        border-left: 4px solid blue;
+        min-height: 220px;
+        max-height: 220px;
+    }
+
+    .divProductHeadFilter {
+        padding: 10px 20px 20px 70px;
+        background: white;
+    }
+
+    .breadcrumbsStyle1 {
+        min-width: 155px;
+        min-height: 100px;
+        max-height: 100px;
+        text-align: center;
+    }
+
+    .breadcrumbsStyle2 {
+        min-width: 155px;
+        min-height: 90px;
+        text-align: center;
+    }
+
+    .btnBackModelPage {
+        color: white;
+        padding: 0px 10px;
+        font-weight: normal;
+        display: inline-block;
+        border-radius: 10px;
+        font-size: 23px;
+        float: left;
+        text-transform: capitalize;
+        background: #ff5a00;
+    }
+
+    .modelImageAutoParts {
+        max-width: 165px;
+        max-height: 145px;
+        padding-top: 20px;
+    }
+
+    .parentDivAutoParts {
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2vmin;
+        margin-left: 1vmin;
+        width: 200px;
+        height: 185px;
+        box-shadow: 0 0 4px rgba(0,0,0,0.5);
+        padding: 6px;
+    }
+
+    .divCarModelsBlock {
+        min-width: 155px;
+        min-height: 115px;
+        text-align: center;
+    }
+
+    .parentDiv {
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2vmin;
+        margin-left: 1vmin;
+        width: 200px;
+        height: 150px;
+        box-shadow: 0 0 4px rgba(0,0,0,0.5);
+        padding: 10px;
+    }
+
+    .modelImage {
+        max-width: 185px;
+        max-height: 150px;
+        padding: 10px 0px;
+    }
+
+    .loopImgPadding {
+        padding-bottom: 10px;
+    }
+
+    .inputPart {
+        font-size: 20px;
+        height: 62px;
+        width: 90%;
+    }
+
+    .divSelectTopCategoryBlock {
+        padding: 20px 0px 28px 0px;
+    }
+
+    .manufactureText, .manufactureTextTop {
+        text-align: center;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .loopBtn {
+        display: inline-block;
+        vertical-align: middle;
+        width: 50px;
+    }
+
+    .inputControlBlock {
+        margin: 80px 25px 0px 25px;
+        background: white;
+        padding: 0px 10px 8px 10px;
+        box-shadow: 0px 0px 10px #ff5a00;
+    }
+
+    .inputSearchBottomText {
+        color: #ff5a00;
+        font-size: 48px;
+    }
+
+    .inputInsideBlock {
+        margin-top: -40%;
+        text-align: left;
+        padding-left: 25px;
+    }
+
+    .inputSearchTopText {
+        font-size: 60px;
+        vertical-align: top;
+        text-align: center;
+    }
+
+    .headerTitle {
+        text-align: center;
+        line-height: 90px;
+        font-size: 2.3em;
+        letter-spacing: 2px;
+        word-spacing: 5px;
+        color: white;
+    }
+
+    .headerImg {
+        margin: 10px;
+        width: initial;
+    }
+
+    .treeMainBlock {
+        padding: 20px 0px 20px 20px;
+        text-align: center;
+    }
+
+    .footer {
+        background: #23274d;
+        position: inherit;
+        bottom: 0;
+        width: 100%;
+        white-space: nowrap;
+        line-height: 60px; /* Vertically center the text there */
+    }
+
+    .mainBlockTitle {
+        box-shadow: 0 0 6px rgba(0,0,0,0.5);
+        background: #EEEFFF;
+        text-align: center;
+        font-size: 24px;
+        text-transform: uppercase;
+        padding: 6px;
+        font-weight: 500;
+        color: #ff5a00;
+        font-family: Open Sans,sans-serif;
+        width: 100%;
+        letter-spacing: 1px;
+    }
+}
+
 .border-top {
     border-top: 1px solid #e5e5e5;
 }
@@ -375,28 +1019,10 @@ html {
     min-height: 100%;
 }
 
-.footer {
-    background: #23274d;
-    position: inherit;
-    bottom: 0;
-    width: 100%;
-    white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
-}
+
 /* Default page styles
 -------------------------------------------------- */
-.parentDiv {
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2vmin;
-    margin-left: 1vmin;
-    width: 200px;
-    height: 150px;
-    box-shadow: 0 0 4px rgba(0,0,0,0.5);
-    padding: 10px;
-}
+
 
 .parentDivManufacturer {
     background: white;
@@ -423,18 +1049,7 @@ html {
     padding: 5px;
 }
 
-.parentDivAutoParts {
-    background: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2vmin;
-    margin-left: 1vmin;
-    width: 200px;
-    height: 185px;
-    box-shadow: 0 0 4px rgba(0,0,0,0.5);
-    padding: 6px;
-}
+
 
 .topCategoryDiv {
     background: #E9EAFF;
@@ -455,11 +1070,7 @@ html {
         color: #ff5a00;
     }
 
-.manufactureText {
-    text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-}
+
 
 .manufactureTextBreadcrumbs {
     text-align: center;
@@ -475,15 +1086,11 @@ input {
     border: 0px;
 }
 
-.loopBtn {
-    display: inline-block;
-    vertical-align: middle;
-    width: 50px;
-}
 
-    .loopBtn:hover {
-        box-shadow: 0 0 4px rgba(0,0,0,0.5);
-    }
+
+.loopBtn:hover {
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+}
 
 .leftIndexPanel {
     width: 33%;
@@ -521,36 +1128,6 @@ input {
     max-height: 65px;
 }
 
-.modelImage {
-    max-width: 185px;
-    max-height: 115px;
-    padding-top: 20px;
-}
-
-.modelImageAutoParts {
-    max-width: 165px;
-    max-height: 145px;
-    padding-top: 20px;
-}
-
-.mainBlockTitle {
-    box-shadow: 0 0 6px rgba(0,0,0,0.5);
-    background: #EEEFFF;
-    text-align: center;
-    font-size: 24px;
-    text-transform: uppercase;
-    padding: 6px;
-    font-weight: 500;
-    color: #ff5a00;
-    font-family: Open Sans,sans-serif;
-    width: 100%;
-    letter-spacing: 1px;
-}
-.inputPart {
-    font-size: 20px;
-    height: 62px;
-    width: 90%;
-}
 .mainBlockTitleOrder {
     box-shadow: 0 0 6px rgba(0,0,0,0.5);
     background: #EEEFFF;
@@ -566,13 +1143,14 @@ input {
 }
 
 
-.inline-block {
+.inline-block, .inline-blockPrice {
     display: inline-block;
     vertical-align: middle;
 }
+
 .field-validation-error {
     color: red;
-    font-size:16px;
+    font-size: 16px;
 }
 
 .field-validation-valid {

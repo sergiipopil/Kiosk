@@ -4,10 +4,10 @@
 }
 <table style="min-height: 100vh;min-width:100%;">
     <tr>
-        <td style="vertical-align:top;padding-right:4%;">
-            <div style="background:#514593;width:100%;text-align:center;padding:60px 0px;">
-                <span style="color:white;font-size:30px;">У Вас в кошику</span>
-                <div style="padding:50px 0px;">
+        <td style="vertical-align:top;padding-right:4%;" class="leftCartColumn">
+            <div style="background:#514593;width:100%;text-align:center;padding:60px 0px;" class="cartBlockMain">
+                <span style="color:white;font-size:30px;" class="cartTitle">У Вас в корзине</span>
+                <div style="padding:50px 0px;" class="cartProductsPadding">
 
                     @if (Model != null)
                     {
@@ -16,7 +16,7 @@
                             <div style="padding:15px 10px;">
                                 <div class="inline-block"><img src="~/images/CartWidgetEmpty.png"></div>
                                 <div class="inline-block">
-                                    <label style="font-size:21px;color:white;">
+                                    <label style="font-size:21px;color:white;" class="cartTitle">
                                         @item.Product.Name.Last().Value (@item.Product.Price грн.)
                                     </label>
                                 </div>
@@ -31,33 +31,33 @@
                         {<span>0</span> }
                         else
                         {@ViewData["CartWidgetPrice"]}
-                    </label><label style="font-size:39px;">грн</label>
+                    </label><label class="cartCurrency" style="font-size:39px;">грн</label>
                 </div>
 
             </div>
         </td>
         <td class="rightIndexPanel" style="width:60%;">
             <div class="mainBlockTitle" style="background: #EEEFFF;">
-                <div onclick="backToProductList()" style="color: white; padding: 0px 10px; font-weight: normal; border-radius: 10px; font-size: 23px; width:100px; text-transform: capitalize; background: #ff5a00;">
+                <div onclick="backToProductList()" style="color: white; padding: 0px 10px; font-weight: normal; border-radius: 10px; font-size: 23px; width:100px; text-transform: capitalize; background: #ff5a00;" class="cartBackBtn">
                     <span>Назад</span>
                 </div>
             </div>
             <div style="background:#DCDEFF;">
                 @if (Model == null || Model.Count == 0)
-                {<div id="emptyCart" style="width: 100%; font-size: 30px; text-align: center; padding: 30% 30% 0 30%; font-weight: bold; color: #504593;"> Корзина пуста</div> }
+                {<div id="emptyCart" style="width: 100%; font-size: 30px; text-align: center; padding: 30% 30% 0 30%; font-weight: bold; color: #504593;"> Корзина пустая</div> }
                 else
                 {
                     @Html.Partial("_CartListItem", Model)
                 }
                 @if (Model.Count > 0)
                 {
-                    <table style="width:100%;margin-top:80px;">
+                    <table style="width:100%;margin-top:80px;" class="divCartControlButtons">
                         <tr>
                             <td style="padding:0px 20px;">
                                 <div id="continueBtn" class="inline-block" style="width:100%;">
                                     <div onclick="backToMainPage()">
-                                        <button class="btnBuyNew">
-                                            <span>Продовжити покупки</span>
+                                        <button class="btnBuyNewCart">
+                                            <span>Продолжить покупки</span>
                                         </button>
                                     </div>
                                 </div>
@@ -66,8 +66,8 @@
 
                                 <div id="buyBtn" class="inline-block" style="width:100%;">
                                     <form action="@Url.Action("Delivery")">
-                                        <button class="btnBuyNew">
-                                            <span>Оформити замовлення</span>
+                                        <button class="btnBuyNewCart">
+                                            <span>Оформить заказ</span>
                                         </button>
                                     </form>
                                 </div>

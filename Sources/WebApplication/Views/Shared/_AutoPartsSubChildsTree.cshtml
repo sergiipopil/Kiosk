@@ -3,7 +3,7 @@
     Layout = null;
 }
 <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
-    <div onclick="selectMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName')" style="color: white; padding: 0px 10px; font-weight: normal; display: inline-block; border-radius: 10px; font-size: 23px; float: left; text-transform: capitalize; background: #ff5a00;">
+    <div onclick="selectMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName')" class="btnBackModelPage">
         <span>Назад</span>
     </div>
     <div style="display:inline-block;">Виберіть групу запчастин</div>
@@ -13,7 +13,7 @@
     {
         <div style="display:inline-block;vertical-align:middle;">
             <div class="parentDivAutoParts" style="display:grid;" onclick="getAllegroData('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.SubCategoryId', '@Model.SubCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value')">
-                <div style="min-width:155px;min-height:115px;text-align:center;">
+                <div class="divCarModelsBlock">
                     <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
                 </div>
                 <div class="manufactureText">

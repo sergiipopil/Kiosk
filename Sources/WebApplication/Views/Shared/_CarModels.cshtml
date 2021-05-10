@@ -4,7 +4,7 @@
 }
 
 <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
-    <div onclick="back('@Model.TopCategoryId')" style="color: white; padding: 0px 10px; font-weight: normal; display: inline-block; border-radius: 10px; font-size: 23px; float: left; text-transform: capitalize; background: #ff5a00;">
+    <div onclick="back('@Model.TopCategoryId')" class="btnBackModelPage">
         <span>Назад</span>
     </div>
     <div style="display:inline-block;">
@@ -26,7 +26,7 @@
             @if (item.Children == null)
                 {
                     <div class="parentDiv" style="display:grid;" onclick="selectCarModel('@Model.ManufacturerSelected', '@item.Name')">
-                        <div style="min-width:155px;min-height:115px;text-align:center;">
+                        <div class="divCarModelsBlock">
                             <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
                         </div>
                         <div class="manufactureText">
@@ -37,7 +37,7 @@
             else
             {
                 <div class="parentDiv" style="display:grid;" onclick="selectCarModifications('@Model.ManufacturerSelected', '@item.Name')">
-                    <div style="min-width:155px;min-height:115px;text-align:center;">
+                    <div class="divCarModelsBlock">
                         <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
                     </div>
                     <div class="manufactureText">
@@ -48,8 +48,8 @@
         }
         else
         {
-            <div class="parentDiv" style="display:grid;" onclick="selectCarModel('@Model.ManufacturerSelected', '@item.Name')">
-                <div style="min-width:155px;min-height:115px;text-align:center;">
+            <div class="parentDiv" style="display:grid;" onclick="selectCarModel('@Model.ManufacturerSelected', '@Model.ModelSelected', '@item.Name')">
+                <div class="divCarModelsBlock">
                     <img src='@item.Path' class="modelImage" />
                 </div>
                 <div class="manufactureText">

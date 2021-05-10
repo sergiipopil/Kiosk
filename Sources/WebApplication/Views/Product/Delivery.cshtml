@@ -119,61 +119,61 @@ function showDeliveryFields(divName) {
     <div id="deliveryControls">
         @using (Html.BeginForm("Order", "Product", FormMethod.Post)) { 
             <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;border-bottom:1px solid #504593;">
-                <div onclick="ReturnToCart()" style="color: white; padding: 0px 10px; font-weight: normal; display: inline-block; border-radius: 10px; font-size: 23px; float: left; text-transform: capitalize; background: #ff5a00;">
+                <div onclick="ReturnToCart()" class="btnBackModelPage">
                     <span>Назад</span>
                 </div>
-                <div style="display:inline-block;">Оформлення замовлення</div>
+                <div style="display:inline-block;">Оформление заказа</div>
             </div>
         @*<div style="text-align:center;color:white;padding-bottom:20px;"><h1>Оформлення замовлення</h1></div>*@
         <div class="row">
-            <div class="col-md-5" style="background:#EEEFFF;min-height: 100vh;">
+            <div class="col-md-5" style="background:#EEEFFF;min-height: 100vh;" id="divDeliveryHeight">
                 <table style="width:100%;">
                     <tr>
                         <td style="vertical-align:top;">
-                            <div style="padding:0px 20px 20px 20px;">
-                                <div style="text-align:center;color:#504593;"><h3>Ваші контактні дані</h3></div>
-                                <input id="txtUserName" class="form-control" placeholder="* Ім`я" style="color: black;" asp-for="CustomerName" />
+                            <div class="divDeliveryTitle" style="padding:0px 20px 20px 20px;">
+                                <div style="text-align:center;color:#504593;"><h3>Ваши контактные данные</h3></div>
+                                <input id="txtUserName" class="form-control" placeholder="* Имя" style="color: black;" asp-for="CustomerName" />
                                 <span asp-validation-for="CustomerName"></span>
-                                <input id="txtSurname" class="form-control" placeholder="* Прізвище" style="color: black;" asp-for="CustomerSurName" />
+                                <input id="txtSurname" class="form-control" placeholder="* Фамилия" style="color: black;" asp-for="CustomerSurName" />
                                 <span asp-validation-for="CustomerSurName"></span>
-                                <input id="txtUserFather" class="form-control" placeholder="* По батькові" style="color: black;" asp-for="CustomerFatherName" />
+                                <input id="txtUserFather" class="form-control" placeholder="* Отчество" style="color: black;" asp-for="CustomerFatherName" />
                                 <span asp-validation-for="CustomerFatherName"></span>
-                                <input id="txtBuyerPhone" class="form-control" placeholder="* Ваш мобільний номер" style="color: black;" asp-for="CustomerPhoneNumber" />
+                                <input id="txtBuyerPhone" class="form-control" placeholder="* Телефон" style="color: black;" asp-for="CustomerPhoneNumber" />
                                 
-                                <div style="text-align:center;color:#504593;padding-bottom:20px;"><h3>Оберіть тип доставки</h3></div>
+                                <div style="text-align:center;color:#504593;padding-bottom:20px;"><h3>Выберите тип доставки</h3></div>
                                 <div class="row">
                                     <div class="col" style="padding:0px 10px 0px 0px;">
                                         <div tabindex="1" id="divBtnNova" class="deliveryBoxDesign selected" onclick="showDeliveryFields('#nova')">
-                                            <div class="inline-block"><img src="~/images/Delivery/NovaPoshtaUkraine.png" style="width:38px;" /></div>
-                                            <div class="inline-block" style="font-size: 20px; text-align: center;">Нова Пошта</div>
+                                            <div class="inline-blockNovaPoshta"><img src="~/images/Delivery/NovaPoshtaUkraine.png" style="width:38px;" /></div>
+                                            <div class="inline-blockDeliveryText" style="font-size: 20px; text-align: center;">Новая Почта</div>
                                         </div>
                                     </div>
                                     <div class="col" style="padding: 0px 0px 0px 10px;">
                                         <div tabindex="2" id="divBtnCourier" class="deliveryBoxDesign" onclick="showDeliveryFields('#courier')">
-                                            <div class="inline-block">
+                                            <div class="inline-blockCourier">
                                                 <img src="~/images/Delivery/Courier.png" style="width:34px;" />
                                             </div>
-                                            <div class="inline-block" style="font-size: 20px; text-align: center;">
-                                                Доставка кур`єром
+                                            <div class="inline-blockDeliveryText" style="font-size: 20px; text-align: center;">
+                                                Доставка курьером
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div id="nova">
-                                    @Html.DropDownListFor(model => model.SelectedArea, new SelectList(Model.Areas, "Description", "Description"), " - Виберіть область - ", new { @id = "cbArea", @style = "color: black;width:100%;", @class = "form-control selectpicker", @onchange = "onAreaChanged()" })
+                                    @Html.DropDownListFor(model => model.SelectedArea, new SelectList(Model.Areas, "Description", "Description"), " - Выберите область - ", new { @id = "cbArea", @style = "color: black;width:100%;", @class = "form-control selectpicker", @onchange = "onAreaChanged()" })
                                     <span asp-validation-for="SelectedArea" id="validateArea"></span>
-                                    @Html.DropDownListFor(model => model.SelectedCity, new SelectList(Model.Cities, "Description", "Description"), " - Виберіть місто - ", new { @id = "cbCity", @style = "color: black;width:100%;", @class = "form-control", @onchange = "onCityChanged()" })
+                                    @Html.DropDownListFor(model => model.SelectedCity, new SelectList(Model.Cities, "Description", "Description"), " - Выберите город - ", new { @id = "cbCity", @style = "color: black;width:100%;", @class = "form-control", @onchange = "onCityChanged()" })
                                     <span asp-validation-for="SelectedArea" id="validateCity"></span>
-                                    @Html.DropDownListFor(model => model.SelectedDepartment, new SelectList(Model.Departments, "Description", "Description"), " - Виберіть відділення - ", new { @id = "cbDepartment", @style = "color: black;width:100%;", @class = "form-control", @onchange = "onDepartmentChanged()" })
+                                    @Html.DropDownListFor(model => model.SelectedDepartment, new SelectList(Model.Departments, "Description", "Description"), " - Выберите отделение - ", new { @id = "cbDepartment", @style = "color: black;width:100%;", @class = "form-control", @onchange = "onDepartmentChanged()" })
                                     <span asp-validation-for="SelectedArea" id="validateDepartment"></span>
-                                    <input type="submit" class="btnOrder" value="Підтвердити замовлення" />                                   
+                                    <input type="submit" class="btnOrder" value="Подтвердить заказ" />                                   
                                 </div>
                                 <div id="courier" style="display:none;">
-                                    @Html.TextBoxFor(model => model.City, Model.City, new { @id = "txtCustomCity", @class = "form-control", @placeholder = "- Ваше місто -", @style = "color: black;" })
+                                    @Html.TextBoxFor(model => model.City, Model.City, new { @id = "txtCustomCity", @class = "form-control", @placeholder = "- Ваш город -", @style = "color: black;" })
                                     @Html.ValidationMessageFor(model => model.City)
-                                    @Html.TextBoxFor(model => model.Address, Model.Address, new { @id = "txtCustomAddress", @class = "form-control", @maxlength = "12", @placeholder = "- Ваша адреса -", @style = "color: black;" })
+                                    @Html.TextBoxFor(model => model.Address, Model.Address, new { @id = "txtCustomAddress", @class = "form-control", @maxlength = "12", @placeholder = "- Ваш адрес -", @style = "color: black;" })
                                     @Html.ValidationMessageFor(model => model.Address)
-                                    <input type="submit" class="btnOrder" value="Підтвердити замовлення" />
+                                    <input type="submit" class="btnOrder" value="Подтвердить заказ" />
                                 </div>
                             </div>
                             @*<div onclick="submit()" style="background:black;color:greenyellow;">SUBMIT</div>*@
@@ -191,9 +191,9 @@ function showDeliveryFields(divName) {
         }
     </div>
     <div id="divSuccessOrder" style="width: 100%; background:#504593; font-size: 45px; text-align: center; padding: 6% 10%; font-weight: bold; color: white; display:none;">
-        <div>Ваше замовлення успішно оформлено!</div>
+        <div>Ваш заказ успешно оформлен!</div>
         <div><img src="~/images/checkMark.png" style="margin:4%;max-width:20%;" /></div>
-        <span>Дякуємо Вам за замовлення, очікуйте смс на свій мобільний номер з посиланням на оплату рахунку в системі <span style="padding-left:30px;">LiqPay</span></span>
+        <span>Спасибо Вам за заказ, ожидайте смс на свой мобильный номер со ссылкой на оплату счета в системе <span style="padding-left:30px;">LiqPay</span></span>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {
