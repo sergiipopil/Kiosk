@@ -8,108 +8,108 @@
     </script>
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid" id="divMainOrderBlock">
         <div class="row">
             <div class="mainBlockTitleOrder" id="divTreeTitle" style="background: #EEEFFF;border-bottom:1px solid #504593;">
-                <div onclick="ReturnToDelivery()" style="color: white; padding: 0px 10px; font-weight: normal; display: inline-block; border-radius: 10px; font-size: 23px; float: left; text-transform: capitalize; background: #ff5a00;">
+                <div onclick="ReturnToDelivery()"  class="btnBackModelPage">
                     <span>Назад</span>
                 </div>
                 <div style="display:inline-block;">Выберите способ оплаты</div>
             </div>
-            <div class="col-4" style="background:#504593;min-height: 100vh;">
-                <div class="row" style="margin: 50px 20px !important; padding:20px 20px 30px 20px; box-shadow: 0px 0px 13px white; min-height: 240px; max-height: 240px;">
-                    <div class="col-4" style="padding-top:30px;">
-                        <img src="~/images/OrderAdvert/GarantedPay.png" style="width:inherit;" />
+            <div class="col-4" style="background:#504593;min-height: 100vh;" id="divLeftOrderColumn">
+                <div class="row" id="divCssGarantedPay">
+                    <div class="col-4" style="padding-top:30px;" id="divGarantedPadding">
+                        <img src="~/images/OrderAdvert/GarantedPay.png" style="width:inherit;" class="picGarantedPay" />
                     </div>
                     <div class="col-8" style="color:white;">
-                        <div style="font-size: 34px;">
+                        <div style="font-size: 34px;" class="garantedPayText">
                             Гарантированный платеж
                         </div>
-                        <div style="font-size: 34px;">
+                        <div style="font-size: 34px;" class="garantedPayText">
                             Безопасная покупка
                         </div>
                     </div>
                 </div>
-                <div class="row" style="margin: 50px 20px !important; padding: 40px 20px 0px 20px; box-shadow: 0px 0px 13px white;min-height: 240px; max-height: 240px;">
-                    <div class="col-4" style="padding-top:30px;">
-                        <img src="~/images/OrderAdvert/dostavka100.png" style="width:inherit;" />
+                <div class="row" id="divCssDelivery">
+                    <div class="col-4" style="padding-top:30px;" id="divGarantedPadding">
+                        <img src="~/images/OrderAdvert/dostavka100.png" style="width:inherit;" class="picGarantedPay" />
                     </div>
                     <div class="col" style="color:white;">
-                        <span style="font-size:34px;">Бесплатная доставка до 30кг</span>
+                        <span style="font-size:34px;" class="garantedPayText">Бесплатная доставка до 30кг</span>
                     </div>
                 </div>
-                <div class="row" style="margin: 50px 20px !important; padding: 20px; box-shadow: 0px 0px 13px white; min-height: 240px; max-height: 240px;">
-                    <div class="col-4" style="padding-top:30px;">
-                        <img src="~/images/OrderAdvert/User100.png" style="width:80%;" />
+                <div class="row" id="divCssUserDefend">
+                    <div class="col-4" style="padding-top:30px;" id="divGarantedPadding">
+                        <img src="~/images/OrderAdvert/User100.png" style="width:80%;" class="picUserDefend" />
                     </div>
                     <div class="col" style="color:white;">
-                        <div style="font-size:34px;">
+                        <div style="font-size:34px;" class="garantedPayText">
                             Защита потребителя
                             Гарантия на товар
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col" style="color:#504593;background:#EEEFFF;min-height: 100vh;">
-                <div class="container-fluid" style="padding-top:50px;">
+            <div class="col" style="color:#504593;background:#EEEFFF;min-height: 100vh;" id="divRightOrderColumn">
+                <div class="container-fluid" style="padding-top:50px;" id="divPaymentContainer">
                     <div class="row">
-                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formCard')">
+                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formCard')" id="divBlock1">
                             <div class="paymentMethod">
-                                <img src="~/images/Payment/CreditCardBig.png" />
+                                <img src="~/images/Payment/CreditCardBig.png" class="imgPayment" />
                                 <form id="formCard" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.cardData.Data" />
                                     <input type="hidden" name="signature" value="@Model.cardData.Signature" />
-                                    <input type="submit" value="Visa / Mastercard" style="background:white;" />
+                                    <input type="submit" value="Visa / Mastercard" style="background:white;"  class="paymentTextDesign"/>
                                 </form>
                             </div>
                         </div>
-                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formCardPrivat')">
+                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formCardPrivat')" id="divBlock2">
                             <div class="paymentMethod">
-                                <img src="~/images/Payment/Privat24Big.png" />
+                                <img src="~/images/Payment/Privat24Big.png" class="imgPayment" />
                                 <form id="formCardPrivat" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.Privat24Data.Data" />
                                     <input type="hidden" name="signature" value="@Model.Privat24Data.Signature" />
-                                    <input type="submit" value="На карту ПриватБанка" style="background:white;" />
+                                    <input type="submit" value="На карту ПриватБанка" style="background:white;"  class="paymentTextDesign"/>
                                 </form>
                             </div>
                         </div>
-                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formTerminalPrivat')">
+                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formTerminalPrivat')" id="divBlock3">
                             <div class="paymentMethod">
-                                <img src="~/images/Payment/CashInTerminalBig.png" />
+                                <img src="~/images/Payment/CashInTerminalBig.png" class="imgPayment" />
                                 <form id="formTerminalPrivat" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.cashData.Data" />
                                     <input type="hidden" name="signature" value="@Model.cashData.Signature" />
-                                    <input type="submit" value="Оплата в терминале ПриватБанка" style="background:white;" />
+                                    <input type="submit" value="Оплата в терминале ПриватБанка" style="background:white;"  class="paymentTextDesign"/>
                                 </form>
                             </div>
                         </div>
-                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formQR')">
+                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formQR')" id="divBlock4">
                             <div class="paymentMethod">
-                                <img src="~/images/Payment/qrCode1.jpg" />
+                                <img src="~/images/Payment/qrCode1.jpg" class="imgPayment" />
                                 <form id="formQR" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.QRData.Data" />
                                     <input type="hidden" name="signature" value="@Model.QRData.Signature" />
-                                    <input type="submit" value="Оплата через QR код" style="background:white;" />
+                                    <input type="submit" value="Оплата через QR код" style="background:white;"  class="paymentTextDesign"/>
                                 </form>
                             </div>
                         </div>
-                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formLIQPAY')">
+                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formLIQPAY')" id="divBlock5">
                             <div class="paymentMethod">
-                                <img src="~/images/Payment/liqpayNew.png" />
+                                <img src="~/images/Payment/liqpayNew.png" class="imgPayment" />
                                 <form id="formLIQPAY" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.liqpayData.Data" />
                                     <input type="hidden" name="signature" value="@Model.liqpayData.Signature" />
-                                    <input type="submit" value="Оплата через LIQPAY" style="background:white;" />
+                                    <input type="submit" value="Оплата через LIQPAY" style="background:white;"  class="paymentTextDesign"/>
                                 </form>
                             </div>
                         </div>
-                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formGooglePay')">
+                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formGooglePay')" id="divBlock6">
                             <div class="paymentMethod">
-                                <img src="~/images/Payment/GPAY.jpg" />
+                                <img src="~/images/Payment/GPAY.jpg" class="imgPayment" />
                                 <form id="formGooglePay" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.GPayData.Data" />
                                     <input type="hidden" name="signature" value="@Model.GPayData.Signature" />
-                                    <input type="submit" value="Оплата через Google Pay" style="background:white;" />
+                                    <input type="submit" value="Оплата через Google Pay" style="background:white;" class="paymentTextDesign" />
                                 </form>
                             </div>
                         </div>

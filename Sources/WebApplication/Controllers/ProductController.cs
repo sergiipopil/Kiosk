@@ -231,8 +231,9 @@ namespace WebApplication.Controllers
                 return View(GetCartProducts());
             }
             //======================= START -- RETURN TO LIST PARAMS ----------- =================
-            ViewBag.RequestParams = "?carManufactureName=" + rightTree.ManufacturerSelected + "&carModel=" + rightTree.ModelSelected + "&mainCategoryId=" + rightTree.MainCategoryId +"&mainCategoryName=" + rightTree.MainCategoryName +
-                "&subCategoryId=" + rightTree.SubCategoryId + "&subCategoryName=" + rightTree.SubCategoryName + "&subChildId=" + rightTree.SubChildCategoryId + "&subChildName=" + rightTree.SubChildCategoryName;
+            //String.Format("selectMainCategory('{0}', '{1}', '{2}', '{3}', '{4}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, tempKioskId)
+            ViewData["Params"] = String.Format("?carManufactureName={0}&carModel={1}&mainCategoryId={2}&mainCategoryName={3}&subCategoryId={4}&subCategoryName={5}&subChildId={6}&subChildName={7}&kioskId={8}", rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
+                rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName, rightTree.kioskId);
 
             if (!String.IsNullOrEmpty(rightTree.PartNumberValue))
             {
@@ -377,10 +378,12 @@ namespace WebApplication.Controllers
         public ActionResult Details(string id, string price)
         {
             ProductViewModel model = GetProductInfo(id);
+            string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
+            model.kioskId = tempKioskId;
             model.Price = price;
-            var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
-            RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
-            model.ReturnFunction = rightTree.FunctionReturnFromProducts;
+            //var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
+            //RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
+            //model.ReturnFunction = rightTree.FunctionReturnFromProducts;
             return View("Details", model);
         }
         public ProductViewModel GetProductInfo(string id)

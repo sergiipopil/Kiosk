@@ -2,10 +2,10 @@
 @{
     Layout = null;
 }
-<table style="min-height: 100vh;min-width:100%;">
+<table id="tblCartViewInnder" style="min-width:100%;">
     <tr>
-        <td style="vertical-align:top;padding-right:4%;" class="leftCartColumn">
-            <div style="background:#514593;width:100%;text-align:center;padding:60px 0px;" class="cartBlockMain">
+        <td style="vertical-align:top;padding-right:4%;min-height: 100%; height:100%;" class="leftCartColumn">
+            <div style="background:#514593;width:100%;text-align:center;padding:60px 0px;min-height: 100%; height:100%;" class="cartBlockMain">
                 <span style="color:white;font-size:30px;" class="cartTitle">У Вас в корзине</span>
                 <div style="padding:50px 0px;" class="cartProductsPadding">
 
@@ -13,14 +13,20 @@
                     {
                         @foreach (var item in @Model)
                         {
-                            <div style="padding:15px 10px;">
-                                <div class="inline-block"><img src="~/images/CartWidgetEmpty.png"></div>
-                                <div class="inline-block">
-                                    <label style="font-size:21px;color:white;" class="cartTitle">
-                                        @item.Product.Name.Last().Value (@item.Product.Price грн.)
-                                    </label>
-                                </div>
-                            </div>
+                    <div style="padding:15px 10px;">
+                        <div class="inline-block"><img src="~/images/CartWidgetEmpty.png"></div>
+                        <div class="inline-block" onclick="deleteProduct('@item.Product.SourceId')">
+                            <button class="btnDeleteCartItem">
+                                <img src="~/images/Cart/Delete.png" />
+                            </button>
+                        </div>
+                        <div class="inline-block">
+                            <label style="font-size:21px;color:white;" class="cartTitle">
+                                @item.Product.Name.Last().Value (@item.Product.Price грн.)
+                            </label>
+                        </div>
+
+                    </div>
                         }
                     }
                 </div>
@@ -51,7 +57,7 @@
                 }
                 @if (Model.Count > 0)
                 {
-                    <table style="width:100%;margin-top:80px;" class="divCartControlButtons">
+                    <table style="width:100%;margin-top:60px;text-align:center;" class="divCartControlButtons">
                         <tr>
                             <td style="padding:0px 20px;">
                                 <div id="continueBtn" class="inline-block" style="width:100%;">

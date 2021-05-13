@@ -25,7 +25,7 @@
         {
             @if (item.Children == null)
                 {
-                    <div class="parentDiv" style="display:grid;" onclick="selectCarModel('@Model.ManufacturerSelected', '@item.Name')">
+                    <div class="parentDiv" style="display:grid;" onclick="selectCarModel('@Model.ManufacturerSelected', '@item.Name', '@Model.kioskId')">
                         <div class="divCarModelsBlock">
                             <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
                         </div>
@@ -36,7 +36,7 @@
                 }
             else
             {
-                <div class="parentDiv" style="display:grid;" onclick="selectCarModifications('@Model.ManufacturerSelected', '@item.Name')">
+                <div class="parentDiv" style="display:grid;" onclick="selectCarModifications('@Model.ManufacturerSelected', '@item.Name', '@Model.kioskId')">
                     <div class="divCarModelsBlock">
                         <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
                     </div>
@@ -48,7 +48,7 @@
         }
         else
         {
-            <div class="parentDiv" style="display:grid;" onclick="selectCarModel('@Model.ManufacturerSelected', '@Model.ModelSelected', '@item.Name')">
+            <div class="parentDiv" style="display:grid;" onclick="selectCarModel('@Model.ManufacturerSelected', '@Model.ModelSelected', '@item.Name', '@Model.kioskId')">
                 <div class="divCarModelsBlock">
                     <img src='@item.Path' class="modelImage" />
                 </div>

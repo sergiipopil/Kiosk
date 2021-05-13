@@ -18,6 +18,7 @@ namespace WebApplication.Models
         public bool IsModificationList { get; set; }
         public EkProductCategory[] ProductCategoryList { get; set; }
         public int PageNumber { get; set; }
+        public string kioskId { get; set; }
         public string PartNumberValue { get; set; }
         public string ManufacturerSelected { get; set; }
         public string ModelSelected { get; set; }

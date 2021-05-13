@@ -12,14 +12,16 @@
     <script>
 
         function backToProductList() {
-            window.location.href = '/Home/Index/' + '@ViewBag.RequestParams';
-        }
-        function backToMainPage() {
-            window.location.href = '/Home/Index/';
-        }
-        function openDetails(advertId, advertPrice) {
-            window.open('/Product/Details/' + "?id=" + advertId + "&price=" + advertPrice, "_blank");
-        } 
+            /**/
+            window.location.href = '/Home/Index/' + '@ViewData["Params"]';
+        /**/
+    }
+    function backToMainPage() {
+        window.location.href = '/Home/Index/';
+    }
+    function openDetails(advertId, advertPrice) {
+        window.open('/Product/Details/' + "?id=" + advertId + "&price=" + advertPrice, "_blank");
+    }
     </script>
 </head>
 <body>

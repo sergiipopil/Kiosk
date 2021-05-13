@@ -15,32 +15,35 @@
         $(document).ready(function () {
             if (window.location.toString().includes("carManufactureName"))
             {
-                var carManufactureName = getUrlParameter('carManufactureName');
-                var carModel = getUrlParameter('carModel');
-                if (carManufactureName != "" && carModel == false) {
-                    selectManufacturer(carManufactureName);
+                var url = window.location.search;
+                var params = new window.URLSearchParams(url.replace(/&amp;/g, '&'));
+                var carManufactureName = params.get('carManufactureName');
+                var kioskId = params.get('kioskId');
+                var carModel = params.get('carModel');
+                if (carManufactureName != null && carModel == null || carManufactureName != '' && carModel == '') {
+                    selectManufacturer(carManufactureName, kioskId);
                 }
-                var mainCategoryId = getUrlParameter('mainCategoryId');
-                if (carManufactureName != "" && carModel != "" && mainCategoryId == false) {
-                    selectCarModel(carManufactureName, carModel);
+                var mainCategoryId = params.get('mainCategoryId');
+                if (carManufactureName != null && carModel != null && mainCategoryId == null || carManufactureName != '' && carModel != '' && mainCategoryId == '') {
+                    selectCarModel(carManufactureName, carModel, null, kioskId);
                 }
-                var mainCategoryName = getUrlParameter('mainCategoryName');
-                var subCategoryId = getUrlParameter('subCategoryId');
-                var subCategoryName = getUrlParameter('subCategoryName');
-                var subChildId = getUrlParameter('subChildId');
-                var subChildName = getUrlParameter('subChildName');
-                if (carManufactureName != "" && carModel != "" && mainCategoryId != "" && subCategoryId == false) {
-                    selectMainCategory(carManufactureName, carModel, mainCategoryId, mainCategoryName);
+                var mainCategoryName = params.get('mainCategoryName');
+                var subCategoryId = params.get('subCategoryId');
+                var subCategoryName = params.get('subCategoryName');
+                var subChildId = params.get('subChildId');
+                var subChildName = params.get('subChildName');
+                if (carManufactureName != null && carModel != null && mainCategoryId != null && subCategoryId == null || carManufactureName != '' && carModel != '' && mainCategoryId != '' && subCategoryId == '') {
+                    selectMainCategory(carManufactureName, carModel, mainCategoryId, mainCategoryName, kioskId);
                 }
-                if (subChildId == "" && subChildName == "") {
-                    selectSubMainCategory(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName);
+                if (subChildId == null && subChildName == null || subChildId == '' && subChildName == '') {
+                    selectSubMainCategory(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, kioskId);
                 }
                 else {
-                    getAllegroData(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName);
+                    getAllegroData(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, kioskId);
                 }
             }
-            if (getUrlParameter('partNumber') != false) {
-                $("#inputPartValue").val(getUrlParameter('partNumber'));
+            if (params.get('partNumber') != null || params.get('partNumber') != '') {
+                $("#inputPartValue").val(params.get('partNumber'));
                 submit();
             }
         });
@@ -82,19 +85,19 @@
             $('#divBreadcrumbs').hide();
             $('#divSelectTopCategory').show();
         }
-        function BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, modification) {
+        function BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, modification, kioskId) {
             $('#divBreadcrumbsItems').empty();
             $('#divBreadcrumbs').show();
             $('#divSearchByPartNumber').hide();
             $('#divSelectTopCategory').hide();
             if (manufacture != null && manufacture != "") {
-                $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsManufacture" onclick="selectManufacturer('${manufacture}')"><div class="parentDivBreadCrumbs">
+                $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsManufacture" onclick="selectManufacturer('${manufacture}', '${kioskId}')"><div class="parentDivBreadCrumbs">
                 <div class="divCarModelsBlock"><img src="/images/Catalog/Model_Logo/${manufacture}.png" class="manufactureImageBreadcrumbs" /></div></div></div>`);
             }
             if (modification != null && modification != "") {
                 if (model != null && model != "") {
 
-                    $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDivBreadCrumbs" onclick="selectCarModel('${manufacture}', '${model}')" style="display:grid;">
+                    $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDivBreadCrumbs" onclick="selectCarModel('${manufacture}', '${model}', null, '${kioskId}')" style="display:grid;">
                 <div class="breadcrumbsStyle1"><img src="/images/Catalog/CarModel/${manufacture}/${model}.png" class="manufactureImageBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${modification}</span>
                             </div></div>`);
                 }
@@ -102,18 +105,18 @@
             else {
                 if (model != null && model != "") {
 
-                    $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDivBreadCrumbs" onclick="selectCarModel('${manufacture}', '${model}')" style="display:grid;">
+                    $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDivBreadCrumbs" onclick="selectCarModel('${manufacture}', '${model}', null, '${kioskId}')" style="display:grid;">
                 <div class="breadcrumbsStyle1"><img src="/images/Catalog/CarModel/${manufacture}/${model}.png" class="manufactureImageBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${model}</span>
                             </div></div>`);
                 }
             }
             if (mainCategoryName != null) {
-                $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsMainCategory" class="parentDivBreadCrumbs" onclick="selectMainCategory('${manufacture}', '${model}', '${mainCategoryId}', '${mainCategoryName}')" style="display:grid;">
+                $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsMainCategory" class="parentDivBreadCrumbs" onclick="selectMainCategory('${manufacture}', '${model}', '${mainCategoryId}', '${mainCategoryName}', '${kioskId}')" style="display:grid;">
                 <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${mainCategoryId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${mainCategoryName}</span>
                             </div></div>`);
             }
             if (subCategoryName != null) {
-                $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsSubCategory" class="parentDivBreadCrumbs" onclick="selectSubMainCategory('${manufacture}', '${model}', '${mainCategoryId}', '${mainCategoryName}', '${subCategoryId}', '${subCategoryName}')" style="display:grid;">
+                $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsSubCategory" class="parentDivBreadCrumbs" onclick="selectSubMainCategory('${manufacture}', '${model}', '${mainCategoryId}', '${mainCategoryName}', '${subCategoryId}', '${subCategoryName}', '${kioskId}')" style="display:grid;">
                 <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${subCategoryId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${subCategoryName}</span>
                             </div></div>`);
             }
@@ -131,7 +134,7 @@
                 $("#targetElement").html("<div class='text-center'><strong>No results found for search.</strong></div>");
             }
         }
-    function selectCarModel(manufacture, model, modification) {
+    function selectCarModel(manufacture, model, modification, kioskId) {
         $('#divSelectTopCategory').hide();
         $.ajax({
             type: "GET",
@@ -139,16 +142,16 @@
             success: function (data) {
                 if (model != "" && model != null) {
                     if (modification != null && modification != "") {
-                        BreadCrumbsHistory(manufacture, model, null, null, null, null, null, null, modification);
+                        BreadCrumbsHistory(manufacture, model, null, null, null, null, null, null, modification, kioskId);
                     }
                     else {
-                        BreadCrumbsHistory(manufacture, model);
+                        BreadCrumbsHistory(manufacture, model, null, null, null, null, null, null, null, kioskId);
                     }
                 }
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 if (model != "" && model != null) {
-                    window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model);
+                    window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model + "&kioskId=" + kioskId);
                 }
                 else {
                     $('#divBreadcrumbs').hide();
@@ -159,18 +162,18 @@
         });
         return false;
         }
-        function selectCarModifications(carManufactureName, model) {
+        function selectCarModifications(carManufactureName, model, kioskId) {
         $.ajax({
             type: "GET",
             url: '@Url.Action("SelectModelModifications", "Home")' + "?carManufactureName=" + carManufactureName + "&model=" + model,
             success: function (data) {
                 if (model != "" && model != null) {
-                    BreadCrumbsHistory(carManufactureName, model);
+                    BreadCrumbsHistory(carManufactureName, model, null, null, null, null, null, null, null, kioskId);
                 }
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 if (carManufactureName != "" && carManufactureName != null) {
-                    window.history.pushState($('#filter'), 'title', "?carManufactureName=" + carManufactureName + "&model=" + model);
+                    window.history.pushState($('#filter'), 'title', "?carManufactureName=" + carManufactureName + "&model=" + model + "&kioskId=" + kioskId);
                 }
                 else {
                     $('#divBreadcrumbs').hide();
@@ -183,20 +186,20 @@
         });
         return false;
         }
-        function selectMainCategory(manufacture, model, mainCategoryId, mainCategoryName) {
+        function selectMainCategory(manufacture, model, mainCategoryId, mainCategoryName, kioskId) {
         $('#divSelectTopCategory').hide();
         $.ajax({
             type: "GET",
             url: '@Url.Action("ShowMainSubcategories", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName,
             success: function (data) {
-                BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName);
+                BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, null, null, null, null, null, kioskId);
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
-                window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName);
+                window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName + "&kioskId=" + kioskId);
             }
         });
     }
-        function selectSubMainCategory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName) {
+        function selectSubMainCategory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, kioskId) {
             $('#divCarManufactures').empty();
             $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" width="100px" class="loadGif" /></div>');
 
@@ -207,15 +210,15 @@
                  "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName,
             success: function (data) {
                 console.log("start");
-                BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName);
+                BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, null, null, null, kioskId);
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
-                    "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName);
+                    "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&kioskId=" + kioskId);
             }
         });
     }
-        function getAllegroData(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName) {
+        function getAllegroData(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, kioskId) {
             $('#divSelectTopCategory').hide();
             $('#divCarManufactures').empty();
             $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" class="loadGif" width="100px" /></div>');
@@ -224,11 +227,11 @@
             url: '@Url.Action("ShowProductList", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
                 "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName,
             success: function (data) {
-               BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName);
+                BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, null, kioskId);
                $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
-                    "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName);
+                    "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName + "&kioskId=" + kioskId);
             }
         });
     }
@@ -245,18 +248,18 @@
         });
         }
 
-    function selectManufacturer(carManufactureName) {
+    function selectManufacturer(carManufactureName, kioskId) {
         $.ajax({
             type: "GET",
             url: '@Url.Action("SelectManufactureAndModel", "Home")' + "?carManufactureName=" + carManufactureName,
             success: function (data) {
                 if (carManufactureName != "" && carManufactureName != null) {
-                    BreadCrumbsHistory(carManufactureName);
+                    BreadCrumbsHistory(carManufactureName, null, null, null, null, null, null, null, null, kioskId);
                 }
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 if (carManufactureName != "" && carManufactureName != null) {
-                    window.history.pushState($('#filter'), 'title', "?carManufactureName=" + carManufactureName);
+                    window.history.pushState($('#filter'), 'title', "?carManufactureName=" + carManufactureName + "&kioskId=" + kioskId);
                 }
                 else {
                     $('#divBreadcrumbs').hide();
@@ -270,8 +273,8 @@
         return false;
         }
 
-        function goToCart(selectedProductId) {
-            window.open('/Product/CartView/' + "?selectedProductId=" + selectedProductId);
+        function goToCart(selectedProductId, kioskId) {
+            window.open('/Product/CartView/' + "?selectedProductId=" + selectedProductId + "&kioskId=" + kioskId);
         }
         function showMainView(topCategoryId) {
             $('div[id*="divTopCategory_"]').removeClass("selected");
@@ -288,7 +291,7 @@
     </script>
 </head>
 <body>
-    <table style="min-height: 100vh;min-width:100%;">
+    <table style="min-height: 100%;height:100%;;min-width:100%;">
         <tr>
             @*LEFT PANEL*@
             <td class="leftIndexPanel">
@@ -310,7 +313,7 @@
                 @*START BREADCRUMBS BLOCK*@
                 <div id="divBreadcrumbs" style="display:none;text-align:center;">
                     <div class="breadcrumbTitle">Вы выбрали:</div>
-                    <div id="divBreadcrumbsItems" style="margin:0% 36%;">
+                    <div id="divBreadcrumbsItems" style="margin:0% 30%;">
                     </div>
                 </div>
                 @*END BREADCRUMBS BLOCK*@

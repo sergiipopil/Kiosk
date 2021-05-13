@@ -12,8 +12,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@Model.Title</title>
     <script type="text/javascript">
-        function goToCart(selectedProductId) {
-            window.open('/Product/CartView/' + "?selectedProductId=" + selectedProductId);
+        function goToCart(selectedProductId, kioskId) {
+            window.open('/Product/CartView/' + "?selectedProductId=" + selectedProductId + "&kioskId=" + kioskId);
         }
     </script>
 </head>
@@ -50,16 +50,16 @@
                     <span id="priceDeliveryComment" style="color:#ff5a00;font-size:16px;font-weight:700;display:block;">* цена с учетом доставки</span>
                     <p id="priceComment" style="font-size:14px;font-weight:normal;">2-5 днів</p>
                 </div>
-                <div onclick="goToCart('@Model.Id')" style="padding:20px 0px;" class="divGoToCart">
-                    <button class="btnBuyList" style="height:62px;">
-                        <span class="btnBuyListSpan" style="font-size:33px;">Купить</span>
+                <div onclick="goToCart('@Model.Id', '@Model.kioskId')" style="padding:20px 0px;" class="divGoToCart">
+                    <button class="btnBuyList">
+                        <span class="btnBuyListSpan" style="font-size:23px;">Купить</span>
                     </button>
                 </div>
                 <div onclick="@Model.ReturnFunction">Back</div>
                 <div id="continueBtn" style="width:100%;">
                     <div onclick="backToMainPage()">
                         <button class="btnBuyNew">
-                            <span class="btnBuyListSpan" style="font-size:26px;">Продолжить покупки</span>
+                            <span class="btnBuyListSpan" style="font-size:23px;">Продолжить покупки</span>
                         </button>
                     </div>
                 </div>

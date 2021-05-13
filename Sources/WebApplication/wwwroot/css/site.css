@@ -1,10 +1,6 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-@media(max-width: 880px) {
-    .detailBlock {
-        width: 100% !important;
-    }
-}
+
 
 .filterItemAllState_All, .filterItemNewState_All, .filterItemUsedState_All, .filterItemRecoverState_All,
 .filterItemAllState_New, .filterItemNewState_New, .filterItemUsedState_New, .filterItemRecoverState_New,
@@ -168,7 +164,7 @@ ul.pagination li {
 
 .btnBuyNew, .btnBuyNewCart {
     background: white;
-    height: 51px;
+    min-height: 51px;
     color: #ff5a00;
     width: 100%;
     border: 1px solid #ff5a00;
@@ -248,16 +244,14 @@ ul.pagination li {
 }
 
 .btnDeleteCartItem {
-    border: 1px solid #FFB21D;
+    border: 0px !important;
     height: 34px;
-    background: white;
-    color: #411f0c;
+    background: transparent !important;
     width: 100%;
     text-align: center;
 }
 
     .btnDeleteCartItem:hover {
-        background: #a59c9c;
         color: white;
     }
 
@@ -361,7 +355,27 @@ html {
     }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 700px) {
+    #divPaymentContainer {
+        padding: 20px 8px 0px 8px !important;
+    }
+    #divLeftOrderColumn, #divRightOrderColumn {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        flex: initial !important;
+        min-height: initial !important;
+    }
+    .paymentMethod {
+        min-height:115px !important;
+    }
+    #divMainOrderBlock {
+        padding: 0px !important;
+    }
+    .mainBlockTitleOrder {
+        font-size:14px !important;
+        padding:18px 8px !important;
+    }
     .cartBackBtn {
         font-size: 14px !important;
         padding: 0px 5px !important;
@@ -639,7 +653,7 @@ html {
         background: white;
         padding: 10px;
         text-align: center;
-        margin: 10px 0px;
+        margin: 10px;
         border: 1px solid #c1c1c1;
         min-height: 220px;
     }
@@ -799,9 +813,65 @@ html {
             padding: 0px 10px !important;
             width:auto;
         }
+    #divCssGarantedPay, #divCssUserDefend, #divCssDelivery {
+        margin: 20px !important;
+        box-shadow: 0px 0px 8px white;
+        padding: 15px 0px !important;
+        text-align: center !important;
+    }
+    #divGarantedPadding {
+        padding:0px !important;
+    }
+    .picGarantedPay {
+        width:50px !important;
+    }
+    .picUserDefend {
+        width: 35px !important;
+    }
+    .garantedPayText {
+        font-size:14px !important;
+    }
+    .imgPayment {
+        width:50px !important;
+    }
+    .paymentTextDesign {
+        font-size:10px !important;
+        white-space:initial !important;
+    }
+    #divBlock1, #divBlock2, #divBlock3, #divBlock4, #divBlock5, #divBlock6 {
+        padding:3px !important;
+    }
+    .tdPrivacyStyle {
+        padding: 10px 40px !important;
+    }
 }
 
-@media only screen and (min-width: 601px) {
+@media only screen and (min-width: 701px) {
+    #divCartViewControl, #tblCartViewInnder {
+        min-height: 100%;
+        height: 100%;
+    }
+    #divCssUserDefend {
+        margin: 50px 20px !important; 
+        padding: 20px; 
+        box-shadow: 0px 0px 13px white; 
+        min-height: 240px; 
+        max-height: 240px;
+    }
+    #divCssDelivery {
+        margin: 50px 20px !important; 
+        padding: 40px 20px 0px 20px;
+        box-shadow: 0px 0px 13px white;
+        min-height: 240px; 
+        max-height: 240px;
+    }
+    #divCssGarantedPay {
+        margin: 50px 20px !important;
+        padding: 20px 20px 30px 20px;
+        box-shadow: 0px 0px 13px white;
+        min-height: 240px;
+        max-height: 240px;
+    }
     .footerTable, .footerTableSocial {
         width: 100%;
     }
@@ -821,7 +891,7 @@ html {
     .divProductListCard {
         background: white;
         padding: 10px;
-        margin: 10px 20px;
+        margin: 10px;
         border: 1px solid #c1c1c1;
         border-left: 4px solid blue;
         min-height: 220px;
@@ -955,7 +1025,7 @@ html {
     .headerTitle {
         text-align: center;
         line-height: 90px;
-        font-size: 2.3em;
+        font-size: 2em;
         letter-spacing: 2px;
         word-spacing: 5px;
         color: white;
@@ -967,7 +1037,7 @@ html {
     }
 
     .treeMainBlock {
-        padding: 20px 0px 20px 20px;
+        padding: 20px 0px 20px 0px;
         text-align: center;
     }
 
@@ -1171,4 +1241,152 @@ input[type="checkbox"].input-validation-error {
 
 .validation-summary-valid {
     display: none;
+}
+
+@media(max-width: 880px) {
+    .detailBlock {
+        width: 100% !important;
+    }
+}
+
+@media(max-width: 1360px) and (min-width:701px) {
+    .garantedPayText {
+        font-size:20px !important;
+    }
+    #divGarantedPadding {
+        padding-top:5px !important;
+    }
+    .productTitle {
+        font-size: 18px !important;
+    }
+
+    .divProductPrice {
+        font-size: 26px !important;
+    }
+
+    .btnBuyList {
+        font-size: 14px !important;
+        height: 36px !important;
+    }
+
+    #priceDeliveryComment {
+        font-size: 14px !important;
+    }
+
+    .topCategoryDiv {
+        width: 95px;
+    }
+
+    .TopCategoryImage {
+        max-width: 65px;
+        max-height: 45px !important;
+    }
+    .btnBuyListSpan {
+        font-size:18px !important;
+    }
+
+    .emptyCartImg {
+        width: 100px !important;
+    }
+    .btnBuyNew {
+        min-height:51px;
+        height:auto;
+    }
+   
+    .manufactureTextTop, #divLeftMenu {
+        font-size: 12px !important;
+    }
+
+    #imgLoopBack {
+        margin-top: 10% !important;
+    }
+
+    .inputInsideBlock {
+        margin-top: -60% !important;
+        font-size: 40px !important;
+    }
+
+    .inputSearchBottomText {
+        font-size: 40px !important;
+    }
+
+    .loopBtn {
+        width: 10% !important;
+    }
+
+    .inputControlBlock {
+        margin: 50px 25px 0px 25px !important;
+    }
+
+    .divSelectTopCategoryBlock {
+        text-align: center;
+    }
+    #divCssGarantedPay, #divCssUserDefend {
+        min-height: initial !important;
+        max-height: initial !important;
+    }
+    #divCssDelivery {
+        min-height: initial !important;
+        max-height: initial !important;
+        padding: 40px 20px 30px 20px !important;
+    }   
+}
+
+@media(max-width: 1650px) and (min-width:1360px) {   
+    .garantedPayText {
+        font-size: 20px !important;
+    }
+    #divCssDelivery {
+        min-height: initial !important;
+        max-height: initial !important;
+        padding: 40px 20px 30px 20px !important;
+    }
+    #divGarantedPadding {
+        padding-top: 5px !important;
+    }
+    #divCssGarantedPay, #divCssUserDefend {
+        min-height: initial !important;
+        max-height: initial !important;
+    }
+    .emptyCartImg {
+        width: 100px !important;
+    }
+
+    .topCategoryDiv {
+        width: 100px;
+    }
+
+    .TopCategoryImage {
+        max-width: 85px;
+        max-height: 45px !important;
+    }
+
+    .manufactureTextTop, #divLeftMenu {
+        font-size: 12px !important;
+    }
+
+    #imgLoopBack {
+        margin-top: 10% !important;
+    }
+
+    .inputInsideBlock {
+        margin-top: -60% !important;
+        font-size: 40px !important;
+    }
+
+    .inputSearchBottomText {
+        font-size: 40px !important;
+    }
+
+    .loopBtn {
+        width: 10% !important;
+    }
+
+    .inputControlBlock {
+        margin: 50px 25px 0px 25px !important;
+    }
+
+    .divSelectTopCategoryBlock {
+        text-align: center;
+    }
 }
