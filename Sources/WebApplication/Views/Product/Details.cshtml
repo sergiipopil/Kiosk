@@ -15,9 +15,19 @@
         function goToCart(selectedProductId, kioskId) {
             window.open('/Product/CartView/' + "?selectedProductId=" + selectedProductId + "&kioskId=" + kioskId);
         }
+        function backToProductList() {
+            /**/
+            window.location.href = '/Home/Index/' + '@ViewData["Params"]';
+        /**/
+    }
     </script>
 </head>
 <body style="color:white;">
+    <div class="mainBlockTitle" style="background: #EEEFFF;">
+        <div onclick="backToProductList()" style="color: white; padding: 0px 10px; font-weight: normal; border-radius: 10px; font-size: 23px; width:100px; text-transform: capitalize; background: #ff5a00;" class="cartBackBtn">
+            <span>Назад</span>
+        </div>
+    </div>
     <div id="rootBlockDetails" style="display:block;padding: 30px 20px; color: white;  background: #504593;min-height:100vh;">
         <!--IMAGES BLOCK-->
         <div id="imageBlock" class="detailBlock" style="width:19%;text-align:center;background:white;">
@@ -27,9 +37,9 @@
             <div style="text-align:left;">
                 @foreach (var item in Model.Images)
                 {
-    <a href=@item.Url data-fancybox="gallery" class="noneDecoration">
-        <img src=@item.Url class="smallPhotoes">
-    </a>}
+                    <a href=@item.Url data-fancybox="gallery" class="noneDecoration">
+                        <img src=@item.Url class="smallPhotoes">
+                    </a>}
             </div>
         </div>
         <!--DESCRIPTION BLOCK-->
@@ -37,7 +47,7 @@
             <span class="titleBlock">@Model.Title</span>
             @foreach (var item in Model.Parameters)
             {
-<div class="descriptionBlock">@item</div>            }
+                <div class="descriptionBlock">@item</div>}
             <h3 class="descriptionBlock">Описание</h3>
             <span class="descriptionBlock" style="white-space:pre-line;">@Model.Description</span>
         </div>
@@ -50,11 +60,12 @@
                     <span id="priceDeliveryComment" style="color:#ff5a00;font-size:16px;font-weight:700;display:block;">* цена с учетом доставки</span>
                     <p id="priceComment" style="font-size:14px;font-weight:normal;">2-5 днів</p>
                 </div>
-                <div onclick="goToCart('@Model.Id', '@Model.kioskId')" style="padding:20px 0px;" class="divGoToCart">
+                <div onclick="goToCart('@Model.Id', '@Model.kioskId')" style="padding:20px 0px 0px 0px;" class="divGoToCart">
                     <button class="btnBuyList">
                         <span class="btnBuyListSpan" style="font-size:23px;">Купить</span>
                     </button>
                 </div>
+                <div style="color: #ff5a00; text-align: center;">Безопасная покупка</div>
                 <div onclick="@Model.ReturnFunction">Back</div>
                 <div id="continueBtn" style="width:100%;">
                     <div onclick="backToMainPage()">
@@ -64,6 +75,25 @@
                     </div>
                 </div>
             </div>
+            <table class="garantedCardsTable">
+                <tr>
+                    <td style="background:white;padding: 10px !important; margin: 10px 10px 10px 0px !important; width: 100%;">
+                        <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="GarantedPayItem">
+                            <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;"><img src="~/images/OrderAdvert/GarantedPay.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><div>Безопасная покупка</div></div>
+                        </button>
+                    </td>
+                    <td style="background:white;padding: 10px !important; margin: 10px 10px 10px 0px !important; width: 100%;">
+                        <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="dostavka100Item">
+                            <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;"><img src="~/images/OrderAdvert/dostavka100.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;">Бесплатная доставка до 30кг</div>
+                        </button>
+                    </td>
+                    <td style="background:white;padding: 10px !important; margin: 10px 10px 10px 0px !important; width: 100%;">
+                        <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="User100Item">
+                            <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;"><img src="~/images/OrderAdvert/User100.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><div>Защита потребителя</div></div>
+                        </button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </body>

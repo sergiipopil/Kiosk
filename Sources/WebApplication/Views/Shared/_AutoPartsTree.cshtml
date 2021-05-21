@@ -3,23 +3,23 @@
     Layout = null;
 }
 <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
-    <div onclick="selectManufacturer('@Model.ManufacturerSelected', '@Model.kioskId')" class="btnBackModelPage">
+    <div onclick="selectManufacturer('@Model.ManufacturerSelected', '@Model.kioskId', )" class="btnBackModelPage">
         <span>Назад</span>
     </div>
-    <div style="display:inline-block;">Виберіть групу запчастин</div>
+    <div style="display:inline-block;">Выберите группу</div>
 </div>
 <div style="padding: 10px 0px 10px 20px;">
     @foreach (var item in Model.ProductCategoryList)
     {
-        <div style="display:inline-block;vertical-align:middle;">
-            <div class="parentDivAutoParts" style="display:grid;" onclick="selectMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId')">
-                <div class="divCarModelsBlock">
-                    <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
-                </div>
-                <div class="manufactureText">
-                    <span>@item.Name.FirstOrDefault().Value</span>
-                </div>
+    <div style="display:inline-block;vertical-align:middle;">
+        <div class="parentDivAutoParts" style="display:grid;" onclick="selectMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId', '@String.Format("/images/Catalog/AutoParts/{0}.png", Model.ReallyTopCategoryId=="621" && @item.CategoryId=="GROUP_4094"? "Truck/" +  item.CategoryId : item.CategoryId)')">
+            <div class="divCarModelsBlock">
+                <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", Model.ReallyTopCategoryId=="621" && @item.CategoryId=="GROUP_4094"? "Truck/" +  item.CategoryId : item.CategoryId)" class="modelImageAutoParts" />
+            </div>
+            <div class="manufactureText">
+                <span>@item.Name.FirstOrDefault().Value</span>
             </div>
         </div>
+    </div>
     }
 </div>

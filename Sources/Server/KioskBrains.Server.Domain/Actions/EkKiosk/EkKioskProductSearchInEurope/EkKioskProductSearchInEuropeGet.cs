@@ -105,7 +105,8 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk.EkKioskProductSearchInEurope
                 offerSorting,
                 request.From,
                 request.Count,
-                cancellationToken);
+                cancellationToken,
+                false);
             try
             {
                 await _allegroPlClient.ApplyTranslations(_translateService, searchOffersResponse.Offers, request.Term, request.TranslatedTerm, cancellationToken);

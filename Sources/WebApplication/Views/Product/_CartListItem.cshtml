@@ -38,7 +38,7 @@
 
                 <div class="col-lg-6" style="position:relative;">
                     <div style="vertical-align: top;position:absolute;" class="hide">
-                        <span class="productTitle">@item.Product.Name.Last().Value</span>
+                        <span class="productTitle">@item.Product.Name.Last().Value<span class="productNumberId">( @item.Product.SourceId )</span></span>
                     </div>
                     <div class="openProductDEtailsBtn" onclick="openDetails('@item.Product.SourceId', '@item.Product.Price')">Подробнее</div>
                 </div>
@@ -49,7 +49,7 @@
                             <span class="divProductPrice" style="font-size:32px;">@item.Product.Price</span>
                             <span class="divProductCurrency" style="font-size:18px;">@item.Product.PriceCurrencyCode</span>
                             <span id="priceDeliveryComment" style="color:#ff5a00;font-size:16px;font-weight:700;display:block;">* всё включено в цену</span>
-                            <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">доставка 2-5 днів</p>
+                            <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">доставка 2-5 дней</p>
                         </div>
                         @*<div style="padding:4px 0px;">
                                 <span>
@@ -59,7 +59,7 @@
                                     <a class="quantityBtn" onclick="refreshCartItem('@item.Product.SourceId')">Оновити к-ть</a>
                                 </span>
                             </div>*@
-                        
+                    <div style="color: #ff5a00; text-align: center;">Безопасная покупка</div>
                     </div>
                 </div>
             </div>

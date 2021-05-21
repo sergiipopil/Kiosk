@@ -5,7 +5,7 @@
 @if (@Model.ManufacturerSelected == null)
 {
     <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
-        <div>Выберите марку автомобиля</div>
+        <div>Выберите марку</div>
     </div>
     <div class="treeMainBlock">
         @foreach (var item in Model.ManufacturerList)
@@ -24,7 +24,7 @@
         <div onclick="back('@Model.TopCategoryId')" class="btnBackModelPage">
             <span>Назад</span>
         </div>
-        <div style="display:inline-block;">Виберіть модель автомобіля</div>
+        <div style="display:inline-block;">Выберите модель</div>
     </div>
     <div style="padding: 10px 0px 10px 20px;">
         @foreach (var item in Model.ModelsList)

@@ -71,11 +71,12 @@ namespace WebApplication.Controllers
         //private string _paymentPrivate_key = "YS1ku34S1ixt8FqyxSXCdegYKfhdtvsO7TVp0Qnm";
         public ActionResult Index()
         {
-            
+
             return View();
         }
-       
-        public PaymentLinkData GetPaymentLinkData(string paymentSettings) {
+
+        public PaymentLinkData GetPaymentLinkData(string paymentSettings)
+        {
             string data = Convert.ToBase64String(Encoding.UTF8.GetBytes(paymentSettings));
             string sign_string = _paymentPrivate_key + data + _paymentPrivate_key;
             string signature = Hash(Encoding.UTF8.GetBytes(sign_string));
@@ -89,7 +90,8 @@ namespace WebApplication.Controllers
             Ek4CarClient.Ek4CarResponse response = SendRequstToEk4Car(ordered).Result;
             EkTransactionProduct[] tempCartProducts = JsonSerializer.Deserialize<EkTransactionProduct[]>(ordered.ProductsJson);
             string payProducts = String.Format("№ замовлення {0}\n Оплата за товар:\n", response.data);
-            foreach (var item in tempCartProducts) {
+            foreach (var item in tempCartProducts)
+            {
                 payProducts += String.Format("{0} ({1} шт) - {2}{3}", item.name["ru"], item.quantity, item.price, item.priceCurrencyCode) + "\n";
             }
 
@@ -140,11 +142,11 @@ namespace WebApplication.Controllers
                 APayData = APayDataLink,
                 GPayData = GPayDataLink,
                 cardData = cardDataLink,
-                liqpayData =liqpayDataLink,
-                masterpassData=masterpassDataLink,
-                moment_partData= moment_partDataLink,
-                cashData= cashDataLink,
-                invoiceData=invoiceDataLink
+                liqpayData = liqpayDataLink,
+                masterpassData = masterpassDataLink,
+                moment_partData = moment_partDataLink,
+                cashData = cashDataLink,
+                invoiceData = invoiceDataLink
             };
 
             //ClearAllSessions();
@@ -176,7 +178,7 @@ namespace WebApplication.Controllers
             return cartList;
         }
         public ActionResult EditCartItemQuantity(string cartItemId, string quantity)
-        {   
+        {
             IList<CustomCartProduct> cartList = GetCartProducts();
             cartList.Where(w => w.Product.SourceId == cartItemId).ToList().ForEach(s => s.Quantity = Convert.ToInt32(quantity));
 
@@ -190,7 +192,8 @@ namespace WebApplication.Controllers
             ViewData["CartWidgetPrice"] = tempAllPrice;
             return View("CartViewInner", cartList);
         }
-        public ActionResult DeleteProductFromCart(string cartItemId) {
+        public ActionResult DeleteProductFromCart(string cartItemId)
+        {
             IList<CustomCartProduct> cartList123 = GetCartProducts();
 
             cartList123.Remove(cartList123.Where(x => x.Product.SourceId == cartItemId).FirstOrDefault());
@@ -206,7 +209,8 @@ namespace WebApplication.Controllers
                 ViewData["CartWidgetPrice"] = tempAllPrice;
                 new CartWidgetController().CartWidget();
             }
-            else {
+            else
+            {
                 HttpContext.Session.Remove("cartWidgetPrice");
                 ViewData["CartWidgetPrice"] = null;
                 new CartWidgetController().CartWidget();
@@ -214,12 +218,12 @@ namespace WebApplication.Controllers
             HttpContext.Session.SetString("cartList", JsonSerializer.Serialize(cartList123));
             return View("CartViewInner", cartList123);
 
-            
+
         }
 
-        public ActionResult CartView(string selectedProductId=null)
+        public ActionResult CartView(string selectedProductId = null)
         {
-           
+
             var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
             RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
 
@@ -245,13 +249,14 @@ namespace WebApplication.Controllers
             EkProduct[] list10Products = JsonSerializer.Deserialize<EkProduct[]>(productList);
             EkProduct productTemp = list10Products.Where(x => x.SourceId == selectedProductId).FirstOrDefault();
 
-            CustomCartProduct cartProduct = new CustomCartProduct() { 
-                 Product=productTemp,
-                 Quantity=1
+            CustomCartProduct cartProduct = new CustomCartProduct()
+            {
+                Product = productTemp,
+                Quantity = 1
             };
 
             IList<CustomCartProduct> cartList = AddToCartSession(cartProduct);
-            decimal tempAllPrice=0;
+            decimal tempAllPrice = 0;
             foreach (var item in cartList)
             {
                 tempAllPrice += item.Product.Price * item.Quantity;
@@ -265,9 +270,10 @@ namespace WebApplication.Controllers
             return View(cartList);
 
         }
-        
-       
-        private async Task<KioskBrains.Server.Domain.Entities.EK.EkTransaction> MakeOrder(string customerFullUserName, string customerPhoneNumber, string selectedCity=null, string selectedDepartment = null, string inputCity = null, string inputStreet = null) {
+
+
+        private async Task<KioskBrains.Server.Domain.Entities.EK.EkTransaction> MakeOrder(string customerFullUserName, string customerPhoneNumber, string selectedCity = null, string selectedDepartment = null, string inputCity = null, string inputStreet = null)
+        {
             KioskBrains.Common.EK.Transactions.EkTransaction eKTransactions = new KioskBrains.Common.EK.Transactions.EkTransaction();
 
             eKTransactions.SetCustomerInfo(new EkCustomerInfo()
@@ -284,7 +290,7 @@ namespace WebApplication.Controllers
                 {
                     city = String.IsNullOrEmpty(inputCity) ? selectedCity : inputCity,
                     addressLine1 = String.IsNullOrEmpty(inputCity) ? selectedDepartment : inputStreet,
-                }                
+                }
             };
             if (String.IsNullOrEmpty(inputCity))
             {
@@ -311,12 +317,12 @@ namespace WebApplication.Controllers
 
             eKTransactions.TotalPriceCurrencyCode = "UAH";
             eKTransactions.SetProducts(transactionProducts);
-            eKTransactions.ReceiptNumber = $"{ HttpContext.Session.GetString("kioskId")}-{DateTime.Now:yyyyMMddHHmm}" ;
+            eKTransactions.ReceiptNumber = $"{ HttpContext.Session.GetString("kioskId")}-{DateTime.Now:yyyyMMddHHmm}";
             eKTransactions.CompletionStatus = KioskBrains.Common.Transactions.TransactionCompletionStatusEnum.Success;
             eKTransactions.Status = KioskBrains.Common.Transactions.TransactionStatusEnum.Completed;
             eKTransactions.UniqueId = $"{Guid.NewGuid():N}{Guid.NewGuid():N}";
             eKTransactions.LocalStartedOn = DateTime.Now;
-            var serialize = Newtonsoft.Json.JsonConvert.SerializeObject(eKTransactions);           
+            var serialize = Newtonsoft.Json.JsonConvert.SerializeObject(eKTransactions);
             var apiEkTransaction = JsonSerializer.Deserialize<KioskBrains.Common.EK.Transactions.EkTransaction>(serialize);
             var ekTransaction = KioskBrains.Server.Domain.Entities.EK.EkTransaction.FromApiModel(Convert.ToInt32(HttpContext.Session.GetString("kioskId")), DateTime.Now, apiEkTransaction);
             ekTransaction.IsSentToEkSystem = true;
@@ -324,13 +330,14 @@ namespace WebApplication.Controllers
             HttpContext.Session.SetString("transactionUserName", customerFullUserName);
             _dbContext.EkTransactions.Add(ekTransaction);
             await _dbContext.SaveChangesAsync();
-           
+
             return ekTransaction;
         }
-        private async Task<Ek4CarClient.Ek4CarResponse> SendRequstToEk4Car(KioskBrains.Server.Domain.Entities.EK.EkTransaction transac) {
+        private async Task<Ek4CarClient.Ek4CarResponse> SendRequstToEk4Car(KioskBrains.Server.Domain.Entities.EK.EkTransaction transac)
+        {
             Order order = KioskBrains.Server.EK.Integration.Jobs.EkTransactionExtensions.ToEkOrder(transac);
             order.website = true;
-             Ek4CarClient.Ek4CarResponse ek4CarResponse = await _ek4CarClient.SendOrderAsyncTest(order, CancellationToken.None);
+            Ek4CarClient.Ek4CarResponse ek4CarResponse = await _ek4CarClient.SendOrderAsyncTest(order, CancellationToken.None);
             return ek4CarResponse;
         }
         public ActionResult Delivery(string area, string city)
@@ -349,7 +356,8 @@ namespace WebApplication.Controllers
             };
             return area == null && city == null ? (ActionResult)View(npView) : Json(npView);
         }
-        public void ClearAllSessions() {
+        public void ClearAllSessions()
+        {
             HttpContext.Session.Remove("cartWidgetPrice");
             HttpContext.Session.Remove("cartList");
             HttpContext.Session.Remove("rightTreeViewModel");
@@ -377,6 +385,13 @@ namespace WebApplication.Controllers
         // GET: ProductController/Details/5        
         public ActionResult Details(string id, string price)
         {
+            var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
+            if (!String.IsNullOrEmpty(rightTreeViewModelString))
+            {
+                RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
+                ViewData["Params"] = String.Format("?carManufactureName={0}&carModel={1}&mainCategoryId={2}&mainCategoryName={3}&subCategoryId={4}&subCategoryName={5}&subChildId={6}&subChildName={7}&kioskId={8}", rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
+                    rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName, rightTree.kioskId);
+            }
             ProductViewModel model = GetProductInfo(id);
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
             model.kioskId = tempKioskId;
@@ -395,7 +410,7 @@ namespace WebApplication.Controllers
             {
                 test.Add(item.Name[Languages.RussianCode] + ": " + item.Value[Languages.RussianCode]);
             }
-            
+
 
             var product = new ProductViewModel()
             {
@@ -420,6 +435,6 @@ namespace WebApplication.Controllers
                 var hash = sha1.ComputeHash(temp);
                 return Convert.ToBase64String(hash);
             }
-        }        
+        }
     }
 }

@@ -225,7 +225,8 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             OfferSortingEnum sorting,
             int offset,
             int limit,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken,
+            bool isBody)
         {
             Assure.ArgumentNotNull(categoryId, nameof(categoryId));
 
@@ -235,7 +236,10 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 ["category.id"] = categoryId,
                 ["sellingMode.format"] = "BUY_NOW", // exclude auctions (sellingMode.format=AUCTION)
             };
-
+            if (isBody)
+            {
+                parameters.Add("price.from", "400");
+            }
             if (!string.IsNullOrEmpty(phrase))
             {
                 parameters["phrase"] = phrase;
@@ -302,7 +306,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             var o = GetOfferInit(id);
             return new OfferExtraData() { Description = o.Description, Parameters = o.Parameters };
         }
-       
+
         public Offer GetOfferInit(string id)
         {
             var text = "";
@@ -320,7 +324,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 //HtmlDocument doc = web.Load("http://api.scraperapi.com/?api_key=715027614bace80158a839d45247c02d&url=http://allegro.pl/oferta/" + id);
                 //HttpClient httpClient = new HttpClient();
                 //ScraperApiClient client = new ScraperApiClient("715027614bace80158a839d45247c02d", httpClient);
-                
+
                 //var sss = client.GetAsync("http://allegro.pl/oferta/" + id).Result;
                 HtmlDocument doc = web.Load("https://spolshy.com.ua/product/" + id);
                 //doc.LoadHtml(sss);
@@ -342,14 +346,16 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 }
 
                 newDescNew = newDescNew.Replace("Описание запчасти (на польском)", "");
-                
+
                 var liParamsNew = doc.DocumentNode.QuerySelectorAll("table.product-info__table.fl--order7 tr");
                 var imagesNew = doc.DocumentNode.QuerySelectorAll("img.blur-up.ls-is-cached.lazyload");
                 OfferImage[] imagePathesNew = imagesNew.Where(x => x.Attributes["data-src"].Value.Contains("allegro")).Select(x => new OfferImage() { Url = x.Attributes["data-src"].Value }).ToArray();
 
                 IList<OfferImage> successImages = new List<OfferImage>();
-                foreach (var item in imagePathesNew) {
-                    if (!successImages.Select(x=>x.Url).Contains(item.Url)) {
+                foreach (var item in imagePathesNew)
+                {
+                    if (!successImages.Select(x => x.Url).Contains(item.Url))
+                    {
                         successImages.Add(item);
                     }
                 }
@@ -404,7 +410,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 //    }
                 //}
                 //var liParams = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Parameters'] li div._f8818_3-1jj");
-                
+
                 //var tempPrice = doc.DocumentNode.QuerySelector("meta[itemprop='price']");
                 //var priceStr = tempPrice.Attributes["content"].Value.ToString().Replace(",", ".");
                 //decimal productPricePLN = decimal.Parse(priceStr, CultureInfo.InvariantCulture);

@@ -6,7 +6,7 @@ function backToMainPage() {
     window.location.href = '/Home/Index/';
 }
 function openDetails(advertId, advertPrice) {
-    window.open('/Product/Details/' + "?id=" + advertId + "&price=" + advertPrice, "_blank");
+    window.open('/Product/Details/' + "?id=" + advertId + "&price=" + advertPrice, "_self");
 }
 var getUrlParameter = function getUrlParameter(sParam) {
     var sPageURL = window.location.search.substring(1),

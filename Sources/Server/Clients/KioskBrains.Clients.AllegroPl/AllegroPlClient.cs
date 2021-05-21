@@ -97,8 +97,10 @@ namespace KioskBrains.Clients.AllegroPl
             OfferSortingEnum sorting,
             int offset,
             int limit,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken,
+            bool isBody)
         {
+            phrase = phrase.TrimEnd();
             if (limit > MaxPageSize)
             {
                 throw new NotSupportedException($"Max '{MaxPageSize}' page size is supported.");
@@ -125,7 +127,7 @@ namespace KioskBrains.Clients.AllegroPl
             }
 
             // search for offers
-            var apiResponse = await _restClient.SearchOffersAsync(translatedPhrase, categoryId, state, sorting, offset, limit, cancellationToken);
+            var apiResponse = await _restClient.SearchOffersAsync(translatedPhrase, categoryId, state, sorting, offset, limit, cancellationToken, isBody);
             var apiOffers = new List<Rest.Models.Offer>();
             if (apiResponse.Items.Promoted?.Length > 0)
             {

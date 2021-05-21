@@ -125,69 +125,69 @@ function showDeliveryFields(divName) {
                 <div style="display:inline-block;">Оформление заказа</div>
             </div>
         @*<div style="text-align:center;color:white;padding-bottom:20px;"><h1>Оформлення замовлення</h1></div>*@
-        <div class="row">
-            <div class="col-md-5" style="background:#EEEFFF;min-height: 100vh;" id="divDeliveryHeight">
-                <table style="width:100%;">
-                    <tr>
-                        <td style="vertical-align:top;">
-                            <div class="divDeliveryTitle" style="padding:0px 20px 20px 20px;">
-                                <div style="text-align:center;color:#504593;"><h3>Ваши контактные данные</h3></div>
-                                <input id="txtUserName" class="form-control" placeholder="* Имя" style="color: black;" asp-for="CustomerName" />
-                                <span asp-validation-for="CustomerName"></span>
-                                <input id="txtSurname" class="form-control" placeholder="* Фамилия" style="color: black;" asp-for="CustomerSurName" />
-                                <span asp-validation-for="CustomerSurName"></span>
-                                <input id="txtUserFather" class="form-control" placeholder="* Отчество" style="color: black;" asp-for="CustomerFatherName" />
-                                <span asp-validation-for="CustomerFatherName"></span>
-                                <input id="txtBuyerPhone" class="form-control" placeholder="* Телефон" style="color: black;" asp-for="CustomerPhoneNumber" />
-                                
-                                <div style="text-align:center;color:#504593;padding-bottom:20px;"><h3>Выберите тип доставки</h3></div>
-                                <div class="row">
-                                    <div class="col" style="padding:0px 10px 0px 0px;">
-                                        <div tabindex="1" id="divBtnNova" class="deliveryBoxDesign selected" onclick="showDeliveryFields('#nova')">
-                                            <div class="inline-blockNovaPoshta"><img src="~/images/Delivery/NovaPoshtaUkraine.png" style="width:38px;" /></div>
-                                            <div class="inline-blockDeliveryText" style="font-size: 20px; text-align: center;">Новая Почта</div>
-                                        </div>
-                                    </div>
-                                    <div class="col" style="padding: 0px 0px 0px 10px;">
-                                        <div tabindex="2" id="divBtnCourier" class="deliveryBoxDesign" onclick="showDeliveryFields('#courier')">
-                                            <div class="inline-blockCourier">
-                                                <img src="~/images/Delivery/Courier.png" style="width:34px;" />
-                                            </div>
-                                            <div class="inline-blockDeliveryText" style="font-size: 20px; text-align: center;">
-                                                Доставка курьером
-                                            </div>
-                                        </div>
+    <div class="row">
+        <div class="col-md-5" style="background:#EEEFFF;min-height: 100vh;" id="divDeliveryHeight">
+            <table style="width:100%;">
+                <tr>
+                    <td style="vertical-align:top;">
+                        <div class="divDeliveryTitle" style="padding:0px 20px 20px 20px;">
+                            <div style="text-align:center;color:#504593;"><h3>Ваши контактные данные</h3></div>
+                            <input id="txtUserName" class="form-control" placeholder="* Имя" style="color: black;" asp-for="CustomerName" />
+                            <span asp-validation-for="CustomerName"></span>
+                            <input id="txtSurname" class="form-control" placeholder="* Фамилия" style="color: black;" asp-for="CustomerSurName" />
+                            <span asp-validation-for="CustomerSurName"></span>
+                            <input id="txtUserFather" class="form-control" placeholder="* Отчество" style="color: black;" asp-for="CustomerFatherName" />
+                            <span asp-validation-for="CustomerFatherName"></span>
+                            <input id="txtBuyerPhone" class="form-control" placeholder="* Телефон" style="color: black;" asp-for="CustomerPhoneNumber" />
+
+                            <div style="text-align:center;color:#504593;padding-bottom:20px;"><h3>Выберите тип доставки</h3></div>
+                            <div class="row">
+                                <div class="col" style="padding:0px 10px 0px 0px;">
+                                    <div tabindex="1" id="divBtnNova" class="deliveryBoxDesign selected" onclick="showDeliveryFields('#nova')">
+                                        <div class="inline-blockNovaPoshta"><img src="~/images/Delivery/NovaPoshtaUkraine.png" style="width:38px;" /></div>
+                                        <div class="inline-blockDeliveryText" style="font-size: 20px; text-align: center;">Новая Почта</div>
                                     </div>
                                 </div>
-                                <div id="nova">
-                                    @Html.DropDownListFor(model => model.SelectedArea, new SelectList(Model.Areas, "Description", "Description"), " - Выберите область - ", new { @id = "cbArea", @style = "color: black;width:100%;", @class = "form-control selectpicker", @onchange = "onAreaChanged()" })
-                                    <span asp-validation-for="SelectedArea" id="validateArea"></span>
-                                    @Html.DropDownListFor(model => model.SelectedCity, new SelectList(Model.Cities, "Description", "Description"), " - Выберите город - ", new { @id = "cbCity", @style = "color: black;width:100%;", @class = "form-control", @onchange = "onCityChanged()" })
-                                    <span asp-validation-for="SelectedArea" id="validateCity"></span>
-                                    @Html.DropDownListFor(model => model.SelectedDepartment, new SelectList(Model.Departments, "Description", "Description"), " - Выберите отделение - ", new { @id = "cbDepartment", @style = "color: black;width:100%;", @class = "form-control", @onchange = "onDepartmentChanged()" })
-                                    <span asp-validation-for="SelectedArea" id="validateDepartment"></span>
-                                    <input type="submit" class="btnOrder" value="Подтвердить заказ" />                                   
-                                </div>
-                                <div id="courier" style="display:none;">
-                                    @Html.TextBoxFor(model => model.City, Model.City, new { @id = "txtCustomCity", @class = "form-control", @placeholder = "- Ваш город -", @style = "color: black;" })
-                                    @Html.ValidationMessageFor(model => model.City)
-                                    @Html.TextBoxFor(model => model.Address, Model.Address, new { @id = "txtCustomAddress", @class = "form-control", @maxlength = "12", @placeholder = "- Ваш адрес -", @style = "color: black;" })
-                                    @Html.ValidationMessageFor(model => model.Address)
-                                    <input type="submit" class="btnOrder" value="Подтвердить заказ" />
+                                <div class="col" style="padding: 0px 0px 0px 10px;">
+                                    <div tabindex="2" id="divBtnCourier" class="deliveryBoxDesign" onclick="showDeliveryFields('#courier')">
+                                        <div class="inline-blockCourier">
+                                            <img src="~/images/Delivery/Courier.png" style="width:34px;" />
+                                        </div>
+                                        <div class="inline-blockDeliveryText" style="font-size: 20px; text-align: center;">
+                                            Доставка курьером
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            @*<div onclick="submit()" style="background:black;color:greenyellow;">SUBMIT</div>*@
-                        </td>
-                    </tr>
+                            <div id="nova">
+                                @Html.DropDownListFor(model => model.SelectedArea, new SelectList(Model.Areas, "Description", "Description"), " - Выберите область - ", new { @id = "cbArea", @style = "color: black;width:100%;", @class = "form-control selectpicker", @onchange = "onAreaChanged()" })
+                                <span asp-validation-for="SelectedArea" id="validateArea"></span>
+                                @Html.DropDownListFor(model => model.SelectedCity, new SelectList(Model.Cities, "Description", "Description"), " - Выберите город - ", new { @id = "cbCity", @style = "color: black;width:100%;", @class = "form-control", @onchange = "onCityChanged()" })
+                                <span asp-validation-for="SelectedArea" id="validateCity"></span>
+                                @Html.DropDownListFor(model => model.SelectedDepartment, new SelectList(Model.Departments, "Description", "Description"), " - Выберите отделение - ", new { @id = "cbDepartment", @style = "color: black;width:100%;", @class = "form-control", @onchange = "onDepartmentChanged()" })
+                                <span asp-validation-for="SelectedArea" id="validateDepartment"></span>
+                                <input type="submit" class="btnOrder" value="Подтвердить заказ" />
+                            </div>
+                            <div id="courier" style="display:none;">
+                                @Html.TextBoxFor(model => model.City, Model.City, new { @id = "txtCustomCity", @class = "form-control", @placeholder = "- Ваш город -", @style = "color: black;" })
+                                @Html.ValidationMessageFor(model => model.City)
+                                @Html.TextBoxFor(model => model.Address, Model.Address, new { @id = "txtCustomAddress", @class = "form-control", @maxlength = "12", @placeholder = "- Ваш адрес -", @style = "color: black;" })
+                                @Html.ValidationMessageFor(model => model.Address)
+                                <input type="submit" class="btnOrder" value="Подтвердить заказ" />
+                            </div>
+                        </div>
+                        @*<div onclick="submit()" style="background:black;color:greenyellow;">SUBMIT</div>*@
+                    </td>
+                </tr>
 
-                </table>
-            </div>
-            <div class="col-md-7" style="background:#504593;min-height: 100vh;box-shadow:0 20px 20px rgb(0 0 0 / 50%);">
-                <div>
-                    @Html.Partial("_OrderItem", Model.CartProducts)
-                </div>
-            </div>
+            </table>
         </div>
+        <div class="col-md-7" style="background:#504593;min-height: 100vh;box-shadow:0 20px 20px rgb(0 0 0 / 50%);">
+            <div>
+                @Html.Partial("_OrderItem", Model.CartProducts)
+            </div>
+        </div>        
+    </div>
         }
     </div>
     <div id="divSuccessOrder" style="width: 100%; background:#504593; font-size: 45px; text-align: center; padding: 6% 10%; font-weight: bold; color: white; display:none;">

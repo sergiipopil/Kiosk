@@ -2,10 +2,9 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 
-.filterItemAllState_All, .filterItemNewState_All, .filterItemUsedState_All, .filterItemRecoverState_All,
-.filterItemAllState_New, .filterItemNewState_New, .filterItemUsedState_New, .filterItemRecoverState_New,
-.filterItemAllState_Used, .filterItemNewState_Used, .filterItemUsedState_Used, .filterItemRecoverState_Used,
-.filterItemAllState_Recovered, .filterItemNewState_Recovered, .filterItemUsedState_Recovered, .filterItemRecoverState_Recovered, .filterItemAscSorting_PriceDesc,
+.filterItemNewState_New, .filterItemUsedState_New, .filterItemRecoverState_New,
+.filterItemNewState_Used, .filterItemUsedState_Used, .filterItemRecoverState_Used,
+.filterItemNewState_Recovered, .filterItemUsedState_Recovered, .filterItemRecoverState_Recovered, .filterItemAscSorting_PriceDesc,
 .filterItemRelevanceSorting_Relevance, .filterItemDescSorting_Relevance, .filterItemAscSorting_Relevance, .filterItemRelevanceSorting_PriceDesc,
 .filterItemDescSorting_PriceDesc, .filterItemDescSorting_PriceDesc, .filterItemDescSorting_PriceDesc,
 .filterItemAscSorting_PriceAsc, .filterItemAscSorting_PriceAsc, .filterItemAscSorting_PriceAsc,
@@ -19,7 +18,8 @@ for details on configuring this project to bundle and minify static web assets. 
 .filterItemPlacementB_przód, .filterItemPlacementF_tył, .filterItemPlacementLB_lewy_przód, .filterItemPlacementRF_lewy_przód, .filterItemPlacementRB_lewy_przód, .filterItemPlacementLF_lewy_tył, .filterItemPlacementRF_lewy_tył,
 .filterItemPlacementRB_lewy_tył, .filterItemPlacementLF_prawy_przód, .filterItemPlacementLF_prawy_przód, .filterItemPlacementRB_prawy_przód, .filterItemPlacementLF_prawy_tył, .filterItemPlacementLB_prawy_tył, .filterItemPlacementRF_prawy_tył, .filterItemPlacementLB_prawy_przód,
 .filterItemEngineDiesel_benzyna, .filterItemEngineElektryczne_benzyna, .filterItemEngineBenzyn_diesel, .filterItemEngineElektryczne_diesel, .filterItemEngineBenzyn_elektryczne, .filterItemEngineDiesel_elektryczne,
-.filterItemEngineDiesel_diesel, .filterItemEngineBenzyn_benzyna, .filterItemEngineElektryczne_elektryczne {
+.filterItemEngineDiesel_diesel, .filterItemEngineBenzyn_benzyna, .filterItemEngineElektryczne_elektryczne,
+.filterItemTransmissionAutomatyczna_, .filterItemTransmissionManualna_, .filterItemTransmissionManualna_Automatyczna, .filterItemTransmissionAutomatyczna_Manualna {
     border-bottom: 1px solid #ff6b05;
     padding: 2px 10px;
     margin: 0 15%;
@@ -29,12 +29,12 @@ for details on configuring this project to bundle and minify static web assets. 
     width: -webkit-fill-available;
 }
 
-    .filterItemAllState_All, .filterItemNewState_New, .filterItemUsedState_Used, .filterItemRecoverState_Recovered,
+    .filterItemTransmissionAutomatyczna_:hover, .filterItemTransmissionManualna_:hover, .filterItemTransmissionAutomatyczna_Automatyczna, .filterItemTransmissionManualna_Automatyczna:hover, .filterItemTransmissionManualna_Manualna, .filterItemTransmissionAutomatyczna_Manualna:hover,
+    .filterItemNewState_New, .filterItemUsedState_Used, .filterItemRecoverState_Recovered,
     .filterItemRelevanceSorting_Relevance, .filterItemDescSorting_PriceDesc, .filterItemAscSorting_PriceAsc,
-    .filterItemAllState_All:hover, .filterItemNewState_All:hover, .filterItemUsedState_All:hover, .filterItemRecoverState_All:hover,
-    .filterItemAllState_New:hover, .filterItemNewState_New:hover, .filterItemUsedState_New:hover, .filterItemRecoverState_New:hover,
-    .filterItemAllState_Used:hover, .filterItemNewState_Used:hover, .filterItemUsedState_Used:hover, .filterItemRecoverState_Used:hover,
-    .filterItemAllState_Recovered:hover, .filterItemNewState_Recovered:hover, .filterItemUsedState_Recovered:hover, .filterItemRecoverState_Recovered:hover
+    .filterItemNewState_New:hover, .filterItemUsedState_New:hover, .filterItemRecoverState_New:hover,
+    .filterItemNewState_Used:hover, .filterItemUsedState_Used:hover, .filterItemRecoverState_Used:hover,
+    .filterItemNewState_Recovered:hover, .filterItemUsedState_Recovered:hover, .filterItemRecoverState_Recovered:hover
     .filterItemRelevanceSorting_Relevance:hover, .filterItemRelevanceSorting_Relevance:hover, .filterItemRelevanceSorting_Relevance:hover,
     .filterItemDescSorting_PriceDesc:hover, .filterItemDescSorting_PriceDesc:hover, .filterItemDescSorting_PriceDesc:hover,
     .filterItemAscSorting_PriceAsc:hover, .filterItemAscSorting_PriceAsc:hover, .filterItemAscSorting_PriceAsc:hover, filterItemDescSorting_PriceAsc:hover, .filterItemRelevanceSorting_PriceAsc:hover,
@@ -55,10 +55,23 @@ for details on configuring this project to bundle and minify static web assets. 
     .filterItemEngineDiesel_benzyna:hover, .filterItemEngineElektryczne_benzyna:hover, .filterItemEngineDiesel_diesel, .filterItemEngineBenzyn_diesel:hover, .filterItemEngineElektryczne_diesel:hover, .filterItemEngineElektryczne_elektryczne,
     .filterItemEngineBenzyn_elektryczne:hover, .filterItemEngineDiesel_elektryczne:hover {
         background: linear-gradient(90deg, #FFB21D, #ff5a00);
+        margin: 0 15%;
         color: white;
+        width: -webkit-fill-available;
         border-right: 1px solid #c3c4c7;
         padding: 2px 10px !important;
         display: inline-block;
+    }
+
+.tiresFilter {
+    width: 100%;
+}
+.priceProductComment {
+    text-align: center;
+    padding: 20px 20px 0px 20px;
+}
+    .tiresFilter td {
+        padding:0px 20px;
     }
 
 .form-control {
@@ -116,7 +129,7 @@ h3 {
     display: block;
     padding: 0px 50px;
     text-align: justify;
-    font-weight: bold;
+    /*font-weight: bold;*/
     font-size: 38px;
     padding-bottom: 20px;
 }
@@ -161,8 +174,28 @@ ul.pagination li {
     width: 80%;
     border: 1px solid #e87619;
 }
-
-.btnBuyNew, .btnBuyNewCart {
+.btnBuyNewCartOrder {
+    background: #ff5a00;
+    color: white;
+    box-shadow: 0 0 6px white;
+    min-height: 51px;
+    width: 400px;
+    border: 1px solid #ff5a00;
+    font-size: 28px;
+}
+    .btnBuyNewCartOrder:hover {
+        background: white;
+        color: #ff5a00;
+    }
+    .btnBuyNewCart {
+        background: white;
+        min-height: 51px;
+        color: #ff5a00;
+        width: 400px;
+        border: 1px solid #ff5a00;
+        font-size: 28px;
+    }
+.btnBuyNew {
     background: white;
     min-height: 51px;
     color: #ff5a00;
@@ -187,7 +220,7 @@ ul.pagination li {
 
 .productTitle {
     font-size: 22px;
-    font-weight: normal;
+    /*font-weight: normal;*/
     color: #222;
     font-family: Roboto,sans-serif;
     text-transform: uppercase;
@@ -272,7 +305,7 @@ ul.pagination li {
 
 .btnBuyCart span {
     vertical-align: middle;
-    font-weight: bold;
+    /*font-weight: bold;*/
     padding-left: 5px;
     font-size: 20px;
 }
@@ -316,7 +349,7 @@ input#btnCloseDetailWindow {
     text-align: center;
     width: 100%;
     color: #ff5a00;
-    font-weight: 500;
+    /*font-weight: 500;*/
     cursor: pointer;
 }
 
@@ -330,7 +363,17 @@ a.navbar-brand {
 a {
     color: #0366d6;
 }
-
+.garantedCardsTable {
+    margin: 40px 0px 0px 0px;
+    width:100%;
+    text-align:center;
+}
+    .garantedCardsTable td {
+        box-shadow: 0px 0px 5px grey;
+        display: inline-block;
+        padding: 20px;
+        margin: 0px 10px;
+    }
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
@@ -342,7 +385,11 @@ a {
     background-color: #1b6ec2;
     border-color: #1861ac;
 }
-
+.productNumberId {
+    font-size: 18px !important;
+    padding: 0px 5px;
+    display: block;
+}
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -356,9 +403,32 @@ html {
 }
 
 @media only screen and (max-width: 700px) {
+
+    .productNumberId {
+        font-size:12px !important;
+    }
+    .garantedCardsTable {
+        width: 100%;
+    }
+    .garantedCardsTable td {
+        display:block;
+    }
+    .divCallStyle {
+        text-decoration: none;
+        position: fixed;
+        top: 85%;
+        z-index: 9999;
+        left: 5%;
+    }
+
+    .iconCall {
+        width: 90px;
+    }
+
     #divPaymentContainer {
         padding: 20px 8px 0px 8px !important;
     }
+
     #divLeftOrderColumn, #divRightOrderColumn {
         display: block;
         width: 100%;
@@ -366,16 +436,20 @@ html {
         flex: initial !important;
         min-height: initial !important;
     }
+
     .paymentMethod {
-        min-height:115px !important;
+        min-height: 115px !important;
     }
+
     #divMainOrderBlock {
         padding: 0px !important;
     }
+
     .mainBlockTitleOrder {
-        font-size:14px !important;
-        padding:18px 8px !important;
+        font-size: 14px !important;
+        padding: 18px 8px !important;
     }
+
     .cartBackBtn {
         font-size: 14px !important;
         padding: 0px 5px !important;
@@ -454,7 +528,7 @@ html {
 
     .treeMainBlock {
         text-align: center;
-        padding-bottom:10px;
+        padding-bottom: 10px;
     }
 
     .footer {
@@ -480,7 +554,7 @@ html {
         text-align: center;
         font-size: 14px;
         padding: 6px;
-        font-weight: 500;
+        /*font-weight: 500;*/
         color: #ff5a00;
         font-family: Open Sans,sans-serif;
         width: 100%;
@@ -596,7 +670,7 @@ html {
     .btnBackModelPage {
         color: white;
         padding: 0px 5px;
-        font-weight: normal;
+        /*font-weight: normal;*/
         display: inline-block;
         border-radius: 10px;
         font-size: 13px;
@@ -801,70 +875,93 @@ html {
 
         .footerTable td {
             text-align: center;
-            display:block;
-            width:100%;
-            padding:10px 0px;
+            display: block;
+            width: 100%;
+            padding: 10px 0px;
         }
+
         .footerTableSocial td {
-            text-align:center;
-            display:table-cell;
+            text-align: center;
+            display: table-cell;
         }
+
         .footerTableSocial td {
             padding: 0px 10px !important;
-            width:auto;
+            width: auto;
         }
+
     #divCssGarantedPay, #divCssUserDefend, #divCssDelivery {
         margin: 20px !important;
         box-shadow: 0px 0px 8px white;
         padding: 15px 0px !important;
         text-align: center !important;
     }
+
     #divGarantedPadding {
-        padding:0px !important;
+        padding: 0px !important;
     }
+
     .picGarantedPay {
-        width:50px !important;
+        width: 50px !important;
     }
+
     .picUserDefend {
         width: 35px !important;
     }
+
     .garantedPayText {
-        font-size:14px !important;
+        font-size: 14px !important;
     }
+
     .imgPayment {
-        width:50px !important;
+        width: 50px !important;
     }
+
     .paymentTextDesign {
-        font-size:10px !important;
-        white-space:initial !important;
+        font-size: 10px !important;
+        white-space: initial !important;
     }
+
     #divBlock1, #divBlock2, #divBlock3, #divBlock4, #divBlock5, #divBlock6 {
-        padding:3px !important;
+        padding: 3px !important;
     }
+
     .tdPrivacyStyle {
         padding: 10px 40px !important;
     }
+    
 }
 
 @media only screen and (min-width: 701px) {
+    .divCallStyle {
+        display:none !important;
+    }
+
+    .iconCall {
+        width: 130px;
+    }
+
     #divCartViewControl, #tblCartViewInnder {
         min-height: 100%;
         height: 100%;
     }
+
     #divCssUserDefend {
-        margin: 50px 20px !important; 
-        padding: 20px; 
-        box-shadow: 0px 0px 13px white; 
-        min-height: 240px; 
+        margin: 50px 20px !important;
+        padding: 20px;
+        box-shadow: 0px 0px 13px white;
+        min-height: 240px;
         max-height: 240px;
     }
+
     #divCssDelivery {
-        margin: 50px 20px !important; 
+        margin: 50px 20px !important;
         padding: 40px 20px 0px 20px;
         box-shadow: 0px 0px 13px white;
-        min-height: 240px; 
+        min-height: 240px;
         max-height: 240px;
     }
+
     #divCssGarantedPay {
         margin: 50px 20px !important;
         padding: 20px 20px 30px 20px;
@@ -872,6 +969,7 @@ html {
         min-height: 240px;
         max-height: 240px;
     }
+
     .footerTable, .footerTableSocial {
         width: 100%;
     }
@@ -930,7 +1028,7 @@ html {
 
     .modelImageAutoParts {
         max-width: 165px;
-        max-height: 145px;
+        max-height: 135px;
         padding-top: 20px;
     }
 
@@ -975,21 +1073,39 @@ html {
     .loopImgPadding {
         padding-bottom: 10px;
     }
+    .loopImgPaddingFilter {
+        padding-bottom: 0px;
+    }
 
     .inputPart {
         font-size: 20px;
         height: 62px;
         width: 90%;
     }
+    .inputPartFilter {
+        font-size: 16px;
+        height: 40px;
+        width: 90%;
+    }
 
     .divSelectTopCategoryBlock {
         padding: 20px 0px 28px 0px;
     }
-
-    .manufactureText, .manufactureTextTop {
+    .manufactureTextTop {
         text-align: center;
-        font-size: 14px;
-        font-weight: bold;
+        font-size: 16px;
+        color: #06385f;
+        font-family: Arial,Helvetica,sans-serif;
+        overflow: hidden;
+    }
+    .manufactureText {
+        text-align: center;
+        font-size: 16px;
+        color: #06385f;
+        font-weight:200;
+        font-family: Arial,Helvetica,sans-serif;
+        overflow: hidden;
+        /*font-weight: bold;*/
     }
 
     .loopBtn {
@@ -1057,7 +1173,7 @@ html {
         font-size: 24px;
         text-transform: uppercase;
         padding: 6px;
-        font-weight: 500;
+        /*font-weight: 500;*/
         color: #ff5a00;
         font-family: Open Sans,sans-serif;
         width: 100%;
@@ -1145,7 +1261,7 @@ html {
 .manufactureTextBreadcrumbs {
     text-align: center;
     font-size: 12px;
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .parentDiv:hover, .topCategoryDiv:hover, .parentDivAutoParts:hover, .parentDivManufacturer:hover {
@@ -1205,7 +1321,7 @@ input {
     font-size: 32px;
     text-transform: uppercase;
     padding: 23px 16px;
-    font-weight: 400;
+    /*font-weight: 400;*/
     color: #ff5a00;
     font-family: Open Sans,sans-serif;
     width: 100%;
@@ -1247,15 +1363,22 @@ input[type="checkbox"].input-validation-error {
     .detailBlock {
         width: 100% !important;
     }
+    .tiresFilter td {
+        padding: 0px 20px;
+        width: 50%;
+        display: inline-block;
+    }
 }
 
 @media(max-width: 1360px) and (min-width:701px) {
     .garantedPayText {
-        font-size:20px !important;
+        font-size: 20px !important;
     }
+
     #divGarantedPadding {
-        padding-top:5px !important;
+        padding-top: 5px !important;
     }
+
     .productTitle {
         font-size: 18px !important;
     }
@@ -1281,18 +1404,20 @@ input[type="checkbox"].input-validation-error {
         max-width: 65px;
         max-height: 45px !important;
     }
+
     .btnBuyListSpan {
-        font-size:18px !important;
+        font-size: 18px !important;
     }
 
     .emptyCartImg {
         width: 100px !important;
     }
+
     .btnBuyNew {
-        min-height:51px;
-        height:auto;
+        min-height: 51px;
+        height: auto;
     }
-   
+
     .manufactureTextTop, #divLeftMenu {
         font-size: 12px !important;
     }
@@ -1321,33 +1446,39 @@ input[type="checkbox"].input-validation-error {
     .divSelectTopCategoryBlock {
         text-align: center;
     }
+
     #divCssGarantedPay, #divCssUserDefend {
         min-height: initial !important;
         max-height: initial !important;
     }
+
     #divCssDelivery {
         min-height: initial !important;
         max-height: initial !important;
         padding: 40px 20px 30px 20px !important;
-    }   
+    }
 }
 
-@media(max-width: 1650px) and (min-width:1360px) {   
+@media(max-width: 1650px) and (min-width:1360px) {
     .garantedPayText {
         font-size: 20px !important;
     }
+
     #divCssDelivery {
         min-height: initial !important;
         max-height: initial !important;
         padding: 40px 20px 30px 20px !important;
     }
+
     #divGarantedPadding {
         padding-top: 5px !important;
     }
+
     #divCssGarantedPay, #divCssUserDefend {
         min-height: initial !important;
         max-height: initial !important;
     }
+
     .emptyCartImg {
         width: 100px !important;
     }
