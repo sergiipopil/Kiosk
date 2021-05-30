@@ -17,14 +17,15 @@ for details on configuring this project to bundle and minify static web assets. 
 .filterItemPlacementL_LEWY_PRAWE, .filterItemPlacementR_LEWY_PRAWE, .filterItemPlacementLR_LEWY, .filterItemPlacementR_LEWY, .filterItemPlacementLR_PRAWE, .filterItemPlacementL_PRAWE,
 .filterItemPlacementB_przód, .filterItemPlacementF_tył, .filterItemPlacementLB_lewy_przód, .filterItemPlacementRF_lewy_przód, .filterItemPlacementRB_lewy_przód, .filterItemPlacementLF_lewy_tył, .filterItemPlacementRF_lewy_tył,
 .filterItemPlacementRB_lewy_tył, .filterItemPlacementLF_prawy_przód, .filterItemPlacementLF_prawy_przód, .filterItemPlacementRB_prawy_przód, .filterItemPlacementLF_prawy_tył, .filterItemPlacementLB_prawy_tył, .filterItemPlacementRF_prawy_tył, .filterItemPlacementLB_prawy_przód,
-.filterItemEngineDiesel_benzyna, .filterItemEngineElektryczne_benzyna, .filterItemEngineBenzyn_diesel, .filterItemEngineElektryczne_diesel, .filterItemEngineBenzyn_elektryczne, .filterItemEngineDiesel_elektryczne,
-.filterItemEngineDiesel_diesel, .filterItemEngineBenzyn_benzyna, .filterItemEngineElektryczne_elektryczne,
+.filterItemEngineDiesel_benzynowy, .filterItemEngineElektryczne_benzynowy, .filterItemEngineBenzyn_diesel, .filterItemEngineElektryczne_diesel, .filterItemEngineBenzyn_elektryczne, .filterItemEngineDiesel_elektryczne,
+.filterItemEngineDiesel_diesel, .filterItemEngineBenzyn_benzynowy, .filterItemEngineElektryczne_elektryczne,
 .filterItemTransmissionAutomatyczna_, .filterItemTransmissionManualna_, .filterItemTransmissionManualna_Automatyczna, .filterItemTransmissionAutomatyczna_Manualna {
     border-bottom: 1px solid #ff6b05;
     padding: 2px 10px;
     margin: 0 15%;
     display: inline-block;
     color: black;
+    cursor: pointer;
     background: white;
     width: -webkit-fill-available;
 }
@@ -51,8 +52,8 @@ for details on configuring this project to bundle and minify static web assets. 
     .filterItemPlacementL_PRAWE:hover, .filterItemPlacementF_przód, .filterItemPlacementB_tył, .filterItemPlacementB_przód:hover, .filterItemPlacementF_tył:hover,
     .filterItemPlacementLF_lewy_przód, .filterItemPlacementLB_lewy_tył, .filterItemPlacementRF_prawy_przód, .filterItemPlacementRB_prawy_tył, .filterItemPlacementLB_lewy_przód:hover, .filterItemPlacementRF_lewy_przód:hover,
     .filterItemPlacementRB_lewy_przód:hover, .filterItemPlacementLF_lewy_tył:hover, .filterItemPlacementRF_lewy_tył:hover, .filterItemPlacementRB_lewy_tył:hover, .filterItemPlacementLF_prawy_przód:hover, .filterItemPlacementLF_prawy_przód:hover,
-    .filterItemPlacementRB_prawy_przód:hover, .filterItemPlacementLF_prawy_tył:hover, .filterItemPlacementLB_prawy_tył:hover, .filterItemPlacementRF_prawy_tył:hover, .filterItemPlacementLB_prawy_przód:hover, .filterItemEngineBenzyn_benzyna,
-    .filterItemEngineDiesel_benzyna:hover, .filterItemEngineElektryczne_benzyna:hover, .filterItemEngineDiesel_diesel, .filterItemEngineBenzyn_diesel:hover, .filterItemEngineElektryczne_diesel:hover, .filterItemEngineElektryczne_elektryczne,
+    .filterItemPlacementRB_prawy_przód:hover, .filterItemPlacementLF_prawy_tył:hover, .filterItemPlacementLB_prawy_tył:hover, .filterItemPlacementRF_prawy_tył:hover, .filterItemPlacementLB_prawy_przód:hover, .filterItemEngineBenzyn_benzynowy,
+    .filterItemEngineDiesel_benzynowy:hover, .filterItemEngineElektryczne_benzynowy:hover, .filterItemEngineDiesel_diesel, .filterItemEngineBenzyn_diesel:hover, .filterItemEngineElektryczne_diesel:hover, .filterItemEngineElektryczne_elektryczne,
     .filterItemEngineBenzyn_elektryczne:hover, .filterItemEngineDiesel_elektryczne:hover {
         background: linear-gradient(90deg, #FFB21D, #ff5a00);
         margin: 0 15%;
@@ -62,7 +63,30 @@ for details on configuring this project to bundle and minify static web assets. 
         padding: 2px 10px !important;
         display: inline-block;
     }
+#divBtnNova, #divBtnCourier, .form-control {
+    cursor: pointer;
+}
+.first {
+    
+}
 
+    .first:hover ~ .second {
+        display: block;
+    }
+
+.second {
+    padding: 10px 20px;
+    background-color: #ff6c00;
+    display: block;
+    color: white;
+    font-weight: 500;
+    font-size: 23px;
+    right: 2%;
+    bottom:0;
+    position: fixed;
+    border-radius: 10px;
+    display:none;
+}
 .tiresFilter {
     width: 100%;
 }
@@ -93,11 +117,22 @@ a:hover {
 .bootstrap-select > .dropdown-toggle {
     height: 45px;
 }
-
+.divInputPartFilter {
+    display: inline-block;
+    vertical-align: middle;
+    width: 90%;
+}
 h3 {
     margin: 20px 0px !important;
 }
-
+.noProducts {
+    width: 100%;
+    font-size: 30px;
+    text-align: center;
+    padding: 30% 30% 0 30%;
+    font-weight: bold;
+    color: #504593;
+}
 .deliveryBoxDesign {
     border: 2px solid white;
     background: white;
@@ -120,15 +155,14 @@ h3 {
 
 .descriptionBlock {
     display: block;
-    padding: 0px 50px;
+    padding: 0px 30px;
     line-height: 24px;
     text-align: justify;
 }
 
 .titleBlock {
     display: block;
-    padding: 0px 50px;
-    text-align: justify;
+    padding: 0px 30px;
     /*font-weight: bold;*/
     font-size: 38px;
     padding-bottom: 20px;
@@ -395,31 +429,45 @@ a {
 html {
     font-size: 14px;
 }
-
-@media (min-width: 768px) {
-    html {
+#tdTiresFilter {
+    width:100%;
+    text-align:center;padding:10px 0px;
+    color:white;
+    background:linear-gradient(90deg, #FFB21D, #ff5a00);
+}
+    #tdTiresFilter:hover {
+        color: #ff5a00;
+        background: white;
+        border: 1px solid #ff5a00;
+    }
+    @media (min-width: 768px) {
+        html {
         font-size: 16px;
     }
 }
 
-@media only screen and (max-width: 700px) {
-
+.divCallStyle {
+    text-decoration: none;
+    position: fixed;
+    bottom: 5%;
+    z-index: 9999;
+    right: 5%;
+}
+@media only screen and (max-width: 700px) {      
+    .noProducts {
+        font-size: 16px;
+        padding: 20px;
+    }
     .productNumberId {
-        font-size:12px !important;
+        font-size: 14px !important;
+        font-weight:600;
     }
     .garantedCardsTable {
         width: 100%;
     }
     .garantedCardsTable td {
         display:block;
-    }
-    .divCallStyle {
-        text-decoration: none;
-        position: fixed;
-        top: 85%;
-        z-index: 9999;
-        left: 5%;
-    }
+    }    
 
     .iconCall {
         width: 90px;
@@ -461,6 +509,7 @@ html {
         vertical-align: middle;
         width: 60px !important;
         height: 50px !important;
+        cursor:pointer;
     }
 
     #divBreadcrumbsManufacture {
@@ -471,6 +520,11 @@ html {
         max-width: 50px !important;
         vertical-align: top;
         max-height: 40px !important;
+    }
+    .modelImageBreadcrumbs {
+        max-width: 50px !important;
+        vertical-align: top;
+        max-height: 30px !important;
     }
 
     #divBreadcrumbsItems {
@@ -518,6 +572,7 @@ html {
         display: grid !important;
         justify-content: center;
         padding-top: 10px;
+        cursor:pointer;
         box-shadow: 0 0 4px rgb(0 0 0 / 50%);
     }
 
@@ -620,12 +675,13 @@ html {
 
     .manufactureText {
         text-align: center;
-        font-size: 7px;
+        font-size: 13px;
+        overflow:hidden;
     }
 
     .modelImage {
-        max-width: 50px;
-        max-height: 50px;
+        max-width: 85px;
+        max-height: 60px;
         padding: 0px;
     }
 
@@ -636,15 +692,15 @@ html {
         align-items: center;
         margin-top: 2vmin;
         margin-left: 1vmin;
-        width: 56px;
-        height: 60px;
+        width: 96px;
+        height: 100px;
         box-shadow: 0 0 4px rgba(0,0,0,0.5);
-        padding: 10px;
+        padding: 5px;
     }
 
     .divCarModelsBlock {
         min-width: 50px;
-        max-height: 40px;
+        max-height: 60px;
         text-align: center;
     }
 
@@ -655,15 +711,16 @@ html {
         align-items: center;
         margin-top: 2vmin;
         margin-left: 1vmin;
-        width: 70px;
-        height: 70px;
+        width: 96px;
+        height: 155px;
         box-shadow: 0 0 4px rgba(0,0,0,0.5);
         padding: 0px;
+        cursor:pointer;
     }
 
     .modelImageAutoParts {
-        max-width: 51px;
-        max-height: 40px;
+        max-width: 90px;
+        max-height: 85px;
         padding-top: 5px;
     }
 
@@ -677,6 +734,7 @@ html {
         float: left;
         text-transform: capitalize;
         background: #ff5a00;
+        cursor:pointer;
     }
 
     .socialIcon {
@@ -720,7 +778,7 @@ html {
 
     .openProductDEtailsBtn, .hide {
         position: initial !important;
-        font-size: 12px;
+        font-size: 15px;
     }
 
     .divProductListCard {
@@ -794,11 +852,20 @@ html {
     .btnBuyNewCart {
         height: 55px !important;
         font-size: 16px !important;
+        width:100% !important;
+    }
+    .divInputPartFilter {
+        display: inline-block;
+        vertical-align: middle;
+        width: 80%;
+    }
+    .btnBuyNewCartOrder {
+        width: 100% !important;
     }
 
-    .btnBuyListSpan {
-        font-size: 16px !important;
-    }
+        .btnBuyListSpan {
+            font-size: 16px !important;
+        }
 
     .divGoToCart {
         padding: 0px !important;
@@ -862,6 +929,10 @@ html {
 
     .divCartControlButtons {
         margin: 20px 0px !important;
+    }
+    .divCartControlButtons td {
+        margin: 10px 20px !important;
+        display:block;
     }
 
     #mainCartTotalPrice, .cartCurrency {
@@ -932,13 +1003,10 @@ html {
     
 }
 
-@media only screen and (min-width: 701px) {
-    .divCallStyle {
-        display:none !important;
-    }
+@media only screen and (min-width: 701px) {   
 
     .iconCall {
-        width: 130px;
+        width: 100px;
     }
 
     #divCartViewControl, #tblCartViewInnder {
@@ -1024,6 +1092,7 @@ html {
         float: left;
         text-transform: capitalize;
         background: #ff5a00;
+        cursor:pointer;
     }
 
     .modelImageAutoParts {
@@ -1043,6 +1112,7 @@ html {
         height: 185px;
         box-shadow: 0 0 4px rgba(0,0,0,0.5);
         padding: 6px;
+        cursor:pointer;
     }
 
     .divCarModelsBlock {
@@ -1062,12 +1132,12 @@ html {
         height: 150px;
         box-shadow: 0 0 4px rgba(0,0,0,0.5);
         padding: 10px;
+        cursor:pointer;
     }
 
     .modelImage {
         max-width: 185px;
-        max-height: 150px;
-        padding: 10px 0px;
+        max-height: 115px;
     }
 
     .loopImgPadding {
@@ -1221,6 +1291,7 @@ html {
     height: 150px;
     box-shadow: 0 0 4px rgba(0,0,0,0.5);
     padding: 10px;
+    cursor:pointer;
 }
 
 .parentDivBreadCrumbs {
@@ -1233,6 +1304,7 @@ html {
     height: 130px;
     box-shadow: 0 0 4px rgba(0,0,0,0.5);
     padding: 5px;
+    cursor:pointer;
 }
 
 
@@ -1246,6 +1318,7 @@ html {
     margin-left: 1vmin;
     width: 143px;
     height: 130px;
+    cursor:pointer;
     box-shadow: 0 0 4px rgba(0,0,0,0.5);
     padding: 10px;
 }
@@ -1307,6 +1380,10 @@ input {
 .manufactureImageBreadcrumbs {
     max-width: 180px;
     max-height: 130px;
+}
+.modelImageBreadcrumbs {
+    max-width:180px;
+    max-height:100px;
 }
 
 .TopCategoryImage {

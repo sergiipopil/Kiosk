@@ -4,6 +4,17 @@
 }
 <html>
 <head>
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TLLVLTQ');</script>
+    <!-- End Google Tag Manager -->
     <link rel="stylesheet" href="~/css/site.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
@@ -11,6 +22,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLLVLTQ"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     @foreach (var item in Model)
     {
         <div class="divProductListCard">
@@ -20,18 +37,18 @@
                         <img id="mainImageProduct" src="@item.Product.Photos[0].Url" style="max-width:100%;max-height:160px;" />
                         @if (item.Product.Photos.Count() > 1)
                         {
-                        <a href=@item.Product.Photos[0].Url data-fancybox="@String.Format("galleryProduct{0}", item.Product.Key)" class="noneDecoration" style="color:#ff5a00;font-weight:500;">
-                            <div class="enlargePhoto"> ФОТО+ (@item.Product.Photos.Count())</div>
-                        </a>
-                        @foreach (var smallImage in @item.Product.Photos)
-                        {
-                            if(smallImage.Url != item.Product.Photos[0].Url )
+                            <a href=@item.Product.Photos[0].Url data-fancybox="@String.Format("galleryProduct{0}", item.Product.Key)" class="noneDecoration" style="color:#ff5a00;font-weight:500;">
+                                <div class="enlargePhoto"> ФОТО+ (@item.Product.Photos.Count())</div>
+                            </a>
+                            @foreach (var smallImage in @item.Product.Photos)
+                            {
+                                if (smallImage.Url != item.Product.Photos[0].Url)
                                 {
-                        <a href="@smallImage.Url" data-fancybox="@String.Format("galleryProduct{0}", item.Product.Key)" class="noneDecoration" style="visibility:hidden;display:none;">
-                            <img src="@smallImage.Url" class="smallPhotoes">
-                        </a>
+                                    <a href="@smallImage.Url" data-fancybox="@String.Format("galleryProduct{0}", item.Product.Key)" class="noneDecoration" style="visibility:hidden;display:none;">
+                                        <img src="@smallImage.Url" class="smallPhotoes">
+                                    </a>
                                 }
-                        }
+                            }
                         }
                     </div>
                 </div>
@@ -40,7 +57,7 @@
                     <div style="vertical-align: top;position:absolute;" class="hide">
                         <span class="productTitle">@item.Product.Name.Last().Value<span class="productNumberId">( @item.Product.SourceId )</span></span>
                     </div>
-                    <div class="openProductDEtailsBtn" onclick="openDetails('@item.Product.SourceId', '@item.Product.Price')">Подробнее</div>
+                    @*<div class="openProductDEtailsBtn" onclick="openDetails('@item.Product.SourceId', '@item.Product.Price')">Подробнее</div>*@
                 </div>
 
                 <div class="col-lg-3">
@@ -59,7 +76,7 @@
                                     <a class="quantityBtn" onclick="refreshCartItem('@item.Product.SourceId')">Оновити к-ть</a>
                                 </span>
                             </div>*@
-                    <div style="color: #ff5a00; text-align: center;">Безопасная покупка</div>
+                        <div style="color: #ff5a00; text-align: center;">Безопасная покупка</div>
                     </div>
                 </div>
             </div>

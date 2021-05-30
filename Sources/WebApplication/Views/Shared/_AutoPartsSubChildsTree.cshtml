@@ -3,7 +3,7 @@
     Layout = null;
 }
 <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
-    <div onclick="selectMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.kioskId', '@Model.MainCategoryUrl')" class="btnBackModelPage">
+    <div onclick="selectMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.kioskId')" class="btnBackModelPage">
         <span>Назад</span>
     </div>
     <div style="display:inline-block;">@Model.SubCategoryName</div>
@@ -12,7 +12,7 @@
     @foreach (var item in Model.ProductCategoryList)
     {
     <div style="display:inline-block;vertical-align:middle;">
-        <div class="parentDivAutoParts" style="display:grid;" onclick="getAllegroData('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.SubCategoryId', '@Model.SubCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId', '@Model.MainCategoryUrl')">
+        <div class="parentDivAutoParts" style="display:grid;" onclick="getAllegroData('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.SubCategoryId', '@Model.SubCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId')">
             <div class="divCarModelsBlock">
                 <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
             </div>

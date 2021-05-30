@@ -229,7 +229,6 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             bool isBody)
         {
             Assure.ArgumentNotNull(categoryId, nameof(categoryId));
-
             var parameters = new Dictionary<string, string>
             {
                 ["searchMode"] = "REGULAR", // by title only
@@ -330,8 +329,8 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 //doc.LoadHtml(sss);
                 text = doc.ParsedText;
 
-                var divsDescNew = doc.DocumentNode.QuerySelectorAll("div.product-info__guarantee.guarantee-info.other--theme-product");
-                var divNameNew = doc.DocumentNode.QuerySelectorAll("div.product-heading.page-heading h1").FirstOrDefault().InnerText;
+                var divsDescNew = doc.DocumentNode.QuerySelectorAll(".product__description.description");
+                var divNameNew = doc.DocumentNode.QuerySelectorAll("h1.product-box__title.product-box__title--second").FirstOrDefault().InnerText;
 
                 string newDescNew = "";
                 if (divsDescNew.Any())
@@ -347,9 +346,9 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
                 newDescNew = newDescNew.Replace("Описание запчасти (на польском)", "");
 
-                var liParamsNew = doc.DocumentNode.QuerySelectorAll("table.product-info__table.fl--order7 tr");
-                var imagesNew = doc.DocumentNode.QuerySelectorAll("img.blur-up.ls-is-cached.lazyload");
-                OfferImage[] imagePathesNew = imagesNew.Where(x => x.Attributes["data-src"].Value.Contains("allegro")).Select(x => new OfferImage() { Url = x.Attributes["data-src"].Value }).ToArray();
+                var liParamsNew = doc.DocumentNode.QuerySelectorAll("td.describe__item");
+                var imagesNew = doc.DocumentNode.QuerySelectorAll(".gallery-large__picture.swiper-slide picture source");
+                OfferImage[] imagePathesNew = imagesNew.Where(x => x.Attributes["srcset"].Value.Contains("s800/")).Select(x => new OfferImage() { Url = x.Attributes["srcset"].Value }).ToArray();
 
                 IList<OfferImage> successImages = new List<OfferImage>();
                 foreach (var item in imagePathesNew)
@@ -360,7 +359,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     }
                 }
                 IEnumerable<OfferImage> tempImage = successImages.Distinct();
-                var divParamsInitNew = liParamsNew.Select(x => x.QuerySelectorAll("tr").FirstOrDefault());
+                var divParamsInitNew = liParamsNew.Select(x => x.QuerySelectorAll("td").FirstOrDefault());
                 var lineParamsDestNew = divParamsInitNew.Select(x => x.InnerText).ToList();
 
 

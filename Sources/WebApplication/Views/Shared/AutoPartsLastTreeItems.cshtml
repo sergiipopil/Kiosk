@@ -1,0 +1,25 @@
+﻿@model WebApplication.Models.RightTreeViewModel;
+@{
+    Layout = null;
+}
+<div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
+    <div onclick="selectMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.kioskId')" class="btnBackModelPage">
+        <span>Назад</span>
+    </div>
+    <div style="display:inline-block;">@Model.SubCategoryName</div>
+</div>
+<div style="padding: 10px 0px 10px 20px;">
+    @foreach (var item in Model.ProductCategoryList)
+    {
+        <div style="display:inline-block;vertical-align:middle;">
+            <div class="parentDivAutoParts" style="display:grid;" onclick="getLastAllegroData('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.SubCategoryId', '@Model.SubCategoryName', '@Model.SubChildCategoryId', '@Model.SubChildCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId')">
+                <div class="divCarModelsBlock">
+                    <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
+                </div>
+                <div class="manufactureText">
+                    <span>@item.Name.FirstOrDefault().Value</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>

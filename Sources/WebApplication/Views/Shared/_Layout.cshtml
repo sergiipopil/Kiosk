@@ -1,7 +1,19 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+
     @RenderSection("Scripts", required: false)
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TLLVLTQ');</script>
+    <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewData["Title"] - WebApplication</title>
@@ -46,7 +58,14 @@
         }
     </style>
 </head>
+
 <body style="background:#23274d;width:100%;">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLLVLTQ"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div id="modDialog" class="modal fade">
         <div id="dialogContent" class="modal-dialog"></div>
     </div>
@@ -83,7 +102,7 @@
                                 }
                             </div>
                             @*<div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/ServiceStations.png" /></div><div class="inline-block" style="color:#848ac2;">Послуги СТО</div></div>
-                                <div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/Map.png" /></div><div class="inline-block" style="color:#848ac2;">Карта терміналів</div></div>*@
+            <div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/Map.png" /></div><div class="inline-block" style="color:#848ac2;">Карта терміналів</div></div>*@
                             <div class="menuItemDiv">
                                 <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="instructionsItem">
                                     <div class="menuItemPic"><img src="~/images/Menu/Instructions.png" /></div><div class="inline-block" style="color:#848ac2;">
@@ -115,8 +134,12 @@
                         <div style="vertical-align:top;" class="col">
                             @RenderBody()
                         </div>
+                        <div class="first">
+                            <a class="divCallStyle" style="position: fixed !important;" href="tel:+380675232143"><img class="iconCall" src="~/images/call.gif" /></a>
+                        </div>
+                            <div class="second">+38 067 523 21 43</div>
+                        </div>
                     </div>
-                </div>
             </main>
         </div>
     </div>
@@ -145,6 +168,31 @@
             </tr>
         </table>
     </footer>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date(); k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
+        ym(79644598, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/79644598" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X43P3S8JPD"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-X43P3S8JPD');
+    </script>
 </body>
 </html>

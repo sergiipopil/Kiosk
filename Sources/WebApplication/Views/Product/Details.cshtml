@@ -5,6 +5,17 @@
 
 <html>
 <head>
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TLLVLTQ');</script>
+    <!-- End Google Tag Manager -->
     <link rel="stylesheet" href="~/css/site.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
@@ -23,14 +34,20 @@
     </script>
 </head>
 <body style="color:white;">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLLVLTQ"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div class="mainBlockTitle" style="background: #EEEFFF;">
-        <div onclick="backToProductList()" style="color: white; padding: 0px 10px; font-weight: normal; border-radius: 10px; font-size: 23px; width:100px; text-transform: capitalize; background: #ff5a00;" class="cartBackBtn">
+        <div onclick="backToProductList()" style="color: white; padding: 0px 10px; font-weight: normal; border-radius: 10px; cursor:pointer; font-size: 23px; width:100px; text-transform: capitalize; background: #ff5a00;" class="cartBackBtn">
             <span>Назад</span>
         </div>
     </div>
     <div id="rootBlockDetails" style="display:block;padding: 30px 20px; color: white;  background: #504593;min-height:100vh;">
         <!--IMAGES BLOCK-->
-        <div id="imageBlock" class="detailBlock" style="width:19%;text-align:center;background:white;">
+        <div id="imageBlock" class="detailBlock" style="width:28%;text-align:center;background:white;">
 
             <img id="mainImageProduct" src=@Model.Images[0].Url style="max-width:100%;border-bottom:3px solid #e9eaff;" />
 
@@ -43,7 +60,7 @@
             </div>
         </div>
         <!--DESCRIPTION BLOCK-->
-        <div id="infoBlock" class="detailBlock" style="width:60%;">
+        <div id="infoBlock" class="detailBlock" style="width:50%;">
             <span class="titleBlock">@Model.Title</span>
             @foreach (var item in Model.Parameters)
             {

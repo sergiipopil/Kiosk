@@ -23,39 +23,39 @@
     <div style="display:inline-block;vertical-align:middle;">
         @if (!Model.IsModificationList)
         {
-            @if (item.Children == null)
+        @if (item.Children == null)
                 {
-                    <div class="parentDiv" style="display:grid;" onclick="selectCarModel('@Model.ManufacturerSelected', '@item.Name', '@Model.kioskId')">
-                        <div class="divCarModelsBlock">
-                            <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
-                        </div>
-                        <div class="manufactureText">
-                            <span>@item.Name</span>
-                        </div>
-                    </div>
+        <div class="parentDiv" style="display:grid;" onclick="selectCarModel('@Model.ManufacturerSelected', '@item.Name', '', '@Model.kioskId')">
+            <div class="divCarModelsBlock">
+                <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
+            </div>
+            <div class="manufactureText">
+                <span>@item.Name</span>
+            </div>
+        </div>
                 }
             else
             {
-                <div class="parentDiv" style="display:grid;" onclick="selectCarModifications('@Model.ManufacturerSelected', '@item.Name', '@Model.kioskId')">
-                    <div class="divCarModelsBlock">
-                        <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
-                    </div>
-                    <div class="manufactureText">
-                        <span>@item.Name</span>
-                    </div>
-                </div>
+        <div class="parentDiv" style="display:grid;" onclick="selectCarModifications('@Model.ManufacturerSelected', '@item.Name', '', '@Model.kioskId')">
+            <div class="divCarModelsBlock">
+                <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
+            </div>
+            <div class="manufactureText">
+                <span>@item.Name</span>
+            </div>
+        </div>
             }
         }
         else
         {
-            <div class="parentDiv" style="display:grid;" onclick="selectCarModel('@Model.ManufacturerSelected', '@Model.ModelSelected', '@item.Name', '@Model.kioskId')">
-                <div class="divCarModelsBlock">
-                    <img src='@item.Path' class="modelImage" />
-                </div>
-                <div class="manufactureText">
-                    <span>@item.DisplayName</span>
-                </div>
+        <div class="parentDiv" style="display:grid;" onclick="selectCarModel('@Model.ManufacturerSelected', '@Model.ModelSelected', '@item.Name', '@Model.kioskId')">
+            <div class="divCarModelsBlock">
+                <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
             </div>
+            <div class="manufactureText">
+                <span>@item.DisplayName</span>
+            </div>
+        </div>
         }
     </div>
     }

@@ -14,6 +14,8 @@ namespace WebApplication.Models
     {
         public EkProduct[] AllegroOfferList { get; set; }
         public TiresFilter Tires { get; set; }
+        public IList<string> EngineValues { get; set; }
+        public string SelectedEngineValue { get; set; }
         public SelectedTires SelectedTiresSizes { get; set; }
         public List<string> FakeAllegroList { get; set; }
         public EkCarManufacturer[] ManufacturerList { get; set; }
@@ -24,12 +26,15 @@ namespace WebApplication.Models
         public string kioskId { get; set; }
         public string PartNumberValue { get; set; }
         public string ManufacturerSelected { get; set; }
+        public string ModificationSelected { get; set; }
         public string ModelSelected { get; set; }
         public string MainCategoryId { get; set; }
         public string MainCategoryUrl { get; set; }
         public string MainCategoryName { get; set; }
         public string SubCategoryId { get; set; }
         public string SubCategoryUrl { get; set; }
+        public string LastChildId { get; set; }
+        public string LastChildName { get; set; }       
         public string SubCategoryName { get; set; }
         public string SubChildCategoryId { get; set; }
         public string SubChildCategoryUrl { get; set; }

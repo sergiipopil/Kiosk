@@ -1,6 +1,17 @@
 ﻿@model WebApplication.Models.PaymentViewModel
 <html>
 <head>
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TLLVLTQ');</script>
+    <!-- End Google Tag Manager -->
     <script type="text/javascript">
         function callMethodPay(method) {
             $(method).submit();
@@ -8,10 +19,16 @@
     </script>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLLVLTQ"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div class="container-fluid" id="divMainOrderBlock">
         <div class="row">
             <div class="mainBlockTitleOrder" id="divTreeTitle" style="background: #EEEFFF;border-bottom:1px solid #504593;">
-                <div onclick="ReturnToDelivery()"  class="btnBackModelPage">
+                <div onclick="ReturnToDelivery()" class="btnBackModelPage">
                     <span>Назад</span>
                 </div>
                 <div style="display:inline-block;">Выберите способ оплаты</div>
@@ -59,7 +76,7 @@
                                 <form id="formCard" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.cardData.Data" />
                                     <input type="hidden" name="signature" value="@Model.cardData.Signature" />
-                                    <input type="submit" value="Visa / Mastercard" style="background:white;"  class="paymentTextDesign"/>
+                                    <input type="submit" value="Visa / Mastercard" style="background:white;" class="paymentTextDesign" />
                                 </form>
                             </div>
                         </div>
@@ -69,7 +86,7 @@
                                 <form id="formCardPrivat" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.Privat24Data.Data" />
                                     <input type="hidden" name="signature" value="@Model.Privat24Data.Signature" />
-                                    <input type="submit" value="На карту ПриватБанка" style="background:white;"  class="paymentTextDesign"/>
+                                    <input type="submit" value="На карту ПриватБанка" style="background:white;" class="paymentTextDesign" />
                                 </form>
                             </div>
                         </div>
@@ -79,7 +96,7 @@
                                 <form id="formTerminalPrivat" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.cashData.Data" />
                                     <input type="hidden" name="signature" value="@Model.cashData.Signature" />
-                                    <input type="submit" value="Оплата в терминале ПриватБанка" style="background:white;"  class="paymentTextDesign"/>
+                                    <input type="submit" value="Оплата в терминале ПриватБанка" style="background:white;" class="paymentTextDesign" />
                                 </form>
                             </div>
                         </div>
@@ -89,7 +106,7 @@
                                 <form id="formQR" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.QRData.Data" />
                                     <input type="hidden" name="signature" value="@Model.QRData.Signature" />
-                                    <input type="submit" value="Оплата через QR код" style="background:white;"  class="paymentTextDesign"/>
+                                    <input type="submit" value="Оплата через QR код" style="background:white;" class="paymentTextDesign" />
                                 </form>
                             </div>
                         </div>
@@ -99,7 +116,7 @@
                                 <form id="formLIQPAY" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
                                     <input type="hidden" name="data" value="@Model.liqpayData.Data" />
                                     <input type="hidden" name="signature" value="@Model.liqpayData.Signature" />
-                                    <input type="submit" value="Оплата через LIQPAY" style="background:white;"  class="paymentTextDesign"/>
+                                    <input type="submit" value="Оплата через LIQPAY" style="background:white;" class="paymentTextDesign" />
                                 </form>
                             </div>
                         </div>
