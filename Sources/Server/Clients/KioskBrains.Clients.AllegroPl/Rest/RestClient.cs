@@ -223,6 +223,9 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             int limit,
             CancellationToken cancellationToken)
         {
+            if (state == OfferStateEnum.All) {
+                state = OfferStateEnum.Used;
+            }
             Assure.ArgumentNotNull(categoryId, nameof(categoryId));
 
             var parameters = new Dictionary<string, string>
