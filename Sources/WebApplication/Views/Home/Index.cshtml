@@ -23,28 +23,7 @@
     <style>
     </style>
     <script type="text/javascript">
-        $(document).ready(function () {
-            var inputPart = document.getElementById("inputPartValue");
-            inputPart.addEventListener("keyup", function (event) {
-                // Number 13 is the "Enter" key on the keyboard
-                if (event.keyCode === 13) {
-                    // Cancel the default action, if needed
-                    //event.preventDefault();
-                    // Trigger the button element with a click
-                    submit();
-                }
-            });
-
-            var inputPartFilter = document.getElementById("inputPartValueFilter");
-            inputPartFilter.addEventListener("keyup", function (event) {
-                // Number 13 is the "Enter" key on the keyboard
-                if (event.keyCode === 13) {
-                    // Cancel the default action, if needed
-                    //event.preventDefault();
-                    // Trigger the button element with a click
-                    submitInputFilter($('#inputPartValueFilter').val());
-                }
-            });
+        $(document).ready(function () {            
             if (window.location.toString().includes("carManufactureName"))
             {
                 var url = window.location.search;
@@ -359,6 +338,27 @@
             }
         });
         }
+        var inputPart = document.getElementById("inputPartValue");
+        inputPart.addEventListener("keyup", function (event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                //event.preventDefault();
+                // Trigger the button element with a click
+                submit();
+            }
+        });
+
+        var inputPartFilter = document.getElementById("inputPartValueFilter");
+        inputPartFilter.addEventListener("keyup", function (event) {
+            // Number 13 is the "Enter" key on the keyboard
+            if (event.keyCode === 13) {
+                // Cancel the default action, if needed
+                //event.preventDefault();
+                // Trigger the button element with a click
+                submitInputFilter($('#inputPartValueFilter').val());
+            }
+        });
     </script>
 </head>
 <body>
