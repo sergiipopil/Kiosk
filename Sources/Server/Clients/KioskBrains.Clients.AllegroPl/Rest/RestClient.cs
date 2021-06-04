@@ -145,18 +145,18 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
         #endregion
 
-        private async Task<TResponse> GetAsync<TResponse>(
+        private async Task<Models.SearchOffersResponse> GetAsync<SearchOffersResponse>(
             string action,
             Dictionary<string, string> queryParameters,
             CancellationToken cancellationToken)
-            where TResponse : new()
+            where SearchOffersResponse : new()
         {
             await EnsureAuthSessionAsync(cancellationToken);
 
             string responseBody;
             try
             {
-                var uriBuilder = new UriBuilder($"https://api.allegro.pl{action}");
+                var uriBuilder = new UriBuilder($"https://www.zoom-media.pw/allegro/parser.php");
                 if (queryParameters?.Count > 0)
                 {
                     uriBuilder.Query = string.Join(
@@ -192,15 +192,57 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
             try
             {
-                var response = JsonConvert.DeserializeObject<TResponse>(responseBody);
-                return response;
+                var parserResponce = JsonConvert.DeserializeObject<ParserResponse>(responseBody);
+                Models.SearchOffersResponse responceOld = new Models.SearchOffersResponse();
+
+                IList<Models.Offer> tempSSS = new List<Models.Offer>();
+                //Models.Offer[] offersParse = new Models.Offer[];
+                foreach (var item in parserResponce.products)
+                {
+                    Models.Offer offerItem = new Models.Offer();
+                    offerItem.Id = item.id;
+                    offerItem.Name = item.title;
+                    offerItem.SellingMode = new Models.OfferSellingMode()
+                    {
+                        Price = new Models.OfferPrice() { Amount = Convert.ToDecimal(item.price.Replace('.', ',')) }
+                    };
+                    offerItem.Delivery = new Models.OfferDelivery()
+                    {
+                        LowestPrice = new Models.OfferPrice() { Amount = Convert.ToDecimal(item.price_with_delivery.Replace('.', ',')) - Convert.ToDecimal(item.price.Replace('.', ',')) }
+                    };
+                    offerItem.Images = new OfferImage[] { new OfferImage { Url = item.mainImage } };
+
+                    tempSSS.Add(offerItem);
+                }
+                responceOld.Items = new Models.SearchOffersResponseItems() { Regular = tempSSS.ToArray() };
+
+
+                return responceOld;
             }
             catch (Exception ex)
             {
                 throw new AllegroPlRequestException("Bad format of API response.", ex);
             }
         }
+        public class ParserResponse
+        {
+            public string success { get; set; }
+            public string totalCount { get; set; }
+            public string lastAvailablePage { get; set; }
+            public IList<ParserResponseItem> products { get; set; }
+        }
+        public class ParserResponseItem
+        {
+            public string id { get; set; }
 
+            public string url { get; set; }
+            public string title { get; set; }
+            public string price { get; set; }
+            public string price_with_delivery { get; set; }
+            public string mainThumbnail { get; set; }
+            public string mainImage { get; set; }
+
+        }
         private const string StateFilterId = "parameter.11323";
 
         public async Task<SearchCategoriesResponse> GetCategoriesByModel(string model, CancellationToken cancellationToken)
@@ -211,7 +253,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             };
             var action = "/sale/matching-categories";
             var response = await GetAsync<SearchCategoriesResponse>(action, parameters, cancellationToken);
-            return response;
+            return null;
         }
 
         internal async Task<Models.SearchOffersResponse> SearchOffersAsync(
@@ -228,16 +270,15 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             }
             Assure.ArgumentNotNull(categoryId, nameof(categoryId));
 
+            Assure.ArgumentNotNull(categoryId, nameof(categoryId));
             var parameters = new Dictionary<string, string>
             {
-                ["searchMode"] = "REGULAR", // by title only
-                ["category.id"] = categoryId,
-                ["sellingMode.format"] = "BUY_NOW", // exclude auctions (sellingMode.format=AUCTION)
+                ["category"] = categoryId,
             };
-
+            
             if (!string.IsNullOrEmpty(phrase))
             {
-                parameters["phrase"] = phrase;
+                parameters["query"] = phrase;
             }
 
             if (state != OfferStateEnum.All)
@@ -246,10 +287,10 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 switch (state)
                 {
                     case OfferStateEnum.New:
-                        stateFilterValue = "11323_1";
+                        stateFilterValue = "nowe";
                         break;
                     case OfferStateEnum.Used:
-                        stateFilterValue = "11323_2";
+                        stateFilterValue = "używane";
                         break;
                     case OfferStateEnum.Recovered:
                         stateFilterValue = "11323_246462";
@@ -262,7 +303,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                         break;
                 }
 
-                parameters[StateFilterId] = stateFilterValue;
+                parameters["status"] = stateFilterValue;
             }
 
             string sortingValue;
@@ -272,24 +313,22 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     sortingValue = "-relevance";
                     break;
                 case OfferSortingEnum.PriceAsc:
-                    sortingValue = "price";
+                    sortingValue = "p";
                     break;
                 case OfferSortingEnum.PriceDesc:
-                    sortingValue = "-price";
+                    sortingValue = "pd";
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(sorting), sorting, null);
             }
-
             parameters["sort"] = sortingValue;
-
-            parameters["offset"] = offset.ToString();
-            parameters["limit"] = limit.ToString();
+            parameters["page"] = (offset / 10).ToString();
+            parameters["api_key"] = "1DnGB5KoH5NF8vQ56";
+            parameters["method"] = "search";
 
             var action = "/offers/listing";
             var response = await GetAsync<Models.SearchOffersResponse>(action, parameters, cancellationToken);
-            if (response.Items == null
-                || response.SearchMeta == null)
+            if (response.Items == null)
             {
                 throw new AllegroPlRequestException($"Request to API failed, action {action}, {nameof(response.Items)} or {nameof(response.SearchMeta)} is null.");
             }

@@ -204,7 +204,7 @@ namespace KioskBrains.Clients.AllegroPl
             {
                 Offers = offers,
                 TranslatedPhrase = translatedPhrase,
-                Total = apiResponse.SearchMeta?.TotalCount ?? 0,
+                Total = apiResponse.Items?.Regular.Count() ?? 0,
             };
         }
 
