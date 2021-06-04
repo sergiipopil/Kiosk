@@ -69,6 +69,7 @@ for details on configuring this project to bundle and minify static web assets. 
     display: inline-block;
     padding:10px;
 }
+
 #divBtnNova, #divBtnCourier, .form-control {
     cursor: pointer;
 }
