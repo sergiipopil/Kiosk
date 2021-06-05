@@ -160,7 +160,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             string responseBody;
             try
             {
-                var uriBuilder = new UriBuilder($"https://www.zoom-media.pw/allegro/parser.php");
+                var uriBuilder = new UriBuilder($"https://nifty-volhard.95-111-250-32.plesk.page/allegro/parser.php");
                 if (queryParameters?.Count > 0)
                 {
                     uriBuilder.Query = string.Join(
@@ -326,7 +326,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             }
             parameters["sort"] = sortingValue;
             parameters["page"] = (offset/10).ToString();
-            parameters["api_key"] = "1DnGB5KoH5NF8vQ56";
+            parameters["api_key"] = "Umthudpx8FCs9ks6rBpB";
             parameters["method"] = "search";
 
             var action = "/offers/listing";
