@@ -158,6 +158,10 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             await EnsureAuthSessionAsync(cancellationToken);
 
             string responseBody;
+            string responseBodyDetail;
+            if (queryParameters["page"] == "0") {
+                queryParameters["page"] = "1";
+            }
             try
             {
                 var uriBuilder = new UriBuilder($"https://nifty-volhard.95-111-250-32.plesk.page/allegro/parser.php");
@@ -198,27 +202,52 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             {
                 var parserResponce = JsonConvert.DeserializeObject<ParserResponse>(responseBody);
                 Models.SearchOffersResponse responceOld = new Models.SearchOffersResponse();
-                
-                IList<Models.Offer> tempSSS = new List<Models.Offer>();
-                //Models.Offer[] offersParse = new Models.Offer[];
-                foreach (var item in parserResponce.products)
-                {
-                    Models.Offer offerItem = new Models.Offer();
-                    offerItem.Id = item.id;
-                    offerItem.Name = item.title;
-                    offerItem.SellingMode = new Models.OfferSellingMode()
-                    {
-                        Price = new Models.OfferPrice() { Amount = Convert.ToDecimal(item.price.Replace('.', ',')) }
-                    };
-                    offerItem.Delivery = new Models.OfferDelivery()
-                    {
-                        LowestPrice = new Models.OfferPrice() { Amount = Convert.ToDecimal(item.price_with_delivery.Replace('.', ',')) - Convert.ToDecimal(item.price.Replace('.', ',')) }
-                    };
-                    offerItem.Images = new OfferImage[] { new OfferImage { Url = item.mainImage } };
 
-                    tempSSS.Add(offerItem);
+                IList<Models.Offer> tempSSS = new List<Models.Offer>();
+                string categoryId = "";
+                //Models.Offer[] offersParse = new Models.Offer[];
+                if (parserResponce.products != null)
+                {
+                    foreach (var item in parserResponce.products)
+                    {
+                        if (queryParameters["category"] == "3")
+                        {
+                            using (var httpClient = new HttpClient())
+                            {
+                                httpClient.DefaultRequestHeaders.Clear();
+                                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessToken}");
+                                httpClient.DefaultRequestHeaders.Add("Accept", "application/vnd.allegro.public.v1+json");
+                                var httpResponseDetail = await httpClient.GetAsync("https://nifty-volhard.95-111-250-32.plesk.page/allegro/parser.php?api_key=Umthudpx8FCs9ks6rBpB&method=details&product_id=" + item.id, cancellationToken);
+                                responseBodyDetail = await httpResponseDetail.Content.ReadAsStringAsync();
+                                if (!httpResponseDetail.IsSuccessStatusCode)
+                                {
+                                    throw new AllegroPlRequestException($"Request to API failed, action {action}, response code {(int)httpResponseDetail.StatusCode}, body: {responseBody}");
+                                }
+                                var parserResponceDetail = JsonConvert.DeserializeObject<ParserResponseDetails>(responseBodyDetail);
+                                queryParameters["category"] = parserResponceDetail.category_path.Last().id;
+                            }
+                        }
+                        Models.Offer offerItem = new Models.Offer();
+                        offerItem.Id = item.id;
+                        offerItem.Name = item.title;
+                        offerItem.SellingMode = new Models.OfferSellingMode()
+                        {
+                            Price = new Models.OfferPrice() { Amount = Convert.ToDecimal(item.price.Replace('.', ',')) }
+                        };
+                        offerItem.Category = new Models.OfferCategory()
+                        {
+                            Id = queryParameters["category"]
+                        };
+                        offerItem.Delivery = new Models.OfferDelivery()
+                        {
+                            LowestPrice = new Models.OfferPrice() { Amount = Convert.ToDecimal(item.price_with_delivery.Replace('.', ',')) - Convert.ToDecimal(item.price.Replace('.', ',')) }
+                        };
+                        offerItem.Images = new OfferImage[] { new OfferImage { Url = item.mainImage } };
+
+                        tempSSS.Add(offerItem);
+                    }
                 }
-                responceOld.Items = new Models.SearchOffersResponseItems() {  Regular = tempSSS.ToArray() };
+                responceOld.Items = new Models.SearchOffersResponseItems() { Regular = tempSSS.ToArray() };
 
 
                 return responceOld;
@@ -227,6 +256,31 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             {
                 throw new AllegroPlRequestException("Bad format of API response.", ex);
             }
+        }
+        public class ParserDetailCategory
+        {
+            public string id { get; set; }
+            public string name { get; set; }
+            public string url { get; set; }
+        }
+        public class ParserResponseDetails
+        {
+            public string success { get; set; }
+            public string id { get; set; }
+            public string title { get; set; }
+            public string url { get; set; }
+            public string active { get; set; }
+            public string availableQuantity { get; set; }
+            public string price { get; set; }
+            public string price_with_delivery { get; set; }
+            public string currency { get; set; }
+            public string seller_id { get; set; }
+            public string seller_rating { get; set; }
+            public IList<ParserDetailCategory> category_path { get; set; }
+            //public IEnumerable<string> specifications { get; set; }
+            //public IEnumerable<string> images { get; set; }
+            //public IEnumerable<string> description { get; set; }
+            //public IEnumerable<string> compatibility { get; set; }
         }
         public class ParserResponse
         {
@@ -272,9 +326,13 @@ namespace KioskBrains.Clients.AllegroPl.Rest
         {
             Assure.ArgumentNotNull(categoryId, nameof(categoryId));
             var parameters = new Dictionary<string, string>
-            {                
-                ["category"] = categoryId,                
+            {
+                ["category"] = categoryId,
             };
+            if (categoryId == "50825" || categoryId == "50838" || categoryId == "312565" || categoryId == "50873") {
+                parameters.Add("price_from", "100");
+            }
+            
             if (isBody)
             {
                 parameters.Add("price_from", "400");
@@ -325,7 +383,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     throw new ArgumentOutOfRangeException(nameof(sorting), sorting, null);
             }
             parameters["sort"] = sortingValue;
-            parameters["page"] = (offset/10).ToString();
+            parameters["page"] = (offset / 10).ToString();
             parameters["api_key"] = "Umthudpx8FCs9ks6rBpB";
             parameters["method"] = "search";
 
@@ -415,8 +473,8 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
                 var descMultiNew = new MultiLanguageString()
                 {
-                    [Languages.PolishCode] = newDescNew,
-                    [Languages.RussianCode] = newDescNew
+                    [Languages.PolishCode] = newDescNew.ToString(),
+                    [Languages.RussianCode] = newDescNew.ToString()
                 };
 
                 return new Offer()

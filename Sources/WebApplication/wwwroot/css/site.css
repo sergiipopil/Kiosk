@@ -458,7 +458,7 @@ html {
     position: fixed;
     bottom: 5%;
     z-index: 9999;
-    right: 5%;
+    left: 5%;
 }
 @media only screen and (max-width: 700px) {
     .filterTd {
@@ -551,7 +551,7 @@ html {
 
     .headerImg {
         margin: 10px;
-        width: 100%;
+        width: 65px;
     }
 
     .leftIndexPanel, .rightIndexPanel {
@@ -1232,7 +1232,7 @@ html {
 
     .headerImg {
         margin: 10px;
-        width: initial;
+        width: 65px;
     }
 
     .treeMainBlock {

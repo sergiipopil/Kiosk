@@ -376,14 +376,15 @@ namespace KioskBrains.Clients.AllegroPl
             
             var desc = data.Description[Languages.PolishCode].ToLower();
             var allParams = await translateService.GetDescriptionDictionary();
-
+            
+            var dict123 = GetTranslation(translateService, desc, cancellationToken);
             foreach (var p in allParams)
             {
                 if (!String.IsNullOrEmpty(p.Key))
                     desc = desc.Replace(p.Key, p.Value);
             }
 
-            data.Description[Languages.RussianCode] = desc;
+            data.Description[Languages.RussianCode] = dict123.Result;
         }
 
         private string GetSafeValFromDictionary(IDictionary<string, string> dict1, IDictionary<string, string> dict2, string val)
