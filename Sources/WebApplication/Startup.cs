@@ -81,8 +81,14 @@ namespace WebApplication
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            
+            //app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=600");
+                }
+            });
             app.UseRouting();
 
             app.UseAuthorization();

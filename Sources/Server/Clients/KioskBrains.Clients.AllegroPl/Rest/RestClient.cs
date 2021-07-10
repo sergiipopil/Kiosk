@@ -164,24 +164,37 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             }
             try
             {
-                var uriBuilder = new UriBuilder($"https://nifty-volhard.95-111-250-32.plesk.page/allegro/parser.php");
+                var uriBuilder = new UriBuilder($"http://95.111.250.32/allegro/parser.php");
                 if (queryParameters?.Count > 0)
                 {
                     uriBuilder.Query = string.Join(
                         "&",
                         queryParameters.Select(x => $"{x.Key}={Uri.EscapeDataString(x.Value)}"));
                 }
-
-                using (var httpClient = new HttpClient())
+                var handler = new HttpClientHandler()
                 {
-                    httpClient.DefaultRequestHeaders.Clear();
-                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessToken}");
-                    httpClient.DefaultRequestHeaders.Add("Accept", "application/vnd.allegro.public.v1+json");
-                    var httpResponse = await httpClient.GetAsync(uriBuilder.Uri, cancellationToken);
-                    responseBody = await httpResponse.Content.ReadAsStringAsync();
-                    if (!httpResponse.IsSuccessStatusCode)
+                    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                };
+                //using (var httpClient = new HttpClient(handler))
+                //{
+                //    var httpResponse = await httpClient.GetAsync(uriBuilder.Uri, cancellationToken);
+                //    responseBody = await httpResponse.Content.ReadAsStringAsync();
+                //    if (!httpResponse.IsSuccessStatusCode)
+                //    {
+                //        throw new AllegroPlRequestException($"Request to API failed, action {action}, response code {(int)httpResponse.StatusCode}, body: {responseBody}");
+                //    }
+                //}
+                using (var httpClientHandler = new HttpClientHandler())
+                {
+                    httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                    using (var client = new HttpClient(httpClientHandler))
                     {
-                        throw new AllegroPlRequestException($"Request to API failed, action {action}, response code {(int)httpResponse.StatusCode}, body: {responseBody}");
+                        var httpResponse = await client.GetAsync(uriBuilder.Uri, cancellationToken);
+                        responseBody = await httpResponse.Content.ReadAsStringAsync();
+                        if (!httpResponse.IsSuccessStatusCode)
+                        {
+                            throw new AllegroPlRequestException($"Request to API failed, action {action}, response code {(int)httpResponse.StatusCode}, body: {responseBody}");
+                        }
                     }
                 }
             }
@@ -212,21 +225,25 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     {
                         if (queryParameters["category"] == "3")
                         {
-                            using (var httpClient = new HttpClient())
+                            using (var httpClientHandler = new HttpClientHandler())
                             {
-                                httpClient.DefaultRequestHeaders.Clear();
-                                httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessToken}");
-                                httpClient.DefaultRequestHeaders.Add("Accept", "application/vnd.allegro.public.v1+json");
-                                var httpResponseDetail = await httpClient.GetAsync("https://nifty-volhard.95-111-250-32.plesk.page/allegro/parser.php?api_key=Umthudpx8FCs9ks6rBpB&method=details&product_id=" + item.id, cancellationToken);
-                                responseBodyDetail = await httpResponseDetail.Content.ReadAsStringAsync();
-                                if (!httpResponseDetail.IsSuccessStatusCode)
+                                httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                                using (var client = new HttpClient(httpClientHandler))
                                 {
-                                    throw new AllegroPlRequestException($"Request to API failed, action {action}, response code {(int)httpResponseDetail.StatusCode}, body: {responseBody}");
+                                    client.DefaultRequestHeaders.Clear();
+                                    client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessToken}");
+                                    client.DefaultRequestHeaders.Add("Accept", "application/vnd.allegro.public.v1+json");
+                                    var httpResponseDetail = await client.GetAsync("http://95.111.250.32/allegro/parser.php?api_key=Umthudpx8FCs9ks6rBpB&method=details&product_id=" + item.id, cancellationToken);
+                                    responseBodyDetail = await httpResponseDetail.Content.ReadAsStringAsync();
+                                    if (!httpResponseDetail.IsSuccessStatusCode)
+                                    {
+                                        throw new AllegroPlRequestException($"Request to API failed, action {action}, response code {(int)httpResponseDetail.StatusCode}, body: {responseBody}");
+                                    }
+                                    var parserResponceDetail = JsonConvert.DeserializeObject<ParserResponseDetails>(responseBodyDetail);
+                                    queryParameters["category"] = parserResponceDetail.category_path.Last().id;
                                 }
-                                var parserResponceDetail = JsonConvert.DeserializeObject<ParserResponseDetails>(responseBodyDetail);
-                                queryParameters["category"] = parserResponceDetail.category_path.Last().id;
                             }
-                        }
+                                                  }
                         Models.Offer offerItem = new Models.Offer();
                         offerItem.Id = item.id;
                         offerItem.Name = item.title;
@@ -371,7 +388,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             switch (sorting)
             {
                 case OfferSortingEnum.Relevance:
-                    sortingValue = "-relevance";
+                    sortingValue = "";
                     break;
                 case OfferSortingEnum.PriceAsc:
                     sortingValue = "p";
@@ -408,11 +425,15 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             var text = "";
             try
             {
-                //using (var httpClient = new HttpClient())
-                //{
-                //    var httpResponse = httpClient.GetAsync("https://www.zoom-media.pw/allegro/parser.php?api_key=1DnGB5KoH5NF8vQ56&method=details&product_id="+id, CancellationToken.None);
-                //    var responseBody = httpResponse.Result;
-                //}
+                using (var httpClientHandler = new HttpClientHandler())
+                {
+                    httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                    using (var client = new HttpClient(httpClientHandler))
+                    {
+                        var httpResponse = client.GetAsync("http://95.111.250.32/allegro/parser.php?api_key=Umthudpx8FCs9ks6rBpB&method=details&product_id=" + id, CancellationToken.None);
+                        var responseBody = httpResponse.Result;
+                    }
+                }              
 
                 HtmlWeb web = new HtmlWeb();
                 //web.UseCookies = true;
@@ -454,7 +475,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
                 var liParamsNew = doc.DocumentNode.QuerySelectorAll("td.describe__item");
                 var imagesNew = doc.DocumentNode.QuerySelectorAll(".gallery-large__picture.swiper-slide picture source");
-                OfferImage[] imagePathesNew = imagesNew.Where(x => x.Attributes["srcset"].Value.Contains("s800/")).Select(x => new OfferImage() { Url = x.Attributes["srcset"].Value }).ToArray();
+                OfferImage[] imagePathesNew = imagesNew.Where(x => x.Attributes["data-srcset"].Value.Contains("s800/")).Select(x => new OfferImage() { Url = x.Attributes["data-srcset"].Value }).ToArray();
 
                 IList<OfferImage> successImages = new List<OfferImage>();
                 foreach (var item in imagePathesNew)

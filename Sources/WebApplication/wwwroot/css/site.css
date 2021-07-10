@@ -550,8 +550,8 @@ html {
     }
 
     .headerImg {
-        margin: 10px;
-        width: 65px;
+        margin: 0px;
+        width: 80px;
     }
 
     .leftIndexPanel, .rightIndexPanel {
@@ -1231,8 +1231,8 @@ html {
     }
 
     .headerImg {
-        margin: 10px;
-        width: 65px;
+        margin: 0px;
+        width: 80px;
     }
 
     .treeMainBlock {

@@ -57,7 +57,6 @@ namespace WebApplication.Controllers
             _centralBankExchangeRateManager = centralBankExchangeRateManager;
         }
 
-
         public IActionResult Index(string kioskId)
         {
             string cookieValueFromReq = Request.Cookies["kioskId"];
@@ -186,11 +185,11 @@ namespace WebApplication.Controllers
             if (autoPartsSubChildCategories == null)
             {
                 bool isNew = false;
-                var responceAllegro = GetAllegroProducts(carManufactureName, carModel, subCategoryId, null, OfferStateEnum.Used, OfferSortingEnum.PriceAsc, 1, "", "", "", "", "", "", "", "").Result;
+                var responceAllegro = GetAllegroProducts(carManufactureName, carModel, subCategoryId, null, OfferStateEnum.Used, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
                 if (responceAllegro.Total < 5)
                 {
                     isNew = true;
-                    responceAllegro = GetAllegroProducts(carManufactureName, carModel, subCategoryId, null, OfferStateEnum.New, OfferSortingEnum.PriceAsc, 1, "", "", "", "", "", "", "", "").Result;
+                    responceAllegro = GetAllegroProducts(carManufactureName, carModel, subCategoryId, null, OfferStateEnum.New, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
                 }
                 HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
                 RightTreeViewModel treeViewModel = new RightTreeViewModel();
@@ -224,7 +223,7 @@ namespace WebApplication.Controllers
                 treeViewModel.AllegroOfferList = responceAllegro.Products;
                 treeViewModel.FakeAllegroList = FakeListForPager(responceAllegro.Total);
                 treeViewModel.ControllerName = "ShowMainSubChildsCategories";
-                treeViewModel.OfferSorting = OfferSortingEnum.PriceAsc;
+                treeViewModel.OfferSorting = OfferSortingEnum.Relevance;
                 treeViewModel.OfferState = isNew ? OfferStateEnum.New : OfferStateEnum.Used;
                 treeViewModel.kioskId = tempKioskId;
                 
@@ -289,12 +288,12 @@ namespace WebApplication.Controllers
                 };
                 return View("AutoPartsLastTreeItems", treeViewLast);
             }
-            var responceAllegro = GetAllegroProducts(carManufactureName, carModel, String.IsNullOrEmpty(lastChildId) ? subChildId : lastChildId, null, OfferStateEnum.Used, OfferSortingEnum.PriceAsc, 1, "", "", "", "", "", "", "", "").Result;
+            var responceAllegro = GetAllegroProducts(carManufactureName, carModel, String.IsNullOrEmpty(lastChildId) ? subChildId : lastChildId, null, OfferStateEnum.Used, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
             bool isNew = false;
             if (responceAllegro.Total < 5)
             {
                 isNew = true;
-                responceAllegro = GetAllegroProducts(carManufactureName, carModel, String.IsNullOrEmpty(lastChildId) ? subChildId : lastChildId, null, OfferStateEnum.New, OfferSortingEnum.PriceAsc, 1, "", "", "", "", "", "", "", "").Result;
+                responceAllegro = GetAllegroProducts(carManufactureName, carModel, String.IsNullOrEmpty(lastChildId) ? subChildId : lastChildId, null, OfferStateEnum.New, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
             }
             HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
             RightTreeViewModel treeView = new RightTreeViewModel()
@@ -334,7 +333,7 @@ namespace WebApplication.Controllers
                 AllegroOfferList = responceAllegro.Products,
                 ControllerName = "ShowProductList",
                 FakeAllegroList = FakeListForPager(responceAllegro.Total),
-                OfferSorting = OfferSortingEnum.PriceAsc
+                OfferSorting = OfferSortingEnum.Relevance
             };
             HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
             return View("_ProductsList", treeView);
@@ -392,7 +391,7 @@ namespace WebApplication.Controllers
                 },
                 EngineValues = new EngineValue().GetEngineValue(),
                 SelectedEngineValue = null,
-                OfferSorting = OfferSortingEnum.PriceAsc,
+                OfferSorting = OfferSortingEnum.Relevance,
                 OfferState = isNew ? OfferStateEnum.New : OfferStateEnum.Used,
                 PageNumber = 1
             };
@@ -450,7 +449,7 @@ namespace WebApplication.Controllers
             return "none";
         }
         //==================== METHOD FOR GET ALLEGRO PRODUCTS ======================================
-        public async Task<EkKioskProductSearchInEuropeGetResponse> GetAllegroProducts(string carManufactureName, string carModel, string selectedCategoryId, string inputPartNumber, OfferStateEnum state = OfferStateEnum.Used, OfferSortingEnum sortingPrice = OfferSortingEnum.PriceAsc, int pageNumber = 1, string position = "", string isorigin = "", string enginetype = "", string transmissiontype = "", string tiresQuantity = "", string tiresWidth = "", string tiresHeight = "", string tiresRSize = "", string engineValue = "")
+        public async Task<EkKioskProductSearchInEuropeGetResponse> GetAllegroProducts(string carManufactureName, string carModel, string selectedCategoryId, string inputPartNumber, OfferStateEnum state = OfferStateEnum.Used, OfferSortingEnum sortingPrice = OfferSortingEnum.Relevance, int pageNumber = 1, string position = "", string isorigin = "", string enginetype = "", string transmissiontype = "", string tiresQuantity = "", string tiresWidth = "", string tiresHeight = "", string tiresRSize = "", string engineValue = "")
         {
             int offset = pageNumber == 1 ? 0 : pageNumber * 10;
             SearchOffersResponse searchOffersResponse;

@@ -53,7 +53,7 @@ function BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName
     $('#divSelectTopCategory').hide();
 
     $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsManufacture" onclick="selectManufacturer('${manufacture}')"><div class="parentDivBreadCrumbs">
-        <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/Model_Logo/${manufacture}.png" class="manufactureImageBreadcrumbs" /></div></div></div>`);
+        <div style="min-width:155px;min-height:115px;text-align:center;"><img src="/images/Catalog/Model_Logo/${manufacture}.webp" class="manufactureImageBreadcrumbs" /></div></div></div>`);
     if (model != null) {
 
         $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDivBreadCrumbs" onclick="selectCarModel('${manufacture}', '${model}')" style="display:grid;">
