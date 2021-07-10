@@ -156,26 +156,30 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             string responseBody;
             try
             {
-                var uriBuilder = new UriBuilder($"https://nifty-volhard.95-111-250-32.plesk.page/allegro/parser.php");
+                var uriBuilder = new UriBuilder($"http://95.111.250.32/allegro/parser.php");
                 if (queryParameters?.Count > 0)
                 {
                     uriBuilder.Query = string.Join(
                         "&",
                         queryParameters.Select(x => $"{x.Key}={Uri.EscapeDataString(x.Value)}"));
                 }
-
-                using (var httpClient = new HttpClient())
+                using (var httpClientHandler = new HttpClientHandler())
                 {
-                    httpClient.DefaultRequestHeaders.Clear();
-                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessToken}");
-                    httpClient.DefaultRequestHeaders.Add("Accept", "application/vnd.allegro.public.v1+json");
-                    var httpResponse = await httpClient.GetAsync(uriBuilder.Uri, cancellationToken);
-                    responseBody = await httpResponse.Content.ReadAsStringAsync();
-                    if (!httpResponse.IsSuccessStatusCode)
+                    httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                    using (var client = new HttpClient(httpClientHandler))
                     {
-                        throw new AllegroPlRequestException($"Request to API failed, action {action}, response code {(int)httpResponse.StatusCode}, body: {responseBody}");
+                        client.DefaultRequestHeaders.Clear();
+                        client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessToken}");
+                        client.DefaultRequestHeaders.Add("Accept", "application/vnd.allegro.public.v1+json");
+                        var httpResponse = await client.GetAsync(uriBuilder.Uri, cancellationToken);
+                        responseBody = await httpResponse.Content.ReadAsStringAsync();
+                        if (!httpResponse.IsSuccessStatusCode)
+                        {
+                            throw new AllegroPlRequestException($"Request to API failed, action {action}, response code {(int)httpResponse.StatusCode}, body: {responseBody}");
+                        }
                     }
                 }
+                
             }
             catch (OperationCanceledException)
             {
