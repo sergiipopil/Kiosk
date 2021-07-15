@@ -33,7 +33,7 @@ namespace KioskBrains.Common.EK.Transactions
         public decimal deliveryPrice { get; set; }
 
         public decimal price { get; set; }
-
+        public decimal finalPrice { get; set; }
         public string priceCurrencyCode { get; set; }
 
         public string priceCalculationInfo { get; set; }

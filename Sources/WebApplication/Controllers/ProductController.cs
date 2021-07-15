@@ -92,7 +92,7 @@ namespace WebApplication.Controllers
             string payProducts = String.Format("№ замовлення {0}\n Оплата за товар:\n", response.data);
             foreach (var item in tempCartProducts)
             {
-                payProducts += String.Format("{0} ({1} шт) - {2}{3}", item.name["ru"], item.quantity, item.price, item.priceCurrencyCode) + "\n";
+                payProducts += String.Format("{0} ({1} шт) - {2}{3}", item.name["ru"], item.quantity, item.finalPrice, item.priceCurrencyCode) + "\n";
             }
 
             OrderPaymentSettings privat24Settings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, response.data, "uk", "privat24", "https://api.ek4car.com/payment/callback");
@@ -228,7 +228,21 @@ namespace WebApplication.Controllers
             RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
 
             //set price to CartWidget in left panel
-            ViewData["CartWidgetPrice"] = HttpContext.Session.GetString("cartWidgetPrice");
+
+            IList<CustomCartProduct> cartProducts = GetCartProducts();
+
+
+            decimal tempAllPrice = 0;
+            foreach (var item in cartProducts)
+            {
+                tempAllPrice += item.Product.Price * item.Quantity;
+            }
+
+
+            HttpContext.Session.SetString("cartWidgetPrice", tempAllPrice.ToString());
+            ViewData["CartWidgetPrice"] = tempAllPrice;
+            CartWidgetController cartWidget = new CartWidgetController();
+            cartWidget.CartWidget();
 
             if (String.IsNullOrEmpty(selectedProductId) && String.IsNullOrEmpty(rightTree.PartNumberValue))
             {
@@ -256,17 +270,17 @@ namespace WebApplication.Controllers
             };
 
             IList<CustomCartProduct> cartList = AddToCartSession(cartProduct);
-            decimal tempAllPrice = 0;
+            decimal totalPrice = 0;
             foreach (var item in cartList)
             {
-                tempAllPrice += item.Product.Price * item.Quantity;
+                totalPrice += item.Product.Price * item.Quantity;
             }
 
 
-            HttpContext.Session.SetString("cartWidgetPrice", tempAllPrice.ToString());
-            ViewData["CartWidgetPrice"] = tempAllPrice;
-            CartWidgetController cartWidget = new CartWidgetController();
-            cartWidget.CartWidget();
+            HttpContext.Session.SetString("cartWidgetPrice", totalPrice.ToString());
+            ViewData["CartWidgetPrice"] = totalPrice;
+            CartWidgetController cartWidgetControl = new CartWidgetController();
+            cartWidgetControl.CartWidget();
             return View(cartList);
 
         }
@@ -312,7 +326,7 @@ namespace WebApplication.Controllers
 
             foreach (var item in cartList)
             {
-                eKTransactions.TotalPrice += item.Product.Price * item.Quantity;
+                eKTransactions.TotalPrice += item.Product.FinalPrice * item.Quantity;
             }
 
             eKTransactions.TotalPriceCurrencyCode = "UAH";
@@ -344,9 +358,22 @@ namespace WebApplication.Controllers
         {
             IList<CustomCartProduct> cartProducts = GetCartProducts();
 
-            ViewData["CartWidgetPrice"] = HttpContext.Session.GetString("cartWidgetPrice");
+            
+            decimal tempAllPrice = 0;
+            foreach (var item in cartProducts)
+            {
+                tempAllPrice += item.Product.FinalPrice * item.Quantity;
+            }
+
+
+            HttpContext.Session.SetString("cartWidgetPrice", tempAllPrice.ToString());
+            ViewData["CartWidgetPrice"] = tempAllPrice;
+            CartWidgetController cartWidget = new CartWidgetController();
+            cartWidget.CartWidget();
+            
             var allData = _novaPoshtaClient.GetDataFromFile();
             var areas = allData.Select(x => new AreasSearchItem() { Description = x.AreaDescription, Ref = x.Ref }).GroupBy(x => x.Description).Select(g => g.First()).ToArray();
+            
             NovaPoshtaViewModel npView = new NovaPoshtaViewModel
             {
                 Areas = areas,

@@ -45,6 +45,7 @@ namespace KioskBrains.Common.EK.Api
         public decimal DeliveryPrice { get; set; }
 
         public decimal Price { get; set; }
+        public decimal FinalPrice { get; set; }
 
         public string PriceCurrencyCode { get; set; }
 

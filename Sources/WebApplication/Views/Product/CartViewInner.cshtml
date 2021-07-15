@@ -22,7 +22,7 @@
                         </div>
                         <div class="inline-block">
                             <label style="font-size:21px;color:white;" class="cartTitle">
-                                @item.Product.Name.Last().Value (@item.Product.Price грн.)
+                                @item.Product.Name.Last().Value (@item.Product.FinalPrice грн.)
                             </label>
                         </div>
 
@@ -56,14 +56,13 @@
                 {
                 @Html.Partial("_CartListItem", Model)
                 }
-                <div class="priceProductComment">
-                    <span style="color:red;">ВНИМАНИЕ!</span>
-                    ЦЕНЫ В  ИНТЕРНЕТ- МАГАЗИНЕ WWW.BI-BI.COM.UA
-                    УКАЗАНЫ С УЧЕТОМ СТРАХОВКИ И ДОСТАВКИ НА ПОЧТОВОЕ ОТД УКАЗАННОЕ ПОКУПАТЕЛЕМ.
-                </div>
+            <div class="priceProductComment">
+                <span style="color:red;">Внимание!</span>
+                Цена указана без учета таможенного сбора, страховки и доставки.
+            </div>
                 @if (Model.Count > 0)
                 {
-                <table style="width:100%;margin-top:60px;text-align:center;" class="divCartControlButtons">
+                <table style="width:100%;margin-top:30px;text-align:center;" class="divCartControlButtons">
                     <tr>
                         <td style="padding:0px 20px;">
                             <div id="continueBtn" class="inline-block" style="width:100%;">
@@ -87,7 +86,6 @@
                         </td>
                     </tr>
                 </table>
-
                 <table class="garantedCardsTable">
                     <tr>
                         <td>

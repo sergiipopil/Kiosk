@@ -100,6 +100,8 @@ for details on configuring this project to bundle and minify static web assets. 
 .priceProductComment {
     text-align: center;
     padding: 20px 20px 0px 20px;
+    color: #ff5a00;
+    font-size: 16px;
 }
     .tiresFilter td {
         padding:0px 20px;
