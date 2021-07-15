@@ -345,53 +345,41 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             var text = "";
             try
             {
-                HtmlWeb web = new HtmlWeb();
-                web.UseCookies = true;
-                web.UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36";
-                web.PreRequest += (request) =>
-                {
-                    request.Headers.Add("Accept", "*/*");
-                    return true;
-                };
-                HtmlDocument doc = web.Load("https://allegro.pl/oferta/" + id);
-                text = doc.ParsedText;
-                var divsDesc = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Description'] div._2d49e_5pK0q div");
+                var res = GetAsyncDetails(id).Result;
 
-                if (!divsDesc.Any())
+                List<OfferParameter> listParameters = new List<OfferParameter>();
+
+                foreach (var item in res.specifications.Parametry)
                 {
-                    divsDesc = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Description'] div._2d49e_5pK0q");
-                    if (!divsDesc.Any())
+                    listParameters.Add(new OfferParameter()
                     {
-                        divsDesc = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Description']");
+                        Name = new MultiLanguageString() { [Languages.PolishCode] = item.Key },
+                        Value = new MultiLanguageString() { [Languages.PolishCode] = item.Value.ToString() }
+                    });
+                }
+
+                var descMultiNew = new MultiLanguageString()
+                {
+                    [Languages.PolishCode] = res.description.sections[0].items.Where(x => x.type == "TEXT").FirstOrDefault().content
+                };
+
+                OfferImage[] imagePathesNew = res.images.Select(x => new OfferImage() { Url = x.original }).ToArray();
+
+                IList<OfferImage> successImages = new List<OfferImage>();
+                foreach (var item in imagePathesNew)
+                {
+                    if (!successImages.Select(x => x.Url).Contains(item.Url))
+                    {
+                        successImages.Add(item);
                     }
                 }
+                IEnumerable<OfferImage> tempImage = successImages.Distinct();
 
-                var desc = divsDesc.Any() ? divsDesc[0].InnerHtml : "";
-
-
-                var liParams = doc.DocumentNode.QuerySelectorAll("div[data-box-name='Parameters'] li div._f8818_3-1jj");
-
-                if (!liParams.Any() && !divsDesc.Any())
-                {
-                    throw new AllegroPlRequestException("Error read https://allegro.pl/oferta/" + id + text);
-                }
-
-                var divParamsInit = liParams.Select(x => x.QuerySelectorAll("div").FirstOrDefault());
-                var lineParamsDest = divParamsInit.Where(x => x != null && x.InnerText.Contains(":")).Select(x => x.InnerText).ToList();
-
-
-                var parameters = lineParamsDest.Select(x => GetParameterFromLine(x)).ToList();
-
-                var descMulti = new MultiLanguageString()
-                {
-                    [Languages.PolishCode] = desc,
-                    [Languages.RussianCode] = desc
-                };
 
                 return new OfferExtraData()
                 {
-                    Description = descMulti,
-                    Parameters = parameters
+                    Description = descMultiNew,
+                    Parameters = listParameters
                 };
             }
             catch (AllegroPlRequestException)
@@ -436,6 +424,75 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     }
                 };
             }
+        }
+        private async Task<DetailParserData> GetAsyncDetails(string id)
+        {
+            string responseBody;
+            DetailParserData parserResponce;
+            using (var httpClientHandler = new HttpClientHandler())
+            {
+
+                httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
+                using (var client = new HttpClient(httpClientHandler))
+                {
+                    var httpResponse = await client.GetAsync("http://95.111.250.32/allegro/parser.php?api_key=Umthudpx8FCs9ks6rBpB&method=details&product_id=" + id, CancellationToken.None);
+                    responseBody = await httpResponse.Content.ReadAsStringAsync(); //httpResponse.Result;
+                }
+            }
+            try
+            {
+                parserResponce = JsonConvert.DeserializeObject<DetailParserData>(responseBody);
+            }
+            catch (Exception ex)
+            {
+                throw new AllegroPlRequestException("Bad format of API response.", ex);
+            }
+            return parserResponce;
+        }
+        public class Specifications
+        {
+            public Dictionary<string, object> Parametry { get; set; }
+        }
+        public class Items
+        {
+            public string type { get; set; }
+            public string alt { get; set; }
+            public string url { get; set; }
+            public string content { get; set; }
+
+        }
+        public class Sections
+        {
+            public IList<Items> items { get; set; }
+
+        }
+        public class Description
+        {
+            public IList<Sections> sections { get; set; }
+
+        }
+        public class DetailParserData
+        {
+            public string id { get; set; }
+            public string title { get; set; }
+            public bool active { get; set; }
+            public int availableQuantity { get; set; }
+            public string price { get; set; }
+            public string price_with_delivery { get; set; }
+            public string currency { get; set; }
+            public decimal seller_rating { get; set; }
+            public Specifications specifications { get; set; }
+            public IEnumerable<ImagesParser> images { get; set; }
+            public Description description { get; set; }
+            //public object compatibility { get; set; }
+        }
+        public class ImagesParser
+        {
+            public string original { get; set; }
+            public string thumbnail { get; set; }
+            public string embeded { get; set; }
+            public string alt { get; set; }
+
         }
     }
 }
