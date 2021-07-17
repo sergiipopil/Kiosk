@@ -183,7 +183,7 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk
                 var R_Rate = exchangeRate;
 
                 //var ExtraRate = P_Price < 200 ? (decimal)1.55 : (decimal)1.3;
-                if (state == EkProductStateEnum.Unknown) {
+                if (state == EkProductStateEnum.Unknown || state == EkProductStateEnum.Recovered || state == EkProductStateEnum.Unknown) {
                     state = EkProductStateEnum.Used;
                 }
                 var price = CalculatePrice(P_Price, state, product.CategoryId, (P_Price + D_Price) * R_Rate, R_Rate);// (P_Price + D_Price) * R_Rate * ExtraRate;//(P_Price + D_Price) * (1 + T_Taxes) * (1 + M_Markup) * R_Rate * ExtraRate;
