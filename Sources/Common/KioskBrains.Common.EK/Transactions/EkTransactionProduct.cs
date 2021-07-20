@@ -65,6 +65,7 @@ namespace KioskBrains.Common.EK.Transactions
                     priceCalculationInfo = product.PriceCalculationInfo,
                     state = product.State,
                     quantity = quantity,
+                    finalPrice = product.FinalPrice
                 };
         }
     }
