@@ -208,11 +208,11 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     offerItem.Name = item.title;
                     offerItem.SellingMode = new Models.OfferSellingMode()
                     {
-                        Price = new Models.OfferPrice() { Amount = Convert.ToDecimal(item.price.Replace('.', ',')) }
+                        Price = new Models.OfferPrice() { Amount = Convert.ToDecimal(item.price) }
                     };
                     offerItem.Delivery = new Models.OfferDelivery()
                     {
-                        LowestPrice = new Models.OfferPrice() { Amount = Convert.ToDecimal(item.price_with_delivery.Replace('.', ',')) - Convert.ToDecimal(item.price.Replace('.', ',')) }
+                        LowestPrice = new Models.OfferPrice() { Amount = Convert.ToDecimal(item.price_with_delivery) - Convert.ToDecimal(item.price) }
                     };
                     offerItem.Images = new OfferImage[] { new OfferImage { Url = item.mainImage } };
 

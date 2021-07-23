@@ -186,7 +186,7 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk
                 if (state == EkProductStateEnum.Unknown || state == EkProductStateEnum.Recovered || state == EkProductStateEnum.Broken) {
                     state = EkProductStateEnum.Used;
                 }
-                var price = CalculatePrice(P_Price, state, product.CategoryId, (P_Price) * R_Rate, R_Rate);// (P_Price + D_Price) * R_Rate * ExtraRate;//(P_Price + D_Price) * (1 + T_Taxes) * (1 + M_Markup) * R_Rate * ExtraRate;
+                var price = CalculatePrice(P_Price, state, product.CategoryId, (P_Price+D_Price) * R_Rate, R_Rate);// (P_Price + D_Price) * R_Rate * ExtraRate;//(P_Price + D_Price) * (1 + T_Taxes) * (1 + M_Markup) * R_Rate * ExtraRate;
 
                 product.Price = RoundPrice(price);
                 product.PriceCurrencyCode = "UAH";
