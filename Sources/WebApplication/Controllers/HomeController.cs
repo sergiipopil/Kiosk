@@ -186,7 +186,7 @@ namespace WebApplication.Controllers
             {
                 bool isNew = false;
                 var responceAllegro = GetAllegroProducts(carManufactureName, carModel, subCategoryId, null, OfferStateEnum.Used, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
-                if (responceAllegro.Total < 5)
+                if (responceAllegro.Total < 1)
                 {
                     isNew = true;
                     responceAllegro = GetAllegroProducts(carManufactureName, carModel, subCategoryId, null, OfferStateEnum.New, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
@@ -290,7 +290,7 @@ namespace WebApplication.Controllers
             }
             var responceAllegro = GetAllegroProducts(carManufactureName, carModel, String.IsNullOrEmpty(lastChildId) ? subChildId : lastChildId, null, OfferStateEnum.Used, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
             bool isNew = false;
-            if (responceAllegro.Total < 5)
+            if (responceAllegro.Total < 1)
             {
                 isNew = true;
                 responceAllegro = GetAllegroProducts(carManufactureName, carModel, String.IsNullOrEmpty(lastChildId) ? subChildId : lastChildId, null, OfferStateEnum.New, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
