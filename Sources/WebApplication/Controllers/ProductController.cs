@@ -28,6 +28,7 @@ using CustomCartProduct = WebApplication.Classes.CartProduct;
 using WebApplication.Classes;
 using System.Security.Cryptography;
 using KioskBrains.Clients.Ek4Car;
+using KioskBrains.Clients.AllegroPl.Models;
 using ScraperApi;
 namespace WebApplication.Controllers
 {
@@ -298,7 +299,7 @@ namespace WebApplication.Controllers
             var ekDeliveryInfo = new EkDeliveryInfo
             {
                 type = String.IsNullOrEmpty(inputCity) ? EkDeliveryTypeEnum.DeliveryServiceStore : EkDeliveryTypeEnum.Courier,
-                deliveryService = null,// String.IsNullOrEmpty(inputCity) ? EkDeliveryServiceEnum.NovaPoshtaUkraine : null,
+                deliveryService = null,
                 storeId = "1",
                 address = new EkTransactionAddress()
                 {
@@ -356,9 +357,7 @@ namespace WebApplication.Controllers
         }
         public ActionResult Delivery(string area, string city)
         {
-            IList<CustomCartProduct> cartProducts = GetCartProducts();
-
-            
+            IList<CustomCartProduct> cartProducts = GetCartProducts();            
             decimal tempAllPrice = 0;
             foreach (var item in cartProducts)
             {
@@ -410,7 +409,7 @@ namespace WebApplication.Controllers
         }
 
         // GET: ProductController/Details/5        
-        public ActionResult Details(string id, string price)
+        public ActionResult Details(string id)
         {
             var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
             if (!String.IsNullOrEmpty(rightTreeViewModelString))
@@ -419,35 +418,34 @@ namespace WebApplication.Controllers
                 ViewData["Params"] = String.Format("?carManufactureName={0}&carModel={1}&mainCategoryId={2}&mainCategoryName={3}&subCategoryId={4}&subCategoryName={5}&subChildId={6}&subChildName={7}&kioskId={8}", rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
                     rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName, rightTree.kioskId);
             }
-            ProductViewModel model = GetProductInfo(id);
-            string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
-            model.kioskId = tempKioskId;
-            model.Price = price;
-            //var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
-            //RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
-            //model.ReturnFunction = rightTree.FunctionReturnFromProducts;
-            return View("Details", model);
-        }
-        public ProductViewModel GetProductInfo(string id)
-        {
-            var p = _allegroPlClient.GetOfferById(_translateService, id, CancellationToken.None).Result;
+            Offer offer = GetProductInfo(id);
+            var exchangeRate = GetExchangeRateAsync().Result;
+            EkProduct ekProduct = EkConvertHelper.EkAllegroPlOfferToProduct(offer, exchangeRate);
 
-            List<string> test = new List<string>();
-            foreach (var item in p.Parameters)
+            List<string> parameters = new List<string>();
+            foreach (var item in offer.Parameters)
             {
-                test.Add(item.Name[Languages.RussianCode] + ": " + item.Value[Languages.RussianCode]);
+                parameters.Add(item.Name[Languages.RussianCode] + ": " + item.Value[Languages.RussianCode]);
             }
-
 
             var product = new ProductViewModel()
             {
                 Id = id,
-                Title = p.Name[Languages.RussianCode],
-                Description = p.Description[Languages.RussianCode],
-                Images = p.Images,
-                Parameters = test
+                Title = offer.Name[Languages.RussianCode],
+                Description = offer.Description[Languages.RussianCode],
+                Images = offer.Images,
+                Parameters = parameters,
+                Price = ekProduct.Price.ToString()
             };
-            return product;
+            ProductViewModel model = product;
+            string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
+            model.kioskId = tempKioskId;
+            return View("Details", model);
+        }
+        public Offer GetProductInfo(string id)
+        {
+            var offer = _allegroPlClient.GetOfferById(_translateService, id, CancellationToken.None).Result;
+            return offer;
         }
         // GET: ProductController/Create
         public ActionResult Create()
@@ -462,6 +460,21 @@ namespace WebApplication.Controllers
                 var hash = sha1.ComputeHash(temp);
                 return Convert.ToBase64String(hash);
             }
+        }
+        private async Task<decimal> GetExchangeRateAsync()
+        {
+            var ukrainianNow = TimeZones.GetTimeZoneNow(TimeZones.UkrainianTime);
+            const string LocalCurrencyCode = "UAH";
+            const string ForeignCurrencyCode = "PLN";
+
+            // todo: cache
+            var exchangeRate = await _centralBankExchangeRateManager.GetCurrentRateAsync(LocalCurrencyCode, ForeignCurrencyCode, ukrainianNow);
+            if (exchangeRate == null)
+            {
+                throw new InvalidOperationException($"CB exchange rate for {LocalCurrencyCode}-{ForeignCurrencyCode} is not presented.");
+            }
+
+            return exchangeRate.Value;
         }
     }
 }

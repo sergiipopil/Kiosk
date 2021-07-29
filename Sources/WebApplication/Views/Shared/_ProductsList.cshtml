@@ -27,9 +27,9 @@
                 return false;
             });
         });
-        function openDetails(advertId, advertPrice) {
+        function openDetails(advertId) {
             $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" width="100px" /></div>');
-            window.open('/Product/Details/' + "?id=" + advertId + "&price=" + advertPrice, "_self");
+            window.open('/Product/Details/' + "?id=" + advertId, "_self");
         }
         function TestWWW(item) {
             console.log(item);
@@ -275,7 +275,7 @@
                 @*class="zoom"*@
                 <div class="row">
                     <div class="col-lg-3">
-                        <div id="imageBlock" class="detailBlock" style="text-align:center;background:white;width:inherit;" onclick="openDetails('@item.SourceId', '@item.Price')">
+                        <div id="imageBlock" class="detailBlock" style="text-align:center;background:white;width:inherit;" onclick="openDetails('@item.SourceId')">
                             @if (item.Photos.Any())
                             {
                                 <a href=@item.Photos[0].Url data-fancybox="@String.Format("gallery{0}", item.SourceId)" class="noneDecoration" style="color:#ff5a00;font-weight:500;">

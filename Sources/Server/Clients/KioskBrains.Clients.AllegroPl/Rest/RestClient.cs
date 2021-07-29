@@ -525,6 +525,13 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 }
                 IEnumerable<OfferImage> tempImage = successImages.Distinct();
 
+                if (res.price.Contains(".")) {
+                    res.price = res.price.Replace('.', ',');
+                }
+                if (res.price_with_delivery.Contains("."))
+                {
+                    res.price_with_delivery = res.price_with_delivery.Replace('.', ',');
+                }
 
                 return new Offer()
                 {
@@ -534,7 +541,16 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     },
                     Description = descMultiNew,
                     Parameters = listParameters,
-                    Images = tempImage.ToArray()
+                    Images = tempImage.ToArray(),
+                    Price= Convert.ToDecimal(res.price),
+                    DeliveryOptions = new[]
+                    {
+                        new DeliveryOption()
+                        {
+                            Price = Convert.ToDecimal(res.price_with_delivery) - Convert.ToDecimal(res.price)
+                        },
+                    }
+
                 };
 
 
