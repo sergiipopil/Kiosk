@@ -56,7 +56,7 @@ namespace WebApplication
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(40);
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
@@ -81,14 +81,14 @@ namespace WebApplication
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            //app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                OnPrepareResponse = ctx =>
-                {
-                    ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=600");
-                }
-            });
+            app.UseStaticFiles();
+            //app.UseStaticFiles(new StaticFileOptions()
+            //{
+            //    OnPrepareResponse = ctx =>
+            //    {
+            //        ctx.Context.Response.Headers.Add("Cache-Control", "public,max-age=600");
+            //    }
+            //});
             app.UseRouting();
 
             app.UseAuthorization();
@@ -97,8 +97,9 @@ namespace WebApplication
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
+                    //pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{param1?}/{param10?}/{param2?}/{param3?}/{param4?}/{param5?}/{param6?}/{param7?}/{param8?}");
+        });
         }
     }
 }

@@ -60,7 +60,7 @@ namespace WebApplication.Controllers
         public IActionResult Index(string kioskId)
         {
             string cookieValueFromReq = Request.Cookies["kioskId"];
-
+            string _topCategoryId = Request.Query["topCategoryId"].ToString();
             CookieOptions option = new CookieOptions();
             option.Expires = DateTime.Now.AddMonths(1);
 
@@ -74,8 +74,11 @@ namespace WebApplication.Controllers
             }
             HttpContext.Session.SetString("kioskId", kioskId == null ? "116" : kioskId);
             ViewData["CartWidgetPrice"] = HttpContext.Session.GetString("cartWidgetPrice");
-            _topCategoryCarType = EkCarTypeEnum.Car;
-            var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == EkCarTypeEnum.Car).Select(x => x.Manufacturers).FirstOrDefault();
+
+
+
+            _topCategoryCarType = new EkSiteFactory().GetCarTypeEnum(String.IsNullOrEmpty(_topCategoryId) ? "620" : _topCategoryId);
+            var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
             return View(new RightTreeViewModel() { ManufacturerList = carTree, kioskId = HttpContext.Session.GetString("kioskId") });
         }
         //====================METHOD TO SWITCH TYPE CAR TOP CATEGORY ======================================
