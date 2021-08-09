@@ -206,6 +206,13 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     Models.Offer offerItem = new Models.Offer();
                     offerItem.Id = item.id;
                     offerItem.Name = item.title;
+                    if (item.price.Contains(".")) { 
+                        item.price = item.price.Replace('.', ',');
+                    }
+                    if (item.price_with_delivery.Contains("."))
+                    {
+                        item.price_with_delivery = item.price_with_delivery.Replace('.', ',');
+                    }
                     offerItem.SellingMode = new Models.OfferSellingMode()
                     {
                         Price = new Models.OfferPrice() { Amount = Convert.ToDecimal(item.price) }
