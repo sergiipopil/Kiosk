@@ -214,6 +214,10 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     {
                         item.price_with_delivery = item.price_with_delivery.Substring(0, item.price_with_delivery.LastIndexOf("."));
                     }
+                    offerItem.Category = new Models.OfferCategory()
+                    {
+                        Id = queryParameters["category"]
+                    };
                     offerItem.SellingMode = new Models.OfferSellingMode()
                     {
                         Price = new Models.OfferPrice() { Amount = Convert.ToDecimal(item.price) }
