@@ -206,6 +206,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     Models.Offer offerItem = new Models.Offer();
                     offerItem.Id = item.id;
                     offerItem.Name = item.title;
+                    //offerItem.Category.Id = item.ca
                     if (item.price.Contains(".")) { 
                         item.price = item.price.Substring(0, item.price.LastIndexOf("."));
                     }
