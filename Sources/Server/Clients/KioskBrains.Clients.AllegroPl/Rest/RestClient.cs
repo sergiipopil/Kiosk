@@ -207,11 +207,11 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     offerItem.Id = item.id;
                     offerItem.Name = item.title;
                     if (item.price.Contains(".")) { 
-                        item.price = item.price.Replace('.', ',');
+                        item.price = item.price.Substring(0, item.price.LastIndexOf("."));
                     }
                     if (item.price_with_delivery.Contains("."))
                     {
-                        item.price_with_delivery = item.price_with_delivery.Replace('.', ',');
+                        item.price_with_delivery = item.price_with_delivery.Substring(0, item.price_with_delivery.LastIndexOf("."));
                     }
                     offerItem.SellingMode = new Models.OfferSellingMode()
                     {
