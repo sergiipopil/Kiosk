@@ -188,7 +188,7 @@
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 if (model != "" && model != null) {
-                    window.history.pushState($('#filter'), 'title', "/Home/Index/carManufactureName=" + manufacture + "/carModel=" + model + "/kioskId=" + kioskId);
+                    history.replaceState(cleanStateForHistory($('#filter')), 'title', "/Home/Index/carManufactureName=" + manufacture + "/carModel=" + model + "/kioskId=" + kioskId);
                 }
                 else {
                     $('#divBreadcrumbs').hide();
@@ -210,7 +210,7 @@
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 if (carManufactureName != "" && carManufactureName != null) {
-                    window.history.pushState($('#filter'), 'title', "/Home/Index/carManufactureName=" + carManufactureName + "/model=" + model + "/kioskId=" + kioskId);
+                    history.replaceState(cleanStateForHistory($('#filter')), 'title', "/Home/Index/carManufactureName=" + carManufactureName + "/model=" + model + "/kioskId=" + kioskId);
                 }
                 else {
                     $('#divBreadcrumbs').hide();
@@ -232,7 +232,7 @@
                 BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, null, null, null, null, null, kioskId);
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
-                window.history.pushState($('#filter'), 'title', ("/Home/Index/carManufactureName=" + manufacture + "/carModel=" + model + "/mainCategoryId=" + mainCategoryId + "/mainCategoryName=" + mainCategoryName + "/kioskId=" + kioskId).replace('%20', '-'));
+                history.replaceState(cleanStateForHistory($('#filter')), 'title', ("/Home/Index/carManufactureName=" + manufacture + "/carModel=" + model + "/mainCategoryId=" + mainCategoryId + "/mainCategoryName=" + mainCategoryName + "/kioskId=" + kioskId).replace('%20', '-'));
             }
         });
     }
@@ -250,7 +250,7 @@
                 BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, null, null, null, kioskId);
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
-                window.history.pushState($('#filter'), 'title', "/Home/Index/carManufactureName=" + manufacture + "/carModel=" + model + "/mainCategoryId=" + mainCategoryId + "/mainCategoryName=" + mainCategoryName +
+                history.replaceState(cleanStateForHistory($('#filter')), 'title', "/Home/Index/carManufactureName=" + manufacture + "/carModel=" + model + "/mainCategoryId=" + mainCategoryId + "/mainCategoryName=" + mainCategoryName +
                     "/subCategoryId=" + subCategoryId + "/subCategoryName=" + subCategoryName + "/kioskId=" + kioskId);
             }
         });
@@ -268,7 +268,7 @@
                 BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, null, kioskId, lastChildId, lastChildName);
                $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
-                window.history.pushState($('#filter'), 'title', "/Home/Index/carManufactureName=" + manufacture + "/carModel=" + model + "/mainCategoryId=" + mainCategoryId + "/mainCategoryName=" + mainCategoryName +
+                history.replaceState(cleanStateForHistory($('#filter')), 'title', "/Home/Index/carManufactureName=" + manufacture + "/carModel=" + model + "/mainCategoryId=" + mainCategoryId + "/mainCategoryName=" + mainCategoryName +
                     "/subCategoryId=" + subCategoryId + "/subCategoryName=" + subCategoryName + "/subChildId=" + subChildId + "/subChildName=" + subChildName + "/lastChildId=" + lastChildId + "/lastChildName=" + lastChildName + "/kioskId=" + kioskId);
             }
         });
@@ -285,7 +285,7 @@
                 BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, null, kioskId);
                $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
-                window.history.pushState($('#filter'), 'title', "/Home/Index/carManufactureName=" + manufacture + "/carModel=" + model + "/mainCategoryId=" + mainCategoryId + "/mainCategoryName=" + mainCategoryName +
+                history.replaceState(cleanStateForHistory($('#filter')), 'title', "/Home/Index/carManufactureName=" + manufacture + "/carModel=" + model + "/mainCategoryId=" + mainCategoryId + "/mainCategoryName=" + mainCategoryName +
                     "/subCategoryId=" + subCategoryId + "/subCategoryName=" + subCategoryName + "/subChildId=" + subChildId + "/subChildName=" + subChildName + "/kioskId=" + kioskId);
             }
         });
@@ -303,7 +303,15 @@
             }
         });
         }
-
+        function cleanStateForHistory(state) {
+            const stateWithNoFunctions = {};
+            for (const key of Object.keys(state)) {
+                if (typeof key !== "function") {
+                    stateWithNoFunctions[key] = state[key];
+                }
+            }
+            return stateWithNoFunctions;
+        }
     function selectManufacturer(carManufactureName, kioskId) {
         $.ajax({
             type: "POST",
@@ -315,7 +323,7 @@
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 if (carManufactureName != "" && carManufactureName != null) {
-                    window.history.pushState($('#filter'), 'title', ("/Home/Index/carManufactureName=" + carManufactureName + "/kioskId=" + kioskId).replace('%20','-'));
+                    history.replaceState(cleanStateForHistory($('#filter')), 'title', ("/Home/Index/carManufactureName=" + carManufactureName + "/kioskId=" + kioskId).replace('%20', '-'));
                 }
                 else {
                     $('#divBreadcrumbs').hide();
@@ -339,7 +347,7 @@
             type: "GET",
             url: '@Url.Action("ShowMainView", "Home")' + "?topCategoryId=" + topCategoryId,
             success: function (data) {
-                window.history.pushState($('#filter'), 'title', "/Home/Index/topCategoryId=" + topCategoryId);
+                history.replaceState(cleanStateForHistory($('#filter')), 'title', "/Home/Index/topCategoryId=" + topCategoryId);
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
             }
