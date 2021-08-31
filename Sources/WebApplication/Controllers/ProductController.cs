@@ -234,6 +234,7 @@ namespace WebApplication.Controllers
 
 
             decimal tempAllPrice = 0;
+            
             foreach (var item in cartProducts)
             {
                 tempAllPrice += item.Product.Price * item.Quantity;
@@ -245,6 +246,10 @@ namespace WebApplication.Controllers
             CartWidgetController cartWidget = new CartWidgetController();
             cartWidget.CartWidget();
 
+            if (cartProducts.Select(x => x.Product.SourceId).Contains(selectedProductId))
+            {
+                return View(GetCartProducts());
+            }
             if (String.IsNullOrEmpty(selectedProductId) && String.IsNullOrEmpty(rightTree.PartNumberValue))
             {
                 return View(GetCartProducts());
@@ -409,7 +414,7 @@ namespace WebApplication.Controllers
         }
 
         // GET: ProductController/Details/5        
-        public ActionResult Details(string id)
+        public ActionResult Details(string id, bool isTransDesc=false)
         {
             var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
             if (!String.IsNullOrEmpty(rightTreeViewModelString))
@@ -419,6 +424,52 @@ namespace WebApplication.Controllers
                     rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName, rightTree.kioskId);
             }
             Offer offer = GetProductInfo(id);
+            var tempRus = "";
+            if (isTransDesc) {
+                tempRus = GetDescTransl(offer);
+            }
+            offer.Description[Languages.RussianCode] = tempRus;
+            var exchangeRate = GetExchangeRateAsync().Result;
+            EkProduct ekProduct = EkConvertHelper.EkAllegroPlOfferToProduct(offer, exchangeRate);
+
+            List<string> parameters = new List<string>();
+            foreach (var item in offer.Parameters)
+            {
+                parameters.Add(item.Name[Languages.RussianCode] + ": " + item.Value[Languages.RussianCode]);
+            }
+            
+            var product = new ProductViewModel()
+            {
+                Id = id,
+                Title = offer.Name[Languages.RussianCode],
+                Description = offer.Description[Languages.RussianCode],
+                Images = offer.Images,
+                Parameters = parameters,
+                Price = ekProduct.Price.ToString(),
+                AvailableQuantity=offer.AvailableQuantity,
+                SellerRating=offer.SellerRating
+            };
+            ProductViewModel model = product;
+            string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
+            model.kioskId = tempKioskId;
+            return View("Details", model);
+        }
+        public ActionResult DetailsDesc(string id, bool isTransDesc = false)
+        {
+            var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
+            if (!String.IsNullOrEmpty(rightTreeViewModelString))
+            {
+                RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
+                ViewData["Params"] = String.Format("?carManufactureName={0}&carModel={1}&mainCategoryId={2}&mainCategoryName={3}&subCategoryId={4}&subCategoryName={5}&subChildId={6}&subChildName={7}&kioskId={8}", rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
+                    rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName, rightTree.kioskId);
+            }
+            Offer offer = GetProductInfo(id);
+            var tempRus = "";
+            if (isTransDesc)
+            {
+                tempRus = GetDescTransl(offer);
+            }
+            offer.Description[Languages.RussianCode] = tempRus;
             var exchangeRate = GetExchangeRateAsync().Result;
             EkProduct ekProduct = EkConvertHelper.EkAllegroPlOfferToProduct(offer, exchangeRate);
 
@@ -435,17 +486,28 @@ namespace WebApplication.Controllers
                 Description = offer.Description[Languages.RussianCode],
                 Images = offer.Images,
                 Parameters = parameters,
-                Price = ekProduct.Price.ToString()
+                Price = ekProduct.Price.ToString(),
+                SellerRating=offer.SellerRating,
+                AvailableQuantity=offer.AvailableQuantity
             };
             ProductViewModel model = product;
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
             model.kioskId = tempKioskId;
-            return View("Details", model);
+            return View("_InnerDetails", model);
+        }
+        public IActionResult Success()
+        {
+            return View();
         }
         public Offer GetProductInfo(string id)
         {
             var offer = _allegroPlClient.GetOfferById(_translateService, id, CancellationToken.None).Result;
             return offer;
+        }
+        public string GetDescTransl(Offer offer)
+        {
+            var descRus = _allegroPlClient.GetOfferDescTranslate(_translateService, offer.Description[Languages.PolishCode], CancellationToken.None).Result;
+            return descRus;
         }
         // GET: ProductController/Create
         public ActionResult Create()

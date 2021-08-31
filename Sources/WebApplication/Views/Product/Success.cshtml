@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Thank you";
+}
+<html>
+<head>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-MQ9L6KT');</script>
+</head>
+<body>
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQ9L6KT"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <div style="text-align:center;width:100%;color:white;padding-top:10%;">
+        <div style="display:inline-block;vertical-align:middle;"><img src="~/images/success.png" style="max-height:130px;" /></div>
+        <div style="display:inline-block;vertical-align:middle;padding-left:30px;font-size:43px;">Cпасибо, Ваш заказ оформлен</div>
+    </div>
+    <div style="text-align:center;width:100%;color:white;padding:5% 30% 0% 30%;cursor:pointer;" onclick="backToMainPage()">
+        <div class="btnBuyList" style="height: auto; padding: 10px 0px; font-size: 30px;">Продолжить покупки</div>
+    </div>
+</body>

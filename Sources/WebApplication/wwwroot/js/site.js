@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 function backToMainPage() {
-    window.location.href = '/Home/Index/';
+    window.location.href = '/';
 }
 function openDetails(advertId, advertPrice) {
     window.open('/Product/Details/' + "?id=" + advertId + "&price=" + advertPrice, "_self");

@@ -6,64 +6,70 @@
 
 <html>
 <head>
-    <!-- Google Tag Manager -->
     <script>
-        (function (w, d, s, l, i) {
+    (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
                 'gtm.start':
                     new Date().getTime(), event: 'gtm.js'
             }); var f = d.getElementsByTagName(s)[0],
                 j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
                     'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-TLLVLTQ');</script>
-    <!-- End Google Tag Manager -->
+        })(window, document, 'script', 'dataLayer', 'GTM-MQ9L6KT');</script>
     <link href="~/css/site.css" rel="stylesheet" />
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
     <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1" />
     <style>
     </style>
     <script type="text/javascript">
+        function getURLParameter(url, name) {
+            return (RegExp(name + '=' + '(.+?)(&|$)').exec(url) || [, null])[1];
+        }
         $(document).ready(function () {
+            var url = window.location.href.replaceAll('/', '&').replace('&&', '//');;
+            
+            var params = new window.URLSearchParams(url.replaceAll('&amp;', '&'));
             if (window.location.toString().includes("carManufactureName"))
             {
-                var url = window.location.search;
-                var params = new window.URLSearchParams(url.replace(/&amp;/g, '&'));
-                var carManufactureName = params.get('carManufactureName');
+                var carManufactureName = getURLParameter(url, 'carManufactureName');
                 var kioskId = params.get('kioskId');
                 var carModel = params.get('carModel');
 
                 if (carManufactureName != null && carModel == null || carManufactureName != '' && carModel == '') {
                     selectManufacturer(carManufactureName, kioskId);
+                    return;
                 }
                 var mainCategoryId = params.get('mainCategoryId');
                 if (carManufactureName != null && carModel != null && mainCategoryId == null || carManufactureName != '' && carModel != '' && mainCategoryId == '') {
                     selectCarModel(carManufactureName, carModel, null, kioskId);
+                    return;
                 }
                 var mainCategoryName = params.get('mainCategoryName');
                 var subCategoryId = params.get('subCategoryId');
                 var subCategoryName = params.get('subCategoryName');
                 var subChildId = params.get('subChildId');
                 var subChildName = params.get('subChildName');
-                if (carManufactureName != null && carModel != null && mainCategoryId != null && subCategoryId == null || carManufactureName != '' && carModel != '' && mainCategoryId != '' && subCategoryId == '') {
+                if (carManufactureName != null && carModel != null && mainCategoryId != null && carManufactureName != '' && carModel != '' && mainCategoryId != '' && (subCategoryId == '' || subCategoryId==null)) {
                     selectMainCategory(carManufactureName, carModel, mainCategoryId, mainCategoryName, kioskId);
+                    return;
                 }
+                if (mainCategoryId != null && mainCategoryName != null && mainCategoryId != '' && mainCategoryId != '' && subCategoryId != null && subCategoryId != '' && subCategoryName != null && subCategoryName != '') {
                 if (subChildId == null && subChildName == null || subChildId == '' && subChildName == '') {
                     selectSubMainCategory(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, kioskId);
+                    return;
                 }
                 else {
                     getAllegroData(carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, kioskId);
+                    return;
+                }
                 }
             }
-            if (params.get('partNumber') != null && params.get('partNumber') != '') {
-                $("#inputPartValue").val(params.get('partNumber'));
+            if (getURLParameter(url, 'partNumber') != null && getURLParameter(url, 'partNumber') != '') {
+                $("#inputPartValue").val(getURLParameter(url, 'partNumber'));
                 submit();
             }
             if (params.get('topCategoryId') != null && params.get('topCategoryId') != '') {
                 showMainView(params.get('topCategoryId'));
-            }
-            else {
-                showMainView('620');
-            }
+            }            
         });
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
@@ -88,9 +94,9 @@
             type: "GET",
             url: '@Url.Action("PartNumberInput", "Home")' + "?partNumber=" + inputFilter,
             success: function (data) {
-                console.log("ssssssssssssssssssssssssssss");
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
+                window.history.replaceState(null, null, "/Home/Index/partNumber=" + inputFilter);
             }
         });
         }
@@ -104,6 +110,7 @@
             success: function (data) {
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
+                window.history.replaceState(null, null, "/Home/Index/partNumber=" + $("#inputPartValue").val());
             }
         });
         }
@@ -188,7 +195,7 @@
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 if (model != "" && model != null) {
-                    window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model + "&kioskId=" + kioskId);
+                    window.history.replaceState(null, null, "/Home/Index/carManufactureName=" + manufacture + "/carModel=" + model + "/kioskId=" + kioskId);
                 }
                 else {
                     $('#divBreadcrumbs').hide();
@@ -202,7 +209,7 @@
         function selectCarModifications(carManufactureName, model, kioskId) {
         $.ajax({
             type: "GET",
-            url: '@Url.Action("SelectModelModifications", "Home")' + "?carManufactureName=" + carManufactureName + "&model=" + model,
+            url: '@Url.Action("SelectModelModifications", "Home")' + "?carManufactureName=" + carManufactureName + "&carModel=" + model,
             success: function (data) {
                 if (model != "" && model != null) {
                     BreadCrumbsHistory(carManufactureName, model, null, null, null, null, null, null, null, kioskId);
@@ -210,7 +217,7 @@
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 if (carManufactureName != "" && carManufactureName != null) {
-                    window.history.pushState($('#filter'), 'title', "?carManufactureName=" + carManufactureName + "&model=" + model + "&kioskId=" + kioskId);
+                    window.history.replaceState(null, null, "/Home/Index/carManufactureName=" + carManufactureName + "/carModel=" + model + "/kioskId=" + kioskId);
                 }
                 else {
                     $('#divBreadcrumbs').hide();
@@ -232,7 +239,7 @@
                 BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, null, null, null, null, null, kioskId);
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
-                window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName + "&kioskId=" + kioskId);
+                window.history.replaceState(null, null, "/Home/Index/carManufactureName=" + manufacture + "/carModel=" + model + "/mainCategoryId=" + mainCategoryId + "/mainCategoryName=" + mainCategoryName + "/kioskId=" + kioskId);
             }
         });
     }
@@ -250,8 +257,8 @@
                 BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, null, null, null, kioskId);
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
-                window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
-                    "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&kioskId=" + kioskId);
+                window.history.replaceState(null, null, "/Home/Index/carManufactureName=" + manufacture + "/carModel=" + model + "/mainCategoryId=" + mainCategoryId + "/mainCategoryName=" + mainCategoryName +
+                    "/subCategoryId=" + subCategoryId + "/subCategoryName=" + subCategoryName + "/kioskId=" + kioskId);
             }
         });
         }
@@ -268,8 +275,8 @@
                 BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, null, kioskId, lastChildId, lastChildName);
                $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
-                window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
-                    "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName + "&lastChildId=" + lastChildId + "&lastChildName=" + lastChildName + "&kioskId=" + kioskId);
+                window.history.replaceState(null, null, "/Home/Index/carManufactureName=" + manufacture + "/carModel=" + model + "/mainCategoryId=" + mainCategoryId + "/mainCategoryName=" + mainCategoryName +
+                    "/subCategoryId=" + subCategoryId + "/subCategoryName=" + subCategoryName + "/subChildId=" + subChildId + "/subChildName=" + subChildName + "/lastChildId=" + lastChildId + "/lastChildName=" + lastChildName + "/kioskId=" + kioskId);
             }
         });
     }
@@ -285,8 +292,8 @@
                 BreadCrumbsHistory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, null, kioskId);
                $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
-                window.history.pushState($('#filter'), 'title', "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
-                    "&subCategoryId=" + subCategoryId + "&subCategoryName=" + subCategoryName + "&subChildId=" + subChildId + "&subChildName=" + subChildName + "&kioskId=" + kioskId);
+                window.history.replaceState(null, null, "/Home/Index/carManufactureName=" + manufacture + "/carModel=" + model + "/mainCategoryId=" + mainCategoryId + "/mainCategoryName=" + mainCategoryName +
+                    "/subCategoryId=" + subCategoryId + "/subCategoryName=" + subCategoryName + "/subChildId=" + subChildId + "/subChildName=" + subChildName + "/kioskId=" + kioskId);
             }
         });
     }
@@ -315,7 +322,7 @@
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 if (carManufactureName != "" && carManufactureName != null) {
-                    window.history.pushState($('#filter'), 'title', "?carManufactureName=" + carManufactureName + "&kioskId=" + kioskId);
+                    window.history.replaceState(null, null, "/Home/Index/carManufactureName=" + carManufactureName + "/kioskId=" + kioskId);
                 }
                 else {
                     $('#divBreadcrumbs').hide();
@@ -330,7 +337,7 @@
         }
 
         function goToCart(selectedProductId, kioskId) {
-            window.open('/Product/CartView/' + "?selectedProductId=" + selectedProductId + "&kioskId=" + kioskId);
+            window.open('/Product/CartView/' + "?selectedProductId=" + selectedProductId + "&kioskId=" + kioskId, "_self");
         }
         function showMainView(topCategoryId) {
             $('div[id*="divTopCategory_"]').removeClass("selected");
@@ -339,41 +346,20 @@
             type: "GET",
             url: '@Url.Action("ShowMainView", "Home")' + "?topCategoryId=" + topCategoryId,
             success: function (data) {
+                window.history.replaceState(null, null, "/Home/Index/topCategoryId=" + topCategoryId);
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
             }
         });
         }
-        var inputPart = document.getElementById("inputPartValue");
-        inputPart.addEventListener("keyup", function (event) {
-            // Number 13 is the "Enter" key on the keyboard
-            if (event.keyCode === 13) {
-                // Cancel the default action, if needed
-                //event.preventDefault();
-                // Trigger the button element with a click
-                submit();
-            }
-        });
-
-        var inputPartFilter = document.getElementById("inputPartValueFilter");
-        inputPartFilter.addEventListener("keyup", function (event) {
-            // Number 13 is the "Enter" key on the keyboard
-            if (event.keyCode === 13) {
-                // Cancel the default action, if needed
-                //event.preventDefault();
-                // Trigger the button element with a click
-                submitInputFilter($('#inputPartValueFilter').val());
-            }
-        });
     </script>
+    
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
     <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLLVLTQ"
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQ9L6KT"
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
-    <!-- End Google Tag Manager (noscript) -->
     <table style="min-height: 100%;height:100%;;min-width:100%;">
         <tr>
             @*LEFT PANEL*@
@@ -388,7 +374,7 @@
                     </div>
                     <div>
                         <div class="inputControlBlock">
-                            <div style="display:inline-block;vertical-align:middle;width:85%;">@Html.TextBoxFor(m => m.PartNumberValue, new { @placeholder = "Что Вы ищете?", @id = "inputPartValue", @class = "inputPart" })</div>
+                            <div style="display:inline-block;vertical-align:middle;width:85%;">@Html.TextBoxFor(m => m.PartNumberValue, new { @placeholder = "Что Вы ищете?", @id = "inputPartValue", @class = "inputPart", @onkeydown = "if (event.keyCode == 13) {{submit()}}" })</div>
                             <div class="loopBtn" onclick="submit()"><img class="loopImgPadding" src="~/images/Catalog/InputLoupe.png"></div>
                         </div>
                     </div>
@@ -406,89 +392,92 @@
 
 
             @*RIGHT PANEL*@
-            <td class="rightIndexPanel">
-                @*SELECT TOP CATEGORY PANEL*@
-                <div id="divSelectTopCategory">
-                    <div class="mainBlockTitle">Выберите раздел</div>
-                    <div class="divSelectTopCategoryBlock">
-                        <div class="inline-block">
-                            <div class="topCategoryDiv selected" style="display:grid;" id="divTopCategory_620" onclick="showMainView('620')">
-                                <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/Europe_CarTruckParts.png" class="TopCategoryImage" />
-                                </div>
-                                <div class="manufactureTextTop">
-                                    <span>Легковые и микроавтобусы</span>
-                                </div>
+        <td class="rightIndexPanel">
+            @*SELECT TOP CATEGORY PANEL*@
+            <div id="divSelectTopCategory">
+                <div class="mainBlockTitle">Выберите раздел</div>
+                <div class="divSelectTopCategoryBlock">
+                    <div class="inline-block">
+                        <div class="topCategoryDiv selected" style="display:grid;" id="divTopCategory_620" onclick="showMainView('620')">
+                            <div style="text-align:center;">
+                                <img src="~/images/Catalog/Categories/New/Europe_CarTruckParts.png" alt="Легковые и микроавтобусы" class="TopCategoryImage" />
+                            </div>
+                            <div class="manufactureTextTop">
+                                <span>Легковые и микроавтобусы</span>
                             </div>
                         </div>
-                        <div class="inline-block">
-                            <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_621" onclick="showMainView('621')">
-                                <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/Europe_TruckParts.png" class="TopCategoryImage" />
-                                </div>
-                                <div class="manufactureTextTop">
-                                    <span>Грузовые</span>
-                                </div>
+                    </div>
+                    <div class="inline-block">
+                        <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_621" onclick="showMainView('621')">
+                            <div style="text-align:center;">
+                                <img src="~/images/Catalog/Categories/New/Europe_TruckParts.png" alt="Грузовые" class="TopCategoryImage" />
+                            </div>
+                            <div class="manufactureTextTop">
+                                <span>Грузовые</span>
                             </div>
                         </div>
-                        <div class="inline-block">
-                            <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_622" onclick="showMainView('622')">
-                                <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/Europe_BusParts.png" class="TopCategoryImage" />
-                                </div>
-                                <div class="manufactureTextTop">
-                                    <span>Автобусы</span>
-                                </div>
+                    </div>
+                    <div class="inline-block">
+                        <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_622" onclick="showMainView('622')">
+                            <div style="text-align:center;">
+                                <img src="~/images/Catalog/Categories/New/Europe_BusParts.png" alt="Автобусы" class="TopCategoryImage" />
+                            </div>
+                            <div class="manufactureTextTop">
+                                <span>Автобусы</span>
                             </div>
                         </div>
-                        <div class="inline-block">
-                            <div class="topCategoryDiv" style="display:grid;cursor:not-allowed !important;" id="divTopCategory_99022" @*onclick="showMainView('99022')"*@>
-                                <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/CarType_Special.png" class="TopCategoryImage" />
-                                </div>
-                                <div class="manufactureTextTop">
-                                    <span>Спецтехника</span>
-                                </div>
+                    </div>
+                    <div class="inline-block">
+                        <div class="topCategoryDiv" style="display:grid;cursor:not-allowed !important;" id="divTopCategory_99022" @*onclick="showMainView('99022')"*@>
+                            <div style="text-align:center;">
+                                <img src="~/images/Catalog/Categories/New/CarType_Special.png" alt="Спецтехника" class="TopCategoryImage" />
+                            </div>
+                            <div class="manufactureTextTop">
+                                <span>Спецтехника</span>
                             </div>
                         </div>
-                        <div class="inline-block">
-                            <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_156" onclick="showMainView('156')">
-                                <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/CarType_Moto.png" class="TopCategoryImage" />
-                                </div>
-                                <div class="manufactureTextTop">
-                                    <span>Мото и аксессуары</span>
-                                </div>
+                    </div>
+                    <div class="inline-block">
+                        <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_156" onclick="showMainView('156')">
+                            <div style="text-align:center;">
+                                <img src="~/images/Catalog/Categories/New/CarType_Moto.png" alt="Мото и аксессуары" class="TopCategoryImage" />
+                            </div>
+                            <div class="manufactureTextTop">
+                                <span>Мото и аксессуары</span>
                             </div>
                         </div>
-                        <div class="inline-block">
-                            <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_99193" onclick="showMainView('99193')">
-                                <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/Europe_TiresAndRims.png" class="TopCategoryImage" />
-                                </div>
-                                <div class="manufactureTextTop">
-                                    <span>Шины и диски</span>
-                                </div>
+                    </div>
+                    <div class="inline-block">
+                        <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_99193" onclick="showMainView('99193')">
+                            <div style="text-align:center;">
+                                <img src="~/images/Catalog/Categories/New/Europe_TiresAndRims.png" alt="Шины и диски" class="TopCategoryImage" />
+                            </div>
+                            <div class="manufactureTextTop">
+                                <span>Шины и диски</span>
                             </div>
                         </div>
-                        <div class="inline-block">
-                            <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_18554" onclick="showMainView('18554')">
-                                <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/Europe_Tools.png" class="TopCategoryImage" />
-                                </div>
-                                <div class="manufactureTextTop">
-                                    <span>Инструменты и оборудование</span>
-                                </div>
+                    </div>
+                    <div class="inline-block">
+                        <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_18554" onclick="showMainView('18554')">
+                            <div style="text-align:center;">
+                                <img src="~/images/Catalog/Categories/New/Europe_Tools.png" alt="Инструменты и оборудование" class="TopCategoryImage" />
+                            </div>
+                            <div class="manufactureTextTop">
+                                <span>Инструменты и оборудование</span>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div>
                 @*CAR MANUFACTURE TREE*@
                 <div id="divCarManufactures">
                     @Html.Partial("_CarTree", @Model)
                 </div>
-            </td>
+                </div>
+        </td>
         </tr>
     </table>
 </body>
+
 </html>

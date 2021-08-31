@@ -2,8 +2,7 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-    <!-- Google Tag Manager -->
+<head>  
     <script>
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
@@ -12,8 +11,7 @@
             }); var f = d.getElementsByTagName(s)[0],
                 j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
                     'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-TLLVLTQ');</script>
-    <!-- End Google Tag Manager -->
+        })(window, document, 'script', 'dataLayer', 'GTM-MQ9L6KT');</script>
     <link rel="stylesheet" href="~/css/site.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
@@ -28,7 +26,7 @@
         /**/
     }
     function backToMainPage() {
-        window.location.href = '/Home/Index/';
+        window.location.href = '/';
     }
     function openDetails(advertId, advertPrice) {
         window.open('/Product/Details/' + "?id=" + advertId + "&price=" + advertPrice, "_self");
@@ -36,12 +34,10 @@
     </script>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
     <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLLVLTQ"
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQ9L6KT"
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
-    <!-- End Google Tag Manager (noscript) -->
     <div id="divCartViewControl">
         @Html.Partial("CartViewInner", @Model)
     </div>

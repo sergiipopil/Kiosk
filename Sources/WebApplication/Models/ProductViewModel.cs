@@ -17,6 +17,8 @@ namespace WebApplication.Models
         public string ReturnFunction { get; set; }
         public string Price { get; set; }
         public List<string> Parameters { get; set; }
+        public int AvailableQuantity { get; set; }
+        public decimal? SellerRating { get; set; }
         public OfferImage[] Images
         {
             get;set;

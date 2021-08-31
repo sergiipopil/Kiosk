@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <script>
         $(function () {
             $('#myPager').on('click', 'a', function () {
@@ -246,7 +247,7 @@
                 <tr>
                     <td>
                         <div style="border: 1px solid #ff6b05; padding: 0px 10px; margin: 10px 0px 10px 10px;">
-                            <div class="divInputPartFilter">@Html.TextBoxFor(m => m.PartNumberValue, new { @placeholder = "Введите № детали", @id = "inputPartValueFilter", @class = "inputPartFilter" })</div>
+                            <div class="divInputPartFilter">@Html.TextBoxFor(m => m.PartNumberValue, new { @placeholder = "Введите № детали", @id = "inputPartValueFilter", @class = "inputPartFilter", @onkeydown = "if (event.keyCode == 13) {{submitInputFilter($('#inputPartValueFilter').val())}}" })</div>
                             <div class="loopBtn" onclick="@String.Format("submitInputFilter($('#inputPartValueFilter').val())")"><img class="loopImgPaddingFilter" src="~/images/Catalog/InputLoupe.png"></div>
                         </div>
                     </td>
@@ -267,7 +268,7 @@
             попробуйте в другом разделе
         </div>
     }
-<div style="text-align:center;padding:10px 0px 0px 0px;color: #ff5a00;font-size:16px;">Цена указана без учета таможенного сбора, страховки и доставки.</div>
+<div style="text-align:center;padding:10px 0px 0px 0px;color: #ff5a00;font-size:16px;">Цена указана с учетом таможенного сбора, страховки и доставки.</div>
     @foreach (var item in Model.AllegroOfferList)
     {
         <div class="container-fluid">
@@ -295,8 +296,8 @@
                         </div>
                     </div>
                     <div class="col-lg-6" style="position:relative;">
-                        <div style="vertical-align: top;position:absolute;" class="hide">
-                            <span class="productTitle" style="cursor:pointer;" onclick="openDetails('@item.SourceId', '@item.Price')">@item.Name.Last().Value<span class="productNumberId">( @item.SourceId )</span></span>
+                        <div style="vertical-align: top;position:absolute;" class="hide" onclick="openDetails('@item.SourceId', '@item.Price')">
+                            <span class="productTitle" style="cursor:pointer;">@item.Name.Last().Value<span class="productNumberId">( @item.SourceId )</span></span>
                         </div>
                         @*@if(Model.ReallyTopCategoryId !="99193"){
                             <div class="openProductDEtailsBtn" onclick="openDetails('@item.SourceId', '@item.Price')">Подробнее</div>}*@
@@ -325,7 +326,7 @@
         </div>
     }
     <div id="myPager" style="float:right;padding:20px;">
-        @Html.PagedListPager(Model.FakeAllegroList.ToPagedList(@Model.PageNumber, 10), page => Url.Action("FilteredList", "Home", new { state = @Model.OfferState, sorting = @Model.OfferSorting, page }), new PagedListRenderOptions
+        @Html.PagedListPager(Model.FakeAllegroList.ToPagedList(@Model.PageNumber, 40), page => Url.Action("FilteredList", "Home", new { state = @Model.OfferState, sorting = @Model.OfferSorting, page }), new PagedListRenderOptions
     {
        LinkToFirstPageFormat = " << ",
        LinkToPreviousPageFormat = " < ",

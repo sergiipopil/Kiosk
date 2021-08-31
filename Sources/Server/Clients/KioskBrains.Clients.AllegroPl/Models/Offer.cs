@@ -18,6 +18,9 @@ namespace KioskBrains.Clients.AllegroPl.Models
 
         public string PriceCurrencyCode { get; set; }
 
+        public int AvailableQuantity { get; set; }
+        public decimal? SellerRating { get; set; }
+
         public MultiLanguageString Description { get; set; }
 
         public OfferImage[] Images { get; set; }

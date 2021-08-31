@@ -18,6 +18,8 @@ using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using WebApplication.Classes;
 using KioskBrains.Clients.Ek4Car;
+
+
 namespace WebApplication
 {
     public class Startup
@@ -66,7 +68,7 @@ namespace WebApplication
             services.UpdateDatabase<KioskBrainsContext, DbInitializer>(services.BuildServiceProvider());
             services.AddControllersWithViews();
         }
-
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -93,13 +95,14 @@ namespace WebApplication
 
             app.UseAuthorization();
             app.UseSession();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    //pattern: "{controller=Home}/{action=Index}/{id?}");
-                    pattern: "{controller=Home}/{action=Index}/{param1?}/{param10?}/{param2?}/{param3?}/{param4?}/{param5?}/{param6?}/{param7?}/{param8?}");
-        });
+                    //pattern: "{controller=Home}/{action=Index}/{*catchall}");
+                    pattern: "{controller=Home}/{action=Index}/{param?}/{param10?}/{param2?}/{param3?}/{param4?}/{param5?}/{param6?}/{param7?}/{param8?}");
+            });
         }
     }
 }

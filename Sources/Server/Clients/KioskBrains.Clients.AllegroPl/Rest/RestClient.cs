@@ -14,6 +14,7 @@ using KioskBrains.Common.Contracts;
 using KioskBrains.Common.EK.Api;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Mvc;
 using ScraperApi;
 using System.IO;
 using System.Net;
@@ -265,6 +266,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                         tempSSS.Add(offerItem);
                     }
                 }
+                responceOld.ReallyTotalCount = parserResponce.totalCount;
                 responceOld.Items = new Models.SearchOffersResponseItems() { Regular = tempSSS.ToArray() };
 
 
@@ -402,7 +404,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     throw new ArgumentOutOfRangeException(nameof(sorting), sorting, null);
             }
             parameters["sort"] = sortingValue;
-            parameters["page"] = (offset / 10).ToString();
+            parameters["page"] = (offset / 40).ToString();
             parameters["api_key"] = "Umthudpx8FCs9ks6rBpB";
             parameters["method"] = "search";
 
@@ -452,7 +454,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             public string price { get; set; }
             public string price_with_delivery { get; set; }
             public string currency { get; set; }
-            public decimal seller_rating { get; set; }
+            public decimal? seller_rating { get; set; }
             public Specifications specifications { get; set; }
             public IEnumerable<ImagesParser> images { get; set; }
             public Description description { get; set; }
@@ -496,7 +498,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             try
             {
                 var res = GetAsyncDetails(id).Result;
-
+                
                 List<OfferParameter> listParameters = new List<OfferParameter>();
 
                 foreach (var item in res.specifications.Parametry)
@@ -507,10 +509,18 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                         Value = new MultiLanguageString() { [Languages.PolishCode] = item.Value.ToString() }
                     });
                 }
-
+                var temp = res.description.sections.Select(x => x.items).ToList();
+                var resTemp = "";
+                foreach (var item in temp)
+                {
+                    if (item.Where(x => x.type == "TEXT").FirstOrDefault() != null)
+                    {
+                        resTemp = resTemp + item.Where(x => x.type == "TEXT").FirstOrDefault().content;
+                    }
+                }
                 var descMultiNew = new MultiLanguageString()
                 {
-                    [Languages.PolishCode] = res.description.sections[0].items.Where(x => x.type == "TEXT").FirstOrDefault().content
+                    [Languages.PolishCode] = resTemp
                 };
 
                 OfferImage[] imagePathesNew = res.images.Select(x => new OfferImage() { Url = x.original }).ToArray();
@@ -525,7 +535,8 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 }
                 IEnumerable<OfferImage> tempImage = successImages.Distinct();
 
-                if (res.price.Contains(".")) {
+                if (res.price.Contains("."))
+                {
                     res.price = res.price.Replace('.', ',');
                 }
                 if (res.price_with_delivery.Contains("."))
@@ -542,7 +553,9 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     Description = descMultiNew,
                     Parameters = listParameters,
                     Images = tempImage.ToArray(),
-                    Price= Convert.ToDecimal(res.price),
+                    AvailableQuantity = res.availableQuantity,
+                    SellerRating = res.seller_rating,
+                    Price = Convert.ToDecimal(res.price),
                     DeliveryOptions = new[]
                     {
                         new DeliveryOption()

@@ -1,0 +1,62 @@
+﻿
+    <div itemscope itemtype="http://schema.org/Product">
+        
+            <h1 itemprop="name">Название товара </h1>
+            
+                <a itemprop="image" href="/schema/Product.jpeg" title="Описание картинки "><img src="/schema/Product.jpeg" alt="альтернативный текст картинки"></a>
+                
+                    <div itemprop="description">Описание товара или услуги</div>
+                    <!— рейтинг товара —>
+                        <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                            Рейтинг: <span itemprop="ratingValue">4.9</span> (<span itemprop="reviewCount">16</span> отзывов)
+                            <!— или можно указать в скрытом варианте: —>
+                                <!— минимальное значение рейтинга: —>
+                                    <meta itemprop="worstRating" content="1" />
+                                    <!— само значение рейтинга: —>
+                                        <meta itemprop="ratingValue" content="4,9" />
+                                        <!— максимальное значение рейтинга: —>
+                                            <meta itemprop="bestRating" content="5" />
+                                            <!— количество голосов по рейтингу: —>
+                                                <meta itemprop="ratingCount" content="38914" />
+                        </div>
+                        <!— Указывается схема Offer — цена товара—>
+                            <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                <!— В поле price указываем цену товара.—>
+                                    Цена: <span itemprop="price" content="5750.00">5750 руб.</span>
+                                    <!— Указываем ссылку на товар —>
+                                        <link itemprop="url" href="https://seoya.ru/mikrorazmetka-kartochki-tovara/">
+                                        <!— В поле priceCurrency указывается валюта данные выводим мета информацией так как на странице она не где не присутствует.—>
+                                            <meta itemprop="priceCurrency" content="RUB">
+                                            <!— Указываем дату после которой цена перестанет действовать —>
+                                                <meta itemprop="priceValidUntil" content="2023-11-16">
+                                                <!— Указываем свойство InStock, которое свидетельствует о том, что товар в наличии, данные выводим также метаинформацией —>
+                                                    <!— указываем наличие: —>
+                                                        <span><link itemprop="availability" href="http://schema.org/InStock">Уже в продаже</span>
+                                                        <!— или указываем отсутствие: —>
+                                                            <span><link itemprop="availability" href="http://schema.org/OutOfStock">Нет в наличии</span>
+                                                            <!— если под заказ, то указываем: —>
+                                                                <span><link itemprop="availability" href="http://schema.org/PreOrder">Под заказ</span>
+                            </div>
+                            <!— Указываем схему Review — отзыв о товаре —>
+                                <div itemprop="review" itemscope itemtype="http://schema.org/Review">
+                                    <span itemprop="name">Отзыв о продукте</span>
+                                    <!— В поле date указываем дата публикации отзыва.—>
+                                        <meta itemprop="datePublished" content="2017-06-20">20 июня 2017 года
+                                        <!— Указывается схема Rating — рейтинг отзыва —>
+                                            <span itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">
+                                                <!— В поле worstRating метаинформацией указываем минимально возможный рейтинг.—>
+                                                    <meta itemprop="worstRating" content="1">
+                                                    <!— В поле ratingValue мета информацией указываем текущий рейтинг.—>
+                                                        <meta itemprop="ratingValue" content="3">
+                                                        <!— В поле bestRating метаинформацией указываем максимально возможный рейтинг.—>
+                                                            <meta itemprop="bestRating" content="5" />
+                                            </span>
+                                            <!— Указывается схема Person.—>
+                                                <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                                                    <!— В поле name указывается имя автора.—>
+                                                        <span itemprop="name" class="name">Анатолий</span>
+                                                </span>
+                                                <!— В поле reviewBody указываем сам отзыв на товар.—>
+                                                    <div itemprop="reviewBody">Текст отзыва</div>
+                                </div>
+    </div>

@@ -59,7 +59,7 @@ namespace KioskBrains.Clients.AllegroPl
 
         #region Search
 
-        private const int MaxPageSize = 10;
+        private const int MaxPageSize = 40;
         private const int MaxDescriptionLength = 250;
 
         public async Task<IList<string>> GetCategoriesByFullModelName(string modelName, CancellationToken cancellationToken)
@@ -206,7 +206,7 @@ namespace KioskBrains.Clients.AllegroPl
             {
                 Offers = offers,
                 TranslatedPhrase = translatedPhrase,
-                Total = apiResponse.Items?.Regular.Count() ?? 0,
+                Total = Convert.ToInt32(apiResponse.ReallyTotalCount),
             };
         }
 
@@ -236,7 +236,7 @@ namespace KioskBrains.Clients.AllegroPl
         private void AddParametersToTranslate(List<OfferParameter> parameters)
         {
             lock (_transLock)
-            { 
+            {
                 foreach (var p in parameters)
                 {
                     if (!_valuesToTranslate.Contains(p.Name[Languages.PolishCode]))
@@ -284,11 +284,11 @@ namespace KioskBrains.Clients.AllegroPl
             {
                 yandexTranslated = await _yandexTranslateClient.TranslateAsync(forYandex, Languages.PolishCode.ToLower(), Languages.RussianCode.ToLower(), cancellationToken);
             }
-            catch(Exception er)
+            catch (Exception er)
             {
                 yandexTranslated = forYandex;
             }
-            
+
 
 
             var yandexDict = new Dictionary<string, string>();
@@ -343,7 +343,19 @@ namespace KioskBrains.Clients.AllegroPl
                 //throw;
             }
         }
+        private async Task<string> ApplyTranslationsDescription(ITranslateService translateService, string descPolish, CancellationToken cancellationToken)
+        {
+            var desc = descPolish.ToLower();
+            var allParams = await translateService.GetDescriptionDictionary();
 
+            var dict123 = GetTranslation(translateService, desc, cancellationToken);
+            foreach (var p in allParams)
+            {
+                if (!String.IsNullOrEmpty(p.Key))
+                    desc = desc.Replace(p.Key, p.Value);
+            }
+            return dict123.Result;
+        }
         private async Task ApplyTranslationsExtraData(ITranslateService translateService, Offer data, CancellationToken cancellationToken)
         {
             var dict = await translateService.GetDictionary(_valuesToTranslate);
@@ -373,18 +385,7 @@ namespace KioskBrains.Clients.AllegroPl
                 p.Name[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, p.Name[Languages.PolishCode]);
                 p.Value[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, p.Value[Languages.PolishCode]);
             }
-            
-            //var desc = data.Description[Languages.PolishCode].ToLower();
-            //var allParams = await translateService.GetDescriptionDictionary();
-            
-            //var dict123 = GetTranslation(translateService, desc, cancellationToken);
-            //foreach (var p in allParams)
-            //{
-            //    if (!String.IsNullOrEmpty(p.Key))
-            //        desc = desc.Replace(p.Key, p.Value);
-            //}
 
-            //data.Description[Languages.RussianCode] = dict123.Result;
         }
 
         private string GetSafeValFromDictionary(IDictionary<string, string> dict1, IDictionary<string, string> dict2, string val)
@@ -445,7 +446,7 @@ namespace KioskBrains.Clients.AllegroPl
                 {
                     _valuesToTranslate = new HashSet<string>();
                 }
-                
+
                 var data = _restClient.GetExtraDataInit(offerId);
                 var state = data.Parameters.FirstOrDefault(x => x.Name[Languages.PolishCode].ToLower() == StateAttributeName.ToLower());
                 if (state != null)
@@ -467,6 +468,10 @@ namespace KioskBrains.Clients.AllegroPl
 
         #endregion
 
+        public async Task<string> GetOfferDescTranslate(ITranslateService translateService, string descPolish, CancellationToken cancellationToken) {
+            var result = await ApplyTranslationsDescription(translateService, descPolish, cancellationToken);
+            return result;
+        }
         public async Task<Offer> GetOfferById(ITranslateService translateService, string offerId, CancellationToken cancellationToken)
         {
             lock (_transLock)

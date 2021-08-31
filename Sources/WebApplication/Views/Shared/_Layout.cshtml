@@ -2,18 +2,6 @@
 <html lang="en">
 <head>
 
-    @RenderSection("Scripts", required: false)
-    <!-- Google Tag Manager -->
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-TLLVLTQ');</script>
-    <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BI-BI - АВТОРАЗБОРКИ УКРАИНЫ И ЕВРОПЫ</title>
@@ -45,7 +33,8 @@
         .menuItemPic {
             display: inline-block;
             vertical-align: middle;
-            width: 35px;
+            text-align: left;
+            width: 32px;
         }
 
         .simpleBtn {
@@ -57,134 +46,136 @@
             cursor: pointer;
         }
     </style>
+    <script type="text/javascript">
+        function openLeftMenu(menu) {
+            window.history.replaceState(null, null, window.location.href + "/" + menu);
+        }
+    </script>
+    <meta name="google-site-verification" content="pdu1x6QOUO9mXKsJr7KiYB_9GjQl-a8GM8I563AQwPk" />
 </head>
 
 <body style="background:#23274d;width:100%;">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLLVLTQ"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
     <div id="modDialog" class="modal fade">
         <div id="dialogContent" class="modal-dialog"></div>
     </div>
-    <header>
-        <div style="cursor:pointer;display:inline-block;vertical-align:middle;width:10%;text-align:center;" onclick="backToMainPage()">
-            <img src="~/images/sitelogoNew.webp" class="headerImg" />
-        </div>
-        <div style="display:inline-block;vertical-align:middle;text-align:center;width:85%;">
-            <div style="display:inline-block;vertical-align:middle;text-align:center;padding:0px 20px;">
-                <span class="headerTitle">АВТОРАЗБОРКИ УКРАИНЫ И ЕВРОПЫ В ОДНОМ ОКНЕ</span>
+    <div itemscope="" itemtype="http://schema.org/WebPage">
+        <link itemprop="mainEntityOfPage" itemscope="" href="https://bi-bi.com.ua">
+        <header>
+            <div itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
+                <div style="cursor:pointer;display:inline-block;vertical-align:middle;width:10%;text-align:center;" onclick="backToMainPage()" itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+                    <img itemprop="image url" src="~/images/sitelogoNew.webp" class="headerImg" />
+                </div>
+                <div style="display:inline-block;vertical-align:middle;text-align:center;width:85%;">
+                    <div style="display:inline-block;vertical-align:middle;text-align:center;padding:0px 20px;">
+                        <span itemprop="name" class="headerTitle">АВТОРАЗБОРКИ УКРАИНЫ И ЕВРОПЫ В ОДНОМ ОКНЕ</span>
 
+                    </div>
+                    <div style="display:inline-block;vertical-align:middle;"><span style="color: #ff5200; font-size: 2em;" itemprop="telephone">+38 067 523 21 43</span></div>
+                </div>
+                <meta itemprop="telephone" content="+38 067 523 21 43">
+                <meta itemprop="address" content="Украина">
+                <meta itemprop="name" content="https://bi-bi.com.ua">
             </div>
-            <div style="display:inline-block;vertical-align:middle;"><span style="color: #ff5200; font-size: 2em;">+38 067 523 21 43</span></div>
-        </div>
+        </header>
 
-    </header>
-    <div class="container-fluid" style="padding:0px;">
-        <div class="row">
-            <div id="showmodal_PopUp" class="modal fade" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document" style="width:60%;max-width:60%;">
-                    <div class="modal-content">
-                        @{
+        <div class="container-fluid" style="padding:0px;">
+            <div class="row">
+                <div id="showmodal_PopUp" class="modal fade" tabindex="-1" role="dialog">
+                    <div class="modal-dialog" role="document" style="width:60%;max-width:60%;">
+                        <div class="modal-content">
+                            @{
                             Html.RenderPartial("PopUpMenuBlock");
-                        }
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <main role="main" style="width:100%;">
-                <div class="container-fluid" style="padding:0px;">
-                    <div class="row">
-                        <div @*style="vertical-align:top;color:white; white-space:nowrap;width:10%;max-width:10%; padding-top:2%;"*@ class="col-1" id="divLeftMenu" style="max-width: 9.3%; padding: 0px;">
+                <main role="main" style="width:100%;">
+                    <div class="container-fluid" style="padding:0px;">
+                        <div class="row">
+                            <div @*style="vertical-align:top;color:white; white-space:nowrap;width:10%;max-width:10%; padding-top:2%;"*@ class="col-1" id="divLeftMenu" style="max-width: 9.3%; padding: 0px;">
 
-                            <div class="menuItemDiv">
-                                <a asp-area="" asp-controller="Home" asp-action="Index">
+                                <div class="menuItemDiv" onclick="backToMainPage()" style="cursor:pointer;">
                                     <div class="menuItemPic"><img src="~/images/Menu/Home.png" /></div><div class="inline-block" style="color:#848ac2;">На главную</div>
-                                </a>
-                            </div>
-                            <div style="padding:100px 0px 100px 0px;text-align:center;color:#848ac2;">
-                                @{
+                                </div>
+                                <div style="padding:100px 0px 100px 0px;text-align:center;color:#848ac2;">
+                                    @{
                                     Html.RenderPartial("CartWidget");
-                                }
+                                    }
+                                </div>
+                                @*<div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/ServiceStations.png" /></div><div class="inline-block" style="color:#848ac2;">Послуги СТО</div></div>
+                                    <div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/Map.png" /></div><div class="inline-block" style="color:#848ac2;">Карта терміналів</div></div>*@
+                                <div class="menuItemDiv" onclick="openLeftMenu('instructions')">
+                                    <button id='openInstructions' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="instructionsItem">
+                                        <div class="menuItemPic"><img src="~/images/Menu/Instructions.png" /></div><div class="inline-block" style="color:#848ac2;">
+                                            Инструкция
+                                        </div>
+                                    </button>
+                                </div>
+                                <div class="menuItemDiv" onclick="openLeftMenu('warranty')">
+                                    <button id='openWarranty' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="warrantyItem">
+                                        <div class="menuItemPic"><img src="~/images/Menu/Warranty.png" /></div><div class="inline-block" style="color:#848ac2;">Гарантия</div>
+                                    </button>
+                                </div>
+                                <div class="menuItemDiv" onclick="openLeftMenu('delivery')">
+                                    <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="deliveryItem">
+                                        <div class="menuItemPic"><img src="~/images/Menu/Delivery.png" /></div><div class="inline-block" style="color:#848ac2;">Доставка</div>
+                                    </button>
+                                </div>
+                                <div class="menuItemDiv" onclick="openLeftMenu('return')">
+                                    <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="returnItem">
+                                        <div class="menuItemPic"><img src="~/images/Menu/Return.png" /></div><div class="inline-block" style="color:#848ac2;">Возврат</div>
+                                    </button>
+                                </div>
+                                <div class="menuItemDiv" onclick="openLeftMenu('partnership')">
+                                    <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="partnershipItem">
+                                        <div class="menuItemPic"><img src="~/images/Menu/Partnership.png" /></div><div class="inline-block" style="color:#848ac2;">Партнерство</div>
+                                    </button>
+                                </div>
+                                <div class="menuItemDiv" onclick="openLeftMenu('contacts')">
+                                    <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="contactsItem">
+                                        <div class="menuItemPic"><img src="~/images/Menu/new.png" style="max-width:26px;" /></div><div class="inline-block" style="color:#848ac2;">Контакты</div>
+                                    </button>
+                                </div>
                             </div>
-                            @*<div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/ServiceStations.png" /></div><div class="inline-block" style="color:#848ac2;">Послуги СТО</div></div>
-                                <div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/Map.png" /></div><div class="inline-block" style="color:#848ac2;">Карта терміналів</div></div>*@
-                            <div class="menuItemDiv">
-                                <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="instructionsItem">
-                                    <div class="menuItemPic"><img src="~/images/Menu/Instructions.png" /></div><div class="inline-block" style="color:#848ac2;">
-                                        Инструкция
-                                    </div>
-                                </button>
+                            <div style="vertical-align:top;" class="col">
+                                @RenderBody()
                             </div>
-                            <div class="menuItemDiv">
-                                <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="warrantyItem">
-                                    <div class="menuItemPic"><img src="~/images/Menu/Warranty.png" /></div><div class="inline-block" style="color:#848ac2;">Гарантия</div>
-                                </button>
+                            <div class="first">
+                                <a class="divCallStyle" style="position: fixed !important;" href="tel:+380675232143"><img class="iconCall" src="~/images/call.gif" /></a>
                             </div>
-                            <div class="menuItemDiv">
-                                <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="deliveryItem">
-                                    <div class="menuItemPic"><img src="~/images/Menu/Delivery.png" /></div><div class="inline-block" style="color:#848ac2;">Доставка</div>
-                                </button>
-                            </div>
-                            <div class="menuItemDiv">
-                                <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="returnItem">
-                                    <div class="menuItemPic"><img src="~/images/Menu/Return.png" /></div><div class="inline-block" style="color:#848ac2;">Возврат</div>
-                                </button>
-                            </div>
-                            <div class="menuItemDiv">
-                                <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="partnershipItem">
-                                    <div class="menuItemPic"><img src="~/images/Menu/Partnership.png" /></div><div class="inline-block" style="color:#848ac2;">Партнерство</div>
-                                </button>
-                            </div>
+                            <div class="second">+38 067 523 21 43</div>
                         </div>
-                        <div style="vertical-align:top;" class="col">
-                            @RenderBody()
-                        </div>
-                        <div class="first">
-                            <a class="divCallStyle" style="position: fixed !important;" href="tel:+380675232143"><img class="iconCall" src="~/images/call.gif" /></a>
-                        </div>
-                        <div class="second">+38 067 523 21 43</div>
                     </div>
-                </div>
-            </main>
+                </main>
+            </div>
         </div>
+
+        <footer class="border-top footer text-muted">
+            <table class="footerTable">
+                <tr>
+                    <td class="tdPrivacyStyle">&copy; 2021 - Интернет магазин bi-bi.com.ua - <a asp-area="" asp-controller="Home" asp-action="Privacy">Политика конфиденциальности</a></td>
+                    <td>
+                        <table class="footerTableSocial">
+                            <tr>
+                                <td style="cursor:pointer;" onclick="window.open('https://www.facebook.com/Автозапчастини-247-103538094588098')"><img src="~/images/Social/facebook.png" style="width:40%;" class="socialIcon" /></td>
+                                <td style="cursor:pointer;" onclick="window.open('https://www.instagram.com/ek4car_cn/')"><img src="~/images/Social/instagram.png" style="width:40%;" class="socialIcon" /></td>
+                                <td style="cursor:pointer;" onclick="window.open('https://www.youtube.com/channel/UCahH44dE4C6ZSiOr-SPMqFA')"><img src="~/images/Social/youtube.png" style="width:40%;" class="socialIcon" /></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <div>
+                            <span style="font-size:18px;color:#a7a7a7;">infobibimarket@gmail.com</span>
+                        </div>
+                    </td>
+                    <td>
+                        <span>© 2021 «EK4CAR & BI-BI». Все права защищены</span>
+                    </td>
+                </tr>
+            </table>
+        </footer>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <table class="footerTable">
-            <tr>
-                <td class="tdPrivacyStyle">&copy; 2021 - Інтернет магазин bi-bi.com.ua - <a asp-area="" asp-controller="Home" asp-action="Privacy">Политика конфиденциальности</a></td>
-                <td>
-                    <table class="footerTableSocial">
-                        <tr>
-                            <td style="cursor:pointer;" onclick="window.open('https://www.facebook.com/Автозапчастини-247-103538094588098')"><img src="~/images/Social/facebook.png" style="width:40%;" class="socialIcon" /></td>
-                            <td style="cursor:pointer;" onclick="window.open('https://www.instagram.com/ek4car_cn/')"><img src="~/images/Social/instagram.png" style="width:40%;" class="socialIcon" /></td>
-                            <td style="cursor:pointer;" onclick="window.open('https://www.youtube.com/channel/UCahH44dE4C6ZSiOr-SPMqFA')"><img src="~/images/Social/youtube.png" style="width:40%;" class="socialIcon" /></td>
-                        </tr>
-                    </table>
-                </td>
-                <td>
-                    <div>
-                        <span style="font-size:18px;color:#a7a7a7;">infobibimarket@gmail.com</span>
-                    </div>
-                </td>
-                <td>
-                    <span>© 2021 «EK4CAR & BI-BI». Все права защищены</span>
-                </td>
-            </tr>
-        </table>
-    </footer>
-    
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X43P3S8JPD"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-X43P3S8JPD');
-    </script>
 </body>
 </html>

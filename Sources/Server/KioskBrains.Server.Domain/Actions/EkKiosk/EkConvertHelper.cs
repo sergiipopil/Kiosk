@@ -187,8 +187,7 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk
                 var priceStart = (P_Price + D_Price) * R_Rate * (decimal)1.25;//(P_Price + D_Price) * (1 + T_Taxes) * (1 + M_Markup) * R_Rate * ExtraRate;
                 var startExtraRate = (P_Price + D_Price) * (decimal)1.25;
                 var finalPrice = CalculatePrice(P_Price, state, product.CategoryId, (startExtraRate) * R_Rate, R_Rate);
-                product.Price = RoundPrice(priceStart);
-                product.FinalPrice = RoundPrice(finalPrice);
+                product.Price = product.FinalPrice = RoundPrice(finalPrice);
                 product.PriceCurrencyCode = "UAH";
                 product.PriceCalculationInfo = $"Formula=((P+D)+M%+T%)*R*ER, P={P_Price}, D={D_Price}, M={M_Markup:P}, T={T_Taxes:P}, R={R_Rate}, Category={(isSpecialEngineTransmissionProduct ? "Engine/Transmission" : "Regular")}";
             }

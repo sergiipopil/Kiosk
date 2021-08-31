@@ -5,5 +5,7 @@
         public SearchOffersResponseItems Items { get; set; }
 
         public SearchMeta SearchMeta { get; set; }
+
+        public string ReallyTotalCount { get; set; }
     }
 }

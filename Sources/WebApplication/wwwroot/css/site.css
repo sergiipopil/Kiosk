@@ -69,7 +69,12 @@ for details on configuring this project to bundle and minify static web assets. 
     display: inline-block;
     padding:10px;
 }
+.continueBuys {
+    background:
+}
+.continueBuys:hover {
 
+}
 #divBtnNova, #divBtnCourier, .form-control {
     cursor: pointer;
 }
@@ -690,6 +695,11 @@ html {
         font-size: 13px;
         overflow:hidden;
     }
+    .manufactureTextModels {
+        text-align: center;
+        font-size: 10px;
+        overflow: hidden;
+    }
 
     .modelImage {
         max-width: 85px;
@@ -1187,6 +1197,15 @@ html {
         font-size: 16px;
         color: #06385f;
         font-weight:200;
+        font-family: Arial,Helvetica,sans-serif;
+        overflow: hidden;
+        /*font-weight: bold;*/
+    }
+    .manufactureTextModels {
+        text-align: center;
+        font-size: 16px;
+        color: #06385f;
+        font-weight: 200;
         font-family: Arial,Helvetica,sans-serif;
         overflow: hidden;
         /*font-weight: bold;*/
