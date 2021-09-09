@@ -224,7 +224,10 @@ namespace WebApplication.Controllers
 
         public ActionResult CartView(string selectedProductId = null)
         {
-
+            if (this.RouteData.Values["topcategory"]!=null)
+            {
+                selectedProductId = (string)this.RouteData.Values["topcategory"];
+            }
             var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
             RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
 
@@ -234,7 +237,7 @@ namespace WebApplication.Controllers
 
 
             decimal tempAllPrice = 0;
-            
+
             foreach (var item in cartProducts)
             {
                 tempAllPrice += item.Product.Price * item.Quantity;
@@ -256,7 +259,7 @@ namespace WebApplication.Controllers
             }
             //======================= START -- RETURN TO LIST PARAMS ----------- =================
             //String.Format("selectMainCategory('{0}', '{1}', '{2}', '{3}', '{4}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, tempKioskId)
-            ViewData["Params"] = String.Format("?carManufactureName={0}&carModel={1}&mainCategoryId={2}&mainCategoryName={3}&subCategoryId={4}&subCategoryName={5}&subChildId={6}&subChildName={7}&kioskId={8}", rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
+            ViewData["Params"] = String.Format("/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
                 rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName, rightTree.kioskId);
 
             if (!String.IsNullOrEmpty(rightTree.PartNumberValue))
@@ -362,7 +365,7 @@ namespace WebApplication.Controllers
         }
         public ActionResult Delivery(string area, string city)
         {
-            IList<CustomCartProduct> cartProducts = GetCartProducts();            
+            IList<CustomCartProduct> cartProducts = GetCartProducts();
             decimal tempAllPrice = 0;
             foreach (var item in cartProducts)
             {
@@ -374,10 +377,10 @@ namespace WebApplication.Controllers
             ViewData["CartWidgetPrice"] = tempAllPrice;
             CartWidgetController cartWidget = new CartWidgetController();
             cartWidget.CartWidget();
-            
+
             var allData = _novaPoshtaClient.GetDataFromFile();
             var areas = allData.Select(x => new AreasSearchItem() { Description = x.AreaDescription, Ref = x.Ref }).GroupBy(x => x.Description).Select(g => g.First()).ToArray();
-            
+
             NovaPoshtaViewModel npView = new NovaPoshtaViewModel
             {
                 Areas = areas,
@@ -414,18 +417,38 @@ namespace WebApplication.Controllers
         }
 
         // GET: ProductController/Details/5        
-        public ActionResult Details(string id, bool isTransDesc=false)
+        public ActionResult Details(string id, bool isTransDesc = false)
         {
+            id = (string)this.RouteData.Values["topcategory"];
             var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
             if (!String.IsNullOrEmpty(rightTreeViewModelString))
             {
                 RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
-                ViewData["Params"] = String.Format("?carManufactureName={0}&carModel={1}&mainCategoryId={2}&mainCategoryName={3}&subCategoryId={4}&subCategoryName={5}&subChildId={6}&subChildName={7}&kioskId={8}", rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
-                    rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName, rightTree.kioskId);
+                if (rightTree.SubChildCategoryId == null)
+                {
+                    ViewData["Params"] = String.Format("topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
+                        rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName);
+                }
+                if (rightTree.SubChildCategoryId != null && rightTree.ManufacturerSelected != null)
+                {
+                    ViewData["Params"] = String.Format("topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
+                        rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName);
+                }
+                if (rightTree.ManufacturerSelected == null && rightTree.SubChildCategoryId == null)
+                {
+                    ViewData["Params"] = String.Format("topcategoryid/{0}/{1}/{2}/{3}/{4}", rightTree.ReallyTopCategoryId, rightTree.MainCategoryId,
+                            rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName);
+                }
+                if (rightTree.ManufacturerSelected == null && rightTree.SubChildCategoryId != null)
+                {
+                    ViewData["Params"] = String.Format("topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}", rightTree.ReallyTopCategoryId, rightTree.MainCategoryId,
+                            rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName);
+                }
             }
             Offer offer = GetProductInfo(id);
             var tempRus = "";
-            if (isTransDesc) {
+            if (isTransDesc)
+            {
                 tempRus = GetDescTransl(offer);
             }
             offer.Description[Languages.RussianCode] = tempRus;
@@ -437,7 +460,7 @@ namespace WebApplication.Controllers
             {
                 parameters.Add(item.Name[Languages.RussianCode] + ": " + item.Value[Languages.RussianCode]);
             }
-            
+
             var product = new ProductViewModel()
             {
                 Id = id,
@@ -446,8 +469,8 @@ namespace WebApplication.Controllers
                 Images = offer.Images,
                 Parameters = parameters,
                 Price = ekProduct.Price.ToString(),
-                AvailableQuantity=offer.AvailableQuantity,
-                SellerRating=offer.SellerRating
+                AvailableQuantity = offer.AvailableQuantity,
+                SellerRating = offer.SellerRating
             };
             ProductViewModel model = product;
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
@@ -460,7 +483,7 @@ namespace WebApplication.Controllers
             if (!String.IsNullOrEmpty(rightTreeViewModelString))
             {
                 RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
-                ViewData["Params"] = String.Format("?carManufactureName={0}&carModel={1}&mainCategoryId={2}&mainCategoryName={3}&subCategoryId={4}&subCategoryName={5}&subChildId={6}&subChildName={7}&kioskId={8}", rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
+                ViewData["Params"] = String.Format("topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
                     rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName, rightTree.kioskId);
             }
             Offer offer = GetProductInfo(id);
@@ -487,8 +510,8 @@ namespace WebApplication.Controllers
                 Images = offer.Images,
                 Parameters = parameters,
                 Price = ekProduct.Price.ToString(),
-                SellerRating=offer.SellerRating,
-                AvailableQuantity=offer.AvailableQuantity
+                SellerRating = offer.SellerRating,
+                AvailableQuantity = offer.AvailableQuantity
             };
             ProductViewModel model = product;
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");

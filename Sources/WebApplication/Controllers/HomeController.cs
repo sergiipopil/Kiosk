@@ -30,6 +30,7 @@ namespace WebApplication.Controllers
 
     public class HomeController : Controller
     {
+        
         public static EkCarTypeEnum _topCategoryCarType;
         public static int pageSize = 40;
         private AllegroPlClient _allegroPlClient;
@@ -56,11 +57,31 @@ namespace WebApplication.Controllers
             _translateService = translateService;
             _centralBankExchangeRateManager = centralBankExchangeRateManager;
         }
+        [Route("/")]
+        [Route("/{topcategory?}/")]
+        [Route("/{topcategory?}/{category?}")]
+        [Route("/{topcategory?}/{category?}/{carmanufacture?}")]
+        [Route("/{topcategory?}/{category?}/{carmanufacture?}/{carmodel?}")]
+        [Route("/{topcategory?}/{category?}/{carmanufacture?}/{carmodel?}/{maincategoryid?}")]
+        [Route("/{topcategory?}/{category?}/{carmanufacture?}/{carmodel?}/{maincategoryid?}/{maincategoryname?}")]
+        [Route("/{topcategory?}/{category?}/{carmanufacture?}/{carmodel?}/{maincategoryid?}/{maincategoryname?}/{subcategoryid?}")]
+        [Route("/{topcategory?}/{category?}/{carmanufacture?}/{carmodel?}/{maincategoryid?}/{maincategoryname?}/{subcategoryid?}/{subcategoryname?}")]
+        [Route("/{topcategory?}/{category?}/{carmanufacture?}/{carmodel?}/{maincategoryid?}/{maincategoryname?}/{subcategoryid?}/{subcategoryname?}/{subchildcategoryid?}")]
+        [Route("/{topcategory?}/{category?}/{carmanufacture?}/{carmodel?}/{maincategoryid?}/{maincategoryname?}/{subcategoryid?}/{subcategoryname?}/{subchildcategoryid?}/{subchildcategoryname?}")]
+        [Route("/{topcategory?}/{category?}/{carmanufacture?}/{carmodel?}/{maincategoryid?}/{maincategoryname?}/{subcategoryid?}/{subcategoryname?}/{subchildcategoryid?}/{subchildcategoryname?}/{kioskid?}")]
+        //{carmanufacture?}/{carmodel?}/{maincategoryid?}/{maincategoryname?}/{subcategoryid?}/{subcategoryname?}/{subchildcategoryid?}/{subchildcategoryname?}");
+        //[Route("/Home/")]
+        //[Route("/Home/Index/")]
+        //[Route("/Home/Index/{carmanufacture?}")]
 
+        
         public IActionResult Index(string kioskId)
         {
+            ViewData["TitleText"] = "123";
+            TitleController titleController = new TitleController();
+            titleController.GetTitleSite();
             string cookieValueFromReq = Request.Cookies["kioskId"];
-            string _topCategoryId = Request.Query["topCategoryId"].ToString();
+            string _topCategoryId = HttpContext.Session.GetString("topCategoryId");
             CookieOptions option = new CookieOptions();
             option.Expires = DateTime.Now.AddMonths(1);
 
@@ -79,26 +100,30 @@ namespace WebApplication.Controllers
 
             _topCategoryCarType = new EkSiteFactory().GetCarTypeEnum(String.IsNullOrEmpty(_topCategoryId) ? "620" : _topCategoryId);
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
-            return View(new RightTreeViewModel() { ManufacturerList = carTree, kioskId = HttpContext.Session.GetString("kioskId") });
+            return View(new RightTreeViewModel() { ManufacturerList = carTree, kioskId = HttpContext.Session.GetString("kioskId"), TopCategoryId= HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId") });
         }
         //====================METHOD TO SWITCH TYPE CAR TOP CATEGORY ======================================
         public IActionResult ShowMainView(string topCategoryId)
         {
-            _topCategoryCarType = new EkSiteFactory().GetCarTypeEnum(topCategoryId == "undefined" || topCategoryId == null ? HttpContext.Session.GetString("topCategoryId") : topCategoryId);
+            _topCategoryCarType = new EkSiteFactory().GetCarTypeEnum(topCategoryId);
             HttpContext.Session.SetString("topCategoryId", topCategoryId == null ? "620" : topCategoryId);
             if (topCategoryId == "99193" || topCategoryId == "18554")
             {
                 var tempC = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == topCategoryId).FirstOrDefault().Children;
-                return View("_AutoPartsTree", new RightTreeViewModel() { ProductCategoryList = tempC, ReallyTopCategoryId = (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId")) });
+                return View("_AutoPartsTree", new RightTreeViewModel() { ProductCategoryList = tempC, TopCategoryId=topCategoryId, ReallyTopCategoryId = (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId")) });
             }
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
-            return View("_CarTree", new RightTreeViewModel() { ManufacturerList = carTree, TopCategoryId = HttpContext.Session.GetString("topCategoryId"), kioskId = tempKioskId });
+            return View("_CarTree", new RightTreeViewModel() { ManufacturerList = carTree, TopCategoryId = topCategoryId, kioskId = tempKioskId });
         }
         //====================METHOD TO SHOW CAR MODELS ======================================
-
-        public IActionResult SelectManufactureAndModel(string carManufactureName)
+        
+        public IActionResult SelectManufactureAndModel(string carmanufacture, string topcategoryid)
         {
+            ViewData["TitleText"] = "abc";
+            TitleController titleController = new TitleController();
+            titleController.GetTitleSite();
+            string carManufactureName  = carmanufacture;
             carManufactureName = carManufactureName != null ? carManufactureName.ToUpper() : carManufactureName;
             if (String.IsNullOrEmpty(carManufactureName))
             {
@@ -109,10 +134,11 @@ namespace WebApplication.Controllers
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
             var modelTree = carTree.Where(x => x.Name == carManufactureName).Select(y => y.CarModels).FirstOrDefault();
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
-            return View("_CarModels", new RightTreeViewModel() { ManufacturerSelected = carManufactureName, ModelsList = modelTree, TopCategoryId = HttpContext.Session.GetString("topCategoryId"), kioskId = tempKioskId });
+            return View("_CarModels", new RightTreeViewModel() { ManufacturerSelected = carManufactureName, ModelsList = modelTree, TopCategoryId = String.IsNullOrEmpty(topcategoryid) ? "620" : topcategoryid, kioskId = tempKioskId });
         }
-        public IActionResult SelectModelModifications(string carManufactureName, string carModel)
+        public IActionResult SelectModelModifications(string carManufactureName, string carModel, string topcategoryid)
         {
+            //Session["SiteTitle"] = carModel;
             carManufactureName = carManufactureName != null ? carManufactureName.ToUpper() : carManufactureName;
             carModel = carModel != null ? carModel.ToUpper() : carModel;
             if (String.IsNullOrEmpty(carManufactureName))
@@ -124,22 +150,24 @@ namespace WebApplication.Controllers
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
             var modelTree = carTree.Where(x => x.Name == carManufactureName).Select(y => y.CarModels).FirstOrDefault().Where(x => x.Name == carModel);
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
-            return View("_CarModels", new RightTreeViewModel() { ManufacturerSelected = carManufactureName, ModelSelected = carModel, ModelsList = modelTree.Select(x => x.Children).FirstOrDefault(), IsModificationList = true, TopCategoryId = HttpContext.Session.GetString("topCategoryId"), kioskId = tempKioskId });
+            return View("_CarModels", new RightTreeViewModel() { ManufacturerSelected = carManufactureName, ModelSelected = carModel, ModelsList = modelTree.Select(x => x.Children).FirstOrDefault(), IsModificationList = true, TopCategoryId = topcategoryid, kioskId = tempKioskId });
         }
         //====================METHOD TO SHOW PRODUCTS CATEGORIES ======================================
-        public IActionResult ShowCategoryAutoParts(string carManufactureName, string carModel, string modification)
+        public IActionResult ShowCategoryAutoParts(string carManufactureName, string carModel, string modification, string topcategoryid)
         {
+            //Session["SiteTitle"] = modification;
             carManufactureName = carManufactureName != null ? carManufactureName.ToUpper() : carManufactureName;
             carModel = carModel != null ? carModel.ToUpper() : carModel;
             modification = modification != null ? modification.ToUpper() : modification;
-            string topCategoryId = String.IsNullOrEmpty(HttpContext.Session.GetString("topCategoryId")) || HttpContext.Session.GetString("topCategoryId") == "undefined" || HttpContext.Session.GetString("topCategoryId") == "621" || HttpContext.Session.GetString("topCategoryId") == "622" ? "620" : HttpContext.Session.GetString("topCategoryId");
-            var autoParts = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == topCategoryId).FirstOrDefault().Children;
+            //string topCategoryId = String.IsNullOrEmpty(HttpContext.Session.GetString("topCategoryId")) || HttpContext.Session.GetString("topCategoryId") == "undefined" || HttpContext.Session.GetString("topCategoryId") == "621" || HttpContext.Session.GetString("topCategoryId") == "622" ? "620" : HttpContext.Session.GetString("topCategoryId");
+            string categoryTop = String.IsNullOrEmpty(topcategoryid) || topcategoryid == "621" || topcategoryid == "622" ? "620" : topcategoryid;
+            var autoParts = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == categoryTop).FirstOrDefault().Children;
             string reallyTopCategory = "";
             foreach (var item in autoParts)
             {
-                if (item.Children != null && !item.CategoryId.Contains("GROUP_"))
+                if (item.Children != null && !item.CategoryId.Contains("GROUP-"))
                 {
-                    item.CategoryId = "GROUP_" + item.CategoryId;
+                    item.CategoryId = "GROUP-" + item.CategoryId;
                 }
             }
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
@@ -147,21 +175,23 @@ namespace WebApplication.Controllers
             {
                 reallyTopCategory = "621";
             }
-            return View("_AutoPartsTree", new RightTreeViewModel() { ProductCategoryList = autoParts, ManufacturerSelected = carManufactureName, ModelSelected = String.IsNullOrEmpty(modification) || modification=="null" ? carModel : modification, kioskId = tempKioskId, ReallyTopCategoryId = reallyTopCategory });
+            return View("_AutoPartsTree", new RightTreeViewModel() { ProductCategoryList = autoParts, ManufacturerSelected = carManufactureName, ModelSelected = String.IsNullOrEmpty(modification) || modification=="null" || modification == "NULL" ? carModel : modification, kioskId = tempKioskId, ReallyTopCategoryId = reallyTopCategory, TopCategoryId=topcategoryid });
         }
         //====================METHOD TO SHOW PRODUCTS SUBCATEGORIES ======================================
-        public IActionResult ShowMainSubcategories(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName)
+        public IActionResult ShowMainSubcategories(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string topcategoryid)
         {
+            //Session["SiteTitle"] = mainCategoryName;
             carManufactureName = carManufactureName != null ? carManufactureName.ToUpper() : carManufactureName;
             carModel = carModel != null ? carModel.ToUpper() : carModel;
-            string topCategoryId = String.IsNullOrEmpty(HttpContext.Session.GetString("topCategoryId")) || HttpContext.Session.GetString("topCategoryId") == "undefined" || HttpContext.Session.GetString("topCategoryId") == "621" || HttpContext.Session.GetString("topCategoryId") == "622" ? "620" : HttpContext.Session.GetString("topCategoryId");
-            var autoPartsSubCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == topCategoryId).FirstOrDefault().Children.Where(x => x.CategoryId == mainCategoryId).Select(x => x.Children).FirstOrDefault();
+            //string topCategoryId = String.IsNullOrEmpty(HttpContext.Session.GetString("topCategoryId")) || HttpContext.Session.GetString("topCategoryId") == "undefined" || HttpContext.Session.GetString("topCategoryId") == "621" || HttpContext.Session.GetString("topCategoryId") == "622" ? "620" : HttpContext.Session.GetString("topCategoryId");
+            string categoryTop = String.IsNullOrEmpty(topcategoryid) || topcategoryid == "621" || topcategoryid == "622" ? "620" : topcategoryid;
+            var autoPartsSubCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == categoryTop).FirstOrDefault().Children.Where(x => x.CategoryId == mainCategoryId).Select(x => x.Children).FirstOrDefault();
 
             foreach (var item in autoPartsSubCategories)
             {
-                if (item.Children != null && !item.CategoryId.Contains("GROUP_"))
+                if (item.Children != null && !item.CategoryId.Contains("GROUP-"))
                 {
-                    item.CategoryId = "GROUP_" + item.CategoryId;
+                    item.CategoryId = "GROUP-" + item.CategoryId;
                 }
             }
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
@@ -173,6 +203,7 @@ namespace WebApplication.Controllers
                 MainCategoryId = mainCategoryId,
                 MainCategoryName = mainCategoryName,
                 kioskId = tempKioskId,
+                TopCategoryId=topcategoryid,
                 ReallyTopCategoryId = HttpContext.Session.GetString("topCategoryId") == "621" ? "621" : (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"))
             };
             return View("_AutoPartsSubTree", treeView);
@@ -187,12 +218,13 @@ namespace WebApplication.Controllers
             return tempList;
         }
         //====================METHOD TO SHOW PRODUCTS(ENTERED IN PRE-LAST GROUP OF AUTOPARTS) ======================================
-        public IActionResult ShowMainSubChildsCategories(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName)
+        public IActionResult ShowMainSubChildsCategories(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName, string topcategoryid)
         {
+            //Session["SiteTitle"] = subCategoryName;
             carManufactureName = carManufactureName != null ? carManufactureName.ToUpper() : carManufactureName;
             carModel = carModel != null ? carModel.ToUpper() : carModel;
-            string topCategoryId = String.IsNullOrEmpty(HttpContext.Session.GetString("topCategoryId")) || HttpContext.Session.GetString("topCategoryId") == "undefined" || HttpContext.Session.GetString("topCategoryId") == "621" || HttpContext.Session.GetString("topCategoryId") == "622" ? "620" : HttpContext.Session.GetString("topCategoryId");
-            var autoPartsSubChildCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == topCategoryId).FirstOrDefault().Children.Where(x => x.CategoryId == mainCategoryId).Select(x => x.Children).FirstOrDefault();
+            string categoryTop = String.IsNullOrEmpty(topcategoryid) || topcategoryid == "621" || topcategoryid == "622" ? "620" : topcategoryid;
+            var autoPartsSubChildCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == categoryTop).FirstOrDefault().Children.Where(x => x.CategoryId == mainCategoryId).Select(x => x.Children).FirstOrDefault();
             autoPartsSubChildCategories = autoPartsSubChildCategories.Where(x => x.CategoryId == subCategoryId).Select(x => x.Children).FirstOrDefault();
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
             if (autoPartsSubChildCategories == null)
@@ -215,6 +247,7 @@ namespace WebApplication.Controllers
                 treeViewModel.SubCategoryId = subCategoryId;
                 treeViewModel.SubCategoryName = subCategoryName;
                 treeViewModel.PageNumber = 1;
+                treeViewModel.TopCategoryId = topcategoryid;
                     treeViewModel.SelectedTiresSizes = new SelectedTires()
                     {
                         Height = null,
@@ -231,8 +264,8 @@ namespace WebApplication.Controllers
                 };
                 treeViewModel.EngineValues = new EngineValue().GetEngineValue();
                 treeViewModel.SelectedEngineValue = null;
-                treeViewModel.ReallyTopCategoryId = HttpContext.Session.GetString("topCategoryId") == "621" ? "621" : (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"));
-                treeViewModel.FunctionReturnFromProducts = String.Format("selectMainCategory('{0}', '{1}', '{2}', '{3}', '{4}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, tempKioskId);
+                treeViewModel.ReallyTopCategoryId = topcategoryid == "621" ? "621" : topcategoryid == null ? "620" : topcategoryid;
+                treeViewModel.FunctionReturnFromProducts = String.Format("selectMainCategory('{0}', '{1}', '{2}', '{3}', '{4}', '{5}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, tempKioskId, topcategoryid);
                 treeViewModel.AllegroOfferList = responceAllegro.Products;
                 treeViewModel.FakeAllegroList = FakeListForPager(responceAllegro.Total);
                 treeViewModel.ControllerName = "ShowMainSubChildsCategories";
@@ -246,9 +279,9 @@ namespace WebApplication.Controllers
             }
             foreach (var item in autoPartsSubChildCategories)
             {
-                if (item.Children != null && !item.CategoryId.Contains("GROUP_"))
+                if (item.Children != null && !item.CategoryId.Contains("GROUP-"))
                 {
-                    item.CategoryId = "GROUP_" + item.CategoryId;
+                    item.CategoryId = "GROUP-" + item.CategoryId;
                 }
             }
             RightTreeViewModel treeView = new RightTreeViewModel()
@@ -260,6 +293,7 @@ namespace WebApplication.Controllers
                 MainCategoryName = mainCategoryName,
                 SubCategoryId = subCategoryId,
                 SubCategoryName = subCategoryName,
+                TopCategoryId = topcategoryid,
                 ProductCategoryList = autoPartsSubChildCategories,
                 ReallyTopCategoryId = HttpContext.Session.GetString("topCategoryId") == "621" ? "621" : (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"))
             };
@@ -267,13 +301,14 @@ namespace WebApplication.Controllers
 
         }
         //====================METHOD TO SHOW PRODUCTS(ENTERED IN LAST GROUP OF AUTOPARTS) ======================================
-        public IActionResult ShowProductList(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName, string subChildId, string subChildName, string lastChildId, string lastChildName)
+        public IActionResult ShowProductList(string carManufactureName, string carModel, string mainCategoryId, string mainCategoryName, string subCategoryId, string subCategoryName, string subChildId, string subChildName, string lastChildId, string lastChildName, string topcategoryid)
         {
+            //Session["SiteTitle"] = lastChildName;
             carManufactureName = carManufactureName != null ? carManufactureName.ToUpper() : carManufactureName;
             carModel = carModel != null ? carModel.ToUpper() : carModel;
-            string topCategoryId = String.IsNullOrEmpty(HttpContext.Session.GetString("topCategoryId")) || HttpContext.Session.GetString("topCategoryId") == "undefined" || HttpContext.Session.GetString("topCategoryId") == "621" || HttpContext.Session.GetString("topCategoryId") == "622" ? "620" : HttpContext.Session.GetString("topCategoryId");
+            string categoryTop = String.IsNullOrEmpty(topcategoryid) || topcategoryid  == "621" || topcategoryid == "622" ? "620" : topcategoryid;
 
-            var autoPartsSubChildCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == topCategoryId).FirstOrDefault().Children.Where(x => x.CategoryId == mainCategoryId).Select(x => x.Children).FirstOrDefault();
+            var autoPartsSubChildCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == categoryTop).FirstOrDefault().Children.Where(x => x.CategoryId == mainCategoryId).Select(x => x.Children).FirstOrDefault();
             autoPartsSubChildCategories = autoPartsSubChildCategories.Where(x => x.CategoryId == subCategoryId).Select(x => x.Children).FirstOrDefault();
             var tempCat = autoPartsSubChildCategories.Where(x => x.CategoryId == subChildId).Select(x => x.Children).FirstOrDefault();
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
@@ -282,9 +317,9 @@ namespace WebApplication.Controllers
             {
                 foreach (var item in tempCat)
                 {
-                    if (item.Children != null && !item.CategoryId.Contains("GROUP_"))
+                    if (item.Children != null && !item.CategoryId.Contains("GROUP-"))
                     {
-                        item.CategoryId = "GROUP_" + item.CategoryId;
+                        item.CategoryId = "GROUP-" + item.CategoryId;
                     }
                 }
                 RightTreeViewModel treeViewLast = new RightTreeViewModel()
@@ -299,6 +334,7 @@ namespace WebApplication.Controllers
                     SubChildCategoryId = subChildId,
                     SubChildCategoryName = subChildName,
                     ProductCategoryList = tempCat,
+                    TopCategoryId = topcategoryid,
                     ReallyTopCategoryId = HttpContext.Session.GetString("topCategoryId") == "621" ? "621" : (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"))
                 };
                 return View("AutoPartsLastTreeItems", treeViewLast);
@@ -344,7 +380,7 @@ namespace WebApplication.Controllers
                 SelectedEngineValue = null,
                 ReallyTopCategoryId = HttpContext.Session.GetString("topCategoryId") == "621" ? "621" : (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId")),
                 OfferState = isNew ? OfferStateEnum.New : OfferStateEnum.Used,
-                FunctionReturnFromProducts = String.Format("selectSubMainCategory('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, tempKioskId),
+                FunctionReturnFromProducts = String.Format("selectSubMainCategory('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, tempKioskId, topcategoryid),
                 AllegroOfferList = responceAllegro.Products,
                 ControllerName = "ShowProductList",
                 FakeAllegroList = FakeListForPager(responceAllegro.Total),
@@ -356,6 +392,7 @@ namespace WebApplication.Controllers
         //==================== METHOD TO GET ALLEGRO PRODUCTS BY INPUT VALUE  ======================================
         public IActionResult PartNumberInput(string partNumber)
         {
+            //Session["SiteTitle"] = partNumber;
             bool isNew = false;
             string? selectedCategoryId = null;
             var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");

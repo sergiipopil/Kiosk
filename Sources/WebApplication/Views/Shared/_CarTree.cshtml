@@ -4,14 +4,14 @@
 }
 @if (@Model.ManufacturerSelected == null)
 {
-    <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
-        <div>Выберите марку</div>
-    </div>
+    <h1 class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
+        Выберите марку
+    </h1>
     <div class="treeMainBlock">
         @foreach (var item in Model.ManufacturerList)
         {
             <div style="display:inline-block;vertical-align:middle;">
-                <div class="parentDivManufacturer" onclick="selectManufacturer('@item.Name', '@Model.kioskId')">
+                <div class="parentDivManufacturer" onclick="selectManufacturer('@item.Name', '@Model.kioskId', '@Model.TopCategoryId')">
                     <img src="@String.Format("/images/Catalog/Model_Logo/{0}.webp", item.Name)" alt="@item.Name" class="manufactureImage" />
                 </div>
                 <div class="manufactureTextModels">@item.Name</div>

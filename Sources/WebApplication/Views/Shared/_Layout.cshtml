@@ -1,10 +1,26 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date(); k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
+            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
+        ym(79644598, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/79644598" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BI-BI - АВТОРАЗБОРКИ УКРАИНЫ И ЕВРОПЫ</title>
+    <title>Авторазборки Украины и Европы в одном окне</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -48,7 +64,7 @@
     </style>
     <script type="text/javascript">
         function openLeftMenu(menu) {
-            window.history.replaceState(null, null, window.location.href + "/" + menu);
+            window.history.pushState(null, null, "/" + menu);
         }
     </script>
     <meta name="google-site-verification" content="pdu1x6QOUO9mXKsJr7KiYB_9GjQl-a8GM8I563AQwPk" />
@@ -118,22 +134,22 @@
                                     </button>
                                 </div>
                                 <div class="menuItemDiv" onclick="openLeftMenu('delivery')">
-                                    <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="deliveryItem">
+                                    <button id='openDelivery' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="deliveryItem">
                                         <div class="menuItemPic"><img src="~/images/Menu/Delivery.png" /></div><div class="inline-block" style="color:#848ac2;">Доставка</div>
                                     </button>
                                 </div>
                                 <div class="menuItemDiv" onclick="openLeftMenu('return')">
-                                    <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="returnItem">
+                                    <button id='openReturn' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="returnItem">
                                         <div class="menuItemPic"><img src="~/images/Menu/Return.png" /></div><div class="inline-block" style="color:#848ac2;">Возврат</div>
                                     </button>
                                 </div>
                                 <div class="menuItemDiv" onclick="openLeftMenu('partnership')">
-                                    <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="partnershipItem">
+                                    <button id='openPartnership' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="partnershipItem">
                                         <div class="menuItemPic"><img src="~/images/Menu/Partnership.png" /></div><div class="inline-block" style="color:#848ac2;">Партнерство</div>
                                     </button>
                                 </div>
                                 <div class="menuItemDiv" onclick="openLeftMenu('contacts')">
-                                    <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="contactsItem">
+                                    <button id='openContacts' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="contactsItem">
                                         <div class="menuItemPic"><img src="~/images/Menu/new.png" style="max-width:26px;" /></div><div class="inline-block" style="color:#848ac2;">Контакты</div>
                                     </button>
                                 </div>

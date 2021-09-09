@@ -30,7 +30,7 @@
         });
         function openDetails(advertId) {
             $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" width="100px" /></div>');
-            window.open('/Product/Details/' + "?id=" + advertId, "_self");
+            window.open('/Product/Details/' + advertId, "_self");
         }
         function TestWWW(item) {
             console.log(item);
@@ -216,7 +216,7 @@
                     @Html.DropDownList("RSize", new SelectList(new string[] {}))*@
             </tr>
         </table>
-        @if (Model.MainCategoryId != null && (Model.MainCategoryId.Contains("257708") || Model.MainCategoryId.Contains("GROUP_257713") || Model.MainCategoryId.Contains("257687")))
+        @if (Model.MainCategoryId != null && (Model.MainCategoryId.Contains("257708") || Model.MainCategoryId.Contains("GROUP-257713") || Model.MainCategoryId.Contains("257687")))
         {
             <table class="tiresFilter">
                 <tr>
@@ -256,7 +256,7 @@
         }
     </div>
 
-    @*@if (Model.SubCategoryId == "312565" || Model.SubCategoryId == "GROUP_50823" || Model.SubCategoryId == "GROUP_50836" || Model.SubChildCategoryId == "50873")
+    @*@if (Model.SubCategoryId == "312565" || Model.SubCategoryId == "GROUP-50823" || Model.SubCategoryId == "GROUP-50836" || Model.SubChildCategoryId == "50873")
         {
         <a class="divCallStyle" style="position: fixed !important;" href="tel:+380505088108"><img class="iconCall" src="~/images/call.gif" /></a>
         }*@

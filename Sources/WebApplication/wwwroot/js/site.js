@@ -175,7 +175,7 @@ function selectManufacturer(carManufactureName) {
 }
 
 function goToCart(selectedProductId) {
-    window.open('/Product/CartView/' + "?selectedProductId=" + selectedProductId);
+    window.open('/Product/CartView/' + selectedProductId);
 }
 function showMainView(topCategoryId) {
     $('div[id*="divTopCategory_"]').removeClass("selected");

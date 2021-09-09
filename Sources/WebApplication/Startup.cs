@@ -17,6 +17,7 @@ using KioskBrains.Server.Domain.Entities.DbStorage;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 using WebApplication.Classes;
+using Microsoft.AspNetCore.Rewrite;
 using KioskBrains.Clients.Ek4Car;
 
 
@@ -58,7 +59,7 @@ namespace WebApplication
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(60);
+                options.IdleTimeout = TimeSpan.FromDays(1);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
@@ -78,10 +79,11 @@ namespace WebApplication
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             //app.UseStaticFiles(new StaticFileOptions()
@@ -95,13 +97,24 @@ namespace WebApplication
 
             app.UseAuthorization();
             app.UseSession();
-            
+            app.UseStatusCodePages(async context => {
+                if (context.HttpContext.Response.StatusCode == 400)
+                {
+                    context.HttpContext.Response.Redirect("/");
+                }
+            });
+            app.UseStatusCodePages(async context => {
+                if (context.HttpContext.Response.StatusCode == 404)
+                {
+                    context.HttpContext.Response.Redirect("/");
+                }
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    //pattern: "{controller=Home}/{action=Index}/{*catchall}");
-                    pattern: "{controller=Home}/{action=Index}/{param?}/{param10?}/{param2?}/{param3?}/{param4?}/{param5?}/{param6?}/{param7?}/{param8?}");
+                    //pattern: "{controller=Home}/{action=Index}/{id1?}/{id2?}/{id3?}/{id4?}");
+                    pattern: "{controller=Home}/{action=Index}/{topcategory?}/{category?}/{carmanufacture?}/{carmodel?}/{maincategoryid?}/{maincategoryname?}/{subcategoryid?}/{subcategoryname?}/{subchildcategoryid?}/{subchildcategoryname?}/{kioskid?}");
             });
         }
     }
