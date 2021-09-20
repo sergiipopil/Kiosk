@@ -1,0 +1,3 @@
+Sitemap: https://bi-bi.com.ua/sitemap_index.xml
+User-agent: *
+Allow: /

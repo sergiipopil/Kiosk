@@ -1,6 +1,15 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4C6EKWGBJK"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-4C6EKWGBJK');
+    </script>
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function (m, e, t, r, i, k, a) {
@@ -20,7 +29,7 @@
     <!-- /Yandex.Metrika counter -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Авторазборки Украины и Европы в одном окне</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -30,8 +39,8 @@
     <script src="~/bootstrap/js/bootstrap.bundle.js"></script>
     </script>-->
     @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
-
-
+    <title>@ViewBag.TitleText</title>
+    <meta name="description" content="@ViewBag.TitleText" />
 
     <script src="~/js/site.js" asp-append-version="true"></script>
 
@@ -119,6 +128,7 @@
                                     Html.RenderPartial("CartWidget");
                                     }
                                 </div>
+                                
                                 @*<div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/ServiceStations.png" /></div><div class="inline-block" style="color:#848ac2;">Послуги СТО</div></div>
                                     <div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/Map.png" /></div><div class="inline-block" style="color:#848ac2;">Карта терміналів</div></div>*@
                                 <div class="menuItemDiv" onclick="openLeftMenu('instructions')">

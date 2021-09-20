@@ -1,4 +1,5 @@
 ﻿@model WebApplication.Models.RightTreeViewModel
+
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -6,6 +7,15 @@
 
 <html>
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4C6EKWGBJK"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-4C6EKWGBJK');
+    </script>
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function (m, e, t, r, i, k, a) {
@@ -23,9 +33,7 @@
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/79644598" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
-    <title>
 
-    </title>
     <script>
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
@@ -38,11 +46,15 @@
     <link href="~/css/site.css" rel="stylesheet" />
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
     <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1" />
+
     <style>
     </style>
     <script type="text/javascript">
         function getURLParameter(url, name) {
             return (RegExp(name + '=' + '(.+?)(&|$)').exec(url) || [, null])[1];
+        }
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
         }
         $(document).ready(function () {
             var url = window.location.href;//.replaceAll('/', '&').replace('&&', '//');;
@@ -134,7 +146,8 @@
                     mainCategoryId = parsedItems[4];
                 }
                 if (carManufactureName != null && carModel != null && mainCategoryId == null || carManufactureName != '' && carModel != '' && mainCategoryId == '') {
-                    selectCarModel(carManufactureName, carModel, null, kioskId, topcategory);
+                    BreadCrumbsHistory(carManufactureName, carModel, null, null, null, null, null, null, null, kioskId, null, null, topcategory);
+                    window.history.replaceState(null, null, ("/topcategoryid/" + topcategory + "/" + carManufactureName.replaceAll(" ", "-") + "/" + carModel.replaceAll(" ", "-")).toLowerCase());
                     return;
                 }
 
@@ -205,7 +218,7 @@
             success: function (data) {
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
-                window.history.replaceState(null, null, "/search/" + inputFilter.replaceAll(" ", "-"));
+                window.history.replaceState(null, null, ("/search/" + inputFilter.replaceAll(" ", "-")).toLowerCase());
                 document.title = inputFilter;
             }
         });
@@ -220,7 +233,7 @@
             success: function (data) {
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
-                window.history.replaceState(null, null, "/search/" + $("#inputPartValue").val().replaceAll(" ", "-"));
+                window.history.replaceState(null, null, ("/search/" + $("#inputPartValue").val().replaceAll(" ", "-")).toLowerCase());
                 document.title = $("#inputPartValue").val();
             }
         });
@@ -304,15 +317,18 @@
                         }
                     }
                     if (modification == null || modification == ''){
-                        document.title = model;
+                        document.title = manufacture + " " + model;
                     }
                     else {
-                        document.title = modification;
+                        document.title = manufacture + " " +  modification;
                     }
                 $('#divCarManufactures').empty();
-                $('#divCarManufactures').html(data);
-                if (model != "" && model != null) {
-                    window.history.replaceState(null, null, "/topcategoryid/" + topcategoryid + "/" + manufacture.replaceAll(" ", "-") + "/" + model.replaceAll(" ", "-"));
+                    $('#divCarManufactures').html(data);
+                    if (model != "" && model != null) {
+                        if (modification != "" && modification != null) {
+                            model = modification;
+                        }
+                        window.history.replaceState(null, null, ("/topcategoryid/" + topcategoryid + "/" + manufacture.replaceAll(" ", "-") + "/" + model.replaceAll(" ", "-")).toLowerCase());
                 }
                 else {
                     $('#divBreadcrumbs').hide();
@@ -331,11 +347,11 @@
                 if (model != "" && model != null) {
                     BreadCrumbsHistory(carManufactureName, model, null, null, null, null, null, null, null, kioskId, null, null, topcategoryid);
                 }
-                document.title = model;
+                document.title = carManufactureName + " " + model;
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 if (carManufactureName != "" && carManufactureName != null) {
-                    window.history.replaceState(null, null, "/topcategoryid/" + topcategoryid +  "/" + carManufactureName.replaceAll(" ", "-") + "/" + model.replaceAll(" ", "-"));
+                    window.history.replaceState(null, null, ("/topcategoryid/" + topcategoryid + "/" + carManufactureName.replaceAll(" ", "-") + "/" + model.replaceAll(" ", "-")).toLowerCase());
                 }
                 else {
                     $('#divBreadcrumbs').hide();
@@ -358,12 +374,12 @@
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 if (manufacture != '' && model != '') {
-                    window.history.pushState(null, null, "/topcategoryid/" + topcategoryid + "/" + manufacture.replaceAll(" ", "-") + "/" + model.replaceAll(" ", "-") + "/" + mainCategoryId + "/" + mainCategoryName.replaceAll(" ", "-"));
+                    window.history.pushState(null, null, ("/topcategoryid/" + topcategoryid + "/" + manufacture.replaceAll(" ", "-") + "/" + model.replaceAll(" ", "-") + "/" + mainCategoryId + "/").toLowerCase() + capitalizeFirstLetter(mainCategoryName.replaceAll(" ", "-").toLowerCase()));//capitalizeFirstLetter
                 }
                 else {
-                    window.history.pushState(null, null, "/topcategoryid/" + topcategoryid + "/" + mainCategoryId + "/" + mainCategoryName.replaceAll(" ", "-"));
+                    window.history.pushState(null, null, ("/topcategoryid/" + topcategoryid + "/" + mainCategoryId + "/").toLowerCase() + capitalizeFirstLetter(mainCategoryName.replaceAll(" ", "-").toLowerCase()));
                 }
-                document.title = mainCategoryName;
+                document.title = mainCategoryName + " " + manufacture + " " + model;
             }
         });
     }
@@ -382,15 +398,18 @@
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 if (manufacture != '') {
-                    window.history.replaceState(null, null, "/topcategoryid/" + topcategoryid + "/" + manufacture.replaceAll(" ", "-") + "/" + model.replaceAll(" ", "-") + "/" + mainCategoryId + "/" + mainCategoryName.replaceAll(" ", "-") +
-                        "/" + subCategoryId + "/" + subCategoryName.replaceAll(" ", "-"));
+                    window.history.replaceState(null, null, ("/topcategoryid/" + topcategoryid + "/" + manufacture.replaceAll(" ", "-") + "/" + model.replaceAll(" ", "-") + "/" + mainCategoryId + "/").toLowerCase() + capitalizeFirstLetter(mainCategoryName.replaceAll(" ", "-").toLowerCase()) +
+                        "/" + subCategoryId.toLowerCase() + "/" + capitalizeFirstLetter(subCategoryName.replaceAll(" ", "-").toLowerCase()));//capitalizeFirstLetter
                 }
                 else {
-                    window.history.replaceState(null, null, "/topcategoryid/" + topcategoryid + "/" + mainCategoryId + "/" + mainCategoryName.replaceAll(" ", "-") +
-                        "/" + subCategoryId + "/" + subCategoryName.replaceAll(" ", "-"));
+                    window.history.replaceState(null, null, ("/topcategoryid/" + topcategoryid + "/" + mainCategoryId + "/").toLowerCase() + capitalizeFirstLetter(mainCategoryName.replaceAll(" ", "-").toLowerCase()) +
+                        "/" + subCategoryId + "/" + capitalizeFirstLetter(subCategoryName.replaceAll(" ", "-").toLowerCase()));//capitalizeFirstLetter
                 }
-                document.title = subCategoryName;
+                document.title = manufacture + " " + model + " " +  subCategoryName;
             }
+            @*error: function (jqXHR, textStatus, errorThrown) {
+                window.location = '@Url.Action("Error", "Home")';
+            }*@
         });
         }
 
@@ -407,16 +426,19 @@
                $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 if (manufacture != '') {
-                    window.history.replaceState(null, null, "/topcategoryid/" + topcategoryid + "/" + manufacture.replaceAll(" ", "-") + "/" + model.replaceAll(" ", "-") + "/" + mainCategoryId + "/" + mainCategoryName.replaceAll(" ", "-") +
-                        "/" + subCategoryId + "/" + subCategoryName.replaceAll(" ", "-") + "/" + subChildId + "/" + subChildName.replaceAll(" ", "-") + "/" + lastChildId + "/" + lastChildName.replaceAll(" ", "-"));
+                    window.history.replaceState(null, null, ("/topcategoryid/" + topcategoryid + "/" + manufacture.replaceAll(" ", "-") + "/" + model.replaceAll(" ", "-") + "/" + mainCategoryId + "/").toLowerCase() + capitalizeFirstLetter(mainCategoryName.replaceAll(" ", "-").toLowerCase()) +
+                        "/" + subCategoryId.toLowerCase() + "/" + capitalizeFirstLetter(subCategoryName.replaceAll(" ", "-").toLowerCase()) + "/" + subChildId.toLowerCase() + "/" + capitalizeFirstLetter(subChildName.replaceAll(" ", "-").toLowerCase()) + "/" + lastChildId + "/" + capitalizeFirstLetter(lastChildName.replaceAll(" ", "-").toLowerCase()));//capitalizeFirstLetter
                 }
                 else {
-                    window.history.replaceState(null, null, "/topcategoryid/" + topcategoryid + "/" + mainCategoryId + "/" + mainCategoryName.replaceAll(" ", "-") +
-                        "/" + subCategoryId + "/" + subCategoryName.replaceAll(" ", "-") + "/" + subChildId + "/" + subChildName.replaceAll(" ", "-") + "/" + lastChildId + "/" + lastChildName.replaceAll(" ", "-"));
+                    window.history.replaceState(null, null, ("/topcategoryid/" + topcategoryid + "/" + mainCategoryId + "/").toLowerCase() + capitalizeFirstLetter(mainCategoryName.replaceAll(" ", "-").toLowerCase()) +
+                        "/" + subCategoryId.toLowerCase() + "/" + capitalizeFirstLetter(subCategoryName.replaceAll(" ", "-").toLowerCase()) + "/" + subChildId.toLowerCase() + "/" + capitalizeFirstLetter(subChildName.replaceAll(" ", "-").toLowerCase()) + "/" + lastChildId.toLowerCase() + "/" + capitalizeFirstLetter(lastChildName.replaceAll(" ", "-").toLowerCase()));
                 }
 
-                document.title = lastChildName;
+                document.title = lastChildName + " " + manufacture + " " + model;
             }
+            @*error: function (jqXHR, textStatus, errorThrown) {
+                window.location = '@Url.Action("Error", "Home")';
+            }*@
         });
     }
         function getAllegroData(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, kioskId, topcategoryid) {
@@ -432,15 +454,18 @@
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 if (manufacture != '') {
-                    window.history.replaceState(null, null, "/topcategoryid/" + topcategoryid + "/" + manufacture.replaceAll(" ", "-") + "/" + model.replaceAll(" ", "-") + "/" + mainCategoryId + "/" + mainCategoryName.replaceAll(" ", "-") +
-                        "/" + subCategoryId + "/" + subCategoryName.replaceAll(" ", "-") + "/" + subChildId + "/" + subChildName.replaceAll(" ", "-"));
+                    window.history.replaceState(null, null, ("/topcategoryid/" + topcategoryid + "/" + manufacture.replaceAll(" ", "-") + "/" + model.replaceAll(" ", "-") + "/" + mainCategoryId + "/").toLowerCase() + capitalizeFirstLetter(mainCategoryName.replaceAll(" ", "-").toLowerCase()) +
+                        "/" + subCategoryId.toLowerCase() + "/" + capitalizeFirstLetter(subCategoryName.replaceAll(" ", "-").toLowerCase()) + "/" + subChildId.toLowerCase() + "/" + capitalizeFirstLetter(subChildName.replaceAll(" ", "-").toLowerCase()));//capitalizeFirstLetter
                 }
                 else {
-                    window.history.replaceState(null, null, "/topcategoryid/" + topcategoryid + "/" + mainCategoryId + "/" + mainCategoryName.replaceAll(" ", "-") +
-                        "/" + subCategoryId + "/" + subCategoryName.replaceAll(" ", "-") + "/" + subChildId + "/" + subChildName.replaceAll(" ", "-"));
+                    window.history.replaceState(null, null, ("/topcategoryid/" + topcategoryid + "/" + mainCategoryId + "/" + mainCategoryName.replaceAll(" ", "-") +
+                        "/" + subCategoryId + "/" + subCategoryName.replaceAll(" ", "-") + "/" + subChildId + "/" + subChildName.replaceAll(" ", "-")).toLowerCase());
                 }
-                document.title = subChildName;
+                document.title = subChildName + " " + manufacture + " " + model;
             }
+            @*error: function (jqXHR, textStatus, errorThrown) {
+                window.location = '@Url.Action("Error", "Home")';
+            }*@
         });
     }
         function FilteredList(state, sorting, page, position, isorigin, enginetype, transmissionType, tiresQuantity, tiresWidth, tiresHeight, tiresRSize, engineValue) {
@@ -459,7 +484,7 @@
 
     function selectManufacturer(carManufactureName, kioskId, topcategoryid) {
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: '@Url.Action("SelectManufactureAndModel", "Home")' + "?carmanufacture=" + carManufactureName + "&topcategoryid=" + topcategoryid,
             success: function (data) {
                 if (carManufactureName != "" && carManufactureName != null) {
@@ -469,7 +494,7 @@
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
                 if (carManufactureName != "" && carManufactureName != null) {
-                    window.history.replaceState(null, null, "/topcategoryid/" + topcategoryid + "/" + carManufactureName.replaceAll(" ", "-"));
+                    window.history.replaceState(null, null, ("/topcategoryid/" + topcategoryid + "/" + carManufactureName.replaceAll(" ", "-")).toLowerCase());
                 }
                 else {
                     $('#divBreadcrumbs').hide();
@@ -480,6 +505,9 @@
                 }
                 document.title = carManufactureName;
             }
+            @*error: function (jqXHR, textStatus, errorThrown) {
+                window.location = '@Url.Action("Error", "Home")';
+            }*@
         });
         return false;
         }
@@ -494,7 +522,7 @@
             type: "GET",
             url: '@Url.Action("ShowMainView", "Home")' + "?topCategoryId=" + topCategoryId,
             success: function (data) {
-                window.history.replaceState(null, null, "/topcategoryid/" + topCategoryId);
+                window.history.replaceState(null, null, ("/topcategoryid/" + topCategoryId).toLowerCase());
                 $('#divCarManufactures').empty();
                 $('#divCarManufactures').html(data);
             }
@@ -620,8 +648,24 @@
                 <div>
                     @*CAR MANUFACTURE TREE*@
                     <div id="divCarManufactures">
-                        @Html.Partial("_CarTree", @Model)
+                        @Html.Partial(@Model.ViewName, @Model)
                     </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding: 3% 10%;">
+                @Html.Partial("_CarModelsSimple", @Model)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="background:#0B0C35;padding:30px 50px;">
+                <span class="advertCities" style=" display: block; border-right: 0px; text-align: center;">https://www.bi-bi.com.ua Авто Разборка Шрот Купить Запчасти б/у новые легковые грузовые бусы мотоциклы Шины Диски Инструменты Оборудование для СТО Мото Аксессуары </span>
+                <div style="text-align:center;">
+                    @foreach (var item in @Model.AdvertCities)
+                    {
+                        <span class="advertCities">@item.ToString()</span>
+                    }
                 </div>
             </td>
         </tr>

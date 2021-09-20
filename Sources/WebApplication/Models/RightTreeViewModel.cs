@@ -7,11 +7,19 @@ using KioskBrains.Common.EK.Api;
 using KioskBrains.Clients.AllegroPl.Models;
 using WebApplication.Classes;
 using X.PagedList;
+using KioskBrains.Server.EK.Common.Helpers;
 
 namespace WebApplication.Models
 {
     public class RightTreeViewModel
     {
+        public IList<string> AdvertCities {
+            get {
+                return EkCategoryHelper.GetAdvertCities();
+            }
+        }
+        public string ModelDescription { get; set; }
+        public string ViewName { get; set; }
         public EkProduct[] AllegroOfferList { get; set; }
         public TiresFilter Tires { get; set; }
         public IList<string> EngineValues { get; set; }

@@ -19,6 +19,7 @@ using System.Text.Unicode;
 using WebApplication.Classes;
 using Microsoft.AspNetCore.Rewrite;
 using KioskBrains.Clients.Ek4Car;
+using Newtonsoft.Json.Serialization;
 
 
 namespace WebApplication
@@ -79,7 +80,7 @@ namespace WebApplication
             }
             else
             {
-                app.UseExceptionHandler("/");
+                app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -100,13 +101,19 @@ namespace WebApplication
             app.UseStatusCodePages(async context => {
                 if (context.HttpContext.Response.StatusCode == 400)
                 {
-                    context.HttpContext.Response.Redirect("/");
+                    context.HttpContext.Response.Redirect("/Home/Error");
                 }
             });
             app.UseStatusCodePages(async context => {
                 if (context.HttpContext.Response.StatusCode == 404)
                 {
-                    context.HttpContext.Response.Redirect("/");
+                    context.HttpContext.Response.Redirect("/Home/Error");
+                }
+            });
+            app.UseStatusCodePages(async context => {
+                if (context.HttpContext.Response.StatusCode == 500)
+                {
+                    context.HttpContext.Response.Redirect("/Home/Error");
                 }
             });
             app.UseEndpoints(endpoints =>
@@ -114,7 +121,7 @@ namespace WebApplication
                 endpoints.MapControllerRoute(
                     name: "default",
                     //pattern: "{controller=Home}/{action=Index}/{id1?}/{id2?}/{id3?}/{id4?}");
-                    pattern: "{controller=Home}/{action=Index}/{topcategory?}/{category?}/{carmanufacture?}/{carmodel?}/{maincategoryid?}/{maincategoryname?}/{subcategoryid?}/{subcategoryname?}/{subchildcategoryid?}/{subchildcategoryname?}/{kioskid?}");
+                    pattern: "{controller=Home}/{action=Index}/{topcategory?}/{category?}/{carmanufacture?}/{carmodel?}/{maincategoryid?}/{maincategoryname?}/{subcategoryid?}/{subcategoryname?}/{subchildcategoryid?}/{subchildcategoryname?}/{lastcategoryid?}/{lastcategoryname?}/{kioskid?}");
             });
         }
     }

@@ -2,6 +2,41 @@
 @{
     Layout = null;
 }
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<script>
+    function selectManufacturer(carManufactureName, kioskId, topcategoryid) {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SelectManufactureAndModel")',
+            data: { carmanufacture: carManufactureName, topcategoryid: topcategoryid },
+            success: function (data) {
+                if (carManufactureName != "" && carManufactureName != null) {
+                    BreadCrumbsHistory(carManufactureName, null, null, null, null, null, null, null, null, kioskId, null, null, topcategoryid);
+                }
+
+                $('#divCarManufactures').empty();
+                $('#divCarManufactures').append(data);
+                if (carManufactureName != "" && carManufactureName != null) {
+                    window.history.replaceState(null, null, ("/topcategoryid/" + topcategoryid + "/" + carManufactureName.replaceAll(" ", "-")).toLowerCase());
+                }
+                else {
+                    $('#divBreadcrumbs').hide();
+                    $('#divSearchByPartNumber').show();
+                    $('#divSelectTopCategory').show();
+                    $('div[id*="divTopCategory_"]').removeClass("selected");
+                    $('#divTopCategory_620').addClass("selected");
+                }
+                document.title = carManufactureName;
+            }
+            @*error: function (jqXHR, textStatus, errorThrown) {
+                window.location = '@Url.Action("Error", "Home")';
+            }*@
+        });
+        return false;
+        }
+</script>
 @if (@Model.ManufacturerSelected == null)
 {
     <h1 class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">

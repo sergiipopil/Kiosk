@@ -5,6 +5,15 @@
 
 <html>
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4C6EKWGBJK"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-4C6EKWGBJK');
+    </script>
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function (m, e, t, r, i, k, a) {
@@ -36,6 +45,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Купить @Model.Title" />
     <title>@Model.Title</title>
     <script type="text/javascript">
         function goToCart(selectedProductId, kioskId) {
@@ -91,7 +101,7 @@
             </div>
             <!--DESCRIPTION BLOCK-->
             <div id="infoBlock" class="detailBlock" style="width:50%;">
-                <span class="titleBlock" itemprop="name">@Model.Title</span>
+                <h1 class="titleBlock" itemprop="name">@Model.Title</h1>
                 <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                     <meta itemprop="worstRating" content="1" />
                     <meta itemprop="ratingValue" content="4,9" />

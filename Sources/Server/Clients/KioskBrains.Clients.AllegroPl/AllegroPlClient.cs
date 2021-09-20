@@ -108,23 +108,29 @@ namespace KioskBrains.Clients.AllegroPl
 
             _valuesToTranslate = new HashSet<string>();
             var arPhrase = new[] { phrase };
-            if (string.IsNullOrEmpty(translatedPhrase)
-                && !string.IsNullOrEmpty(phrase))
-            {
-                if (_settings.IsTranslationEnabled)
+            //if (phrase.ToLower().Contains("рулевая рейка"))
+            //{
+            //    phrase = phrase.ToLower().Replace("рулевая рейка", ("PRZEKŁADNIA MAGLOWNICA").ToLower());
+            //}
+           
+                if (string.IsNullOrEmpty(translatedPhrase)
+                    && !string.IsNullOrEmpty(phrase))
                 {
-                    var translatedPhrases = await _yandexTranslateClient.TranslateAsync(
-                        new[] { phrase },
-                        Languages.RussianCode,
-                        Languages.PolishCode,
-                        cancellationToken);
-                    translatedPhrase = translatedPhrases[0];
+                    if (_settings.IsTranslationEnabled)
+                    {
+                        var translatedPhrases = await _yandexTranslateClient.TranslateAsync(
+                            new[] { phrase },
+                            Languages.RussianCode,
+                            Languages.PolishCode,
+                            cancellationToken);
+                        translatedPhrase = translatedPhrases[0];
+                    }
+                    else
+                    {
+                        translatedPhrase = phrase;
+                    }
                 }
-                else
-                {
-                    translatedPhrase = phrase;
-                }
-            }
+            
 
             // search for offers
             var apiResponse = await _restClient.SearchOffersAsync(translatedPhrase, categoryId, state, sorting, offset, limit, cancellationToken, isBody);
@@ -468,7 +474,8 @@ namespace KioskBrains.Clients.AllegroPl
 
         #endregion
 
-        public async Task<string> GetOfferDescTranslate(ITranslateService translateService, string descPolish, CancellationToken cancellationToken) {
+        public async Task<string> GetOfferDescTranslate(ITranslateService translateService, string descPolish, CancellationToken cancellationToken)
+        {
             var result = await ApplyTranslationsDescription(translateService, descPolish, cancellationToken);
             return result;
         }

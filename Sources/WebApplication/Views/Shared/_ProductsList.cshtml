@@ -35,7 +35,7 @@
         function TestWWW(item) {
             console.log(item);
         }
-        
+
         //var inputPartFilter = document.getElementById("inputPartValueFilter");
         //inputPartFilter.addEventListener("keyup", function (event) {
         //    // Number 13 is the "Enter" key on the keyboard
@@ -59,8 +59,38 @@
                 transform: scale(1.2);
             }
     </style>
+    @if (String.IsNullOrEmpty(@Model.SubChildCategoryName))
+    {
+        if (!String.IsNullOrEmpty(Model.PartNumberValue))
+        {
+            <meta name="description" content="@Model.PartNumberValue" />
+        }
+        else
+        {
+            <meta name="description" content="@Model.SubCategoryName @Model.ManufacturerSelected @Model.ModelSelected" />
+        }
+    }
+    else
+    {
+        <meta name="description" content="@Model.LastChildName @Model.SubChildCategoryName @Model.ManufacturerSelected @Model.ModelSelected" />
+    }
 </head>
-<body>
+    @if (String.IsNullOrEmpty(@Model.SubChildCategoryName))
+    {
+        if (!String.IsNullOrEmpty(Model.PartNumberValue))
+        {
+            <h1 style="text-align:center;padding: 10px 0px 5px 0px; font-size: 1.5rem;font-family: Open Sans,sans-serif;text-transform:uppercase;">@Model.PartNumberValue</h1>
+           
+        }
+        else
+        {
+            <h1 style="text-align:center;padding: 10px 0px 5px 0px; font-size: 1.5rem;font-family: Open Sans,sans-serif;text-transform:uppercase;">@Model.SubCategoryName @Model.ManufacturerSelected @Model.ModelSelected</h1>
+          }
+    }
+    else
+    {
+        <h1 style="text-align:center;padding: 10px 0px; font-size: 2rem;">@Model.SubChildCategoryName @Model.ManufacturerSelected @Model.ModelSelected</h1>        
+    }
     <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
         <div onclick="@Model.FunctionReturnFromProducts" class="btnBackModelPage">
             <span>Назад</span>
@@ -152,9 +182,9 @@
 
 
                 @if (@Model.MainCategoryId != null && @Model.OfferState == KioskBrains.Clients.AllegroPl.Models.OfferStateEnum.New && !Model.MainCategoryId.Contains("257713") && !Model.MainCategoryId.Contains("257687") && !Model.MainCategoryId.Contains("257624") && !Model.MainCategoryId.Contains("28410") && !Model.MainCategoryId.Contains("259588") && !Model.MainCategoryId.Contains("252274")
-                && !Model.MainCategoryId.Contains("259534") && !Model.MainCategoryId.Contains("252277") && !Model.MainCategoryId.Contains("28392") && !Model.MainCategoryId.Contains("259635") && !Model.MainCategoryId.Contains("259630") && !Model.MainCategoryId.Contains("259616") && !Model.MainCategoryId.Contains("259610")
-                && !Model.MainCategoryId.Contains("259649") && !Model.MainCategoryId.Contains("259647") && !Model.MainCategoryId.Contains("259648") && !Model.MainCategoryId.Contains("252296") && !Model.MainCategoryId.Contains("259576") && !Model.MainCategoryId.Contains("259629") && !Model.MainCategoryId.Contains("252622")
-               && !Model.MainCategoryId.Contains("28417") && !Model.MainCategoryId.Contains("28463"))
+          && !Model.MainCategoryId.Contains("259534") && !Model.MainCategoryId.Contains("252277") && !Model.MainCategoryId.Contains("28392") && !Model.MainCategoryId.Contains("259635") && !Model.MainCategoryId.Contains("259630") && !Model.MainCategoryId.Contains("259616") && !Model.MainCategoryId.Contains("259610")
+          && !Model.MainCategoryId.Contains("259649") && !Model.MainCategoryId.Contains("259647") && !Model.MainCategoryId.Contains("259648") && !Model.MainCategoryId.Contains("252296") && !Model.MainCategoryId.Contains("259576") && !Model.MainCategoryId.Contains("259629") && !Model.MainCategoryId.Contains("252622")
+         && !Model.MainCategoryId.Contains("28417") && !Model.MainCategoryId.Contains("28463"))
                 {
                     <td class="filterTd">
                         <table style="width:100%;text-align:center;">
@@ -170,7 +200,7 @@
                     </td>
                 }
                 @if (@Model.MainCategoryId != null && (!Model.MainCategoryId.Contains("623") && !Model.MainCategoryId.Contains("4094")
-               && !Model.MainCategoryId.Contains("258677") && !Model.MainCategoryId.Contains("258669") && !Model.MainCategoryId.Contains("622")) || Model.FilterName == "engineType")
+         && !Model.MainCategoryId.Contains("258677") && !Model.MainCategoryId.Contains("258669") && !Model.MainCategoryId.Contains("622")) || Model.FilterName == "engineType")
                 {
                     <td class="filterTd">
                         <table style="width:100%;text-align:center;">
@@ -268,7 +298,7 @@
             попробуйте в другом разделе
         </div>
     }
-<div style="text-align:center;padding:10px 0px 0px 0px;color: #ff5a00;font-size:16px;">Цена указана с учетом таможенного сбора, страховки и доставки.</div>
+    <div style="text-align:center;padding:10px 0px 0px 0px;color: #ff5a00;font-size:16px;">Цена указана с учетом таможенного сбора, страховки и доставки.</div>
     @foreach (var item in Model.AllegroOfferList)
     {
         <div class="container-fluid">
@@ -310,7 +340,7 @@
                                 <span id="priceDeliveryComment" style="color:#6c7096;font-size:14px;display:block;font-weight:normal;">Проверенный продавец</span>
                                 <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;margin-bottom:0px;">Быстрая доставка</p>
                                 <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">Гарантия 21 день</p>
-</div>
+                            </div>
 
                             <div onclick="goToCart('@item.SourceId', '@Model.kioskId')">
                                 <button class="btnBuyList">
@@ -334,5 +364,3 @@
        LinkToLastPageFormat = " >> ",
     })
     </div>
-</body>
-</html>

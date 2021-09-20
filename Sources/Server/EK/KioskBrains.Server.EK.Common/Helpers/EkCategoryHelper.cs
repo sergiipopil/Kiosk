@@ -1,4 +1,9 @@
-﻿using KioskBrains.Common.EK.Api;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+using KioskBrains.Common.EK.Api;
 using KioskBrains.Common.EK.Api.CarTree;
 using Newtonsoft.Json;
 
@@ -11,7 +16,11 @@ namespace KioskBrains.Server.EK.Common.Helpers
             _europeCategories = JsonConvert.DeserializeObject<EkProductCategory[]>(Categories.EuropeCategoriesJson);
             _carModelTree = JsonConvert.DeserializeObject<EkCarGroup[]>(Categories.CarModelTreeJson);
         }
-
+        public static IList<string> GetAdvertCities() {
+            return new List<string>() { "Мукачево", "Берегово", "Ужгород", "Свалява", "Днепр", "Запорожье", "Киев", "Мелитополь", "Харьков", "Суммы", "Мариуполь", "Житомир",
+                "Иршава", "Кривой Рог", "Одесса", "Львов", "Винница", "Чернигов", "Бердянск", "Херсон", "Полтава", "Хмельницкий", "Ровно", "Черновцы", "Ивано-Франковск",
+                "Каменское", "Кропивницкий", "Тернополь", "Кременчуг", "Луцк", "Белая Церковь", "Никополь", "Бровары", "Павлоград", "Северодонецк" };
+        }
         private static readonly EkProductCategory[] _europeCategories;
 
         public static EkProductCategory[] GetEuropeCategories()

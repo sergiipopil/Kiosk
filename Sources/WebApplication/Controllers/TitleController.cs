@@ -10,6 +10,7 @@ namespace WebApplication.Controllers
     {
         public IActionResult GetTitleSite()
         {
+            ViewData["TitleText"] = "1234567";
             return PartialView("TitleSite");
         }
     }

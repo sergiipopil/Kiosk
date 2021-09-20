@@ -117,10 +117,26 @@ for details on configuring this project to bundle and minify static web assets. 
     height: 45px !important;
     font-size: 18px !important;
 }
-
-a:hover {
-    text-decoration: none !important;
+.advertCities {
+    padding: 0px 10px;
+    line-height: 2.5rem;
+    border-right: 2px solid white;
+    color: white;
 }
+.columnNanufacture {
+    color:white;
+    width: 30%;
+    float: left;
+    line-height:35px;
+    cursor:pointer;
+}
+    .columnNanufacture:hover {
+    color:orangered;
+    
+    }
+    a:hover {
+        text-decoration: none !important;
+    }
 
 .bootstrap-select > .dropdown-toggle.bs-placeholder, .bootstrap-select > .dropdown-toggle.bs-placeholder:active, .bootstrap-select > .dropdown-toggle.bs-placeholder:focus, .bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
     color: black !important;

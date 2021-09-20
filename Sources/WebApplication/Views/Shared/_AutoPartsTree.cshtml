@@ -2,6 +2,12 @@
 @{
     Layout = null;
 }
+
+@if (!String.IsNullOrEmpty(@Model.ManufacturerSelected))
+{
+<h1 style="text-align:center;padding: 10px 0px 5px 0px; font-size: 1.5rem;font-family: Open Sans,sans-serif;text-transform:uppercase;">Купить автозапчасти на @Model.ManufacturerSelected @Model.ModelSelected</h1>
+<meta name="description" content="Купить автозапчасти на @Model.ManufacturerSelected @Model.ModelSelected" />
+}
 <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
     <div onclick="selectManufacturer('@Model.ManufacturerSelected', '@Model.kioskId', '@Model.TopCategoryId')" class="btnBackModelPage">
         <span>Назад</span>

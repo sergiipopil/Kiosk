@@ -61,7 +61,18 @@ namespace KioskBrains.Server.EK.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [{&quot;carType&quot;:1,&quot;manufacturers&quot;:[{&quot;id&quot;:1505,&quot;name&quot;:&quot;ACURA&quot;,&quot;carModels&quot;:[{&quot;tecDocType&quot;:1,&quot;id&quot;:4403,&quot;name&quot;:&quot;INTEGRA coupe&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4401,&quot;name&quot;:&quot;INTEGRA sedan&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4404,&quot;name&quot;:&quot;LEGEND&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4406,&quot;name&quot;:&quot;LEGEND II&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4407,&quot;name&quot;:&quot;LEGEND II coupe&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4405,&quot;name&quot;:&quot;LEGEND coupe&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:6092,&quot;name&quot;:&quot;MDX&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4409,&quot;name&quot;:&quot;NSX&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4410,&quot;name&quot;:&quot;NSX targa&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:10307 [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to [{&quot;carType&quot;:1,&quot;manufacturers&quot;:[{&quot;id&quot;:1505,&quot;name&quot;:&quot;ACURA&quot;,&quot;description&quot;:&quot;Автомобили Акура
+        ///INTEGRA
+        ///LEGEND
+        ///MDX
+        ///NSX
+        ///RDX
+        ///RL
+        ///RSX
+        ///TL
+        ///TSX
+        ///CL
+        ///Acura -это момент американской истины. На дорогах будешь обращать внимание за пристольный вид и аккуратностью в движении.&quot;,&quot;carModels&quot;:[{&quot;tecDocType&quot;:1,&quot;id&quot;:4403,&quot;name&quot;:&quot;INTEGRA&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4404,&quot;name&quot;:&quot;LEGEND&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:6092,&quot;name&quot;:&quot;MDX&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:4409,&quot;name&quot;:&quot;NSX&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:10307,&quot;name&quot;:&quot;RDX&quot;},{&quot;tecDocType&quot;:1,&quot;id&quot;:612 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CarModelTreeJson {
             get {
@@ -70,7 +81,7 @@ namespace KioskBrains.Server.EK.Common {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [{&quot;categoryId&quot;:&quot;620&quot;,&quot;name&quot;:{&quot;ru&quot;:&quot;Запчасти легковые и грузовые&quot;},&quot;children&quot;:[{&quot;categoryId&quot;:&quot;258669&quot;,&quot;name&quot;:{&quot;ru&quot;:&quot;Автономный отопитель и охлаждения автомобиля&quot;},&quot;children&quot;:[{&quot;categoryId&quot;:&quot;258670&quot;,&quot;name&quot;:{&quot;ru&quot;:&quot;Автономное отопление, Webasto&quot;},&quot;children&quot;:[{&quot;categoryId&quot;:&quot;258676&quot;,&quot;name&quot;:{&quot;ru&quot;:&quot;Запчасти&quot;},&quot;children&quot;:null},{&quot;categoryId&quot;:&quot;258675&quot;,&quot;name&quot;:{&quot;ru&quot;:&quot;Комплектные системы&quot;},&quot;children&quot;:null}]},{&quot;categoryId&quot;:&quot;258671&quot;,&quot;name&quot;:{&quot;ru&quot;:&quot;Холодильник рефрежератор&quot;},&quot;children&quot;:[{&quot;categoryId&quot;:&quot;258674&quot;,&quot;name&quot;:{&quot;ru&quot;:&quot;З [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to [{&quot;categoryId&quot;:&quot;620&quot;,&quot;name&quot;:{&quot;ru&quot;:&quot;Легковые и микроавтобусы&quot;},&quot;children&quot;:[{&quot;categoryId&quot;:&quot;50821&quot;,&quot;name&quot;:{&quot;ru&quot;:&quot;Двигатель и детали&quot;},&quot;children&quot;:[{&quot;categoryId&quot;:&quot;50823&quot;,&quot;name&quot;:{&quot;ru&quot;:&quot;Блок двигателя&quot;},&quot;children&quot;:[{&quot;categoryId&quot;:&quot;50825&quot;,&quot;name&quot;:{&quot;ru&quot;:&quot;Блоки двигателя&quot;},&quot;children&quot;:null},{&quot;categoryId&quot;:&quot;50828&quot;,&quot;name&quot;:{&quot;ru&quot;:&quot;Вкладыши&quot;},&quot;children&quot;:null},{&quot;categoryId&quot;:&quot;256143&quot;,&quot;name&quot;:{&quot;ru&quot;:&quot;Датчики положения коленвала&quot;},&quot;children&quot;:null},{&quot;categoryId&quot;:&quot;50831&quot;,&quot;name&quot;:{&quot;ru&quot;:&quot;Коленвал&quot;},&quot;children&quot;:null},{&quot;categoryId&quot;:&quot;50829&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string EuropeCategoriesJson {
             get {

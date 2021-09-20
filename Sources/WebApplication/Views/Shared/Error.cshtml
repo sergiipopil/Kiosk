@@ -3,17 +3,28 @@
     ViewData["Title"] = "Error";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<div style="padding:10% 20% 0% 20%;">
+    <h1 class="text-danger" style="color:white;text-align:center;">Запрашиваемая страница не найдена!</h1>
+    <h3 style="color:white;text-align:center;">К сожалению, запрашиваемая Вами страница не найдена. Вероятно, Вы указали несуществующий адрес, страница была удалена, перемещена или сейчас она временно недоступна!</h3>
+    <div id="continueBtn" style="width:100%;">
+        <div onclick="backToMainPage()">
+            <button class="btnBuyNew">
+                <span class="btnBuyListSpan" style="font-size:23px;">Продолжить покупки</span>
+            </button>
+        </div>
 
-@if (Model.ShowRequestId)
-{
-    <p>
-        <strong>Request ID:</strong> <code>@Model.RequestId</code>
-    </p>
-}
+    </div>
+<!--<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>-->
 
-<h3>Development Mode</h3>
+@*@if (Model.ShowRequestId)
+    {
+        <p>
+            <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        </p>
+    }*@
+
+<!--<h3>Development Mode</h3>
 <p>
     Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
 </p>
@@ -22,4 +33,4 @@
     It can result in displaying sensitive information from exceptions to end users.
     For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
     and restarting the app.
-</p>
+</p>-->

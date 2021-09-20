@@ -1,0 +1,17 @@
+﻿@model WebApplication.Models.RightTreeViewModel;
+@{
+    Layout = null;
+}
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+
+@if (@Model.ManufacturerSelected == null)
+{    
+    <div style="text-align:justify;">
+        @foreach (var item in Model.ManufacturerList)
+        {
+        <div class="columnNanufacture">Авто Разборка Шрот @item.Name</div>
+        }
+    </div>
+}
