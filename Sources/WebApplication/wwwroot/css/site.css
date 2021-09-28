@@ -63,12 +63,24 @@ for details on configuring this project to bundle and minify static web assets. 
         border-right: 1px solid #c3c4c7;
         display: inline-block;
     }
-.treeMainCategory {
+.treeMainCategory:hover, .treeSubCategory:hover, .treeSubChildCategory:hover, .treeLastCategory:hover, .treeModels:hover, .treeModific:hover {
+    color: #ff5a00;
+    text-shadow: 0px 0px 10px;
+}
+.treeModels {
+    padding-right: 10px;
     color: white;
-    padding: 10px;
+    line-height: 3;
+}
+.treeModific {
+    padding-right: 10px;
+    color: white;
+    line-height: 3;
+}
+.treeMainCategory {
     font-size: 26px;
     color: #ff5a00;
-    padding: 0px 0px 10px 0px;
+    padding: 20px 0px 20px 0px;
     text-align: center;
     display: block;
 }
@@ -551,6 +563,13 @@ html {
     left: 5%;
 }
 @media only screen and (max-width: 700px) {
+    .treeMainCategory, .treeSubCategory, .treeSubChildCategory, .treeLastCategory {
+        width:100%;
+    }
+    .treeModels {
+        line-height:4;
+    }
+
     .siteTelelephone, .btnBackModelPage {
         display: none !important;
     }

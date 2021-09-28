@@ -43,7 +43,7 @@ namespace WebApplication.Controllers
             string categoryName = RouteData.Values["category"].ToString();
             string categoryId = RouteData.Values["topcategory"].ToString();
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == EkCarTypeEnum.Car).Select(x => x.Manufacturers).FirstOrDefault();
-            return View(new RightTreeViewModel() { ViewName=categoryName, ManufacturerList = carTree });
+            return View(new RightTreeViewModel() { ViewName=categoryName, ManufacturerList = carTree, MainCategoryId=categoryId });
         }
     }
 }

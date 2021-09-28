@@ -168,6 +168,12 @@ namespace WebApplication.Controllers
                 rightTree.ProductCategoryList = treeMainCategories;
                 return View(rightTree);
             }
+            if (RouteData.Values["topcategory"] != null && RouteData.Values["category"].ToString().ToLower() == "customsearch")
+            {
+                RightTreeViewModel rightTree = GetNumberInput(RouteData.Values["carmodel"].ToString(), RouteData.Values["carmanufacture"].ToString());
+                rightTree.ProductCategoryList = treeMainCategories;
+                return View(rightTree);
+            }
             if (RouteData.Values["carmanufacture"] != null && RouteData.Values["carmodel"] == null)
             {
                 var carManufactureName = RouteData.Values["carmanufacture"].ToString().ToUpper().Contains("MERCEDES") ? RouteData.Values["carmanufacture"].ToString().ToUpper() : RouteData.Values["carmanufacture"].ToString().ToUpper().Replace("-", " ");
@@ -943,7 +949,7 @@ namespace WebApplication.Controllers
             return View("_ProductsList", treeView);
 
         }
-        public RightTreeViewModel GetNumberInput(string partNumber)
+        public RightTreeViewModel GetNumberInput(string partNumber, string chosedCategoryId="")
         {
             //Session["SiteTitle"] = partNumber;
             bool isNew = false;
@@ -964,6 +970,9 @@ namespace WebApplication.Controllers
                 {
                     selectedCategoryId = rightTree.SubCategoryId;
                 }
+            }
+            if (!String.IsNullOrEmpty(chosedCategoryId)) {
+                selectedCategoryId = chosedCategoryId;
             }
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
             var responceAllegro = GetAllegroProducts(null, null, selectedCategoryId, partNumber).Result;
@@ -1199,6 +1208,46 @@ namespace WebApplication.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        //(inputPartNumber, null, String.IsNullOrEmpty(selectedCategoryId)? "3" : selectedCategoryId, state, sortingPrice, offset, 40, System.Threading.CancellationToken.None, IsCategoryBody(selectedCategoryId));
+        public IActionResult CustomSearch() {
+            OfferStateEnum state = OfferStateEnum.Used;
+            var responceAllegroSubCategories = GetAllegroProducts(null, null, "50828", "AUDI 100", state, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "", "").Result;
+            if (responceAllegroSubCategories.Total == 0) {
+                state = OfferStateEnum.New;
+                responceAllegroSubCategories = GetAllegroProducts(null, null, "50828", "AUDI 100", state, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "", "").Result;
+            }
+            RightTreeViewModel rightTree = new RightTreeViewModel();
+            rightTree.FilterName = GetFilterName(rightTree.SubCategoryId);
+            rightTree.AllegroOfferList = responceAllegroSubCategories.Products;
+            rightTree.FakeAllegroList = FakeListForPager(responceAllegroSubCategories.Total);
+            rightTree.OfferState = state;
+            rightTree.OfferSorting = OfferSortingEnum.Relevance;
+            rightTree.PageNumber = 1;
+            rightTree.OfferSortingPlacement = "";
+            rightTree.OfferSortingIsOrigin = "";
+            rightTree.OfferSortingEngineType = "";
+            rightTree.OfferSortingTransmissionType = "";            
+            rightTree.SelectedEngineValue = "";
+            rightTree.SelectedTiresSizes = new SelectedTires()
+            {
+                Height = null,
+                Width = null,
+                Quantity = null,
+                RSize = null
+            };
+            rightTree.Tires = new TiresFilter()
+            {
+                Height = new TiresSizes().GetTiresHeight(),
+                Width = new TiresSizes().GetTiresWidth(),
+                RSize = new TiresSizes().GetTiresRSize(),
+                Quantity = new TiresSizes().GetTiresCnt()
+            };
+            rightTree.EngineValues = new EngineValue().GetEngineValue();
+            HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegroSubCategories.Products));
+            HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
+            rightTree.ViewName = "_ProductsList";
+            return View(rightTree);
         }
     }
 }

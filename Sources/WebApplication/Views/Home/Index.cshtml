@@ -43,6 +43,7 @@
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
+        
         $(document).ready(function () {
             var url = window.location.href;//.replaceAll('/', '&').replace('&&', '//');;
             if (url.includes("instructions")) {
@@ -75,6 +76,10 @@
             var parsedItems = url.replace(deleteFromUrl, '').split('/');
 
             var params = new window.URLSearchParams(url.replaceAll('&amp;', '&'));
+            if (parsedItems[0] != undefined && parsedItems[1] != undefined && parsedItems[2] != undefined && parsedItems[3] != undefined && parsedItems[1] == "customsearch") {                
+                $("#divSelectTopCategory").hide();
+                return;
+            }
             if (parsedItems[0] != '' && !parsedItems[0].includes("search") && (parsedItems[1] == '18554' || parsedItems[1] == '99193')) {
                 var topcategory = parsedItems[1];
                 var mainCategoryId = null;
@@ -672,8 +677,8 @@
             </tr>*@
         <tr>
             <td colspan="2" style="background: #504593; border-top: 1px solid #dcdeff;padding:20px;">
-                
-                <div style="text-align:justify;">
+
+                <div style="text-align:left;">
                     @foreach (var cat in Model.ProductCategoryList)
                     {
                         <a href="/Models/ManufactureModelView/@cat.CategoryId/@cat.Name["ru"]" class="treeMainCategory" id="@String.Format("divMainCat{0}", cat.CategoryId)">@cat.Name["ru"]</a>
@@ -682,17 +687,26 @@
 
                             @foreach (var subCat in @cat.Children)
                             {
-                                <a href="/Models/ManufactureModelView/@subCat.CategoryId/@subCat.Name["ru"]" class="treeSubCategory" id="@String.Format("divSubCat{0}", subCat.CategoryId)">@subCat.Name["ru"]</a>
+                                @if (@subCat.Name["ru"] != "Сборные детали" && @subCat.Name["ru"] != "Другое" && @subCat.Name["ru"] != "Другие")
+                                {
+                                    <a href="/Models/ManufactureModelView/@subCat.CategoryId/@subCat.Name["ru"]" class="treeSubCategory" id="@String.Format("divSubCat{0}", subCat.CategoryId)">@subCat.Name["ru"]</a>
+                                }
                                 @if (@subCat.Children != null)
                                 {
                                     @foreach (var subchildCat in @subCat.Children)
                                     {
-                                        <a href="/Models/ManufactureModelView/@subchildCat.CategoryId/@subchildCat.Name["ru"]" class="treeSubChildCategory" id="topSubchild">@subchildCat.Name["ru"]</a>
+                                        @if (subchildCat.Name["ru"] != "Сборные детали" && subchildCat.Name["ru"] != "Другое" && subchildCat.Name["ru"] != "Другие")
+                                        {
+                                            <a href="/Models/ManufactureModelView/@subchildCat.CategoryId/@subchildCat.Name["ru"]" class="treeSubChildCategory" id="topSubchild">@subchildCat.Name["ru"]</a>
+                                        }
                                         @if (@subchildCat.Children != null)
                                         {
                                             @foreach (var lastCat in @subchildCat.Children)
                                             {
-                                                <a href="/Models/ManufactureModelView/@lastCat.CategoryId/@lastCat.Name["ru"]" class="treeLastCategory" id="lastId">@lastCat.Name["ru"]</a>
+                                                @if (lastCat.Name["ru"] != "Сборные детали" && lastCat.Name["ru"] != "Другое" && lastCat.Name["ru"] != "Другие")
+                                                {
+                                                    <a href="/Models/ManufactureModelView/@lastCat.CategoryId/@lastCat.Name["ru"]" class="treeLastCategory" id="lastId">@lastCat.Name["ru"]</a>
+                                                }
                                             }
                                         }
                                     }
@@ -701,7 +715,7 @@
                         }
                     }
                 </div>
-                <div style="color: white;word-break:break-word;">
+                <div style="color: white;word-break:break-word;padding:30px 10px 0px 10px;">
                     Европейские авторазборки в интернет магазине <a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> - помогают автовладельцам, решить многие проблемы в кратчайшие сроки!
 
                     Европейская сеть авторазборок, с быстрым поиском запчастей в Украине!
@@ -732,11 +746,12 @@
                     }
                 </div>
                 <div style="text-align: center; font-size: 34px; padding: 20px 0px;color:white;">Работаем по всей Украине</div>
+                <div style="color: white; text-align: center; font-size: 18px; padding: 10px; border-bottom: 1px solid white; border-top: 1px solid white;"><a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> Авторазборка Шрот Купить Запчасти б/у новые легковые грузовые бусы мотоциклы Шины Диски Инструменты Оборудование для СТО Мото Аксессуары</div>
                 <div style="text-align:left;">
                     @foreach (var item in @Model.AdvertCities)
                     {
                         <div class="advertCities">
-                            <img src="~/images/city.png" style="height:50px;padding-right:10px;" /><a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> Авторазборка Шрот Купить Запчасти б/у новые легковые грузовые бусы мотоциклы Шины Диски Инструменты Оборудование для СТО Мото Аксессуары @item.ToString()
+                             @item.ToString()
                         </div>
                     }
                 </div>
