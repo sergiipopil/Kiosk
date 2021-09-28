@@ -32,7 +32,7 @@
     <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1" />
 
     <style>
-        #divSubCat50823 {
+        #divSubCat50823, #divMainCat629 {
             display: none !important;
         }
     </style>
@@ -673,26 +673,26 @@
         <tr>
             <td colspan="2" style="background: #504593; border-top: 1px solid #dcdeff;padding:20px;">
                 
-                <a style="text-align:justify;">
+                <div style="text-align:justify;">
                     @foreach (var cat in Model.ProductCategoryList)
                     {
-                        <a href="/Models/ManufactureModelView/@cat.CategoryId" style="color:white;padding:10px;font-size:26px;color:#ff5a00;padding:0px 0px 10px 0px;text-align:center;display:block;" id="top1">@cat.Name["ru"]</a>
+                        <a href="/Models/ManufactureModelView/@cat.CategoryId/@cat.Name["ru"]" class="treeMainCategory" id="@String.Format("divMainCat{0}", cat.CategoryId)">@cat.Name["ru"]</a>
                         @if (@cat.Children != null)
                         {
 
                             @foreach (var subCat in @cat.Children)
                             {
-                                <a href="/Models/ManufactureModelView/@subCat.CategoryId" style="color:white;padding:10px;display:inline-block;vertical-align:middle;width:25%;" id="@String.Format("divSubCat{0}", subCat.CategoryId)">@subCat.Name["ru"]</a>
+                                <a href="/Models/ManufactureModelView/@subCat.CategoryId/@subCat.Name["ru"]" class="treeSubCategory" id="@String.Format("divSubCat{0}", subCat.CategoryId)">@subCat.Name["ru"]</a>
                                 @if (@subCat.Children != null)
                                 {
                                     @foreach (var subchildCat in @subCat.Children)
                                     {
-                                        <a href="/Models/ManufactureModelView/@subchildCat.CategoryId" style="color:white;padding:10px;width:25%;display:inline-block;vertical-align:top;" id="topSubchild">@subchildCat.Name["ru"]</a>
+                                        <a href="/Models/ManufactureModelView/@subchildCat.CategoryId/@subchildCat.Name["ru"]" class="treeSubChildCategory" id="topSubchild">@subchildCat.Name["ru"]</a>
                                         @if (@subchildCat.Children != null)
                                         {
                                             @foreach (var lastCat in @subchildCat.Children)
                                             {
-                                                <a href="/Models/ManufactureModelView/@lastCat.CategoryId" style="color:white;padding:10px;" id="lastId">@lastCat.Name["ru"]</a>
+                                                <a href="/Models/ManufactureModelView/@lastCat.CategoryId/@lastCat.Name["ru"]" class="treeLastCategory" id="lastId">@lastCat.Name["ru"]</a>
                                             }
                                         }
                                     }

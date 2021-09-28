@@ -152,7 +152,7 @@ namespace WebApplication.Controllers
                     ViewName = "_AutoPartsTree",
                     ProductCategoryList = tempC,
                     TopCategoryId = RouteData.Values["category"].ToString(),
-                    ReallyTopCategoryId = RouteData.Values["category"].ToString()
+                    ReallyTopCategoryId = RouteData.Values["category"].ToString()                    
                 });                
             }
             if (RouteData.Values["topcategory"] != null && RouteData.Values["topcategory"].ToString().ToLower() != "search")
@@ -165,6 +165,7 @@ namespace WebApplication.Controllers
             if (RouteData.Values["topcategory"] != null && RouteData.Values["topcategory"].ToString().ToLower() == "search")
             {
                 RightTreeViewModel rightTree = GetNumberInput(RouteData.Values["category"].ToString());
+                rightTree.ProductCategoryList = treeMainCategories;
                 return View(rightTree);
             }
             if (RouteData.Values["carmanufacture"] != null && RouteData.Values["carmodel"] == null)
@@ -173,7 +174,7 @@ namespace WebApplication.Controllers
                 ViewBag.TitleText = "Авторазборка Шрот Купить Запчасти Б/У и Новые " + carManufactureName;
                 var modelTree = carTree.Where(x => x.Name == carManufactureName).Select(y => y.CarModels).FirstOrDefault();
                 var modelDescription = carTree.Where(x => x.Name == carManufactureName).Select(y => y.description).FirstOrDefault();
-                return View(new RightTreeViewModel() { ViewName = "_CarModels", ModelDescription = modelDescription, ManufacturerSelected = carManufactureName, ModelsList = modelTree, TopCategoryId = HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"), kioskId = "116" });
+                return View(new RightTreeViewModel() { ViewName = "_CarModels", ProductCategoryList=treeMainCategories, ModelDescription = modelDescription, ManufacturerSelected = carManufactureName, ModelsList = modelTree, TopCategoryId = HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"), kioskId = "116" });
             }
 
             if (RouteData.Values["carmodel"] != null && RouteData.Values["maincategoryname"] == null)
@@ -184,11 +185,13 @@ namespace WebApplication.Controllers
                 if (modelTree.Where(x => x.Name == carmodel).Select(y => y.Children).FirstOrDefault() == null)
                 {
                     RightTreeViewModel rightTree = GetCategoryAutoParts(carManufactureName, carmodel, null, _topCategoryTempId);
+                    rightTree.ProductCategoryList = treeMainCategories;
                     return View(rightTree);
                 }
                 else
                 {
                     RightTreeViewModel rightTree = GetModelModifications(carManufactureName, carmodel, _topCategoryTempId);
+                    rightTree.ProductCategoryList = treeMainCategories;
                     return View(rightTree);
                 }
             }
@@ -200,6 +203,7 @@ namespace WebApplication.Controllers
                 var mainCategoryName = RouteData.Values["maincategoryname"].ToString().Replace("-", " ");
                 mainCategoryName = FirstCharToUpper(mainCategoryName);
                 RightTreeViewModel rightTree = GetMainSubcategories(carManufactureName, carmodel, mainCategoryId, mainCategoryName, _topCategoryTempId);
+                rightTree.ProductCategoryList = treeMainCategories;
                 return View(rightTree);
             }
             if (RouteData.Values["carmodel"] != null && RouteData.Values["maincategoryname"] != null && RouteData.Values["subcategoryid"] != null && RouteData.Values["subchildcategoryid"] == null)
@@ -219,6 +223,7 @@ namespace WebApplication.Controllers
                 subCategoryName = FirstCharToUpper(subCategoryName);
                 subChildName = FirstCharToUpper(subChildName);
                 RightTreeViewModel rightTree = GetMainSubChildsCategories(carManufactureName, carmodel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, _topCategoryTempId);
+                rightTree.ProductCategoryList = treeMainCategories;
                 return View(rightTree);
             }
             if (RouteData.Values["carmodel"] != null && RouteData.Values["maincategoryname"] != null && RouteData.Values["subcategoryid"] != null && RouteData.Values["subchildcategoryid"] != null && RouteData.Values["lastcategoryid"] == null)
@@ -243,6 +248,7 @@ namespace WebApplication.Controllers
                 lastChildName = FirstCharToUpper(lastChildName);
 
                 RightTreeViewModel rightTree = GetProductList(carManufactureName, carmodel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, lastChildId, lastChildName, _topCategoryTempId); ;
+                rightTree.ProductCategoryList = treeMainCategories;
                 return View(rightTree);
             }
 
