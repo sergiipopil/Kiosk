@@ -22,7 +22,7 @@
                         </div>
                         <div class="inline-block">
                             <label style="font-size:21px;color:white;" class="cartTitle">
-                                @item.Product.Name.Last().Value (@item.Product.FinalPrice грн.)
+                                @item.Product.Name.Last().Value (@item.Product.FinalPrice UAH.)
                             </label>
                         </div>
 
@@ -37,7 +37,7 @@
                         {<span>0</span> }
                         else
                         {@ViewData["CartWidgetPrice"]}
-                    </label><label class="cartCurrency" style="font-size:39px;">грн</label>
+                    </label><label class="cartCurrency" style="font-size:39px;"> UAH</label>
                 </div>
 
             </div>
@@ -56,10 +56,7 @@
                 {
                 @Html.Partial("_CartListItem", Model)
                 }
-            <div class="priceProductComment">
-                <span style="color:red;">Внимание!</span>
-                Цена указана с учетом таможенного сбора, страховки и доставки.
-            </div>
+           
                 @if (Model.Count > 0)
                 {
                 <table style="width:100%;margin-top:30px;text-align:center;" class="divCartControlButtons">

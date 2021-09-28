@@ -21,6 +21,12 @@ namespace KioskBrains.Server.EK.Common.Helpers
                 "Иршава", "Кривой Рог", "Одесса", "Львов", "Винница", "Чернигов", "Бердянск", "Херсон", "Полтава", "Хмельницкий", "Ровно", "Черновцы", "Ивано-Франковск",
                 "Каменское", "Кропивницкий", "Тернополь", "Кременчуг", "Луцк", "Белая Церковь", "Никополь", "Бровары", "Павлоград", "Северодонецк" };
         }
+        public static IList<string> GetRandomParts()
+        {
+            IList<string> testingList = System.IO.File.ReadAllText(@"c:\temp\partNumbers.txt").Split(";").ToList();
+            //IList<string> testingList = System.IO.File.ReadAllText(@"D:\Domains\bi-bi.com.ua\httpdocs\wwwroot\partNumbers.txt").Split(";").ToList();
+            return testingList.AsEnumerable().OrderBy(n => Guid.NewGuid()).Take(100).ToList();
+        }
         private static readonly EkProductCategory[] _europeCategories;
 
         public static EkProductCategory[] GetEuropeCategories()

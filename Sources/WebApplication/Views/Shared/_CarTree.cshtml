@@ -46,10 +46,13 @@
         @foreach (var item in Model.ManufacturerList)
         {
             <div style="display:inline-block;vertical-align:middle;">
-                <div class="parentDivManufacturer" onclick="selectManufacturer('@item.Name', '@Model.kioskId', '@Model.TopCategoryId')">
-                    <img src="@String.Format("/images/Catalog/Model_Logo/{0}.webp", item.Name)" alt="@item.Name" class="manufactureImage" />
-                </div>
-                <div class="manufactureTextModels">@item.Name</div>
+                <a href="/topcategory/@Model.TopCategoryId/@item.Name.Replace(" ", "-")">
+                    <div class="parentDivManufacturer">
+                        @*onclick="selectManufacturer('@item.Name', '@Model.kioskId', '@Model.TopCategoryId')"*@
+                        <img src="@String.Format("/images/Catalog/Model_Logo/{0}.webp", item.Name)" alt="@item.Name" class="manufactureImage" />
+                    </div>
+                    <div class="manufactureTextModels">@item.Name</div>
+                </a>
             </div>
         }
     </div>
@@ -66,13 +69,15 @@
         @foreach (var item in Model.ModelsList)
         {
             <div style="display:inline-block;vertical-align:middle;">
-                <div class="parentDiv" style="display:grid;" onclick="selectCarModel('@Model.ManufacturerSelected', '@item')">
-                    <div class="divCarModelsBlock">
-                        <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, item)" class="modelImage" />
-                    </div><div class="manufactureText">
-                        <span>@item</span>
+                <a href="/topcategory/@Model.TopCategoryId/@Model.ManufacturerSelected.Replace(" ", "-")/@item.ToString().Replace(" ", "-")">
+                    <div class="parentDiv" style="display:grid;">@*onclick="selectCarModel('@Model.ManufacturerSelected', '@item')"*@
+                        <div class="divCarModelsBlock">
+                            <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, item)" class="modelImage" />
+                        </div><div class="manufactureText">
+                            <span>@item</span>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         }
     </div>

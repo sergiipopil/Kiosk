@@ -60,6 +60,12 @@ namespace WebApplication.Controllers
             _translateService = translateService;
             _centralBankExchangeRateManager = centralBankExchangeRateManager;
         }
+        public class ManufactureNumbers
+        {
+            public string Manufacture { get; set; }
+            public IList<string> ManufactureNumbersList { get; set; }
+        }
+
         [Route("/")]
         [Route("/{topcategory?}/")]
         [Route("/{topcategory?}/{category?}")]
@@ -77,17 +83,35 @@ namespace WebApplication.Controllers
 
 
 
-
         public IActionResult Index(string kioskId)
         {
+            //IList<string> testingList = new List<string>() { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
+            //var newTest = testingList.AsEnumerable().OrderBy(n => Guid.NewGuid()).Take(5);
             //HtmlWeb web = new HtmlWeb();
 
-            //HtmlDocument doc = web.Load("https://zapchasti.ria.com/uk/map-catalog-number/audi/");
+            //HtmlDocument doc = web.Load("https://zapchasti.ria.com/uk/map-catalog-number/bmw/");
             //var text = doc.ParsedText;
-
+            //System.IO.File.AppendAllText(@"c:\temp\zapchasti1.txt", "riadon3;");//carTemp + item.Name);
             //var divsDescNew = doc.DocumentNode.QuerySelectorAll("a.elem");
+            //foreach (var item in divsDescNew)
+            //{
+            //   System.IO.File.AppendAllText(@"c:\temp\zapchasti.txt", item.InnerText.Replace("Запчастина ", "")+";");//carTemp + item.Name);
+            //}
+            //IList<ManufactureNumbers> manufacturePartNumbers = new List<ManufactureNumbers>();
+            //IList<string> tempNumbers = new List<string>();
 
+            //foreach (var item in divsDescNew)
+            //{
+            //    tempNumbers.Add(item.InnerText);
+            //}
+            //manufacturePartNumbers.Add(new ManufactureNumbers() { Manufacture = "bmw", ManufactureNumbersList = tempNumbers });
 
+            //string pathSitemap12345 = @"c:\temp\sitemap123.json";
+            ////System.IO.File.AppendAllText(pathSitemap12345, JsonSerializer.Serialize(manufacturePartNumbers));
+            //var readData = System.IO.File.ReadAllText(@"c:\temp\zapchasti.txt").Split(";").ToList();
+            //var tempReadData = JsonSerializer.Deserialize<List<ManufactureNumbers>>(readData);
+
+            //System.Web.HttpUtility.UrlEncode(myString)
 
             TitleController titleController = new TitleController();
             titleController.GetTitleSite();
@@ -104,6 +128,7 @@ namespace WebApplication.Controllers
             {
                 kioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
             }
+
             HttpContext.Session.SetString("kioskId", kioskId == null ? "116" : kioskId);
             ViewData["CartWidgetPrice"] = HttpContext.Session.GetString("cartWidgetPrice");
 
@@ -111,133 +136,32 @@ namespace WebApplication.Controllers
             
             _topCategoryCarType = new EkSiteFactory().GetCarTypeEnum(String.IsNullOrEmpty(_topCategoryId) ? "620" : _topCategoryId);
             var carTreeTest = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
-            string pathSitemap = @"c:\temp\sitemap.xml";
-            /*foreach (var item in carTreeTest)
+
+
+            var treeMainCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == "620").FirstOrDefault().Children;
+
+
+            
+
+            ViewBag.TitleText = "Авторазборка Шрот Купить Запчасти Б/у и Новые";
+            if (RouteData.Values["category"] != null && (RouteData.Values["category"].ToString() == "99193" || RouteData.Values["category"].ToString() == "18554"))
             {
-                string carMap = carTemp + item.Name;//bibi/topcategory/620/audi
-                string text123 = String.Format("\t<url>\n\t\t<loc>{0}</loc>\n\t\t<lastmod>2021-09-09</lastmod>\n\t\t<changefreq>daily</changefreq>\n\t\t<priority>0.9</priority>\n\t</url>\n", carMap);
-                
-                System.IO.File.AppendAllText(pathSitemap, text123);//carTemp + item.Name);
-                var modelTree123 = carTreeTest.Where(x => x.Name == item.Name).Select(y => y.CarModels).FirstOrDefault();
-                foreach (var item1 in modelTree123)
+                var tempC = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == RouteData.Values["category"].ToString()).FirstOrDefault().Children;
+                return View(new RightTreeViewModel()
                 {
-                    string modelMap = carMap + "/" + item1.Name;
-                    string textModels = String.Format("\t<url>\n\t\t<loc>{0}</loc>\n\t\t<lastmod>2021-09-09</lastmod>\n\t\t<changefreq>daily</changefreq>\n\t\t<priority>0.9</priority>\n\t</url>\n", modelMap);
-                    System.IO.File.AppendAllText(pathSitemap, textModels);//carTemp + item.Name);
-                    var autoParts123 = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == "620").FirstOrDefault().Children;
-                    foreach (var itemPart in autoParts123)
-                    {
-                        if (itemPart.Children != null && !itemPart.CategoryId.Contains("GROUP-"))
-                        {
-                            itemPart.CategoryId = "GROUP-" + itemPart.CategoryId;
-                        }
-                        string mainCategoryMap = modelMap + "/" + itemPart.CategoryId + "/" + itemPart.Name.GetValue("ru").Replace(" ", "-");
-                        string textMainCategory = String.Format("\t<url>\n\t\t<loc>{0}</loc>\n\t\t<lastmod>2021-09-09</lastmod>\n\t\t<changefreq>daily</changefreq>\n\t\t<priority>0.9</priority>\n\t</url>\n", mainCategoryMap);
-                        System.IO.File.AppendAllText(pathSitemap, textMainCategory);//carTemp + item.Name);
-
-                        var autoPartsSubCategories = autoParts123.Where(x => x.CategoryId == itemPart.CategoryId).Select(x => x.Children).FirstOrDefault();
-                        if (autoPartsSubCategories != null)
-                        {
-                            foreach (var itemSubCat in autoPartsSubCategories)
-                            {
-                                if (itemSubCat.Children != null && !itemSubCat.CategoryId.Contains("GROUP-"))
-                                {
-                                    itemSubCat.CategoryId = "GROUP-" + itemSubCat.CategoryId;
-                                }
-                                string subCategoryMap = mainCategoryMap + "/" + itemSubCat.CategoryId + "/" + itemSubCat.Name.GetValue("ru").Replace(" ", "-");
-                                string textSubCategory = String.Format("\t<url>\n\t\t<loc>{0}</loc>\n\t\t<lastmod>2021-09-09</lastmod>\n\t\t<changefreq>daily</changefreq>\n\t\t<priority>0.9</priority>\n\t</url>\n", subCategoryMap);
-                                System.IO.File.AppendAllText(pathSitemap, textSubCategory);//carTemp + item.Name);
-
-
-                                var autoPartsSubChildCategories = autoPartsSubCategories.Where(x => x.CategoryId == itemSubCat.CategoryId).Select(x => x.Children).FirstOrDefault();
-                                if (autoPartsSubChildCategories != null)
-                                {
-                                    foreach (var itemsubChild in autoPartsSubChildCategories)
-                                    {
-                                        string subChildCategoryMap = subCategoryMap + "/" + itemsubChild.CategoryId + "/" + itemsubChild.Name.GetValue("ru").Replace(" ", "-");
-                                        string textSubChildCategory = String.Format("\t<url>\n\t\t<loc>{0}</loc>\n\t\t<lastmod>2021-09-09</lastmod>\n\t\t<changefreq>daily</changefreq>\n\t\t<priority>0.9</priority>\n\t</url>\n", subChildCategoryMap);
-                                        System.IO.File.AppendAllText(pathSitemap, textSubChildCategory);//carTemp + item.Name);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }*/
-            /*int counter = 0;
-            string line;
-
-            // Read the file and display it line by line.  
-            System.IO.StreamReader file =
-                new System.IO.StreamReader(pathSitemap);
-            while ((line = file.ReadLine()) != null)
-            {                
-                counter++;
-                if (counter > 0 && counter <= 252000) {
-                    System.IO.File.AppendAllText(@"c:\temp\sitemap1.xml", line + "\n");
-                }
-                if (counter > 252000 && counter <= 504000)
-                {
-                    System.IO.File.AppendAllText(@"c:\temp\sitemap2.xml", line + "\n");
-                }
-                if (counter > 504000 && counter <= 756000)
-                {
-                    System.IO.File.AppendAllText(@"c:\temp\sitemap3.xml", line + "\n");
-                }
-                if (counter > 756000 && counter <= 1008000)
-                {
-                    System.IO.File.AppendAllText(@"c:\temp\sitemap4.xml", line + "\n");
-                }
-                if (counter > 1008000 && counter <= 1260000)
-                {
-                    System.IO.File.AppendAllText(@"c:\temp\sitemap5.xml", line + "\n");
-                }
-                if (counter > 1260000 && counter <= 1512000)
-                {
-                    System.IO.File.AppendAllText(@"c:\temp\sitemap6.xml", line + "\n");
-                }
-                if (counter > 1512000 && counter <= 1764000)
-                {
-                    System.IO.File.AppendAllText(@"c:\temp\sitemap7.xml", line + "\n");
-                }
-                if (counter > 1764000 && counter <= 2016000)
-                {
-                    System.IO.File.AppendAllText(@"c:\temp\sitemap8.xml", line + "\n");
-                }
-                if (counter > 2016000 && counter <= 2268000)
-                {
-                    System.IO.File.AppendAllText(@"c:\temp\sitemap9.xml", line + "\n");
-                }
-                if (counter > 2268000 && counter <= 2520000)
-                {
-                    System.IO.File.AppendAllText(@"c:\temp\sitemap10.xml", line + "\n");
-                }
-                if (counter > 2520000 && counter <= 2772000)
-                {
-                    System.IO.File.AppendAllText(@"c:\temp\sitemap11.xml", line + "\n");
-                }
-                if (counter > 2772000 && counter <= 3024000)
-                {
-                    System.IO.File.AppendAllText(@"c:\temp\sitemap12.xml", line + "\n");
-                }
-                if (counter > 3024000 && counter <= 3276000)
-                {
-                    System.IO.File.AppendAllText(@"c:\temp\sitemap13.xml", line + "\n");
-                }
-                if (counter > 3276000 && counter <= 3528000)
-                {
-                    System.IO.File.AppendAllText(@"c:\temp\sitemap14.xml", line + "\n");
-                }
-                if (counter > 3528000)
-                {
-                    System.IO.File.AppendAllText(@"c:\temp\sitemap15.xml", line + "\n");
-                }
+                    ViewName = "_AutoPartsTree",
+                    ProductCategoryList = tempC,
+                    TopCategoryId = RouteData.Values["category"].ToString(),
+                    ReallyTopCategoryId = RouteData.Values["category"].ToString()
+                });                
             }
-
-            file.Close();
-            */
+            if (RouteData.Values["topcategory"] != null && RouteData.Values["topcategory"].ToString().ToLower() != "search")
+            {
+                _topCategoryCarType = new EkSiteFactory().GetCarTypeEnum(RouteData.Values["category"]!=null ? RouteData.Values["category"].ToString() : "620");
+            }
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
             var _topCategoryTempId = HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId");
+            
             if (RouteData.Values["topcategory"] != null && RouteData.Values["topcategory"].ToString().ToLower() == "search")
             {
                 RightTreeViewModel rightTree = GetNumberInput(RouteData.Values["category"].ToString());
@@ -245,8 +169,8 @@ namespace WebApplication.Controllers
             }
             if (RouteData.Values["carmanufacture"] != null && RouteData.Values["carmodel"] == null)
             {
-                var carManufactureName = RouteData.Values["carmanufacture"].ToString().ToUpper();
-                ViewBag.TitleText = "Купить автозапчасти на " + carManufactureName;
+                var carManufactureName = RouteData.Values["carmanufacture"].ToString().ToUpper().Contains("MERCEDES") ? RouteData.Values["carmanufacture"].ToString().ToUpper() : RouteData.Values["carmanufacture"].ToString().ToUpper().Replace("-", " ");
+                ViewBag.TitleText = "Авторазборка Шрот Купить Запчасти Б/У и Новые " + carManufactureName;
                 var modelTree = carTree.Where(x => x.Name == carManufactureName).Select(y => y.CarModels).FirstOrDefault();
                 var modelDescription = carTree.Where(x => x.Name == carManufactureName).Select(y => y.description).FirstOrDefault();
                 return View(new RightTreeViewModel() { ViewName = "_CarModels", ModelDescription = modelDescription, ManufacturerSelected = carManufactureName, ModelsList = modelTree, TopCategoryId = HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"), kioskId = "116" });
@@ -254,7 +178,7 @@ namespace WebApplication.Controllers
 
             if (RouteData.Values["carmodel"] != null && RouteData.Values["maincategoryname"] == null)
             {
-                var carManufactureName = RouteData.Values["carmanufacture"].ToString().ToUpper();
+                var carManufactureName = RouteData.Values["carmanufacture"].ToString().ToUpper().Contains("MERCEDES") ? RouteData.Values["carmanufacture"].ToString().ToUpper() : RouteData.Values["carmanufacture"].ToString().ToUpper().Replace("-", " ");
                 var carmodel = RouteData.Values["carmodel"].ToString().ToUpper().Replace("-", " ");
                 var modelTree = carTree.Where(x => x.Name == carManufactureName).Select(y => y.CarModels).FirstOrDefault();
                 if (modelTree.Where(x => x.Name == carmodel).Select(y => y.Children).FirstOrDefault() == null)
@@ -270,7 +194,7 @@ namespace WebApplication.Controllers
             }
             if (RouteData.Values["carmodel"] != null && RouteData.Values["maincategoryname"] != null && RouteData.Values["subcategoryid"] == null)
             {
-                var carManufactureName = RouteData.Values["carmanufacture"].ToString().ToUpper();
+                var carManufactureName = RouteData.Values["carmanufacture"].ToString().ToUpper().Contains("MERCEDES") ? RouteData.Values["carmanufacture"].ToString().ToUpper() : RouteData.Values["carmanufacture"].ToString().ToUpper().Replace("-", " ");
                 var carmodel = RouteData.Values["carmodel"].ToString().ToUpper().Replace("-", " ");
                 var mainCategoryId = RouteData.Values["maincategoryid"].ToString().ToUpper();
                 var mainCategoryName = RouteData.Values["maincategoryname"].ToString().Replace("-", " ");
@@ -280,7 +204,7 @@ namespace WebApplication.Controllers
             }
             if (RouteData.Values["carmodel"] != null && RouteData.Values["maincategoryname"] != null && RouteData.Values["subcategoryid"] != null && RouteData.Values["subchildcategoryid"] == null)
             {
-                var carManufactureName = RouteData.Values["carmanufacture"].ToString().ToUpper();
+                var carManufactureName = RouteData.Values["carmanufacture"].ToString().ToUpper().Contains("MERCEDES") ? RouteData.Values["carmanufacture"].ToString().ToUpper() : RouteData.Values["carmanufacture"].ToString().ToUpper().Replace("-", " ");
                 var carmodel = RouteData.Values["carmodel"].ToString().ToUpper().Replace("-", " ");
                 var mainCategoryId = RouteData.Values["maincategoryid"].ToString().ToUpper();
                 var mainCategoryName = RouteData.Values["maincategoryname"].ToString().Replace("-", " ");
@@ -299,7 +223,7 @@ namespace WebApplication.Controllers
             }
             if (RouteData.Values["carmodel"] != null && RouteData.Values["maincategoryname"] != null && RouteData.Values["subcategoryid"] != null && RouteData.Values["subchildcategoryid"] != null && RouteData.Values["lastcategoryid"] == null)
             {
-                var carManufactureName = RouteData.Values["carmanufacture"].ToString().ToUpper();
+                var carManufactureName = RouteData.Values["carmanufacture"].ToString().ToUpper().Contains("MERCEDES") ? RouteData.Values["carmanufacture"].ToString().ToUpper() : RouteData.Values["carmanufacture"].ToString().ToUpper().Replace("-", " ");
                 var carmodel = RouteData.Values["carmodel"].ToString().ToUpper().Replace("-", " ");
                 var mainCategoryId = RouteData.Values["maincategoryid"].ToString().ToUpper();
                 var mainCategoryName = RouteData.Values["maincategoryname"].ToString().Replace("-", " ");
@@ -322,7 +246,7 @@ namespace WebApplication.Controllers
                 return View(rightTree);
             }
 
-            return View(new RightTreeViewModel() { ViewName = "_CarTree", ManufacturerList = carTree, kioskId = HttpContext.Session.GetString("kioskId"), TopCategoryId = HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId") });
+            return View(new RightTreeViewModel() { ViewName = "_CarTree", ProductCategoryList=treeMainCategories.ToArray(), ManufacturerList = carTree, kioskId = HttpContext.Session.GetString("kioskId"), TopCategoryId = HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId") });
         }
 
         //====================METHOD TO SWITCH TYPE CAR TOP CATEGORY ======================================
@@ -343,7 +267,7 @@ namespace WebApplication.Controllers
 
         public IActionResult SelectManufactureAndModel(string carmanufacture, string topcategoryid)
         {
-
+            carmanufacture = carmanufacture.ToLower().Contains("mercedes") ? carmanufacture.Replace(" ", "-") : carmanufacture;
             TitleController titleController = new TitleController();
             titleController.GetTitleSite();
             string carManufactureName = carmanufacture;
@@ -386,7 +310,7 @@ namespace WebApplication.Controllers
             var modelTree = carTree.Where(x => x.Name == carManufactureName).Select(y => y.CarModels).FirstOrDefault().Where(x => x.Name == carModel);
 
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
-            ViewBag.TitleText = "Купить автозапчасти на " + carManufactureName + " " + carModel;
+            ViewBag.TitleText = "Авторазборка Шрот Купить Запчасти Б/У и Новые " + carManufactureName + " " + carModel;
             return new RightTreeViewModel() { ViewName = "_CarModels", ManufacturerSelected = carManufactureName, ModelSelected = carModel, ModelsList = modelTree.Select(x => x.Children).FirstOrDefault(), IsModificationList = true, TopCategoryId = topcategoryid, kioskId = tempKioskId };
         }
         public RightTreeViewModel GetCategoryAutoParts(string carManufactureName, string carModel, string modification, string topcategoryid)
@@ -411,7 +335,7 @@ namespace WebApplication.Controllers
             {
                 reallyTopCategory = "621";
             }
-            ViewBag.TitleText = "Авто Разборка Шрот Купить Запчасти Б/У и Новые " + carManufactureName + " " + carModel;
+            ViewBag.TitleText = "Авторазборка Шрот Купить Запчасти Б/У и Новые " + carManufactureName + " " + carModel;
             return new RightTreeViewModel() { ViewName = "_AutoPartsTree", ProductCategoryList = autoParts, ManufacturerSelected = carManufactureName, ModelSelected = String.IsNullOrEmpty(modification) || modification == "null" || modification == "NULL" ? carModel : modification, kioskId = tempKioskId, ReallyTopCategoryId = reallyTopCategory, TopCategoryId = topcategoryid };
         }
         //====================METHOD TO SHOW PRODUCTS CATEGORIES ======================================
@@ -522,7 +446,7 @@ namespace WebApplication.Controllers
                 TopCategoryId = topcategoryid,
                 ReallyTopCategoryId = HttpContext.Session.GetString("topCategoryId") == "621" ? "621" : (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"))
             };
-            ViewBag.TitleText = mainCategoryName + " " + carManufactureName + " " + carModel;
+            ViewBag.TitleText = "Купить " + mainCategoryName + " " + carManufactureName + " " + carModel + " с разборки";
             return treeView;
         }
         public List<string> FakeListForPager(long quantity)
@@ -605,7 +529,7 @@ namespace WebApplication.Controllers
                 treeViewModel.ViewName = "_ProductsList";
 
                 HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeViewModel));
-                ViewBag.TitleText = subCategoryName + " " + carManufactureName + " " + carModel;
+                ViewBag.TitleText = "Купить " + subCategoryName + " " + carManufactureName + " " + carModel + " с разборки";
                 return treeViewModel;
             }
             foreach (var item in autoPartsSubChildCategories)
@@ -629,7 +553,7 @@ namespace WebApplication.Controllers
                 ViewName = "_AutoPartsSubChildsTree",
                 ReallyTopCategoryId = HttpContext.Session.GetString("topCategoryId") == "621" ? "621" : (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"))
             };
-            ViewBag.TitleText = subCategoryName + " " + carManufactureName + " " + carModel;
+            ViewBag.TitleText = "Купить " + subCategoryName + " " + carManufactureName + " " + carModel + " с разборки";
             return treeView;
 
         }
@@ -895,7 +819,7 @@ namespace WebApplication.Controllers
                     ViewName = "AutoPartsLastTreeItems",
                     ReallyTopCategoryId = HttpContext.Session.GetString("topCategoryId") == "621" ? "621" : (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"))
                 };
-                ViewBag.TitleText = String.Format("{0} {1} {2}", subCategoryName, carManufactureName, carModel);
+                ViewBag.TitleText = String.Format("Купить {0} {1} {2} с разборки", subCategoryName, carManufactureName, carModel);
                 return treeViewLast;
             }
             var responceAllegro = GetAllegroProducts(carManufactureName, carModel, String.IsNullOrEmpty(lastChildId) ? subChildId : lastChildId, null, OfferStateEnum.Used, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
@@ -946,7 +870,7 @@ namespace WebApplication.Controllers
                 FakeAllegroList = FakeListForPager(responceAllegro.Total),
                 OfferSorting = OfferSortingEnum.Relevance
             };
-            ViewBag.TitleText = String.Format("{0} {1} {2}", String.IsNullOrEmpty(lastChildName) ? subChildName : lastChildName, carManufactureName, carModel);
+            ViewBag.TitleText = String.Format("Купить {0} {1} {2} с разборки", String.IsNullOrEmpty(lastChildName) ? subChildName : lastChildName, carManufactureName, carModel);
             HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
             return treeView;
         }

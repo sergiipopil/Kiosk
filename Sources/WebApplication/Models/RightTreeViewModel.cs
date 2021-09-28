@@ -18,6 +18,13 @@ namespace WebApplication.Models
                 return EkCategoryHelper.GetAdvertCities();
             }
         }
+        public IList<string> PartNumbersRandom
+        {
+            get
+            {
+                return EkCategoryHelper.GetRandomParts();
+            }
+        }
         public string ModelDescription { get; set; }
         public string ViewName { get; set; }
         public EkProduct[] AllegroOfferList { get; set; }

@@ -1,0 +1,26 @@
+﻿@model WebApplication.Models.RightTreeViewModel;
+
+    <div style="color:white;text-align:center;font-size:28px;padding-top:20px;">Каталог запчастей для марок — новые и б/у, с разборки, шрота</div>
+<div style="padding:20px;">
+    @foreach (var itemManufacture in Model.ManufacturerList)
+    {
+        <div style="padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid white;">
+            <div style="color:#ff5a00;font-size:20px;">@itemManufacture.Name</div>
+            <div style="text-align:left;">
+                @foreach (var itemModels in @itemManufacture.CarModels)
+                {
+
+                    <span style="padding-right:10px;color:white;line-height:3;">@itemManufacture.Name @itemModels.Name</span>
+                    @if (itemModels.Children != null)
+                    {
+                        @foreach (var itemModification in itemModels.Children)
+                        {
+                            <span style="padding-right:10px;color:white;line-height:3;">@itemManufacture.Name @itemModification.Name</span>
+                        }
+                    }
+
+                }
+            </div>
+        </div>
+    }
+</div>

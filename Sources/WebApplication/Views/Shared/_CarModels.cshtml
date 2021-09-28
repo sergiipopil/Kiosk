@@ -12,10 +12,10 @@
     <div style="display:inline-block;">
         @if (!Model.IsModificationList)
         {
-            <h1 style="font-size: 24px; line-height: 1; margin-bottom: 0;">Купить автозапчасти на @Model.ManufacturerSelected @Model.ModelSelected @Model.ModificationSelected</h1>}
+            <h1 class="controlHeader">Купить запчасти @Model.ManufacturerSelected @Model.ModelSelected @Model.ModificationSelected</h1>}
         else
         {
-            <h1 style="font-size: 24px; line-height: 1; margin-bottom: 0;">Купить автозапчасти на @Model.ManufacturerSelected @Model.ModelSelected @Model.ModificationSelected</h1>
+            <h1 class="controlHeader">Купить запчасти @Model.ManufacturerSelected @Model.ModelSelected @Model.ModificationSelected</h1>
         }
     </div>
 </div>
@@ -27,30 +27,39 @@
             {
                 @if (item.Children == null)
                 {
-                    <div class="parentDiv" style="display:grid;" onclick="selectCarModel('@Model.ManufacturerSelected', '@item.Name', '', '@Model.kioskId', '@Model.TopCategoryId')">
-                        <div class="divCarModelsBlock">
-                            <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
+                    <a href="/topcategory/@Model.TopCategoryId/@Model.ManufacturerSelected.Replace(" ", "-")/@item.Name.Replace(" ", "-")">
+                        <div class="parentDiv" style="display:grid;">
+                            @*onclick="selectCarModel('@Model.ManufacturerSelected', '@item.Name', '', '@Model.kioskId', '@Model.TopCategoryId')"*@
+                            <div class="divCarModelsBlock">
+                                <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
+                            </div>
+                            <div class="manufactureText">
+                                <span>@item.Name</span>
+                            </div>
                         </div>
-                        <div class="manufactureText">
-                            <span>@item.Name</span>
-                        </div>
-                    </div>
+                    </a>
                 }
                 else
                 {
-                    <div class="parentDiv" style="display:grid;" onclick="selectCarModifications('@Model.ManufacturerSelected', '@item.Name', '@Model.kioskId', '@Model.TopCategoryId')">
-                        <div class="divCarModelsBlock">
-                            <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
+                    <a href="/topcategory/@Model.TopCategoryId/@Model.ManufacturerSelected.Replace(" ", "-")/@item.Name.Replace(" ", "-")">
+                        <div class="parentDiv" style="display:grid;">
+                            @*onclick="selectCarModifications('@Model.ManufacturerSelected', '@item.Name', '@Model.kioskId', '@Model.TopCategoryId')"*@
+
+                            <div class="divCarModelsBlock">
+                                <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
+                            </div>
+                            <div class="manufactureText">
+                                <span>@item.Name</span>
+                            </div>
                         </div>
-                        <div class="manufactureText">
-                            <span>@item.Name</span>
-                        </div>
-                    </div>
+                    </a>
                 }
             }
             else
             {
-                <div class="parentDiv" style="display:grid;" onclick="selectCarModel('@Model.ManufacturerSelected', '@Model.ModelSelected', '@item.Name', '@Model.kioskId', '@Model.TopCategoryId')">
+                <a href="/topcategory/@Model.TopCategoryId/@Model.ManufacturerSelected.Replace(" ", "-")/@item.Name.Replace(" ","-")">
+                    <div class="parentDiv" style="display:grid;">
+                        @*onclick="selectCarModel('@Model.ManufacturerSelected', '@Model.ModelSelected', '@item.Name', '@Model.kioskId', '@Model.TopCategoryId')"*@
                     <div class="divCarModelsBlock">
                         <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
                     </div>
@@ -58,7 +67,8 @@
                         <span>@item.DisplayName</span>
                     </div>
                 </div>
-            }
+            </a>
+        }
         </div>
     }
 </div>

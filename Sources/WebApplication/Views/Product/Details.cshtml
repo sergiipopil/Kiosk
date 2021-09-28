@@ -14,23 +14,7 @@
 
         gtag('config', 'G-4C6EKWGBJK');
     </script>
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-        (function (m, e, t, r, i, k, a) {
-            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
-            m[i].l = 1 * new Date(); k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
-        })
-            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-        ym(79644598, "init", {
-            clickmap: true,
-            trackLinks: true,
-            accurateTrackBounce: true,
-            webvisor: true
-        });
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/79644598" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
+    
     <script>
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
@@ -128,7 +112,7 @@
                     <div id="priceProduct">
                         <div style="color: #ff5a00;font-weight:bold;">
                             <span style="font-size:34px;" itemprop="price" content="@Model.Price">@Model.Price</span>
-                            <span style="font-size:18px;" itemprop="priceCurrency" content="UAH">грн.</span>
+                            <span style="font-size:18px;" itemprop="priceCurrency" content="UAH"> UAH</span>
                             <span itemprop="availability" href="https://schema.org/InStock" style="display: block; font-weight: normal;font-size:14px;">Доступное количество: @Model.AvailableQuantity</span>
                             <span id="priceDeliveryComment" style="color:#6c7096;font-size:14px;display:block;font-weight:normal;">Проверенный продавец</span>
                             <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;margin-bottom:0px;">Быстрая доставка</p>
@@ -138,9 +122,7 @@
                             <button class="btnBuyList">
                                 <span class="btnBuyListSpan" style="font-size:23px;">Купить</span>
                             </button>
-                        </div>
-                        <div style=" text-align: center; color: #ff5a00; padding: 10px 10px; border: 1px solid; font-size: 14px; margin-bottom: 20px;">Цена указана c учетом таможенного сбора, страховки и доставки.</div>
-                        <div style="color: #ff5a00; text-align: center;">Безопасная покупка</div>
+                        </div>                        
                         <div onclick="@Model.ReturnFunction">Back</div>
                         <div id="continueBtn" style="width:100%;">
                             <div onclick="backToMainPage()">

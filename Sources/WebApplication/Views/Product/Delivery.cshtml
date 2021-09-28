@@ -13,23 +13,7 @@
 
         gtag('config', 'G-4C6EKWGBJK');
     </script>
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript">
-        (function (m, e, t, r, i, k, a) {
-            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
-            m[i].l = 1 * new Date(); k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
-        })
-            (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-        ym(79644598, "init", {
-            clickmap: true,
-            trackLinks: true,
-            accurateTrackBounce: true,
-            webvisor: true
-        });
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/79644598" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
+    
     <script>
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
@@ -180,8 +164,8 @@ function showDeliveryFields(divName) {
                                     <span asp-validation-for="CustomerFatherName"></span>
                                     <input id="txtBuyerPhone" class="form-control" placeholder="* Телефон" style="color: black;" asp-for="CustomerPhoneNumber" />
 
-                                    <div style="text-align:center;color:#504593;padding-bottom:20px;"><h3>Выберите тип доставки</h3></div>
-                                    <div class="row">
+                                    <div style="text-align:center;color:#504593;padding:20px 0px 30px 0px;"><h3>Выберите тип доставки</h3></div>
+                                    <div class="row" style="padding-bottom:30px;">
                                         <div class="col" style="padding:0px 10px 0px 0px;">
                                             <div tabindex="1" id="divBtnNova" class="deliveryBoxDesign selected" onclick="showDeliveryFields('#nova')">
                                                 <div class="inline-blockNovaPoshta"><img src="~/images/Delivery/NovaPoshtaUkraine.png" style="width:38px;" /></div>
@@ -206,14 +190,14 @@ function showDeliveryFields(divName) {
                                         <span asp-validation-for="SelectedArea" id="validateCity"></span>
                                         @Html.DropDownListFor(model => model.SelectedDepartment, new SelectList(Model.Departments, "Description", "Description"), " - Выберите отделение - ", new { @id = "cbDepartment", @style = "color: black;width:100%;", @class = "form-control", @onchange = "onDepartmentChanged()" })
                                         <span asp-validation-for="SelectedArea" id="validateDepartment"></span>
-                                        <input type="submit" class="btnOrder" value="Подтвердить заказ" />
+                                        <input type="submit" class="btnOrder" value="Подтвердить заказ" style="margin: 40px 0px; min-height: 51px;" />
                                     </div>
                                     <div id="courier" style="display:none;">
                                         @Html.TextBoxFor(model => model.City, Model.City, new { @id = "txtCustomCity", @class = "form-control", @placeholder = "- Ваш город -", @style = "color: black;" })
                                         @Html.ValidationMessageFor(model => model.City)
                                         @Html.TextBoxFor(model => model.Address, Model.Address, new { @id = "txtCustomAddress", @class = "form-control", @maxlength = "12", @placeholder = "- Ваш адрес -", @style = "color: black;" })
                                         @Html.ValidationMessageFor(model => model.Address)
-                                        <input type="submit" class="btnOrder" value="Подтвердить заказ" />
+                                        <input type="submit" class="btnOrder" style="margin: 40px 0px; min-height: 51px;" value="Подтвердить заказ" />
                                     </div>
                                 </div>
                                 @*<div onclick="submit()" style="background:black;color:greenyellow;">SUBMIT</div>*@

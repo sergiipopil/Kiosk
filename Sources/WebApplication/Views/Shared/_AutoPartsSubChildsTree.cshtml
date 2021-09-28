@@ -2,26 +2,47 @@
 @{
     Layout = null;
 }
-<h1 style="text-align:center;padding: 10px 0px 5px 0px; font-size: 1.5rem;font-family: Open Sans,sans-serif;text-transform:uppercase;">@Model.SubCategoryName @Model.ManufacturerSelected @Model.ModelSelected</h1>
 <meta name="description" content="@Model.SubCategoryName @Model.ManufacturerSelected @Model.ModelSelected" />
 <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
     <div onclick="selectMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.kioskId', '@Model.TopCategoryId')" class="btnBackModelPage">
         <span>Назад</span>
     </div>
-    <div style="display:inline-block;">@Model.SubCategoryName</div>
+    <div style="display:inline-block;"><h1 class="controlHeader">@Model.SubCategoryName @Model.ManufacturerSelected @Model.ModelSelected</h1></div>
 </div>
 <div style="padding: 10px 0px 10px 20px;">
+    @if(@Model.ManufacturerSelected!=null){
     @foreach (var item in Model.ProductCategoryList)
     {
     <div style="display:inline-block;vertical-align:middle;">
-        <div class="parentDivAutoParts" style="display:grid;" onclick="getAllegroData('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.SubCategoryId', '@Model.SubCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId', '@Model.TopCategoryId')">
-            <div class="divCarModelsBlock">
-                <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
+        <a href="/topcategory/@Model.TopCategoryId/@Model.ManufacturerSelected.Replace(" ", "-")/@Model.ModelSelected.Replace(" ", "-")/@Model.MainCategoryId/@Model.MainCategoryName/@Model.SubCategoryId/@Model.SubCategoryName/@item.CategoryId/@item.Name.FirstOrDefault().Value.Replace(" ","-")">
+            <div class="parentDivAutoParts" style="display:grid;">
+                @*onclick="getAllegroData('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.SubCategoryId', '@Model.SubCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId', '@Model.TopCategoryId')"*@
+                <div class="divCarModelsBlock">
+                    <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
+                </div>
+                <div class="manufactureText">
+                    <span>@item.Name.FirstOrDefault().Value</span>
+                </div>
             </div>
-            <div class="manufactureText">
-                <span>@item.Name.FirstOrDefault().Value</span>
-            </div>
-        </div>
+        </a>
     </div>
+    }}
+    else{
+    @foreach (var item in Model.ProductCategoryList)
+    {
+    <div style="display:inline-block;vertical-align:middle;">
+        <a href="/topcategory/@Model.TopCategoryId/@Model.MainCategoryId/@Model.MainCategoryName/@Model.SubCategoryId/@Model.SubCategoryName/@item.CategoryId/@item.Name.FirstOrDefault().Value.Replace(" ","-")">
+            <div class="parentDivAutoParts" style="display:grid;">
+                @*onclick="getAllegroData('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.SubCategoryId', '@Model.SubCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId', '@Model.TopCategoryId')"*@
+                <div class="divCarModelsBlock">
+                    <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
+                </div>
+                <div class="manufactureText">
+                    <span>@item.Name.FirstOrDefault().Value</span>
+                </div>
+            </div>
+        </a>
+    </div>
+    }
     }
 </div>

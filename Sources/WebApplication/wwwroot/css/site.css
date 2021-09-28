@@ -63,15 +63,44 @@ for details on configuring this project to bundle and minify static web assets. 
         border-right: 1px solid #c3c4c7;
         display: inline-block;
     }
-.filterTd {
-    vertical-align: top;
-    width: 16%;
+.btn-group > .btn:first-child {
+    min-height: 70px !important;
+    font-size: 18px !important;
+}
+.bootstrap-select.btn-group .dropdown-toggle .filter-option, .form-control {
+    color: grey !important;
+}
+.dropdown-menu > li > a {
+    font-size: 18px !important;
+    line-height:4 !important;
+}
+.partNumbersRandom {
     display: inline-block;
-    padding:10px;
+    border: 1px solid white;
+    color: white;
+    padding: 5px 10px;
+    margin: 10px 5px;
+    box-shadow: 0px 0px 8px #ff5a00;
 }
-.continueBuys {
-    background:
+    .partNumbersRandom:hover {
+        background: white;
+        color: #ff5a00;
+    }
+    .filterTd {
+        vertical-align: top;
+        width: 16%;
+        display: inline-block;
+        padding: 10px;
+    }
+.controlHeader {
+    font-size: 24px;
+    line-height: 1;
+    margin-bottom: 0;
 }
+.btnBuyList {
+    min-height:51px;
+}
+
 .continueBuys:hover {
 
 }
@@ -114,14 +143,21 @@ for details on configuring this project to bundle and minify static web assets. 
 
 .form-control {
     margin-top: 30px;
-    height: 45px !important;
+    height: 70px !important;
     font-size: 18px !important;
+}
+.siteTelelephone {
+    display:inline-block;vertical-align:middle;
 }
 .advertCities {
     padding: 0px 10px;
-    line-height: 2.5rem;
-    border-right: 2px solid white;
+    line-height: 4rem;
     color: white;
+    display: inline-block;
+}
+.sitePhone {
+    color: #ff5200;
+    font-size: 2em;
 }
 .columnNanufacture {
     color:white;
@@ -141,7 +177,7 @@ for details on configuring this project to bundle and minify static web assets. 
 .bootstrap-select > .dropdown-toggle.bs-placeholder, .bootstrap-select > .dropdown-toggle.bs-placeholder:active, .bootstrap-select > .dropdown-toggle.bs-placeholder:focus, .bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
     color: black !important;
     font-size: 18px;
-    height: 45px;
+    height: 70px;
 }
 
 .bootstrap-select > .dropdown-toggle {
@@ -484,6 +520,15 @@ html {
     left: 5%;
 }
 @media only screen and (max-width: 700px) {
+    .siteTelelephone, .btnBackModelPage {
+        display: none !important;
+    }
+    .bootstrap-select > .dropdown-toggle {
+        height: 30px;
+    }
+    .sitePhone, .controlHeader {
+        font-size: 1rem;
+    }
     .filterTd {
         width:25% !important;
     }
@@ -571,10 +616,13 @@ html {
         word-spacing: 2px;
         color: white;
     }
-
+    .col {
+        padding:0px;
+    }
     .headerImg {
         margin: 0px;
-        width: 80px;
+        width: 64px;
+        padding-left: 20px;
     }
 
     .leftIndexPanel, .rightIndexPanel {
@@ -587,15 +635,17 @@ html {
     }
 
     .manufactureImage {
-        max-width: 50px !important;
-        max-height: 45px !important;
+        max-width: 60px !important;
+        max-height: 60px !important;
     }
 
     .parentDivManufacturer {
-        width: 58px !important;
-        height: 60px !important;
+        width: 74px !important;
+        height: 70px !important;
     }
-
+    .columnNanufacture {
+        width:100%;
+    }
     .topCategoryDiv {
         /*width: 75px !important;
         height: 85px !important;*/
@@ -605,7 +655,7 @@ html {
         display: grid !important;
         justify-content: center;
         padding-top: 10px;
-        cursor:pointer;
+        cursor: pointer;
         box-shadow: 0 0 4px rgb(0 0 0 / 50%);
     }
 
@@ -657,7 +707,7 @@ html {
 
     .inputInsideBlock {
         text-align: center;
-        padding-top: 10px;
+        padding-top: 5px;
     }
 
     .inputSearchBottomText {
@@ -666,7 +716,7 @@ html {
     }
 
     .inputControlBlock {
-        margin: -10px 15px 20px 15px;
+        margin: -30px 15px 10px 15px;
     }
     
     .loopBtn {
@@ -691,19 +741,20 @@ html {
     }
 
     header {
-        padding-bottom: 10px;
+        padding: 10px 0px;
     }
 
     .inputPart {
-        font-size: 16px;
-        height: 30px;
-        width: 90%;
+        font-size: 13px;
+        height: 20px;
+        width: 100%;
+        padding-left:15px;
     }
-
+    .loopBtn {
+        display:none;
+    }
     .loopImgPadding {
-        padding-bottom: 0px;
-        padding-top: 10px;
-        width: 30px;
+        display: none;
     }
 
     .manufactureText {
@@ -764,11 +815,11 @@ html {
 
     .btnBackModelPage {
         color: white;
-        padding: 0px 5px;
+        padding: 1px 7px;
         /*font-weight: normal;*/
         display: inline-block;
-        border-radius: 10px;
-        font-size: 13px;
+        border-radius: 5px;
+        font-size: 14px;
         float: left;
         text-transform: capitalize;
         background: #ff5a00;
@@ -921,13 +972,13 @@ html {
 
     .form-control {
         margin-top: 15px !important;
-        height: 30px !important;
+        height: 50px !important;
         font-size: 14px !important;
     }
 
     .bootstrap-select > .dropdown-toggle.bs-placeholder, .bootstrap-select > .dropdown-toggle.bs-placeholder:active, .bootstrap-select > .dropdown-toggle.bs-placeholder:focus, .bootstrap-select > .dropdown-toggle.bs-placeholder:hover {
         font-size: 14px !important;
-        height: 30px !important;
+        height: 50px !important;
     }
 
     .btnOrder {
