@@ -57,6 +57,7 @@ namespace WebApplication.Models
         public string FunctionReturnFromProducts { get; set; }
         public string ControllerName { get; set; }
         public string TopCategoryId { get; set; }
+        public string TopCategoryName { get; set; }
         public string ReallyTopCategoryId { get; set; }
         public OfferStateEnum OfferState { get; set; }
         public OfferSortingEnum OfferSorting { get; set; }

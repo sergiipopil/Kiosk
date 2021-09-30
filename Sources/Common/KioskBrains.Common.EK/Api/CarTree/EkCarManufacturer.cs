@@ -14,6 +14,8 @@ namespace KioskBrains.Common.EK.Api.CarTree
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string DisplayName { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string rusname { get; set; }
 
         public EkCarModel[] CarModels { get; set; }
 

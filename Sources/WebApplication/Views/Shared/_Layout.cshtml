@@ -10,7 +10,7 @@
 
         gtag('config', 'G-4C6EKWGBJK');
     </script>
-    
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -63,6 +63,53 @@
                 });
             });
         });
+        function showFooterItem(itemName) {
+            //infoFranchise  infoCooperate  infoBrands  infoAbout
+            if (itemName == "#infoFranchise") {
+                if ($(itemName).css("display") == "none") {
+                    $(itemName).css("display", "block");
+                    $("#infoCooperate").css("display", "none");
+                    $("#infoBrands").css("display", "none");
+                    $("#infoAbout").css("display", "none");
+                }
+                else {
+                    $(itemName).css("display", "none");
+                }
+            }
+            if (itemName == "#infoCooperate") {
+                if ($(itemName).css("display") == "none") {
+                    $(itemName).css("display", "block");
+                    $("#infoFranchise").css("display", "none");
+                    $("#infoBrands").css("display", "none");
+                    $("#infoAbout").css("display", "none");
+                }
+                else {
+                    $(itemName).css("display", "none");
+                }
+            }
+            if (itemName == "#infoBrands") {
+                if ($(itemName).css("display") == "none") {
+                    $(itemName).css("display", "block");
+                    $("#infoFranchise").css("display", "none");
+                    $("#infoCooperate").css("display", "none");
+                    $("#infoAbout").css("display", "none");
+                }
+                else {
+                    $(itemName).css("display", "none");
+                }
+            }
+            if (itemName == "#infoAbout") {
+                if ($(itemName).css("display") == "none") {
+                    $(itemName).css("display", "block");
+                    $("#infoFranchise").css("display", "none");
+                    $("#infoCooperate").css("display", "none");
+                    $("#infoBrands").css("display", "none");
+                }
+                else {
+                    $(itemName).css("display", "none");
+                }
+            }
+        }
         function openLeftMenu(menu) {
             window.history.pushState(null, null, "/" + menu);
         }
@@ -119,7 +166,7 @@
                                     Html.RenderPartial("CartWidget");
                                     }
                                 </div>
-                                
+
                                 @*<div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/ServiceStations.png" /></div><div class="inline-block" style="color:#848ac2;">Послуги СТО</div></div>
                                     <div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/Map.png" /></div><div class="inline-block" style="color:#848ac2;">Карта терміналів</div></div>*@
                                 <div class="menuItemDiv" onclick="openLeftMenu('instructions')">
@@ -169,15 +216,745 @@
         </div>
 
         <footer class="border-top footer text-muted">
-            <table class="footerTable">
+            <table class="footerTable" style="table-layout:fixed;">
                 <tr>
-                    <td colspan="4">
-                        <div id="divAboutUs" style="cursor:pointer;text-decoration:underline;font-size:18px;">О нас</div>
-                        <div id="aboutInfo" style="white-space: initial; text-align: justify; padding: 30px; line-height: 20px;display:none;">
-                            В сфере авто бизнеса работаем с 2009 года. Компания bi-bi.com.ua занимается оптовой и розничной продажей автозапчастей и информационными услугами в сфере авто бизнеса. В нашем интернет магазине представлен широкий ассортимент сертифицированных и кроссовых качественных товаров новые, б/у, восстановленные на любой тип транспорта ( легковые бусы грузовые сельхозтехника спецтехника строй техника мотоциклы, водный транспорт, воздушный транспорт, велосипеды, мопеды, квадроциклы, шины, диски, аксессуары, масла, аккумуляторы, авто химия, оборудование для СТО и многое другое. На всю продукцию предоставляется документы и гарантия на установку. Суть интернет площадки bi-bi.com.ua, заключается в том, чтобы клиенты самостоятельно делали подбор нужной детали, используя пошаговые рычаги от представленного и выбранного товара + оформление и получение заказа на указанный клиентом адрес. В интернет магазине bi-bi.com.ua, при покупке автодеталей, стоит обратить внимание на технические характеристики представленных запчастей, оригинальных фотографий и описание деталей! Ни один менеджер, не даст точного технического описания детали по многим причинам, а это не допустимо при подборе, так как клиент теряет время деньги и настроение, и в лучшем случае это замена или возврат. В большинстве случаев по просьбе клиентов даем рекомендации по установке авто деталей в специализированных СТО. Несмотря на большую конкуренцию, наша компания продолжает завоевывать сердца наших автомобилистов, стимулируя этим быть более сплоченным и уверенным в завтрашнем дне. Что касается доставки авто деталей из Европы, приблизительные сроки 5-7 рабочих дней, но не всегда получается справиться с этими сроками по многим разным причинам! И в первую очередь, это зависит даже не от нас, а от ряда не предсказуемых ситуаций такие как, большие очереди на границах, очищение груза, поломка автомобилей службы доставки, и другое. Интернет площадка bi-bi.com.ua ориентирована на конечного покупателя, что делает этот рынок стабильным и не дает шансов перекупам обогатится на Вашей проблеме. bi-bi.com.ua - УДОБНО ВЫГОДНО НАДЕЖНО!
-                        </div>
+                    <td>
+                        <div id="divFranchise" class="footerSmallItem" onclick="showFooterItem('#infoFranchise')">Бизнес Франшиза</div>
+                    </td>
+                    <td>
+                        <div id="divCooperate" class="footerSmallItem" onclick="showFooterItem('#infoCooperate')">Сотрудничество</div>
+                    </td>
+                    <td>
+                        <div id="divBrands" class="footerSmallItem" onclick="showFooterItem('#infoBrands')">Производители запчастей</div>
+                    </td>
+                    <td>
+                        <div id="divAboutUs" class="footerSmallItem" onclick="showFooterItem('#infoAbout')">О нас</div>
+
                     </td>
                 </tr>
+            </table>
+            <div>
+                <div id="infoAbout" class="footerInfoBlock">
+                    В сфере авто бизнеса работаем с 2009 года.
+                    Компания bi-bi.com.ua занимается оптовой и розничной продажей автозапчастей и информационными услугами в сфере авто бизнеса.
+                    В нашем интернет магазине представлен широкий ассортимент сертифицированных и кроссовых качественных товаров новые, б/у, восстановленные на любой тип транспорта ( легковые бусы грузовые сельхозтехника спецтехника строй техника мотоциклы, водный транспорт, воздушный транспорт, велосипеды, мопеды, квадроциклы, шины, диски, аксессуары, масла, аккумуляторы, авто химия, оборудование для СТО и многое другое. На всю продукцию предоставляется документы и гарантия на установку.
+
+                    Суть интернет площадки bi-bi.com.ua, заключается в том, чтобы клиенты самостоятельно делали подбор нужной детали, используя пошаговые рычаги от представленного и выбранного товара + оформление и получение заказа на указанный клиентом адрес.
+                    В интернет магазине bi-bi.com.ua, при покупке автодеталей, стоит обратить внимание на технические характеристики представленных запчастей, оригинальных фотографий и описание деталей! Ни один менеджер, не даст точного технического описания детали по многим причинам, а это не допустимо при подборе, так как клиент теряет время деньги и настроение, и в лучшем случае это замена или возврат.
+                    В большинстве случаев по просьбе клиентов даем рекомендации по установке авто деталей в специализированных СТО. Несмотря на большую конкуренцию, наша компания продолжает завоевывать сердца наших автомобилистов, стимулируя этим быть более сплоченным и уверенным в завтрашнем дне. Что касается доставки авто деталей из Европы, приблизительные сроки 5-7 рабочих дней, но не всегда получается справиться с этими сроками по многим разным причинам!
+                    И в первую очередь, это зависит даже не от нас, а от ряда не предсказуемых ситуаций такие как, большие очереди на границах, очищение груза, поломка автомобилей службы доставки, и другое. Интернет площадка bi-bi.com.ua ориентирована на конечного покупателя, что делает этот рынок стабильным и не дает шансов перекупам обогатится на Вашей проблеме.
+
+                    bi-bi.com.ua - УДОБНО ВЫГОДНО НАДЕЖНО!
+                </div>
+                <div id="infoBrands" class="footerInfoBlock" style="white-space:normal;">
+                    Мировые производители запчастей для автомобиля
+                    Немецкие производители автозапчастей
+                    * FEBI BILSTEIN
+                    * MEYLE
+                    * ATE
+                    * BERU
+                    * BOSCH
+                    * ZIMMERMAN
+                    * ZF
+                    * SASCH
+                    * PIERBURG
+                    * FAG
+                    * KNECHT
+                    * LEMFORDER
+                    * GLYCO
+                    * RUVILLE
+                    * MOOG
+                    * Contitech
+                    * Aks Dasis
+                    * Corteco
+                    * Elring
+                    * Prasco
+                    * LuK
+                    * Sachs
+                    * Vaico
+                    * Johns
+                    * Swag
+                    * KM Germany
+                    * Topran
+                    * Truckrec Automotive
+                    * Master-Sport
+                    Французские производители автозапчастей
+                    * ELF
+                    * TOTAL
+                    * SNR
+                    * Sasic
+                    * Valeo
+                    Американские производители автозапчастей (США)
+                    * NONROE
+                    * DELPHI
+                    * TRW
+                    * GATES
+                    * Dayco
+                    Нидерландские производители автозапчастей
+                    * SHELL
+                    * AVA Quality Cooling
+                    * Kawe
+                    Итальянские производители автозапчастей
+                    * BREMBO
+                    * Hoffer
+                    * Sidat
+                    * Meat&Doria
+                    * Fispa
+                    * Raicam
+                    Испанские производители автозапчастей
+                    * ALUSA
+                    * AUTOFREN
+                    * 3RG
+                    * Sercore
+                    * Triclo
+                    Английские производители автозапчастей
+                    * FERODO
+                    * COMMA
+                    * CASTROL
+                    * Lucas Electrical
+                    * Borg&Beck
+                    * Quinton Hazell
+                    * Comline
+                    * National
+                    * Lucas Engine Drive
+                    Датские производители автозапчастей
+                    * JP GROUP
+                    * NIPPARTS
+                    * Elstock
+                    * DRI
+                    * NK
+                    * sbs
+                    * Klokkerholm
+                    * Triscan
+                    Японские производители автозапчастей
+                    * KAYABA
+                    * Denso
+                    * Exedy
+                    Корейские производители автозапчастей
+                    * CTR
+                    Польские производители автозапчастей
+                    * ABE
+                    * MAXGEAR
+                    * POLCAR
+                    * Loro
+                    * Nexus
+                    Шведские производители автозапчастей
+                    * SKF
+                    Бельгийские производители автозапчастей
+                    * VAN WEZEL
+                    Китайские производители автозапчастей
+                    * PATRON
+                    Турецкие производители автозапчастей
+                    * MAPA
+                    A-GIST
+                    A-one parts
+                    A-TECH
+                    A.I.C. COMPETITION
+                    A.L. FILTER
+                    A.M.C
+                    A.P.S
+                    a.s.dixon
+                    A&S
+                    AAI AB COMPONENTS
+                    AB TRUCK PARTS
+                    AB-PARTS
+                    ABA AUTOMOTIVE
+                    ABAC
+                    ABAKUS
+                    ABAL
+                    ABB FILTER
+                    ABE
+                    ABEX
+                    ABG
+                    ABLTON
+                    ABRO (2)
+                    ABS
+                    ABSOLUT
+                    ABSOLUTE
+                    AC
+                    ACA
+                    ACADEMY
+                    ACAP
+                    ACAR
+                    ACCEL
+                    ACCUTEK
+                    ACDelco
+                    ACE
+                    ACEMARK
+                    ACERBI
+                    ACHIM
+                    ACHR
+                    ACI - AVESA
+                    ACKERMANN
+                    ACKOJA
+                    ACME-TRUMP
+                    ACPS-ORIS
+                    ACR
+                    ACS TERMAL
+                    ACS-CENTURION BIKE
+                    ACTIVEAVTO
+                    AD
+                    AD Auto Detail
+                    AD RADIATORS
+                    ADBLUE (1)
+                    ADD
+                    ADDAX-Q
+                    ADDINOL
+                    ADG
+                    ADI
+                    ADK
+                    ADL
+                    ADLER
+                    ADMAL
+                    Adolf Bucher
+                    ADR
+                    ADRIAUTO
+                    ADVANTECH
+                    ADVICS
+                    ADVSPORT
+                    AE
+                    AE&T
+                    AEBI
+                    AEC
+                    Aeolus
+                    AEP
+                    AERO
+                    AERO DESIGNS
+                    Aerservice
+                    AES
+                    AEZ
+                    AFA
+                    AFFIX
+                    AFTERMARKET CHINA
+                    AGA
+                    AGAMA
+                    AGAT AVTO
+                    AGC
+                    AGC KAROSSERIE
+                    AGCO
+                    Agip
+                    AGP
+                    AGRALE
+                    AGRIA
+                    AGRIFULL
+                    AGVSPORT
+                    AHE
+                    AHLE ORIGINAL
+                    AHLMANN
+                    AIKO
+                    AILERON
+                    AIM
+                    AIM-ONE
+                    AIMCO
+                    AIMOL
+                    AINDE
+                    AION
+                    AIR COMP - STAMPOTECNICA
+                    AIR FREN
+                    AIR REFINER
+                    AIR TOP
+                    AIR TRACTION
+                    AIRBOSS
+                    AIRCOMFORT
+                    AIREXPERT
+                    AIRFIL
+                    AIRKRAFT
+                    AIRLINE
+                    AirMan
+                    AIRMATIC
+                    AIROGEAR
+                    AIRPLEX
+                    AIRPRO
+                    AIRSEC
+                    Airtech
+                    AIRTEX
+                    AIRZONE
+                    AIS DRIVING
+                    AISAN
+                    AISIN
+                    AIWA
+                    AIXAM
+                    AJUSA
+                    AKAI
+                    AKBAY
+                    AKCELA
+                    AKEBONO
+                    AKERMAN VERKSTAD AB
+                    AKG
+                    AKIN OTO
+                    AKITAKA
+                    AKKUSSAN
+                    AKOK
+                    AKOP
+                    AKRADO
+                    AKRON
+                    AKS
+                    AKSTE
+                    AKYOTO
+                    AL KHATEEB
+                    AL-KO
+                    ALAN
+                    ALANKO
+                    ALASKA MASTER
+                    ALBERT
+                    ALBION
+                    ALBRECHT
+                    ALCA (1)
+                    ALCAN
+                    ALCASTA
+                    ALCO
+                    ALCOGRAN
+                    AlcoSafe
+                    ALCOSCENT
+                    ALD Autoleader Electric
+                    ALEKS
+                    ALESSIO
+                    ALFA FILTER
+                    ALFA HANDELSKONTOR
+                    ALFACAR
+                    ALFECO
+                    ALFRED HEYD
+                    ALKAR
+                    ALL BALLS RACING
+                    ALL RIGHT
+                    ALL-O-STAT
+                    All4Motors
+                    ALLIANCE
+                    ALLIED NIPPON
+                    ALLIED SIGNAL
+                    ALLIEDFRAM
+                    ALLIGATOR
+                    ALLINQUANT
+                    ALLIS-CHALMERS
+                    ALLISON TRANSMISSION
+                    ALLMAKES
+                    ALLOMATIC
+                    ALLOY
+                    ALLRIGHT
+                    ALMA
+                    AlnasBrakes
+                    ALOIS HIEBLE & CO
+                    ALON
+                    ALPHA FILTER
+                    ALPHAS
+                    ALPINE
+                    ALS
+                    ALTAIR
+                    ALTO
+                    ALU-FROST
+                    ALUTEC
+                    ALСA
+                    AM
+                    AM ENG
+                    AMALIE
+                    AMAT
+                    AMATTI
+                    AMC FILTER
+                    AMD (4)
+                    AME
+                    AMERICAN EAGLE
+                    AMERICAN MOTORS
+                    AMERICAN RACING
+                    AMIWA
+                    AMK
+                    AMMANN
+                    AMORTEX
+                    AMOS
+                    AMP
+                    AMPERE
+                    AMS
+                    AMSOIL
+                    AMTEL
+                    AMZ
+                    ANAM
+                    Anchor Industries
+                    ANCO
+                    ANDORIA
+                    ANDRE NIERMANN
+                    ANDTECH
+                    ANDYCAR
+                    ANGLI
+                    ANJUN
+                    ANKA
+                    ANKAI
+                    ANSA
+                    ANTCH
+                    ANTEO
+                    ANTERA
+                    ANTONIO MASIERO GEARS
+                    ANVIS FRANCE
+                    AOK
+                    Aonaite
+                    AOTON
+                    AP
+                    AP LOCKHEED
+                    AP-LOGISTICS
+                    APA
+                    APAC
+                    APC
+                    APEC BRAKING
+                    APELAS
+                    APEX
+                    API (1)
+                    APK
+                    APPLUS
+                    APR (1)
+                    APRILIA
+                    APS
+                    Aqc
+                    Aquapel
+                    AQUAPLUS
+                    ARAGO
+                    ARAGON
+                    ARAL
+                    ARB
+                    ARBORI
+                    ARC
+                    ARCEK
+                    ARCO
+                    ARCTIC CAT
+                    ARD
+                    ARD DESIGN
+                    AREOL
+                    AREON
+                    AREXONS
+                    ARGENTUM
+                    ARGO
+                    ARI-IS
+                    Ariete
+                    ARIO
+                    ARIRANG
+                    ARIRANG TAXI
+                    ARM
+                    ARMAFILT
+                    ARMATRAC
+                    ArmorAll
+                    ARMOURPLATE
+                    ARMSTER
+                    ARMSTRONG
+                    ARNEST
+                    ARNEZI (3)
+                    ARNOTT
+                    ARO
+                    Aroma Car
+                    Aroma Riche
+                    ARP
+                    ARR-28
+                    ARREGUI
+                    Arrivo
+                    ARROW
+                    ARROWHEAD
+                    ARS
+                    ART
+                    ART PARTS
+                    Arteb
+                    ARTEC
+                    ARTEK
+                    ARTWAY (4)
+                    ARVIN TESH
+                    ARWIDSON OY
+                    ARX
+                    AS
+                    AS METAL
+                    AS-PL
+                    AS-YA
+                    ASAHI
+                    ASAM
+                    ASAS
+                    ASATEX
+                    ASHIKA
+                    ASHIMORI
+                    ASHOK LEYLAND
+                    ASHUKI
+                    ASIA MOTORS
+                    ASIA360
+                    ASIMCO
+                    ASIN
+                    ASK ME PARTS
+                    ASMET
+                    ASP
+                    ASPAR
+                    ASParts
+                    ASPOECK
+                    ASR
+                    ASSO
+                    ASTERRO
+                    ASTON MARTIN
+                    ASTRA
+                    ASTROhim
+                    ASUKI
+                    ASUNA
+                    ASV1
+                    ASVA
+                    ASW
+                    AT
+                    AT AUTOTEILE
+                    ATAS
+                    ATC
+                    ATD
+                    ATE (291)
+                    ATEK
+                    Atera
+                    ATESO
+                    ATEX
+                    Atg
+                    Athena
+                    ATHEY
+                    ATI
+                    ATIHO
+                    ATK
+                    ATLANT (1)
+                    Atlas
+                    ATLAS WEYHAUSEN
+                    ATOY
+                    ATP
+                    ATRO
+                    ATS
+                    ATTEX
+                    ATY AUTOMOTIVE
+                    AUDIOBAHN
+                    AUDIOVOX
+                    AUG
+                    AUGER
+                    AUGROS
+                    AURADIA
+                    AURAMI
+                    AUROCHS
+                    AURORA
+                    AUSA
+                    AUSTIN
+                    AUTEX
+                    AUTLOG
+                    AUTO AIR GLOUCESTER
+                    AUTO EXTRA
+                    AUTO M
+                    Auto Magic
+                    AUTO PART
+                    AUTO PARTS EUROPE
+                    AUTO SUPPLIERS
+                    AUTO TOP
+                    AUTO TRANS
+                    AUTO UNION
+                    AUTO-CLIPS
+                    AUTO-COMFORT
+                    Auto-GUR
+                    Auto-Hak
+                    AUTO-KOOL
+                    AUTOACC
+                    AUTOBIANCHI
+                    AutoBra
+                    AUTOBRITE
+                    AUTOCLIMA
+                    AutoClover
+                    Autocomponent
+                    AUTODISTRUBUTION
+                    AUTODOC
+                    AUTODRIVE
+                    AUTOELECTRO
+                    AutoExpert
+                    AUTOEXPRESS
+                    AutoFlex
+                    Autogamma
+                    AUTOGASKET
+                    AUTOGEM
+                    AUTOKIT
+                    Autoklakson
+                    Autokrep
+                    AUTOLAND
+                    AUTOLEK INDIEN
+                    AUTOLITE
+                    AUTOLUXE
+                    AutoM Filter
+                    AUTOMANN
+                    AUTOMATIC CHOICE
+                    AUTOMOTIVE BEARINGS
+                    Automotive Lighting
+                    AUTOMOTIVE PARTS
+                    AUTOMOTOR
+                    AUTOMOTORFRANCE
+                    AUTOMUFFLER
+                    AUTONAVI
+                    AUTONIC
+                    AUTOPAL
+                    AUTOPARCT
+                    AUTOPART
+                    AUTOPARTNER
+                    AUTOPLUS
+                    AUTOPROFI
+                    AUTOSAN
+                    AUTOSFEC
+                    AUTOSHIELD
+                    AUTOSOL
+                    AUTOSPECIALTY
+                    AUTOSPEED
+                    AUTOSTANDART (1)
+                    AUTOTEAM
+                    AUTOTECH
+                    AUTOTECHNICS
+                    AUTOTECHNIK
+                    Autotechteile
+                    AUTOTEMP
+                    AUTOUPOR
+                    AUTOVENTIL
+                    AUTOVER
+                    AUTOVIRAZH
+                    AUTOWELT
+                    AUTOX
+                    AUVERLAND
+                    AUWARTER
+                    AV Autotechnik
+                    AVA (1)
+                    AVALANCHE
+                    AVANTECH
+                    AVE
+                    AVELING BARFORD
+                    AVENUE
+                    AVERTRUCK
+                    AVF
+                    AVG
+                    AVIA
+                    Aviel
+                    AVIORA
+                    AVL KRAFTTECHNIK
+                    AVM
+                    AVROTEC
+                    AVS
+                    AVTECH
+                    AVTOBRAKE
+                    Avtodriver
+                    AVTOELECTRICA
+                    AVTOFLEX
+                    AVTOLIDER1
+                    AVTOPLAST
+                    AVTOREAL
+                    AvtoS
+                    AVTOSTANDART
+                    Avvauto
+                    AVVK/REZKON
+                    AWB
+                    AWG
+                    AWM
+                    AXIOM
+                    AXITO
+                    AXLE DYNAMICS
+                    AXSIS
+                    AYD
+                    AYDINSAN
+                    AYFAR
+                    AYWIPARTS
+                    AZARD
+                    AZF
+                    AZTEC
+                    AZUMI
+                </div>
+                <div id="infoFranchise" class="footerInfoBlock">
+                    Инновация в сфере бизнеса!
+                    Франшиза на полной автоматике!
+
+                    Программа разработана ведущими европейскими специалистами в области маркетинга и IT.
+                    Мы предлагаем!
+                    Многофункциональный магазин на полной автоматизации с двумя сенсорными экранами 43 (диагональ).
+                    Верхний экран рекламационный (размещение рекламы)
+                    Нижний экран информационный (продажа размещение услуги)
+                    В одном окне 65 млн деталей новых, б/у, восстановленных
+                    Автозапчасти на легковые, автобусы, грузовые, спецтехнику, сельхозтехнику, мото, вело, водный и воздушный транспорт, шины, диски, аксессуары, масла, авто химия, мото экипировка, товары для СТО.
+                    Программа выполняет автоматическую функцию от заказа до получения товара!
+
+                    Минимальные инвестиции, высокий стабильный доход!
+
+                    ПРЕИМУЩЕСТВА
+
+                    Пассивный доход 7/24/365
+                    Локальное SEO
+                    Синхронизация автомагазина-терминала с мобильными устройствами, компьютерами, планшетами, и другими устройствами.
+                    Бизнес под ключ на полной автоматике
+                    Владелец собственного бизнеса со стабильным доходом
+                    Владелец  зарабатывает высокий маржинальный % от продаж в терминале ( % зависит от кол-ва приобретенных терминалов )
+                    Владелец зарабатывает от рекламных услуг (верхний экран).
+
+                    Владельцу терминала не нужно:
+
+                    Вести бухгалтерский учёт
+                    Закупать и отправлять товар
+                    Содержать склады и офис
+                    Покупать лицензионные программы
+                    Принимать на работу и обучать персонал
+                    Отвечать на телефонные звонки.
+                    Владелец получает гарантию на прибыль, при соблюдении всех рекомендаций и правил прописанных в договоре.
+                    В автомагазине-терминале 5 способов оплаты без доступа к вашим финансовым и личным данным
+                    Личный кабинет с ID терминала, статус и история заказов, баланс счёта, автоматический вывод денежных средств на счет, или карточку.
+                    Стабильный пассивный доход во время экономического, политического и геополитического кризиса.
+                    Минимальные инвестиции-Высокий доход!
+
+                    Окупаемость
+                    *Готовый бизнес под ключ: 360.000
+                    *Охват людей: от 3.000/день
+                    *Доход /мес: от 45.000 грн+
+                    *Доход /год: от 540.000 грн+
+                    *Окупаемость: 5 - 7 мес
+                    *Регионы развития: Украина
+                    *Площадь: 1м2
+                    *Техподдержка: 24/7
+                    *Персонал: 0 чел
+
+                    Исключительно для тех, кто видит себя лидерами рынка, ценит потребительский спрос в качестве увеличения собственных продаж и портфеля компании!
+
+                    Рассматриваем эксклюзивные права в Вашем регионе.
+                    P.S. Только геолокация может привлечь большой  трафик из целевой аудитории. Концепция ориентирована на конечного покупателя и сочетает в себе черты как онлайн, так и традиционной торговли. С помощью автомагазина-терминала, клиент может выбрать необходимые детали, воспользовавшись поиском по VIN коду, названию автомобиля, по артикулу (парт-номеру). В ответ на запрос формируется список релевантных предложений с фото и техническими описаниями.
+                    Удобно! Выгодно! Надежно!
+                    Все права защищены! Все товарные знаки, логотипы и знаки обслуживания, являются собственностью. Патент действует в 96 странах Мира.
+                    Приглашаем к сотрудничеству!
+                </div>
+                <div id="infoCooperate" class="footerInfoBlock">
+                    Инновационная Компания  EK приглашает к сотрудничеству региональных дилеров, партнеров, торговых представителей по развитию дилерской сети в Украине.
+                    Инновационная Компания EK - с крупнейшей сетью по продаже автозапчастей и услуг на рынке Украины. Прогрессивно развиваясь приглашает в свою команду молодых перспективных людей которые хотят развиваться и добиваться больших вершин в карьере.
+                    Компания ЕК является собственником, производителем автомагазинов-терминалов с ПО. Автомагазины-терминалы самообслуживания- это самая большая on-line и of-line платформа по продаже и бесплатному размещению новых и б/у автозапчастей на любой вид транспорта!( легковой, грузовой, мото- вело, сельхозтехника, шины, диски, оборудование для сто и др).
+                    Очень удобными и легкими в использовании, являются автомагазины-терминалы не только для клиентов, но и для их владельцев – даже если это начинающие бизнесмены.
+                    Что входит в развитие дилерской сети;
+                    Привлечение партнеров по размещению новых и б/у товаров.
+                    Привлечение рекламодателей для размещения рекламы на верхнем экране автомагазина-терминала
+                    Для установки и подключения автомагазина-терминала требуется до 1м² площади, и розетка с заземлением 220V)
+                    Все права защищены! Все товарные знаки, логотипы и знаки обслуживания, являются собственностью. Патент действует в 96 странах Мира.
+                    Начните зарабатывать от 45000 грн/месяц, на услугах по привлечению клиентов. Вы будете спасать другие компании от кризиса и получать стабильные абонентские платежи.
+                    Подробнее ознакомиться с условиями сотрудничества, вы можете оставить заявку, или позвонить.
+
+                    Преимущества сотрудничества:
+
+                    + Высокий, прогрессивный % от сделок
+                    + Возможность самостоятельно планировать свой рабочий день
+                    + Обучение (стажировка бесплатно).
+                    + Предоставление материалов для старта.
+                    + Маркетинговая поддержка.
+                    + На старте с бизнесом могут справиться 1 человек.
+                    + Работа по агентскому договору
+                    + Перспективы карьерного и профессионального роста
+                    + Успешные сотрудники принимаются в штат компании с постоянным окладом и полным социальным пакетом.
+
+                    Требования к партнёрам:
+
+                    Опыт предпринимательской деятельности
+                    Построение и развитие дилерской сети
+                    Наличие коммерческих связей
+                    Опыт личных активных прямых продаж
+                    Хорошие коммуникативные навыки и организаторские способности
+                    Ответственность
+                    Честность
+                    Порядочность
+                    Коммуникабельность
+                    Пунктуальность
+                    Целеустремлённость
+
+                    Кого мы приглашаем:
+
+                    Вы всегда двигаетесь вперед и не боитесь препятствий.
+                    Вы коммуникабельный и легко находите общий язык с клиентом.
+                    Вы умеете продавать.
+                    Вы работаете только на результат.
+                    Вы готовы учиться.
+                    С Уважением компания Компания EK.
+                </div>
+            </div>
+            <table class="footerTable">
                 <tr>
                     <td class="tdPrivacyStyle">&copy; 2021 - Интернет магазин bi-bi.com.ua - <a asp-area="" asp-controller="Home" asp-action="Privacy">Политика конфиденциальности</a></td>
                     <td>
@@ -193,9 +970,14 @@
                         <div>
                             <span style="font-size:18px;color:#a7a7a7;">infobibimarket@gmail.com</span>
                         </div>
-                    </td>                    
+                    </td>
                     <td>
-                        <span>© 2021 «EK4CAR & BI-BI». Все права защищены</span>
+                        <span>© 2009 «EK4CAR & BI-BI». Все права защищены</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="white-space: normal; font-size: 10px; line-height: 14px; padding: 20px;">
+                        Все материалы данного сайта являются объектами авторского права (в том числе дизайн, тексты, фотографии и любая другая информация). Запрещается любое использование либо копирование материалов или подборки материалов сайта, элементов дизайна и оформления допускается лишь с разрешения правообладателя и только со ссылкой на источник: https://bi-bi.com.ua/ Предупреждаем об ответственности за копирование информация без согласия правообладателя. Авторское право распространяется на произведения, выраженные в любой объективной форме - в тексте на листке, сайте в Интернете и т.д. (п. 3 ст. 1259 Гражданского кодекса), вне зависимости от достоинств, ценности объекта авторского права (п. 1 ст. 1259 Гражданского кодекса).
                     </td>
                 </tr>
             </table>

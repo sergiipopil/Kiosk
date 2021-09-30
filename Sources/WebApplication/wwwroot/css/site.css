@@ -63,9 +63,24 @@ for details on configuring this project to bundle and minify static web assets. 
         border-right: 1px solid #c3c4c7;
         display: inline-block;
     }
-.treeMainCategory:hover, .treeSubCategory:hover, .treeSubChildCategory:hover, .treeLastCategory:hover, .treeModels:hover, .treeModific:hover {
+.footerSmallItem {
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 18px;
+}
+.treeMainCategory:hover, .treeSubCategory:hover, .treeModels:hover, .treeModific:hover, .footerSmallItem:hover {
     color: #ff5a00;
     text-shadow: 0px 0px 10px;
+}
+.footerInfoBlock {
+    text-align: justify;
+    white-space: pre-line;
+    padding: 30px 50px;
+    line-height: 20px;
+    display: none;
+}
+.divAllParts {
+    font-size: 0px;
 }
 .treeModels {
     padding-right: 10px;
@@ -78,32 +93,19 @@ for details on configuring this project to bundle and minify static web assets. 
     line-height: 3;
 }
 .treeMainCategory {
-    font-size: 26px;
+    font-size: 0px;
     color: #ff5a00;
-    padding: 20px 0px 20px 0px;
+    padding: 0px;
     text-align: center;
     display: block;
 }
 .treeSubCategory {
+    font-size: 0px;
     color: white;
-    padding: 10px;
+    padding: 0px;
     display: inline-block;
     vertical-align: middle;
-    width: 25%;
-}
-.treeSubChildCategory {
-    color: white;
-    padding: 10px;
-    width: 25%;
-    display: inline-block;
-    vertical-align: middle;
-}
-.treeLastCategory {
-    color: white;
-    padding: 10px;
-    width: 25%;
-    display: inline-block;
-    vertical-align: middle;
+    width: 0;
 }
 
 .btn-group > .btn:first-child {
@@ -117,14 +119,27 @@ for details on configuring this project to bundle and minify static web assets. 
     font-size: 18px !important;
     line-height:4 !important;
 }
-.partNumbersRandom {
-    display: inline-block;
-    border: 1px solid white;
+.footerMainBlock {
+    text-align: center;
+    font-size: 30px;
     color: white;
-    padding: 5px 10px;
-    margin: 10px 5px;
-    box-shadow: 0px 0px 8px #ff5a00;
+    text-decoration: underline;
+    padding: 30px 0px 10px 0px;
+    cursor: pointer;
 }
+    .footerMainBlock:hover {
+        color: #ff5a00;
+        text-shadow: 0px 0px 10px;
+    }
+    .partNumbersRandom {
+        font-size: 0px;
+        display: inline-block;
+        border: 0px;
+        color: white;
+        padding: 0px;
+        margin: 0px;
+        box-shadow: 0px;
+    }
     .partNumbersRandom:hover {
         background: white;
         color: #ff5a00;
