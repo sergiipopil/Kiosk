@@ -7,26 +7,18 @@
 
 <html>
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4C6EKWGBJK"></script>
+    <!-- Google Tag Manager -->
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-4C6EKWGBJK');
-    </script>
-
-
-    <script>
-        (function (w, d, s, l, i) {
+    (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
                 'gtm.start':
                     new Date().getTime(), event: 'gtm.js'
             }); var f = d.getElementsByTagName(s)[0],
                 j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
                     'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-MQ9L6KT');</script>
+        })(window, document, 'script', 'dataLayer', 'GTM-NWTLZ5F');</script>
+    <!-- End Google Tag Manager -->
+
     <link href="~/css/site.css" rel="stylesheet" />
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
     <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1" />
@@ -68,18 +60,18 @@
                 $(".partNumbersRandom").css("font-size", "16px");
                 $(".partNumbersRandom").css("padding", "5px 10px");
                 $(".partNumbersRandom").css("margin", "10px 10px 10px 0px");
-                $(".partNumbersRandom").css("box-shadow", "0px 0px 8px #ff5a00");  
+                $(".partNumbersRandom").css("box-shadow", "0px 0px 8px #ff5a00");
                 $(".partNumbersRandom").css("border", "1px solid white");
-                
+
             }
             else {
                 $(".partNumbersRandom").css("font-size", "0px");
                 $(".partNumbersRandom").css("padding", "0px");
                 $(".partNumbersRandom").css("margin", "0px");
-                $(".partNumbersRandom").css("box-shadow", "0px"); 
-                $(".partNumbersRandom").css("border", "0px"); 
+                $(".partNumbersRandom").css("box-shadow", "0px");
+                $(".partNumbersRandom").css("border", "0px");
             }
-            
+
         }
         $(document).ready(function () {
             var url = window.location.href;//.replaceAll('/', '&').replace('&&', '//');;
@@ -226,7 +218,7 @@
             if (parsedItems[0] != undefined && parsedItems[0] == 'topcategoryid') {
                 showMainView(decodeURI(parsedItems[1].replaceAll("-", " ")));
             }
-           
+
         });
         $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function (data) {
             if (data.ip != "176.38.20.244") {
@@ -575,10 +567,13 @@
 
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
     <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQ9L6KT"
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NWTLZ5F"
                 height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <table style="min-height: 100%;height:100%;;min-width:100%;">
         <tr>
             @*LEFT PANEL*@
