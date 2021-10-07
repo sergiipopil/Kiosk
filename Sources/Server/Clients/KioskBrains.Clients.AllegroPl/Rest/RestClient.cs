@@ -26,6 +26,9 @@ namespace KioskBrains.Clients.AllegroPl.Rest
     /// </summary>
     public class RestClient
     {
+        IList<string> rulevoe = new List<string>() { "PRZEKŁADNIA KIER", "MAGLOWNICA PRZEKŁADNIA UKŁAD DRĄŻEK", "PRZEKŁADNIA UKŁAD MAGLOWNICA", "przekładnia kierownicza maglownica", "PRZEKLADNIA MAGLOWNICA UKŁAD", "MAGLOWNICA PRZEKŁADNIA UKŁAD",
+                "PRZEKŁADNIA MAGLOWNICA UKŁAD", "PRZEKŁADNIA MAGLOWNICA WSPOMAGANIE","MAGLOWNICA PRZEKŁADNIA KIEROWNICZA", "PRZEKŁADNIA KIEROWNICZA ANGLIA", "WSPOMAGANIE KIEROWNICY", "PRZEKŁADNIA MAGLOWNICA", "MAGLOWNICA PRZEKŁADNIA", "MAGLOWNICA PRZEKŁADN", "PRZEKŁADNIA KIEROWNICZA", "PRZEKLADNIA MAGLOWNICA", "PRZKLADNIA KIEROWNICZA",
+                "PRZEKLADNIA KIEROWNICZA", "PRZEKŁADNIA UKŁAD", "MAGLOWNICA UKŁAD", "Maglownica", "PRZEKŁADNIA", "PRZEKLADNIA" };
         public static IDictionary<string, OfferStateEnum> StatesByNames => new Dictionary<string, OfferStateEnum>()
         {
             {"nowy", OfferStateEnum.New },
@@ -410,6 +413,17 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
             var action = "/offers/listing";
             var response = await GetAsync<Models.SearchOffersResponse>(action, parameters, cancellationToken);
+            
+            if (response.Items != null && categoryId=="250847") {
+                foreach (var item in response.Items.Regular)
+                {
+                    foreach (var itemSub in rulevoe)
+                    {
+                        item.Name = item.Name.ToLower().Replace(itemSub.ToLower(), "рулевая рейка");
+                    }
+                    
+                }
+            }
             if (response.Items == null)
             {
                 throw new AllegroPlRequestException($"Request to API failed, action {action}, {nameof(response.Items)} or {nameof(response.SearchMeta)} is null.");

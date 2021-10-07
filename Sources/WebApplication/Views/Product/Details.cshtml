@@ -5,6 +5,14 @@
 
 <html>
 <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!--  google-translate -->
+    <link rel="stylesheet" href="/css/google-translate.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="//translate.google.com/translate_a/element.js?cb=TranslateInit"></script>
+    <script src="/js/google-translate.js"></script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4C6EKWGBJK"></script>
     <script>
@@ -14,7 +22,7 @@
 
         gtag('config', 'G-4C6EKWGBJK');
     </script>
-    
+
     <script>
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
@@ -68,6 +76,7 @@
         </div>
     </div>
 
+
     <div itemscope itemtype="http://schema.org/Product">
         <div id="rootBlockDetails" style="display:block;padding: 30px 20px; color: white;  background: #504593;min-height:100vh;">
             <!--IMAGES BLOCK-->
@@ -78,9 +87,9 @@
                 <div style="text-align:left;">
                     @foreach (var item in Model.Images)
                     {
-                    <a href=@item.Url data-fancybox="gallery" class="noneDecoration">
-                        <img src=@item.Url class="smallPhotoes" itemprop="image">
-                    </a>}
+                        <a href=@item.Url data-fancybox="gallery" class="noneDecoration">
+                            <img src=@item.Url class="smallPhotoes" itemprop="image">
+                        </a>}
                 </div>
             </div>
             <!--DESCRIPTION BLOCK-->
@@ -92,14 +101,21 @@
                     <meta itemprop="bestRating" content="5" />
                     <meta itemprop="ratingCount" content="38914" />
                 </div>
-                <div class="descriptionBlock">Рейтинг продавця: @Model.SellerRating</div>                
+                <div class="descriptionBlock">
+                    <img style=" display: inline-block; vertical-align: middle;width:25px;" src="~/images/star.png" /><span style=" display: inline-block; vertical-align: middle; padding-left: 10px;">Рейтинг продавця: @Model.SellerRating</span>
+                </div>
                 <div itemprop="description">
                     @foreach (var item in Model.Parameters)
                     {
                         <div class="descriptionBlock">@item</div>}
 
                     <div id="divInnerDetails">
-                        <h3 class="descriptionBlock" onclick="showTransDesc()" style="cursor:pointer">Описание >></h3>
+                        <div style="display:inline-block;vertical-align:middle;">
+                            <h3 class="descriptionBlock" onclick="showTransDesc()" style="cursor:pointer">Описание - для перевода нажмите на флажок</h3>
+                        </div>
+                        <div style="display:inline-block;vertical-align:middle;" class="language">
+                            <img src="/images/rus.png" width="30" alt="ru" style="display:inline-block;vertical-align:middle;" data-google-lang="ru" class="language__img">
+                        </div>
                         @Html.Partial("_InnerDetails", @Model)
                     </div>
                 </div>
@@ -122,7 +138,7 @@
                             <button class="btnBuyList">
                                 <span class="btnBuyListSpan" style="font-size:23px;">Купить</span>
                             </button>
-                        </div>                        
+                        </div>
                         <div onclick="@Model.ReturnFunction">Back</div>
                         <div id="continueBtn" style="width:100%;">
                             <div onclick="backToMainPage()">

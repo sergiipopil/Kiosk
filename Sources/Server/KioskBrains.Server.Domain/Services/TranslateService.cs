@@ -73,9 +73,11 @@ namespace KioskBrains.Server.Domain.Services
         public async Task<IDictionary<string, string>> GetDictionary(IEnumerable<string> values)
         {
             var texts = values.Select(x => x.ToLower()).ToList();
-            var translations = await _readOnlyRepository.Get<TranslateItem>(filter: x => texts.Contains(x.Id));
             
-            return translations.ToDictionary(x => x.Id, x => x.TextRu);
+            
+            var translations = await _readOnlyRepository.Get<TranslateItem>(filter: x => texts.Contains(x.Id));
+            var tempTranslations = translations.ToDictionary(x => x.Id, x => x.TextRu);
+            return tempTranslations;
         }
 
         public async Task<IDictionary<string, string>> GetNamesDictionary()

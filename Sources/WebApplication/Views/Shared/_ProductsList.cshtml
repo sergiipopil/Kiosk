@@ -7,6 +7,14 @@
 @using X.PagedList.Mvc.Common
 <html>
 <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!--  google-translate -->
+    <link rel="stylesheet" href="/css/google-translate.css">
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="//translate.google.com/translate_a/element.js?cb=TranslateInit"></script>
+    <script src="/js/google-translate.js"></script>
+
     <link rel="stylesheet" href="~/css/site.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
@@ -14,6 +22,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <script>
+        setInterval(function () {
+            $(".filterText").css("text-shadow", function () {
+                this.switch = !this.switch
+                return this.switch ? "0px 0px 5px" : ""
+            });
+        }, 2200)
         $(function () {
             $('#myPager').on('click', 'a', function () {
                 $.ajax({
@@ -28,6 +42,17 @@
                 return false;
             });
         });
+        function switchFilter() {
+            if ($(".divProductHeadFilter").css('display') == 'block') {
+                $(".divProductHeadFilter").css('display', 'none');
+            }
+            else {
+                $(".divProductHeadFilter").css('display', 'block');
+                $(".divProductHeadFilter").css('z-index', '9999999');
+                $(".divProductHeadFilter").css('padding', 'block');
+                $(".divProductHeadFilter").css('box-shadow', '0px 0px 10px');
+            }
+        }
         function openDetails(advertId) {
             $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" width="100px" /></div>');
             window.open('/Product/Details/' + advertId, "_self");
@@ -86,15 +111,20 @@
         {
             <div style="display:inline-block;"><h1 class="controlHeader">@Model.PartNumberValue</h1></div>
         }
-        else { 
-<div style="display:inline-block;"><h1 class="controlHeader">@Model.SubCategoryName @Model.ManufacturerSelected @Model.ModelSelected</h1></div>
+        else
+        {
+            <div style="display:inline-block;"><h1 class="controlHeader">@Model.SubCategoryName @Model.ManufacturerSelected @Model.ModelSelected</h1></div>
         }
     }
     else
     {
         <div style="display:inline-block;"><h1 class="controlHeader">@Model.SubChildCategoryName @Model.ManufacturerSelected @Model.ModelSelected</h1></div>
     }
+    <div onclick="switchFilter()" style="display:inline-block;float: right; padding-right: 10px;">
+        <img src="~/images/FiltrOrange.png" class="filterIcon" /> <span style="text-transform:capitalize;" class="filterText">Фильтр</span>
+    </div>
 </div>
+
 <div class="divProductHeadFilter">
     <table style="width:100%;">
         <tr>
@@ -289,6 +319,12 @@
         попробуйте в другом разделе
     </div>
 }
+<div style="text-align: center; padding: 7px 0px 0px 0px; color: grey;">
+    <div style="display:inline-block;vertical-align:middle;">Для перевода кликните на флажок</div>
+    <div style="display:inline-block;vertical-align:middle;padding-left:10px;" class="language">
+        <img src="/images/rus.png" width="30" alt="ru" style="display:inline-block;vertical-align:middle;" data-google-lang="ru" class="language__img">
+    </div>
+</div>
 @foreach (var item in Model.AllegroOfferList)
 {
     <div class="container-fluid">

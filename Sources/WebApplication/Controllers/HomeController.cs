@@ -134,19 +134,21 @@ namespace WebApplication.Controllers
 
             string carTemp = "https://bi-bi.com.ua/topcategory/620/";
 
-            if (RouteData.Values["category"] != null) {
+            if (RouteData.Values["category"] != null)
+            {
                 _topCategoryId = RouteData.Values["category"].ToString();
             }
             _topCategoryCarType = new EkSiteFactory().GetCarTypeEnum(String.IsNullOrEmpty(_topCategoryId) ? "620" : _topCategoryId);
             var carTreeTest = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
 
-            if (_topCategoryId == "621" || _topCategoryId == "622") {//legkovi-gruzovi-avtobusy use similar autoparts category = 620
+            if (_topCategoryId == "621" || _topCategoryId == "622")
+            {//legkovi-gruzovi-avtobusy use similar autoparts category = 620
                 _topCategoryId = "620";
             }
-            var treeMainCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == (String.IsNullOrEmpty(_topCategoryId) ? "620" : _topCategoryId)).FirstOrDefault().Children;
+            var treeMainCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == (String.IsNullOrEmpty(_topCategoryId) || _topCategoryId.Length>5 ? "620" : _topCategoryId)).FirstOrDefault().Children;
 
 
-            
+
 
             ViewBag.TitleText = "Авторазборка Шрот Купить Запчасти Б/у и Новые";
             if (RouteData.Values["category"] != null && (RouteData.Values["category"].ToString() == "99193" || RouteData.Values["category"].ToString() == "18554"))
@@ -158,17 +160,17 @@ namespace WebApplication.Controllers
                     ProductCategoryList = tempC,
                     TopCategoryId = RouteData.Values["category"].ToString(),
                     TopCategoryName = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == RouteData.Values["category"].ToString()).FirstOrDefault().Name["ru"],
-                    ReallyTopCategoryId = RouteData.Values["category"].ToString()                    
-                });                
+                    ReallyTopCategoryId = RouteData.Values["category"].ToString()
+                });
             }
             if (RouteData.Values["topcategory"] != null && RouteData.Values["topcategory"].ToString().ToLower() != "search")
             {
-                _topCategoryCarType = new EkSiteFactory().GetCarTypeEnum(RouteData.Values["category"]!=null ? RouteData.Values["category"].ToString() : "620");
+                _topCategoryCarType = new EkSiteFactory().GetCarTypeEnum(RouteData.Values["category"] != null ? RouteData.Values["category"].ToString() : "620");
 
             }
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
             var _topCategoryTempId = HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId");
-            
+
             if (RouteData.Values["topcategory"] != null && RouteData.Values["topcategory"].ToString().ToLower() == "search")
             {
                 RightTreeViewModel rightTree = GetNumberInput(RouteData.Values["category"].ToString());
@@ -187,7 +189,7 @@ namespace WebApplication.Controllers
                 ViewBag.TitleText = "Авторазборка Шрот Купить Запчасти Б/У и Новые " + carManufactureName;
                 var modelTree = carTree.Where(x => x.Name == carManufactureName).Select(y => y.CarModels).FirstOrDefault();
                 var modelDescription = carTree.Where(x => x.Name == carManufactureName).Select(y => y.description).FirstOrDefault();
-                return View(new RightTreeViewModel() { ViewName = "_CarModels", ProductCategoryList=treeMainCategories, ModelDescription = modelDescription, ManufacturerSelected = carManufactureName, ModelsList = modelTree, TopCategoryId = HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"), kioskId = "116" });
+                return View(new RightTreeViewModel() { ViewName = "_CarModels", ProductCategoryList = treeMainCategories, ModelDescription = modelDescription, ManufacturerSelected = carManufactureName, ModelsList = modelTree, TopCategoryId = HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"), kioskId = "116" });
             }
 
             if (RouteData.Values["carmodel"] != null && RouteData.Values["maincategoryname"] == null)
@@ -265,7 +267,7 @@ namespace WebApplication.Controllers
                 return View(rightTree);
             }
 
-            return View(new RightTreeViewModel() { ViewName = "_CarTree", ProductCategoryList=treeMainCategories.ToArray(), ManufacturerList = carTree, kioskId = HttpContext.Session.GetString("kioskId"), TopCategoryId = HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId") });
+            return View(new RightTreeViewModel() { ViewName = "_CarTree", ProductCategoryList = treeMainCategories.ToArray(), ManufacturerList = carTree, kioskId = HttpContext.Session.GetString("kioskId"), TopCategoryId = HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId") });
         }
 
         //====================METHOD TO SWITCH TYPE CAR TOP CATEGORY ======================================
@@ -281,7 +283,7 @@ namespace WebApplication.Controllers
             }
             var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == _topCategoryCarType).Select(x => x.Manufacturers).FirstOrDefault();
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
-            
+
             return View("_CarTree", new RightTreeViewModel() { ManufacturerList = carTree, TopCategoryId = topCategoryId, kioskId = tempKioskId });
         }
         //====================METHOD TO SHOW CAR MODELS ======================================
@@ -450,7 +452,7 @@ namespace WebApplication.Controllers
             {
                 bool isNew = false;
                 var responceAllegro = GetAllegroProducts(carManufactureName, carModel, mainCategoryId, null, OfferStateEnum.Used, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
-                if (responceAllegro.Total < 1)
+                if (responceAllegro.Total == 0)
                 {
                     isNew = true;
                     responceAllegro = GetAllegroProducts(carManufactureName, carModel, mainCategoryId, null, OfferStateEnum.New, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
@@ -553,7 +555,7 @@ namespace WebApplication.Controllers
             {
                 bool isNew = false;
                 var responceAllegro = GetAllegroProducts(carManufactureName, carModel, subCategoryId, null, OfferStateEnum.Used, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
-                if (responceAllegro.Total < 1)
+                if (responceAllegro.Total == 0)
                 {
                     isNew = true;
                     responceAllegro = GetAllegroProducts(carManufactureName, carModel, subCategoryId, null, OfferStateEnum.New, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
@@ -650,7 +652,7 @@ namespace WebApplication.Controllers
             {
                 bool isNew = false;
                 var responceAllegro = GetAllegroProducts(carManufactureName, carModel, subCategoryId, null, OfferStateEnum.Used, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
-                if (responceAllegro.Total < 1)
+                if (responceAllegro.Total == 0)
                 {
                     isNew = true;
                     responceAllegro = GetAllegroProducts(carManufactureName, carModel, subCategoryId, null, OfferStateEnum.New, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
@@ -772,7 +774,7 @@ namespace WebApplication.Controllers
             }
             var responceAllegro = GetAllegroProducts(carManufactureName, carModel, String.IsNullOrEmpty(lastChildId) ? subChildId : lastChildId, null, OfferStateEnum.Used, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
             bool isNew = false;
-            if (responceAllegro.Total < 1)
+            if (responceAllegro.Total == 0)
             {
                 isNew = true;
                 responceAllegro = GetAllegroProducts(carManufactureName, carModel, String.IsNullOrEmpty(lastChildId) ? subChildId : lastChildId, null, OfferStateEnum.New, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
@@ -859,7 +861,7 @@ namespace WebApplication.Controllers
 
             autoPartsSubChildCategories = autoPartsSubChildCategories.Where(x => x.CategoryId == subCategoryId).Select(x => x.Children).FirstOrDefault();
 
-            var tempCat = autoPartsSubChildCategories==null ? null : autoPartsSubChildCategories.Where(x => x.CategoryId == subChildId).Select(x => x.Children).FirstOrDefault();
+            var tempCat = autoPartsSubChildCategories == null ? null : autoPartsSubChildCategories.Where(x => x.CategoryId == subChildId).Select(x => x.Children).FirstOrDefault();
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
 
             if (tempCat != null && lastChildId == null)
@@ -892,7 +894,7 @@ namespace WebApplication.Controllers
             }
             var responceAllegro = GetAllegroProducts(carManufactureName, carModel, String.IsNullOrEmpty(lastChildId) ? subChildId : lastChildId, null, OfferStateEnum.Used, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
             bool isNew = false;
-            if (responceAllegro.Total < 1)
+            if (responceAllegro.Total == 0)
             {
                 isNew = true;
                 responceAllegro = GetAllegroProducts(carManufactureName, carModel, String.IsNullOrEmpty(lastChildId) ? subChildId : lastChildId, null, OfferStateEnum.New, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
@@ -1005,7 +1007,7 @@ namespace WebApplication.Controllers
             return View("_ProductsList", treeView);
 
         }
-        public RightTreeViewModel GetNumberInput(string partNumber, string chosedCategoryId="")
+        public RightTreeViewModel GetNumberInput(string partNumber, string chosedCategoryId = "")
         {
             //Session["SiteTitle"] = partNumber;
             bool isNew = false;
@@ -1027,7 +1029,8 @@ namespace WebApplication.Controllers
                     selectedCategoryId = rightTree.SubCategoryId;
                 }
             }
-            if (!String.IsNullOrEmpty(chosedCategoryId)) {
+            if (!String.IsNullOrEmpty(chosedCategoryId))
+            {
                 selectedCategoryId = chosedCategoryId;
             }
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
@@ -1136,7 +1139,10 @@ namespace WebApplication.Controllers
             }
             try
             {
-                await _allegroPlClient.ApplyTranslations(_translateService, searchOffersResponse.Offers, String.Format("{0} {1}", carManufactureName, carModel), null, System.Threading.CancellationToken.None);
+                //if (selectedCategoryId != "250847")
+                //{
+                //    await _allegroPlClient.ApplyTranslations(_translateService, searchOffersResponse.Offers, String.Format("{0} {1}", carManufactureName, carModel), null, System.Threading.CancellationToken.None);
+                //}
             }
 
             catch { }
@@ -1266,10 +1272,12 @@ namespace WebApplication.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
         //(inputPartNumber, null, String.IsNullOrEmpty(selectedCategoryId)? "3" : selectedCategoryId, state, sortingPrice, offset, 40, System.Threading.CancellationToken.None, IsCategoryBody(selectedCategoryId));
-        public IActionResult CustomSearch() {
+        public IActionResult CustomSearch()
+        {
             OfferStateEnum state = OfferStateEnum.Used;
             var responceAllegroSubCategories = GetAllegroProducts(null, null, "50828", "AUDI 100", state, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "", "").Result;
-            if (responceAllegroSubCategories.Total == 0) {
+            if (responceAllegroSubCategories.Total == 0)
+            {
                 state = OfferStateEnum.New;
                 responceAllegroSubCategories = GetAllegroProducts(null, null, "50828", "AUDI 100", state, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "", "").Result;
             }
@@ -1283,7 +1291,7 @@ namespace WebApplication.Controllers
             rightTree.OfferSortingPlacement = "";
             rightTree.OfferSortingIsOrigin = "";
             rightTree.OfferSortingEngineType = "";
-            rightTree.OfferSortingTransmissionType = "";            
+            rightTree.OfferSortingTransmissionType = "";
             rightTree.SelectedEngineValue = "";
             rightTree.SelectedTiresSizes = new SelectedTires()
             {

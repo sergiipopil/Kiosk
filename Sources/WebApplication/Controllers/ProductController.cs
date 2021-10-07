@@ -259,8 +259,8 @@ namespace WebApplication.Controllers
             }
             //======================= START -- RETURN TO LIST PARAMS ----------- =================
             //String.Format("selectMainCategory('{0}', '{1}', '{2}', '{3}', '{4}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, tempKioskId)
-            ViewData["Params"] = String.Format("/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
-                rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName, rightTree.kioskId);
+            ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
+                rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName);
 
             if (!String.IsNullOrEmpty(rightTree.PartNumberValue))
             {
@@ -426,22 +426,22 @@ namespace WebApplication.Controllers
                 RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
                 if (rightTree.SubChildCategoryId == null)
                 {
-                    ViewData["Params"] = String.Format("topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
+                    ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
                         rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName);
                 }
                 if (rightTree.SubChildCategoryId != null && rightTree.ManufacturerSelected != null)
                 {
-                    ViewData["Params"] = String.Format("topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
+                    ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
                         rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName);
                 }
                 if (rightTree.ManufacturerSelected == null && rightTree.SubChildCategoryId == null)
                 {
-                    ViewData["Params"] = String.Format("topcategoryid/{0}/{1}/{2}/{3}/{4}", rightTree.ReallyTopCategoryId, rightTree.MainCategoryId,
+                    ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}", rightTree.ReallyTopCategoryId, rightTree.MainCategoryId,
                             rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName);
                 }
                 if (rightTree.ManufacturerSelected == null && rightTree.SubChildCategoryId != null)
                 {
-                    ViewData["Params"] = String.Format("topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}", rightTree.ReallyTopCategoryId, rightTree.MainCategoryId,
+                    ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}", rightTree.ReallyTopCategoryId, rightTree.MainCategoryId,
                             rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName);
                 }
             }
@@ -465,7 +465,7 @@ namespace WebApplication.Controllers
             {
                 Id = id,
                 Title = offer.Name[Languages.RussianCode],
-                Description = offer.Description[Languages.RussianCode],
+                Description = offer.Description[Languages.PolishCode],
                 Images = offer.Images,
                 Parameters = parameters,
                 Price = ekProduct.Price.ToString(),
@@ -483,8 +483,8 @@ namespace WebApplication.Controllers
             if (!String.IsNullOrEmpty(rightTreeViewModelString))
             {
                 RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
-                ViewData["Params"] = String.Format("topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
-                    rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName, rightTree.kioskId);
+                ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
+                    rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName);
             }
             Offer offer = GetProductInfo(id);
             var tempRus = "";

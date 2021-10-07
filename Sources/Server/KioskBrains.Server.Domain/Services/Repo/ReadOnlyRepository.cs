@@ -94,6 +94,16 @@ namespace KioskBrains.Server.Domain.Services.Repo
                 .ConfigureAwait(false);
         }
 
+        public virtual async Task<TEntity> GetByIdContains<TEntity>(
+            object id,
+            string includeProperties = null)
+            where TEntity : class, IBaseEntity
+        {
+            Expression<Func<TEntity, bool>> filter = x => x.Id == id;
+            return await GetQueryable(filter, includeProperties: includeProperties).FirstOrDefaultAsync()
+                .ConfigureAwait(false);
+        }
+
         public virtual async Task<ICollection<TEntity>> Get<TEntity>(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,

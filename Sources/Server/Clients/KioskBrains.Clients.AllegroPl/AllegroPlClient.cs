@@ -112,25 +112,25 @@ namespace KioskBrains.Clients.AllegroPl
             //{
             //    phrase = phrase.ToLower().Replace("рулевая рейка", ("PRZEKŁADNIA MAGLOWNICA").ToLower());
             //}
-           
-                if (string.IsNullOrEmpty(translatedPhrase)
-                    && !string.IsNullOrEmpty(phrase))
+
+            if (string.IsNullOrEmpty(translatedPhrase)
+                && !string.IsNullOrEmpty(phrase))
+            {
+                if (_settings.IsTranslationEnabled)
                 {
-                    if (_settings.IsTranslationEnabled)
-                    {
-                        var translatedPhrases = await _yandexTranslateClient.TranslateAsync(
-                            new[] { phrase },
-                            Languages.RussianCode,
-                            Languages.PolishCode,
-                            cancellationToken);
-                        translatedPhrase = translatedPhrases[0];
-                    }
-                    else
-                    {
-                        translatedPhrase = phrase;
-                    }
+                    var translatedPhrases = await _yandexTranslateClient.TranslateAsync(
+                        new[] { phrase },
+                        Languages.RussianCode,
+                        Languages.PolishCode,
+                        cancellationToken);
+                    translatedPhrase = translatedPhrases[0];
                 }
-            
+                else
+                {
+                    translatedPhrase = phrase;
+                }
+            }
+
 
             // search for offers
             var apiResponse = await _restClient.SearchOffersAsync(translatedPhrase, categoryId, state, sorting, offset, limit, cancellationToken, isBody);
@@ -328,7 +328,23 @@ namespace KioskBrains.Clients.AllegroPl
         {
             try
             {
+                //Dictionary<string, string> tempDic = new Dictionary<string, string>();
                 var dict = await translateService.GetDictionary(_valuesToTranslate);
+                //var names = await translateService.GetNamesDictionary();
+                //foreach (var item in names)
+                //{
+                //    foreach (var translateItem in _valuesToTranslate)
+                //    {
+                //        if (translateItem.ToLower().Contains(item.Key.ToLower()))
+                //        {
+                //            if (!tempDic.ContainsKey(translateItem.ToLower()))
+                //            {
+                //                tempDic.Add(translateItem.ToLower(), translateItem.ToLower().Replace(item.Key.ToLower(), item.Value.ToLower()));
+                //            }
+                //        }
+                //    }
+                //}
+
                 var yandexDict = await GetTranslateDictionary(translateService, dict, cancellationToken);
                 try
                 {
@@ -366,7 +382,6 @@ namespace KioskBrains.Clients.AllegroPl
         {
             var dict = await translateService.GetDictionary(_valuesToTranslate);
             var woTranslateDict = await GetWoTranslateDictionary(dict, cancellationToken);
-
 
             var yandexDict = await GetTranslateDictionary(translateService, dict, cancellationToken);
             try
@@ -479,6 +494,9 @@ namespace KioskBrains.Clients.AllegroPl
             var result = await ApplyTranslationsDescription(translateService, descPolish, cancellationToken);
             return result;
         }
+        IList<string> rulevoe = new List<string>() { "PRZEKŁADNIA KIER", "MAGLOWNICA PRZEKŁADNIA UKŁAD DRĄŻEK", "PRZEKŁADNIA UKŁAD MAGLOWNICA", "przekładnia kierownicza maglownica", "PRZEKLADNIA MAGLOWNICA UKŁAD", "MAGLOWNICA PRZEKŁADNIA UKŁAD",
+                "PRZEKŁADNIA MAGLOWNICA UKŁAD", "PRZEKŁADNIA MAGLOWNICA WSPOMAGANIE","MAGLOWNICA PRZEKŁADNIA KIEROWNICZA", "PRZEKŁADNIA KIEROWNICZA ANGLIA", "WSPOMAGANIE KIEROWNICY", "PRZEKŁADNIA MAGLOWNICA", "MAGLOWNICA PRZEKŁADNIA", "MAGLOWNICA PRZEKŁADN", "PRZEKŁADNIA KIEROWNICZA", "PRZEKLADNIA MAGLOWNICA", "PRZKLADNIA KIEROWNICZA",
+                "PRZEKLADNIA KIEROWNICZA", "PRZEKŁADNIA UKŁAD", "MAGLOWNICA UKŁAD", "Maglownica", "PRZEKŁADNIA", "PRZEKLADNIA" };
         public async Task<Offer> GetOfferById(ITranslateService translateService, string offerId, CancellationToken cancellationToken)
         {
             lock (_transLock)
@@ -494,6 +512,10 @@ namespace KioskBrains.Clients.AllegroPl
 
             data.Description[Languages.RussianCode] =
                data.Description[Languages.PolishCode] = ConvertDescriptionHtmlToText(data.Description[Languages.PolishCode]);
+            foreach (var itemSub in rulevoe)
+            {
+                data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace(itemSub.ToLower(), "рулевая рейка");
+            }
             lock (_transLock)
             {
                 _valuesToTranslate.Add(data.Name[Languages.PolishCode]);

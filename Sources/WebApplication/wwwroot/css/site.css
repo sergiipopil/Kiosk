@@ -68,6 +68,9 @@ for details on configuring this project to bundle and minify static web assets. 
     text-decoration: underline;
     font-size: 18px;
 }
+.filterIcon {
+    width:35px;
+}
 .treeMainCategory:hover, .treeSubCategory:hover, .treeModels:hover, .treeModific:hover, .footerSmallItem:hover {
     color: #ff5a00;
     text-shadow: 0px 0px 10px;
@@ -109,8 +112,11 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 .btn-group > .btn:first-child {
-    min-height: 70px !important;
+    min-height: 50px !important;
     font-size: 18px !important;
+}
+.bootstrap-select.btn-group .dropdown-menu li a span.text, .bootstrap-select.btn-group .dropdown-toggle .filter-option {
+    white-space: initial !important;
 }
 .bootstrap-select.btn-group .dropdown-toggle .filter-option, .form-control {
     color: grey !important;
@@ -121,10 +127,10 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 .footerMainBlock {
     text-align: center;
-    font-size: 30px;
+    font-size: 24px;
     color: white;
     text-decoration: underline;
-    padding: 30px 0px 10px 0px;
+    padding: 10px 0px 10px 0px;
     cursor: pointer;
 }
     .footerMainBlock:hover {
@@ -581,8 +587,11 @@ html {
     .treeMainCategory, .treeSubCategory, .treeSubChildCategory, .treeLastCategory {
         width:100%;
     }
+    .filterIcon {
+        width:20px;
+    }
     .treeModels {
-        line-height:4;
+        line-height: 4;
     }
 
     .siteTelelephone, .btnBackModelPage {
@@ -846,7 +855,7 @@ html {
         align-items: center;
         margin-top: 2vmin;
         margin-left: 1vmin;
-        width: 96px;
+        width: 102px;
         height: 100px;
         box-shadow: 0 0 4px rgba(0,0,0,0.5);
         padding: 5px;
@@ -865,7 +874,7 @@ html {
         align-items: center;
         margin-top: 2vmin;
         margin-left: 1vmin;
-        width: 96px;
+        width: 102px;
         height: 155px;
         box-shadow: 0 0 4px rgba(0,0,0,0.5);
         padding: 0px;
@@ -922,6 +931,7 @@ html {
         padding: 10px 0px;
         font-size: 12px;
         background: white;
+        display:none;
     }
 
     ul.pagination li {
@@ -1223,6 +1233,7 @@ html {
         .divProductHeadFilter {
             padding: 10px 20px 20px 20px;
             background: white;
+            display:none;
         }
 
     .breadcrumbsStyle1 {

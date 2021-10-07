@@ -33,6 +33,11 @@ namespace AllegroSearchService.Bl.ServiceInterfaces.Repo
             string includeProperties = null)
             where TEntity : class, IBaseEntity;
 
+        Task<TEntity> GetByIdContains<TEntity>(
+            object id,
+            string includeProperties = null)
+            where TEntity : class, IBaseEntity;
+
         Task<TEntity> GetFirst<TEntity>(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>,

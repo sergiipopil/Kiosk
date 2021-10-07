@@ -226,6 +226,13 @@
             if (parsedItems[0] != undefined && parsedItems[0] == 'topcategoryid') {
                 showMainView(decodeURI(parsedItems[1].replaceAll("-", " ")));
             }
+           
+        });
+        $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function (data) {
+            if (data.ip != "176.38.20.244") {
+                $("#hrefMoto").removeAttr('href');
+                $("#divTopCategory_156").css("cursor","not-allowed !important");
+            }
         });
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
@@ -246,7 +253,7 @@
             inputFilter = inputFilter.replaceAll("-", " ");
             $('#divSelectTopCategory').hide();
             $('#divCarManufactures').empty();
-            $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" width="100px" /></div>');
+            $('#divCarManufactures').html('<div style="text-align: center; padding: 30% 0; display: block;"><img src="/images/load.gif" width="100px" /></div>');
         $.ajax({
             type: "GET",
             url: '@Url.Action("PartNumberInput", "Home")' + "?partNumber=" + inputFilter,
@@ -261,7 +268,7 @@
         function submit() {
             $('#divSelectTopCategory').hide();
             $('#divCarManufactures').empty();
-            $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" width="100px" /></div>');
+            $('#divCarManufactures').html('<div style="text-align: center; padding: 30% 0; display: block;"><img src="/images/load.gif" width="100px" /></div>');
         $.ajax({
             type: "GET",
             url: '@Url.Action("PartNumberInput", "Home")' + "?partNumber=" + $("#inputPartValue").val(),
@@ -420,7 +427,7 @@
     }
         function selectSubMainCategory(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, kioskId, topcategoryid) {
             $('#divCarManufactures').empty();
-            $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" width="100px" class="loadGif" /></div>');
+            $('#divCarManufactures').html('<div style="text-align: center; padding: 30% 0; display: block;"><img src="/images/load.gif" width="100px" class="loadGif" /></div>');
 
         $('#divSelectTopCategory').hide();
         $.ajax({
@@ -451,7 +458,7 @@
         function getLastAllegroData(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, lastChildId, lastChildName, kioskId, topcategoryid) {
             $('#divSelectTopCategory').hide();
             $('#divCarManufactures').empty();
-            $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" class="loadGif" width="100px" /></div>');
+            $('#divCarManufactures').html('<div style="text-align: center; padding: 30% 0; display: block;"><img src="/images/load.gif" class="loadGif" width="100px" /></div>');
         $.ajax({
             type: "GET",
             url: '@Url.Action("ShowProductList", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
@@ -479,7 +486,7 @@
         function getAllegroData(manufacture, model, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, subChildId, subChildName, kioskId, topcategoryid) {
             $('#divSelectTopCategory').hide();
             $('#divCarManufactures').empty();
-            $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" class="loadGif" width="100px" /></div>');
+            $('#divCarManufactures').html('<div style="text-align: center; padding: 30% 0; display: block;"><img src="/images/load.gif" class="loadGif" width="100px" /></div>');
         $.ajax({
             type: "GET",
             url: '@Url.Action("ShowProductList", "Home")' + "?carManufactureName=" + manufacture + "&carModel=" + model + "&mainCategoryId=" + mainCategoryId + "&mainCategoryName=" + mainCategoryName +
@@ -505,7 +512,7 @@
     }
         function FilteredList(state, sorting, page, position, isorigin, enginetype, transmissionType, tiresQuantity, tiresWidth, tiresHeight, tiresRSize, engineValue) {
             $('#divCarManufactures').empty();
-            $('#divCarManufactures').html('<div style="text-align: center; padding-top: 30%; display: block;"><img src="/images/load.gif" class="loadGif" width="100px" /></div>');
+            $('#divCarManufactures').html('<div style="text-align: center; padding: 30% 0; display: block;"><img src="/images/load.gif" class="loadGif" width="100px" /></div>');
             $.ajax({
                 type: "GET",
                 url: '@Url.Action("FilteredList", "Home")' + "?state=" + state + "&sorting=" + sorting + "&page=" + page + "&position=" + position + "&isorigin=" + isorigin + "&enginetype=" + enginetype + "&transmissionType=" + transmissionType +
@@ -659,7 +666,7 @@
                             </div>
                         </div>
                         <div class="inline-block">
-                            <a href="/topcategory/156">
+                            <a id="hrefMoto" href="/topcategory/156">
                                 <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_156">
                                     @*onclick="showMainView('156')"*@
                                     <div style="text-align:center;">
@@ -737,43 +744,53 @@
                     Гарантийный срок установки 21 день
                     Посетителям и клиентам интернет магазина <a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a>  желаем хорошего настроения и меньше поломок любимого автомобиля!
                 </div>
+                <div style="text-align: center; font-size: 24px; padding: 20px 0px;color:white;">Работаем по всей Украине</div>
+                <div style="color: white; text-align: center; font-size: 16px; padding: 10px; border-bottom: 1px solid white; border-top: 1px solid white;"><a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> Авторазборка Шрот Купить Запчасти б/у новые легковые грузовые бусы мотоциклы Шины Диски Инструменты Оборудование для СТО Мото Аксессуары</div>
+                <div style="text-align:left;">
+                    @foreach (var item in @Model.AdvertCities)
+                    {
+                        <div class="advertCities">
+                            @item.ToString()
+                        </div>
+                    }
+                </div>
                 <div onclick="showHideAutoParts()" class="footerMainBlock">Авторазборка все запчасти</div>
                 <div class="divAllParts">
                     @foreach (var cat in Model.ProductCategoryList)
                     {
-                    <a href="/Models/ManufactureModelView/@cat.CategoryId/@cat.Name["ru"]" class="treeMainCategory" id="@String.Format("divMainCat{0}", cat.CategoryId)">@cat.Name["ru"]</a>
-                    @if (@cat.Children != null)
+                        <a href="/Models/ManufactureModelView/@cat.CategoryId/@cat.Name["ru"]" class="treeMainCategory" id="@String.Format("divMainCat{0}", cat.CategoryId)">@cat.Name["ru"]</a>
+                        @if (@cat.Children != null)
                         {
-                    <div style="padding:0 5%;">
-                        @foreach (var subCat in @cat.Children)
-                            {
-                        @if (@subCat.Name["ru"] != "Сборные детали" && @subCat.Name["ru"] != "Другое" && @subCat.Name["ru"] != "Другие")
+                            <div style="padding:0 5%;">
+                                @foreach (var subCat in @cat.Children)
                                 {
-                        <a href="/Models/ManufactureModelView/@subCat.CategoryId/@subCat.Name["ru"]" class="treeSubCategory" id="@String.Format("divSubCat{0}", subCat.CategoryId)">@subCat.Name["ru"]</a>
-                                }
-                        @if (@subCat.Children != null)
-                                {
-                        @foreach (var subchildCat in @subCat.Children)
+                                    @if (@subCat.Name["ru"] != "Сборные детали" && @subCat.Name["ru"] != "Другое" && @subCat.Name["ru"] != "Другие")
                                     {
-                        @if (subchildCat.Name["ru"] != "Сборные детали" && subchildCat.Name["ru"] != "Другое" && subchildCat.Name["ru"] != "Другие")
+                                        <a href="/Models/ManufactureModelView/@subCat.CategoryId/@subCat.Name["ru"]" class="treeSubCategory" id="@String.Format("divSubCat{0}", subCat.CategoryId)">@subCat.Name["ru"]</a>
+                                    }
+                                    @if (@subCat.Children != null)
+                                    {
+                                        @foreach (var subchildCat in @subCat.Children)
                                         {
-                        <a href="/Models/ManufactureModelView/@subchildCat.CategoryId/@subchildCat.Name["ru"]" class="treeSubCategory" id="topSubchild">@subchildCat.Name["ru"]</a>
-                                        }
-                        @if (@subchildCat.Children != null)
-                                        {
-                        @foreach (var lastCat in @subchildCat.Children)
+                                            @if (subchildCat.Name["ru"] != "Сборные детали" && subchildCat.Name["ru"] != "Другое" && subchildCat.Name["ru"] != "Другие")
                                             {
-                        @if (lastCat.Name["ru"] != "Сборные детали" && lastCat.Name["ru"] != "Другое" && lastCat.Name["ru"] != "Другие")
+                                                <a href="/Models/ManufactureModelView/@subchildCat.CategoryId/@subchildCat.Name["ru"]" class="treeSubCategory" id="topSubchild">@subchildCat.Name["ru"]</a>
+                                            }
+                                            @if (@subchildCat.Children != null)
+                                            {
+                                                @foreach (var lastCat in @subchildCat.Children)
                                                 {
-                        <a href="/Models/ManufactureModelView/@lastCat.CategoryId/@lastCat.Name["ru"]" class="treeSubCategory" id="lastId">@lastCat.Name["ru"]</a>
+                                                    @if (lastCat.Name["ru"] != "Сборные детали" && lastCat.Name["ru"] != "Другое" && lastCat.Name["ru"] != "Другие")
+                                                    {
+                                                        <a href="/Models/ManufactureModelView/@lastCat.CategoryId/@lastCat.Name["ru"]" class="treeSubCategory" id="lastId">@lastCat.Name["ru"]</a>
+                                                    }
                                                 }
                                             }
                                         }
                                     }
-                                }
 
-                            }
-                    </div>
+                                }
+                            </div>
                         }
                     }
                 </div>
@@ -782,17 +799,7 @@
                     <div class="footerMainBlock" onclick="showHidePopularNumbers()">Популярные номера</div>
                     @foreach (var item in @Model.PartNumbersRandom)
                     {
-                    <a href="/search/@item.ToString()" target="_self" class="partNumbersRandom" id="divPartNumbersItem">@item.ToString()</a>
-                    }
-                </div>
-                <div style="text-align: center; font-size: 34px; padding: 20px 0px;color:white;">Работаем по всей Украине</div>
-                <div style="color: white; text-align: center; font-size: 18px; padding: 10px; border-bottom: 1px solid white; border-top: 1px solid white;"><a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> Авторазборка Шрот Купить Запчасти б/у новые легковые грузовые бусы мотоциклы Шины Диски Инструменты Оборудование для СТО Мото Аксессуары</div>
-                <div style="text-align:left;">
-                    @foreach (var item in @Model.AdvertCities)
-                    {
-                    <div class="advertCities">
-                        @item.ToString()
-                    </div>
+                        <a href="/search/@item.ToString()" target="_self" class="partNumbersRandom" id="divPartNumbersItem">@item.ToString()</a>
                     }
                 </div>
             </td>
