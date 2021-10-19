@@ -46,13 +46,12 @@
         @foreach (var item in Model.ManufacturerList)
         {
             <div style="display:inline-block;vertical-align:middle;">
-                <a href="/topcategory/@Model.TopCategoryId/@item.Name.Replace(" ", "-")">
-                    <div class="parentDivManufacturer">
-                        @*onclick="selectManufacturer('@item.Name', '@Model.kioskId', '@Model.TopCategoryId')"*@
+                @*<a href="/topcategory/@Model.TopCategoryId/@item.Name.Replace(" ", "-")">*@
+                    <div class="parentDivManufacturer" onclick="selectManufacturer('@item.Name', '@Model.kioskId', '@Model.TopCategoryId')">                        
                         <img src="@String.Format("/images/Catalog/Model_Logo/{0}.webp", item.Name)" alt="@item.Name" class="manufactureImage" />
                     </div>
                     <div class="manufactureTextModels"><span class="notranslate">@item.Name</span></div>
-                </a>
+                @*</a>*@
             </div>
         }
     </div>

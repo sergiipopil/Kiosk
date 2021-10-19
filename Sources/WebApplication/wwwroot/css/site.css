@@ -336,6 +336,7 @@ h3 {
 
 body {
     background: #e9eaff;
+    top:0 !important;
 }
 
 ul.pagination li {

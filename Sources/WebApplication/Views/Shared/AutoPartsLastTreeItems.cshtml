@@ -14,9 +14,8 @@
     @foreach (var item in Model.ProductCategoryList)
     {
     <div style="display:inline-block;vertical-align:middle;">
-        <a href="/topcategory/@Model.TopCategoryId/@Model.ManufacturerSelected.Replace(" ", "-")/@Model.ModelSelected.Replace(" ", "-")/@Model.MainCategoryId/@Model.MainCategoryName/@Model.SubCategoryId/@Model.SubCategoryName/@Model.SubChildCategoryId/@Model.SubChildCategoryName/@item.CategoryId/@item.Name.FirstOrDefault().Value.Replace(" ","-")">
-            <div class="parentDivAutoParts" style="display:grid;">
-                @*onclick="getLastAllegroData('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.SubCategoryId', '@Model.SubCategoryName', '@Model.SubChildCategoryId', '@Model.SubChildCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId', '@Model.TopCategoryId')"*@
+        @*<a href="/topcategory/@Model.TopCategoryId/@Model.ManufacturerSelected.Replace(" ", "-")/@Model.ModelSelected.Replace(" ", "-")/@Model.MainCategoryId/@Model.MainCategoryName/@Model.SubCategoryId/@Model.SubCategoryName/@Model.SubChildCategoryId/@Model.SubChildCategoryName/@item.CategoryId/@item.Name.FirstOrDefault().Value.Replace(" ","-")">*@
+            <div class="parentDivAutoParts" style="display:grid;" onclick="getLastAllegroData('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.SubCategoryId', '@Model.SubCategoryName', '@Model.SubChildCategoryId', '@Model.SubChildCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId', '@Model.TopCategoryId')">
                 <div class="divCarModelsBlock">
                     <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
                 </div>
@@ -24,16 +23,15 @@
                     <span class="notranslate">@item.Name.FirstOrDefault().Value</span>
                 </div>
             </div>
-        </a>
+        @*</a>*@
     </div>
     }}
     else{
     @foreach (var item in Model.ProductCategoryList)
     {
     <div style="display:inline-block;vertical-align:middle;">
-        <a href="/topcategory/@Model.TopCategoryId/@Model.MainCategoryId/@Model.MainCategoryName/@Model.SubCategoryId/@Model.SubCategoryName/@Model.SubChildCategoryId/@Model.SubChildCategoryName/@item.CategoryId/@item.Name.FirstOrDefault().Value.Replace(" ","-")">
-            <div class="parentDivAutoParts" style="display:grid;">
-                @*onclick="getLastAllegroData('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.SubCategoryId', '@Model.SubCategoryName', '@Model.SubChildCategoryId', '@Model.SubChildCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId', '@Model.TopCategoryId')"*@
+        @*<a href="/topcategory/@Model.TopCategoryId/@Model.MainCategoryId/@Model.MainCategoryName/@Model.SubCategoryId/@Model.SubCategoryName/@Model.SubChildCategoryId/@Model.SubChildCategoryName/@item.CategoryId/@item.Name.FirstOrDefault().Value.Replace(" ","-")">*@
+            <div class="parentDivAutoParts" style="display:grid;" onclick="getLastAllegroData('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@Model.SubCategoryId', '@Model.SubCategoryName', '@Model.SubChildCategoryId', '@Model.SubChildCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId', '@Model.TopCategoryId')">
                 <div class="divCarModelsBlock">
                     <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
                 </div>
@@ -41,7 +39,7 @@
                     <span class="notranslate">@item.Name.FirstOrDefault().Value</span>
                 </div>
             </div>
-        </a>
+        @*</a>*@
     </div>
     }
     }
