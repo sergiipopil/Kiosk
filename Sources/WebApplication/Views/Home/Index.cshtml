@@ -209,12 +209,12 @@
             }
 
         });
-        $.getJSON('https://api.ipify.org?format=jsonp&callback=?', function (data) {
-            if (data.ip != "176.38.20.244") {
-                $("#hrefMoto").removeAttr('href');
-                $("#divTopCategory_156").css("cursor","not-allowed !important");
-            }
-        });
+        //$.getJSON('https://api.ipify.org?format=jsonp&callback=?', function (data) {
+        //    if (data.ip != "176.38.20.244") {
+        //        $("#hrefMoto").removeAttr('href');
+        //        $("#divTopCategory_156").css("cursor","not-allowed !important");
+        //    }
+        //});
         var getUrlParameter = function getUrlParameter(sParam) {
             var sPageURL = window.location.search.substring(1),
                 sURLVariables = sPageURL.split('&'),
@@ -655,8 +655,8 @@
                             </div>
                         </div>
                         <div class="inline-block">
-                            <a id="hrefMoto" href="/topcategory/156">
-                                <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_156">
+                            @*<a id="hrefMoto" href="/topcategory/156">*@
+                                <div class="topCategoryDiv" style="display:grid;cursor:not-allowed !important;" id="divTopCategory_156">
                                     @*onclick="showMainView('156')"*@
                                     <div style="text-align:center;">
                                         <img src="~/images/Catalog/Categories/New/CarType_Moto.png" alt="Мото и аксессуары" class="TopCategoryImage" />
@@ -665,7 +665,7 @@
                                         <span>Мото и аксессуары</span>
                                     </div>
                                 </div>
-                            </a>
+                            @*</a>*@
                         </div>
                         <div class="inline-block">
                             <a href="/topcategory/99193">
