@@ -13,10 +13,10 @@
         <span>Назад</span>
     </div>
     @if(@Model.ManufacturerSelected!=null && @Model.ModelSelected!=null){
-        <div style="display:inline-block;"><h1 class="controlHeader">Купить запчасти @Model.ManufacturerSelected @Model.ModelSelected</h1></div>
+        <div style="display:inline-block;"><h1 class="controlHeader"><span class="notranslate">Купить запчасти @Model.ManufacturerSelected @Model.ModelSelected</span></h1></div>
     }
     else{
-        <div style="display:inline-block;"><h1 class="controlHeader">@Model.TopCategoryName</h1></div>
+        <div style="display:inline-block;"><h1 class="controlHeader"><span class="notranslate">@Model.TopCategoryName</span></h1></div>
     }
 </div>
 <div style="padding: 10px 0px 10px 20px;">
@@ -32,7 +32,7 @@
                             <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", Model.ReallyTopCategoryId=="621" && @item.CategoryId=="GROUP-4094"? "Truck/" +  item.CategoryId : item.CategoryId)" class="modelImageAutoParts" />
                         </div>
                         <div class="manufactureText">
-                            <span>@item.Name.FirstOrDefault().Value</span>
+                            <span class="notranslate">@item.Name.FirstOrDefault().Value</span>
                         </div>
                     </div>
                 </a>
@@ -50,7 +50,7 @@
                             <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", Model.ReallyTopCategoryId=="621" && @item.CategoryId=="GROUP-4094"? "Truck/" +  item.CategoryId : item.CategoryId)" class="modelImageAutoParts" />
                         </div>
                         <div class="manufactureText">
-                            <span>@item.Name.FirstOrDefault().Value</span>
+                            <span class="notranslate">@item.Name.FirstOrDefault().Value</span>
                         </div>
                     </div>
                 </a>

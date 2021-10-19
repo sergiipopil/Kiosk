@@ -180,13 +180,13 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk
                 var D_Price = product.DeliveryPrice < 10 ? (decimal)35 : product.DeliveryPrice;
                 var M_Markup = GetC_Markup(product, isSpecialEngineTransmissionProduct);
                 var T_Taxes = GetB_Taxes(product, isSpecialEngineTransmissionProduct);
-                var R_Rate = exchangeRate;
+                var R_Rate = (decimal)6.67;//exchangeRate;
 
                 //var ExtraRate = CalculatePrice(P_Price, state, product.CategoryId, (P_Price + D_Price) * R_Rate); //P_Price < 200 ? (decimal)1.55 : (decimal)1.3;
 
                 var priceStart = (P_Price + D_Price) * R_Rate * (decimal)1.25;//(P_Price + D_Price) * (1 + T_Taxes) * (1 + M_Markup) * R_Rate * ExtraRate;
-                var startExtraRate = (P_Price + D_Price) * (decimal)1.25;
-                var finalPrice = CalculatePrice(P_Price, state, product.CategoryId, (startExtraRate) * R_Rate, R_Rate);
+                var calculatedPrice = CalculatePrice(P_Price, state, product.CategoryId, P_Price + D_Price);
+                var finalPrice = (calculatedPrice) * R_Rate;
                 product.Price = product.FinalPrice = RoundPrice(finalPrice);
                 product.PriceCurrencyCode = "UAH";
                 product.PriceCalculationInfo = $"Formula=((P+D)+M%+T%)*R*ER, P={P_Price}, D={D_Price}, M={M_Markup:P}, T={T_Taxes:P}, R={R_Rate}, Category={(isSpecialEngineTransmissionProduct ? "Engine/Transmission" : "Regular")}";
@@ -194,87 +194,87 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk
 
             return product;
         }
-        private static decimal CalculatePrice(decimal price, EkProductStateEnum state, string categoryId, decimal tempPrice, decimal R_Rate) {
+        private static decimal CalculatePrice(decimal price, EkProductStateEnum state, string categoryId, decimal priceWithDel) {
             decimal endPrice = price;
             if (categoryId == "312565" || categoryId == "50825" || categoryId == "50838") { //Dvigatel complect, gbc, block
                 if (price < 500)
                 {
-                    return (tempPrice * (decimal)3.05);
+                    return (priceWithDel * (decimal)3.3);
                 }
                 if (price >= 501 && price <= 800)
                 {
-                    return (tempPrice * (decimal)2.55);
+                    return (priceWithDel * (decimal)2.7);
                 }
                 if (price >= 801 && price <= 2500)
                 {
-                    return (tempPrice * (decimal)2.15);
+                    return (priceWithDel * (decimal)2.3);
                 }
                 if (price >= 2501 && price <= 4000)
                 {
-                    return (tempPrice * (decimal)1.85);
+                    return (priceWithDel * (decimal)2);
                 }
                 if (price >= 4001 && price <= 5000)
                 {
-                    return (tempPrice * (decimal)1.7);
+                    return (priceWithDel * (decimal)1.85);
                 }
                 if (price >= 5001 && price <= 8000)
                 {
-                    return (tempPrice * (decimal)1.55);
+                    return (priceWithDel * (decimal)1.7);
                 }
                 if (price >= 8001 && price <= 15000)
                 {
-                    return (tempPrice * (decimal)1.45);
+                    return (priceWithDel * (decimal)1.6);
                 }
                 if (price >= 15001 && price <= 50000)
                 {
-                    return (tempPrice * (decimal)1.3);
+                    return (priceWithDel * (decimal)1.45);
                 }
                 if (price >= 50001)
                 {
-                    return (tempPrice * (decimal)1.2);
+                    return (priceWithDel * (decimal)1.4);
                 }
             }
             if (categoryId == "50873")//korobka peredach komplektnaya
             {
                 if (price < 500)
                 {
-                    return (tempPrice * (decimal)2.55);
+                    return (priceWithDel * (decimal)2.7);
                 }
                 if (price >= 501 && price <= 800)
                 {
-                    return (tempPrice * (decimal)2.05);
+                    return (priceWithDel * (decimal)2.2);
                 }
                 if (price >= 801 && price <= 1500)
                 {
-                    return (tempPrice * (decimal)1.85);                    
+                    return (priceWithDel * (decimal)2);                    
                 }
                 if (price >= 1501 && price <= 2500)
                 {
-                    return (tempPrice * (decimal)1.55);
+                    return (priceWithDel * (decimal)1.7);
                 }
                 if (price >= 2501 && price <= 4000)
                 {
-                    return (tempPrice * (decimal)1.35);
+                    return (priceWithDel * (decimal)1.5);
                 }
                 if (price >= 4001 && price <= 5000)
                 {
-                    return (tempPrice * (decimal)1.2);
+                    return (priceWithDel * (decimal)1.35);
                 }
                 if (price >= 5001 && price <= 8000)
                 {
-                    return (tempPrice * (decimal)1.15);
+                    return (priceWithDel * (decimal)1.3);
                 }
                 if (price >= 8001 && price <= 15000)
                 {
-                    return (tempPrice * (decimal)1.1);
+                    return (priceWithDel * (decimal)1.25);
                 }
                 if (price >= 15001 && price <= 50000)
                 {
-                    return (tempPrice * (decimal)1.05);
+                    return (priceWithDel * (decimal)1.2);
                 }
                 if (price >= 50001)
                 {
-                    return (tempPrice * (decimal)1);
+                    return (priceWithDel * (decimal)1.2);
                 }
 
             }
@@ -283,39 +283,39 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk
 
                 if (price < 50)
                 {                   
-                    return (tempPrice*(decimal)3.05 + 50*R_Rate);
+                    return (priceWithDel * (decimal)3.2 + 50);
                 }
                 if (price >= 50 && price <= 100)
                 {
-                    return (tempPrice * (decimal)2.65 + 50 * R_Rate);
+                    return (priceWithDel * (decimal)2.8 + 50);
                 }
                 if (price >= 101 && price <= 150)
                 {
-                    return (tempPrice * (decimal)2.15 + 50 * R_Rate);
+                    return (priceWithDel * (decimal)2.3 + 50);
                 }
                 if (price >= 150 && price <= 400)
                 {
-                    return (tempPrice * (decimal)1.75 + 50 * R_Rate);
+                    return (priceWithDel * (decimal)1.9 + 50);
                 }
                 if (price >= 401 && price <= 600)
                 {
-                    return (tempPrice * (decimal)1.55 + 60 * R_Rate);
+                    return (priceWithDel * (decimal)1.7 + 60);
                 }
                 if (price >= 601 && price <= 1000)
                 {
-                    return (tempPrice * (decimal)1.35 + 80 * R_Rate);
+                    return (priceWithDel * (decimal)1.5 + 80);
                 }
                 if (price >= 1001 && price <= 3000)
                 {
-                    return (tempPrice * (decimal)1.23 + 90 * R_Rate);
+                    return (priceWithDel * (decimal)1.38 + 90);
                 }
                 if (price >= 3001 && price <= 10000)
                 {
-                    return (tempPrice * (decimal)1.13 + 65 * R_Rate);
+                    return (priceWithDel * (decimal)1.28 + 65);
                 }
                 if (price >= 10001)
                 {
-                    return (tempPrice * (decimal)1.06);
+                    return (priceWithDel * (decimal)1.21);
                 }
 
             }
@@ -323,43 +323,43 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk
             {
                 if (price < 50)
                 {
-                    return (tempPrice * (decimal)3.05 + 50 * R_Rate);
+                    return (priceWithDel * (decimal)3.2 + 50);
                 }
                 if (price >= 50 && price <= 100)
                 {
-                    return (tempPrice * (decimal)2.45 + 50 * R_Rate);
+                    return (priceWithDel * (decimal)2.6 + 50);
                 }
                 if (price >= 101 && price <= 150)
                 {
-                    return (tempPrice * (decimal)2.15 + 50 * R_Rate);
+                    return (priceWithDel * (decimal)2.3 + 50);
                 }
                 if (price >= 151 && price <= 400)
                 {
-                    return (tempPrice * (decimal)1.65 + 50 * R_Rate);
+                    return (priceWithDel * (decimal)1.8 + 50);
                 }
                 if (price >= 401 && price <= 600)
                 {
-                    return (tempPrice * (decimal)1.55 + 50 * R_Rate);
+                    return (priceWithDel * (decimal)1.7 + 50);
                 }
                 
                 if (price >= 601 && price <= 1000)
                 {
-                    return (tempPrice * (decimal)1.35 + 60 * R_Rate);
+                    return (priceWithDel * (decimal)1.5 + 60);
                 }
                 if (price >= 1001 && price <= 3000)
                 {
-                    return (tempPrice * (decimal)1.23 + 70 * R_Rate);
+                    return (priceWithDel * (decimal)1.38 + 70);
                 }
                 if (price >= 3001 && price <= 10000)
                 {
-                    return (tempPrice * (decimal)1.13 + 70 * R_Rate);
+                    return (priceWithDel * (decimal)1.28 + 70);
                 }
                 if (price >= 10001)
                 {
-                    return (tempPrice * (decimal)1.06);
+                    return (priceWithDel * (decimal)1.21);
                 }
             }
-            return price < 200 ? tempPrice * (decimal)1.3 : tempPrice *(decimal)1.15;
+            return price < 200 ? priceWithDel * (decimal)1.3 : priceWithDel * (decimal)1.15;
         }
         private static decimal GetB_Taxes(EkProduct product, bool isSpecialEngineTransmissionProduct)
         {

@@ -4,7 +4,29 @@
 <!DOCTYPE html>
 
 <html>
-<head>
+<head>    
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        dataLayer.push({
+            'ecommerce': {
+                'currencyCode': 'UAH',
+                'detail': {
+                    'actionField': { 'list': 'detail' },
+                    'products': [{
+                        'name': '@Model.Title',
+                        'id': '@Model.Id',
+                        'price': '@Model.Price',                        
+                        'category': 'Автозапчасти'
+                    }]
+                }                
+            },
+            'event': 'gtm-ee-event',
+            'gtm-ee-event-category': 'Enhanced Ecommerce',
+            'gtm-ee-event-action': 'Product Details',
+            'gtm-ee-event-non-interaction': 'True',
+        });
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!--  google-translate -->
@@ -13,14 +35,7 @@
     <script src="//translate.google.com/translate_a/element.js?cb=TranslateInit"></script>
     <script src="/js/google-translate.js"></script>
 
-    <!-- Google Tag Manager -->
-    <script>
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NWTLZ5F');</script>
-    <!-- End Google Tag Manager -->
+
 
     <link rel="stylesheet" href="~/css/site.css" type="text/css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
@@ -35,7 +50,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         }
         function backToProductList() {
             /**/
-            window.location.href = '/' + '@ViewData["Params"]';
+            window.location.href = '@ViewData["Params"]';
         /**/
         }
         function showTransDesc() {
@@ -56,12 +71,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </script>
 </head>
 <body style="color:white;">
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NWTLZ5F"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    
 
     <div class="mainBlockTitle" style="background: #EEEFFF;">
         <div onclick="backToProductList()" style="color: white; padding: 0px 10px; font-weight: normal; border-radius: 10px; cursor:pointer; font-size: 23px; width:100px; text-transform: capitalize; background: #ff5a00;" class="cartBackBtn">
@@ -87,7 +97,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </div>
             <!--DESCRIPTION BLOCK-->
             <div id="infoBlock" class="detailBlock" style="width:50%;">
-                <h1 class="titleBlock" itemprop="name">@Model.Title</h1>
+                <h1 class="titleBlock" itemprop="name"><span class="notranslate">@Model.Title</span></h1>
                 <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                     <meta itemprop="worstRating" content="1" />
                     <meta itemprop="ratingValue" content="4,9" />
@@ -100,15 +110,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div itemprop="description">
                     @foreach (var item in Model.Parameters)
                     {
-                        <div class="descriptionBlock">@item</div>}
+                        <div class="descriptionBlock"><span class="notranslate">@item</span></div>}
 
                     <div id="divInnerDetails">
                         <div style="display:inline-block;vertical-align:middle;">
-                            <h3 class="descriptionBlock" onclick="showTransDesc()" style="cursor:pointer">Описание - для перевода нажмите на флажок</h3>
-                        </div>
-                        <div style="display:inline-block;vertical-align:middle;" class="language">
-                            <img src="/images/rus.png" width="30" alt="ru" style="display:inline-block;vertical-align:middle;" data-google-lang="ru" class="language__img">
-                        </div>
+                            <h3 class="descriptionBlock" onclick="showTransDesc()" style="cursor:pointer">Описание - <a data-google-lang="ru" class="language__img" style="text-decoration:underline;font-size:24px;cursor:pointer;">Перевести</a></h3>
+                        </div>                        
                         @Html.Partial("_InnerDetails", @Model)
                     </div>
                 </div>
@@ -120,14 +127,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                     <div id="priceProduct">
                         <div style="color: #ff5a00;font-weight:bold;">
-                            <span style="font-size:34px;" itemprop="price" content="@Model.Price">@Model.Price</span>
+                            <span id="spnPrice" style="font-size:34px;" itemprop="price" content="@Model.Price">@Model.Price</span>
                             <span style="font-size:18px;" itemprop="priceCurrency" content="UAH"> UAH</span>
                             <span itemprop="availability" href="https://schema.org/InStock" style="display: block; font-weight: normal;font-size:14px;">Доступное количество: @Model.AvailableQuantity</span>
                             <span id="priceDeliveryComment" style="color:#6c7096;font-size:14px;display:block;font-weight:normal;">Проверенный продавец</span>
                             <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;margin-bottom:0px;">Быстрая доставка</p>
                             <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">Гарантия 21 день</p>
                         </div>
-                        <div onclick="goToCart('@Model.Id', '@Model.kioskId')" style="padding:20px 0px 0px 0px;" class="divGoToCart">
+                        <div class="warningText">Внимание! В цену на товар уже включены: доставка, страховка и таможенная пошлина</div>
+                        <div onclick="goToCart('@Model.Id', '@Model.Title', '@Model.Price', '@Model.kioskId')" style="padding:20px 0px 0px 0px;" class="divGoToCart">
                             <button class="btnBuyList">
                                 <span class="btnBuyListSpan" style="font-size:23px;">Купить</span>
                             </button>

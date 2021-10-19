@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="utf-8">
     <!-- Google Tag Manager -->
     <script>
-    (function (w, d, s, l, i) {
+        (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
                 'gtm.start':
                     new Date().getTime(), event: 'gtm.js'
@@ -19,6 +20,7 @@
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/mobileMenu.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="~/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!--    <script src="~/bootstrap/js/bootstrap.js"></script>
@@ -116,6 +118,22 @@
         function openLeftMenu(menu) {
             window.history.pushState(null, null, "/" + menu);
         }
+        function openNavMenu() {
+            if ($("#divLeftMenu").css("display") == 'none') {
+                $("#divLeftMenu").css("display", 'block');
+            }
+            else {
+                $("#divLeftMenu").css("display", 'none');
+            }
+        }
+        function myFunction() {
+            var x = document.getElementById("myLinks");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
     </script>
     <meta name="google-site-verification" content="pdu1x6QOUO9mXKsJr7KiYB_9GjQl-a8GM8I563AQwPk" />
 </head>
@@ -131,19 +149,76 @@
     <div id="modDialog" class="modal fade">
         <div id="dialogContent" class="modal-dialog"></div>
     </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Top Navigation Menu -->
+
     <div itemscope="" itemtype="http://schema.org/WebPage">
         <link itemprop="mainEntityOfPage" itemscope="" href="https://bi-bi.com.ua">
         <header>
             <div itemprop="publisher" itemscope="" itemtype="https://schema.org/Organization">
-                <div style="cursor:pointer;display:inline-block;vertical-align:middle;width:10%;text-align:center;" onclick="backToMainPage()" itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
-                    <img itemprop="image url" src="~/images/sitelogoNew.webp" class="headerImg" />
-                </div>
-                <div style="display:inline-block;vertical-align:middle;text-align:center;width:85%;">
-                    <div style="display:inline-block;vertical-align:middle;text-align:center;padding:0px 20px;">
-                        <span itemprop="name" class="headerTitle">АВТОРАЗБОРКИ УКРАИНЫ И ЕВРОПЫ В ОДНОМ ОКНЕ</span>
-
+                <div class="topnav">
+                    <div style="cursor:pointer;display:inline-block;vertical-align:middle;width:10%;text-align:center;" onclick="backToMainPage()" itemprop="logo" itemscope="" itemtype="https://schema.org/ImageObject">
+                        <img itemprop="image url" src="~/images/sitelogoNew.webp" class="headerImg" />
                     </div>
-                    <div class="siteTelelephone"><a href="tel:+380675232143" class="sitePhone" itemprop="telephone">+38 067 523 21 43</a></div>
+                    <div class="siteTitle">
+                        <div class="siteTitleInner">
+                            <span itemprop="name" class="headerTitle">АВТОРАЗБОРКИ УКРАИНЫ И ЕВРОПЫ В ОДНОМ ОКНЕ</span>
+
+                        </div>
+                        <div class="siteTelelephone"><a href="tel:+380675232143" class="sitePhone" itemprop="telephone"><span class="notranslate">+38 (067) 523 21 43</span></a></div>
+                    </div>
+                    <div style="display:none;" class="divMobileMenu">
+                        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                        <a href="#home" class="active" style="display:none;"></a>
+                    </div>
+                    <div id="myLinks">
+                        <div class="menuItemDiv" onclick="backToMainPage()" style="cursor:pointer;">
+                            <div class="menuItemPic"><img src="~/images/Menu/Home.png" /></div><div class="inline-block" style="color:#848ac2;">На главную</div>
+                        </div>
+                        <div class="cartWidgetMenu">
+                            @{
+                    Html.RenderPartial("CartWidget");
+                            }
+                        </div>
+
+                        @*<div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/ServiceStations.png" /></div><div class="inline-block" style="color:#848ac2;">Послуги СТО</div></div>
+            <div class="menuItemDiv" style="display:none;"><div class="menuItemPic"><img src="~/images/Menu/Map.png" /></div><div class="inline-block" style="color:#848ac2;">Карта терміналів</div></div>*@
+                        <div class="menuItemDiv" onclick="openLeftMenu('instructions')">
+                            <button id='openInstructions' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="instructionsItem">
+                                <div class="menuItemPic"><img src="~/images/Menu/Instructions.png" /></div><div class="inline-block" style="color:#848ac2;">
+                                    Инструкция
+                                </div>
+                            </button>
+                        </div>
+                        <div class="menuItemDiv" onclick="openLeftMenu('warranty')">
+                            <button id='openWarranty' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="warrantyItem">
+                                <div class="menuItemPic"><img src="~/images/Menu/Warranty.png" /></div><div class="inline-block" style="color:#848ac2;">Гарантия</div>
+                            </button>
+                        </div>
+                        <div class="menuItemDiv" onclick="openLeftMenu('delivery')">
+                            <button id='openDelivery' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="deliveryItem">
+                                <div class="menuItemPic"><img src="~/images/Menu/Delivery.png" /></div><div class="inline-block" style="color:#848ac2;">Доставка</div>
+                            </button>
+                        </div>
+                        <div class="menuItemDiv" onclick="openLeftMenu('return')">
+                            <button id='openReturn' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="returnItem">
+                                <div class="menuItemPic"><img src="~/images/Menu/Return.png" /></div><div class="inline-block" style="color:#848ac2;">Возврат</div>
+                            </button>
+                        </div>
+                        <div class="menuItemDiv" onclick="openLeftMenu('partnership')">
+                            <button id='openPartnership' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="partnershipItem">
+                                <div class="menuItemPic"><img src="~/images/Menu/Partnership.png" /></div><div class="inline-block" style="color:#848ac2;">Партнерство</div>
+                            </button>
+                        </div>
+                        <div class="menuItemDiv" onclick="openLeftMenu('contacts')">
+                            <button id='openContacts' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="contactsItem">
+                                <div class="menuItemPic"><img src="~/images/Menu/new.png" style="max-width:26px;" /></div><div class="inline-block" style="color:#848ac2;">Контакты</div>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <meta itemprop="telephone" content="+38 067 523 21 43">
                 <meta itemprop="address" content="Украина">
@@ -171,7 +246,7 @@
                                 <div class="menuItemDiv" onclick="backToMainPage()" style="cursor:pointer;">
                                     <div class="menuItemPic"><img src="~/images/Menu/Home.png" /></div><div class="inline-block" style="color:#848ac2;">На главную</div>
                                 </div>
-                                <div style="padding:100px 0px 100px 0px;text-align:center;color:#848ac2;">
+                                <div class="cartWidgetMenu">
                                     @{
                                         Html.RenderPartial("CartWidget");
                                     }

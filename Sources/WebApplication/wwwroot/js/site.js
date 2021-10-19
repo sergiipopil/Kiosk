@@ -174,8 +174,20 @@ function selectManufacturer(carManufactureName) {
     return false;
 }
 
-function goToCart(selectedProductId) {
-    window.open('/Product/CartView/' + selectedProductId);
+
+function goToCart(selectedProductId, selectedProductName, selectedProductPrice, kioskId) {
+    addToCart(selectedProductId, selectedProductName, selectedProductPrice)
+    window.open('/Product/CartView/' + selectedProductId, "_self");
+}
+function addToCart(productId, productName, productPrice) {
+    ga('ec:addProduct', {
+        'id': productId,
+        'name': productName,
+        'price': productPrice,
+        'quantity': 1
+    });
+    ga('ec:setAction', 'add');
+    ga('send', 'event', 'UX', 'click', 'add to cart');     // Send data using an event.
 }
 function showMainView(topCategoryId) {
     $('div[id*="divTopCategory_"]').removeClass("selected");

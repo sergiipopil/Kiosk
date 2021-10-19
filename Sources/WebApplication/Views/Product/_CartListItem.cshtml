@@ -79,8 +79,19 @@
                     $("#cartWidgetPrice").text($("#mainCartTotalPrice").text());
                 }
             });
-    }
-    function deleteProduct(idControl) {
+        }
+        function removeFromCart(productId, productName, productPrice) {
+            ga('ec:removeProduct', {
+                'id': productId,
+                'name': productName,                
+                'price': productPrice,
+                'quantity': 1
+            });
+            ga('ec:setAction', 'remove');
+            ga('send', 'event', 'UX', 'click', 'remove to cart');     // Send data using an event.
+        }
+
+    function deleteProduct(productName, idControl, productPrice) {
 
         $.ajax({
                 type: "GET",
@@ -94,6 +105,26 @@
                 //    $("#cartWidgetEmpty").show();
                 //    $("#cartWidgetValue").hide();
                 //}
+                removeFromCart(idControl, productName, productPrice);
+                window.dataLayer = window.dataLayer || [];
+                dataLayer.push({
+                    'ecommerce': {
+                        'currencyCode': 'UAH',
+                        'remove': {
+                            'products': [{
+                                'name': productName,
+                                'id': idControl,
+                                'price': productPrice,
+                                'quantity': 1
+                            }]
+                        }
+                    },
+                    'event': 'gtm-ee-event',
+                    'gtm-ee-event-category': 'Enhanced Ecommerce',
+                    'gtm-ee-event-action': 'Removing a Product from a Shopping Cart',
+                    'gtm-ee-event-non-interaction': 'False',
+                });
+
                 }
             });
     }

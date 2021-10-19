@@ -1,27 +1,13 @@
 ﻿@model WebApplication.Models.PaymentViewModel
 <html>
 <head>
-    <!-- Google Tag Manager -->
     <script>
-    (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NWTLZ5F');</script>
-    <!-- End Google Tag Manager -->
-
+        function callMethodPay(nameMethod) {
+            $(nameMethod).submit();
+        }
+    </script>
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NWTLZ5F"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
     <div class="container-fluid" id="divMainOrderBlock">
         <div class="row">
             <div class="mainBlockTitleOrder" id="divTreeTitle" style="background: #EEEFFF;border-bottom:1px solid #504593;">
@@ -67,7 +53,7 @@
             <div class="col" style="color:#504593;background:#EEEFFF;min-height: 100vh;" id="divRightOrderColumn">
                 <div class="container-fluid" style="padding-top:50px;" id="divPaymentContainer">
                     <div class="row">
-                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formCard')" id="divBlock1">
+                        <div class="col-4" style="text-align:center;cursor:pointer;" onclick="callMethodPay('#formCard')" id="divBlock1">
                             <div class="paymentMethod">
                                 <img src="~/images/Payment/CreditCardBig.png" class="imgPayment" />
                                 <form id="formCard" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
@@ -77,7 +63,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formCardPrivat')" id="divBlock2">
+                        <div class="col-4" style="text-align:center;cursor:pointer;" onclick="callMethodPay('#formCardPrivat')" id="divBlock2">
                             <div class="paymentMethod">
                                 <img src="~/images/Payment/Privat24Big.png" class="imgPayment" />
                                 <form id="formCardPrivat" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
@@ -87,7 +73,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formTerminalPrivat')" id="divBlock3">
+                        <div class="col-4" style="text-align:center;cursor:pointer;" onclick="callMethodPay('#formTerminalPrivat')" id="divBlock3">
                             <div class="paymentMethod">
                                 <img src="~/images/Payment/CashInTerminalBig.png" class="imgPayment" />
                                 <form id="formTerminalPrivat" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
@@ -97,7 +83,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formQR')" id="divBlock4">
+                        <div class="col-4" style="text-align:center;cursor:pointer;" onclick="callMethodPay('#formQR')" id="divBlock4">
                             <div class="paymentMethod">
                                 <img src="~/images/Payment/qrCode1.jpg" class="imgPayment" />
                                 <form id="formQR" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
@@ -107,7 +93,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formLIQPAY')" id="divBlock5">
+                        <div class="col-4" style="text-align:center;cursor:pointer;" onclick="callMethodPay('#formLIQPAY')" id="divBlock5">
                             <div class="paymentMethod">
                                 <img src="~/images/Payment/liqpayNew.png" class="imgPayment" />
                                 <form id="formLIQPAY" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
@@ -117,7 +103,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="col-4" style="text-align:center;" onclick="callMethodPay('#formGooglePay')" id="divBlock6">
+                        <div class="col-4" style="text-align:center;cursor:pointer;" onclick="callMethodPay('#formGooglePay')" id="divBlock6">
                             <div class="paymentMethod">
                                 <img src="~/images/Payment/GPAY.jpg" class="imgPayment" />
                                 <form id="formGooglePay" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">

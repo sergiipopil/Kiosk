@@ -64,8 +64,10 @@ namespace WebApplication
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
-            
-            services.AddSingleton(HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic }));
+            services.AddWebEncoders(o => {
+                o.TextEncoderSettings = new System.Text.Encodings.Web.TextEncoderSettings(UnicodeRanges.All);
+            });
+            //services.AddSingleton(HtmlEncoder.Create(allowedRanges: new[] { UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic }));
             services.AddScoped<Ek4CarClient>();
             services.UpdateDatabase<KioskBrainsContext, DbInitializer>(services.BuildServiceProvider());
             services.AddControllersWithViews();

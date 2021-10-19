@@ -1,0 +1,63 @@
+﻿@media only screen and (max-width: 700px) {
+    .divMobileMenu {
+        display: inline-block !important;
+        vertical-align:middle;
+    }
+    .siteTitle {
+        width:75% !important;
+    }
+    .siteTitleInner {
+        padding: 0px 0px 0px 20px !important;
+    }
+}
+.siteTitleInner {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    padding: 0px 20px;
+}
+.siteTitle {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    width: 85%;
+}
+    /* Style the navigation menu */
+    .topnav {
+        overflow: hidden;
+        position: relative;
+        
+    }
+
+        /* Hide the links inside the navigation menu (except for logo/home) */
+        .topnav #myLinks {
+            display: none;
+        }
+
+        /* Style navigation menu links */
+        .topnav a {
+            color: #ff5a00;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            display: block;
+        }
+
+            /* Style the hamburger menu */
+            .topnav a.icon {
+                display: block;
+                right: 0;
+                top: 0;
+            }
+
+            /* Add a grey background color on mouse-over */
+            /*.topnav a:hover {
+                background-color: black;
+                color: white;
+            }*/
+
+    /* Style the active link (or home/logo) */
+    .active {
+        background-color: white;
+        color: white;
+    }

@@ -7,6 +7,23 @@
 @using X.PagedList.Mvc.Common
 <html>
 <head>
+    <meta charset="utf-8">
+    <script>        
+        window.dataLayer = window.dataLayer || [];
+        dataLayer.push({
+            'ecommerce': {
+                'currencyCode': 'UAH',
+                'impressions': [
+                  @Html.Raw(Model.ScriptData)]
+            },
+            'event': 'gtm-ee-event',
+            'gtm-ee-event-category': 'Enhanced Ecommerce',
+            'gtm-ee-event-action': 'Product Impressions',
+            'gtm-ee-event-non-interaction': 'True',
+        });
+    </script>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <!--  google-translate -->
@@ -43,6 +60,7 @@
             });
         });
         function switchFilter() {
+            window.scrollTo(0, 0);
             if ($(".divProductHeadFilter").css('display') == 'block') {
                 $(".divProductHeadFilter").css('display', 'none');
             }
@@ -109,18 +127,18 @@
     {
         @if (!String.IsNullOrEmpty(Model.PartNumberValue))
         {
-            <div style="display:inline-block;"><h1 class="controlHeader">@Model.PartNumberValue</h1></div>
+            <div style="display:inline-block;"><h1 class="controlHeader"><span class="notranslate">@Model.PartNumberValue</span></h1></div>
         }
         else
         {
-            <div style="display:inline-block;"><h1 class="controlHeader">@Model.SubCategoryName @Model.ManufacturerSelected @Model.ModelSelected</h1></div>
+            <div style="display:inline-block;"><h1 class="controlHeader"><span class="notranslate">@Model.SubCategoryName @Model.ManufacturerSelected @Model.ModelSelected</span></h1></div>
         }
     }
     else
     {
-        <div style="display:inline-block;"><h1 class="controlHeader">@Model.SubChildCategoryName @Model.ManufacturerSelected @Model.ModelSelected</h1></div>
+        <div style="display:inline-block;"><h1 class="controlHeader"><span class="notranslate">@Model.SubChildCategoryName @Model.ManufacturerSelected @Model.ModelSelected</span></h1></div>
     }
-    <div onclick="switchFilter()" style="display:inline-block;float: right; padding-right: 10px;">
+    <div onclick="switchFilter()" class="filterDes">
         <img src="~/images/FiltrOrange.png" class="filterIcon" /> <span style="text-transform:capitalize;" class="filterText">Фильтр</span>
     </div>
 </div>
@@ -138,37 +156,37 @@
                         @if (@Model.FilterName == "placeLR")
                         {
                             <tr>
-                                <td class="filterItemPlacementLR_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'LEWY_PRAWE', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType','@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Левая+Правая</td>
+                                <td class="filterItemPlacementLR_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'LEWY_PRAWE', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType','@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Левая+Правая</span></td>
                             </tr>
                             <tr>
-                                <td class="filterItemPlacementL_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'LEWY', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Левая</td>
+                                <td class="filterItemPlacementL_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'LEWY', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Левая</span></td>
                             </tr>
                             <tr>
-                                <td class="filterItemPlacementR_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'PRAWE', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Правая</td>
+                                <td class="filterItemPlacementR_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'PRAWE', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Правая</span></td>
                             </tr>
                         }
                         @if (@Model.FilterName == "placeFB")
                         {
                             <tr>
-                                <td class="filterItemPlacementF_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'przód', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Передняя</td>
+                                <td class="filterItemPlacementF_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'przód', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Передняя</span></td>
                             </tr>
                             <tr>
-                                <td class="filterItemPlacementB_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'tył', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Задняя</td>
+                                <td class="filterItemPlacementB_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'tył', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Задняя</span></td>
                             </tr>
                         }
                         @if (@Model.FilterName == "placeAll")
                         {
                             <tr>
-                                <td class="filterItemPlacementLF_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'lewy_przód', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Левая передняя</td>
+                                <td class="filterItemPlacementLF_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'lewy_przód', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Левая передняя</span></td>
                             </tr>
                             <tr>
-                                <td class="filterItemPlacementLB_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'lewy_tył', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Левая задняя</td>
+                                <td class="filterItemPlacementLB_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'lewy_tył', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Левая задняя</span></td>
                             </tr>
                             <tr>
-                                <td class="filterItemPlacementRF_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'prawy_przód', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Правая передняя</td>
+                                <td class="filterItemPlacementRF_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'prawy_przód', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Правая передняя</span></td>
                             </tr>
                             <tr>
-                                <td class="filterItemPlacementRB_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'prawy_tył', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Правая задняя</td>
+                                <td class="filterItemPlacementRB_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'prawy_tył', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Правая задняя</span></td>
                             </tr>
                         }
                     </table>
@@ -179,24 +197,24 @@
                     @if ((Model.ControllerName == "PartNumberInput" && Model.MainCategoryId == null) || (Model.MainCategoryId != null && !Model.MainCategoryId.Contains("257708") && !Model.MainCategoryId.Contains("257713") && !Model.MainCategoryId.Contains("257687") && !Model.MainCategoryId.Contains("257624")))
                     {
                         <tr>
-                            <td class="filterItemNewState_@Model.OfferState" onclick="FilteredList('New', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Новые</td>
+                            <td class="filterItemNewState_@Model.OfferState" onclick="FilteredList('New', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Новые</span></td>
                         </tr>
                     }
                     <tr>
-                        <td class="filterItemUsedState_@Model.OfferState" onclick="FilteredList('Used', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Б/у</td>
+                        <td class="filterItemUsedState_@Model.OfferState" onclick="FilteredList('Used', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Б/у</span></td>
                     </tr>
                 </table>
             </td>
             <td class="filterTd">
                 <table style="width:100%;text-align:center;">
                     <tr>
-                        <td style="display:none;" class="filterItemRelevanceSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'Relevance', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Обычная</td>
+                        <td style="display:none;" class="filterItemRelevanceSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'Relevance', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Обычная</span></td>
                     </tr>
                     <tr>
-                        <td class="filterItemDescSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceDesc', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Дороже</td>
+                        <td class="filterItemDescSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceDesc', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Дороже</span></td>
                     </tr>
                     <tr>
-                        <td class="filterItemAscSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceAsc', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Дешевле</td>
+                        <td class="filterItemAscSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceAsc', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Дешевле</span></td>
                     </tr>
                 </table>
             </td>
@@ -211,10 +229,10 @@
                     <table style="width:100%;text-align:center;">
                         @*<tr><td style="padding-bottom: 10px; text-align: center;font-weight:600;">Тип запчасти</td></tr>*@
                         <tr>
-                            <td class="filterItemOrigin_@Model.OfferSortingIsOrigin" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', 'oryginał', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width','@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Оригинал</td>
+                            <td class="filterItemOrigin_@Model.OfferSortingIsOrigin" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', 'oryginał', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width','@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Оригинал</span></td>
                         </tr>
                         <tr>
-                            <td class="filterItemFake_@Model.OfferSortingIsOrigin" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', 'zamiennik', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Заменитель</td>
+                            <td class="filterItemFake_@Model.OfferSortingIsOrigin" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', 'zamiennik', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Заменитель</span></td>
                         </tr>
                         <tr><td></td></tr>
                     </table>
@@ -227,13 +245,13 @@
                     <table style="width:100%;text-align:center;">
                         @*<tr><td style="padding-bottom:10px;text-align:center;font-weight:600;">Тип топлива</td></tr>*@
                         <tr>
-                            <td class="filterItemEngineBenzyn_@Model.OfferSortingEngineType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', 'benzynowy', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Бензин</td>
+                            <td class="filterItemEngineBenzyn_@Model.OfferSortingEngineType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', 'benzynowy', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Бензин</span></td>
                         </tr>
                         <tr>
-                            <td class="filterItemEngineDiesel_@Model.OfferSortingEngineType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', 'diesel', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Дизель</td>
+                            <td class="filterItemEngineDiesel_@Model.OfferSortingEngineType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', 'diesel', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Дизель</span></td>
                         </tr>
                         <tr>
-                            <td class="filterItemEngineElektryczne_@Model.OfferSortingEngineType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', 'elektryczne', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">Электро</td>
+                            <td class="filterItemEngineElektryczne_@Model.OfferSortingEngineType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', 'elektryczne', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Электро</span></td>
                         </tr>
                     </table>
                 </td>
@@ -243,10 +261,10 @@
                         <table style="width:100%;text-align:center;">
                             @*<tr><td style="padding-bottom:10px;text-align:center;font-weight:600;">Тип топлива</td></tr>*@
                             <tr>
-                                <td class="filterItemTransmissionAutomatyczna_@Model.OfferSortingTransmissionType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', 'Automatyczna', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">АКПП</td>
+                                <td class="filterItemTransmissionAutomatyczna_@Model.OfferSortingTransmissionType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', 'Automatyczna', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">АКПП</span></td>
                             </tr>
                             <tr>
-                                <td class="filterItemTransmissionManualna_@Model.OfferSortingTransmissionType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', 'Manualna', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')">КПП</td>
+                                <td class="filterItemTransmissionManualna_@Model.OfferSortingTransmissionType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', 'Manualna', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">КПП</span></td>
                             </tr>
                         </table>
                     </td>
@@ -313,17 +331,23 @@
     }*@
 @if (@Model.AllegroOfferList.Count() == 0)
 {
-    <div class="noProducts">
+<div class="noProducts">
+    <span class="notranslate">
         Ничего не найдено.
         Повторите поиск с другим значением или
         попробуйте в другом разделе
-    </div>
+        </span>
+</div>
+}
+else { 
+<div class="warningText"><span class="notranslate">Внимание! В цену на товар уже включены: доставка, страховка и таможенная пошлина</span></div>
 }
 <div style="text-align: center; padding: 7px 0px 0px 0px; color: grey;">
-    <div style="display:inline-block;vertical-align:middle;">Для перевода кликните на флажок</div>
-    <div style="display:inline-block;vertical-align:middle;padding-left:10px;" class="language">
-        <img src="/images/rus.png" width="30" alt="ru" style="display:inline-block;vertical-align:middle;" data-google-lang="ru" class="language__img">
-    </div>
+    @*<div style="display:inline-block;vertical-align:middle;">Для перевода кликните на флажок</div>
+        <div style="display:inline-block;vertical-align:middle;padding-left:10px;" class="language">
+                <img src="/images/rus.png" width="30" alt="ru" style="display:inline-block;vertical-align:middle;" data-google-lang="ru" class="language__img">
+            </div>*@
+    <a data-google-lang="ru" class="language__img" style="text-decoration:underline;cursor:pointer;">Перевести</a>
 </div>
 @foreach (var item in Model.AllegroOfferList)
 {
@@ -365,18 +389,18 @@
                         <div style="color: #ff5a00;font-weight:bold;">
                             <span class="divProductPrice" style="font-size:34px;">@item.Price</span>
                             <span class="divProductCurrency" style="font-size:18px;">@item.PriceCurrencyCode</span>
-                            <span id="priceDeliveryComment" style="color:#6c7096;font-size:14px;display:block;font-weight:normal;">Проверенный продавец</span>
-                            <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;margin-bottom:0px;">Быстрая доставка</p>
-                            <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">Гарантия 21 день</p>
+                            <span id="priceDeliveryComment" class="notranslate" style="color:#6c7096;font-size:14px;display:block;font-weight:normal;">Проверенный продавец</span>
+                            <p id="priceComment" class="notranslate" style="color:#6c7096;font-size:14px;font-weight:normal;margin-bottom:0px;">Быстрая доставка</p>
+                            <p id="priceComment" class="notranslate" style="color:#6c7096;font-size:14px;font-weight:normal;">Гарантия 21 день</p>
                         </div>
 
-                        <div onclick="goToCart('@item.SourceId', '@Model.kioskId')">
+                        <div onclick="goToCart('@item.SourceId','@item.Name.Last().Value','@item.Price', '@Model.kioskId')">
                             <button class="btnBuyList">
                                 <img src="~/images/Buy.png" />
-                                <span>Купить</span>
+                                <span class="notranslate">Купить</span>
                             </button>
                         </div>
-                        <div style="color: #ff5a00; text-align: center;">Безопасная покупка</div>
+                        <div style="color: #ff5a00; text-align: center;" class="notranslate">Безопасная покупка</div>
                     </div>
                 </div>
             </div>

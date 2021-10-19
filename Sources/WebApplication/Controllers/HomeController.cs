@@ -22,11 +22,18 @@ using KioskBrains.Server.Domain.Actions.EkKiosk;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using X.PagedList;
+using System.Text;
 using System.Net.Http;
+using Microsoft.Office.Interop.Excel;
+using System.Data.OleDb;
 using System.Web;
 using System.IO;
 using HtmlAgilityPack;
 using HtmlAgilityPack.CssSelectors.NetCore;
+using OfficeOpenXml;
+using System.IO;
+using OfficeOpenXml.Table;
+using System;
 
 namespace WebApplication.Controllers
 {
@@ -66,6 +73,60 @@ namespace WebApplication.Controllers
             public IList<string> ManufactureNumbersList { get; set; }
         }
 
+        public void CreateExcel()
+        {
+            ExcelPackage ExcelPkg = new ExcelPackage();
+            ExcelWorksheet wsSheet1 = ExcelPkg.Workbook.Worksheets.Add("Блок управления гидроусилителя Автобуси");
+            using (ExcelRange Rng = wsSheet1.Cells["A1:B100000"])
+            {
+                ExcelTable table = wsSheet1.Tables.Add(Rng, "tblSalesman");
+                table.Name = "tblSales";
+                table.Columns[0].Name = "AutoParts/Manufacture/Model";
+                table.Columns[1].Name = "Link";
+                table.ShowFilter = false;
+            }
+            Dictionary<string, string> test = new Dictionary<string, string>();
+
+            var carTree = EkCategoryHelper.GetCarModelTree().Where(x => x.CarType == EkCarTypeEnum.Bus).Select(x => x.Manufacturers).FirstOrDefault();
+
+            int i = 2;
+            foreach (var itemManufacture in carTree)
+            {
+                foreach (var itemCarModels in itemManufacture.CarModels)
+                {
+                    if (itemCarModels.Children == null)
+                    {
+                        using (ExcelRange Rng = wsSheet1.Cells["A" + i])
+                        {
+                            Rng.Value = String.Format("Блок управления гидроусилителя {0} {1}", itemManufacture.Name, itemCarModels.Name);
+                        }
+                        using (ExcelRange Rng = wsSheet1.Cells["B" + i])
+                        {
+                            Rng.Value = String.Format("https://bi-bi.com.ua/topcategoryid/622/{0}/{1}/group-250842/Рулевое-управление/261084/Блок-управления-гидроусилителя", itemManufacture.Name.ToLower().Replace(" ", "-"), itemCarModels.Name.ToLower().Replace(" ", "-"));
+                        }
+                        i++;
+                    }
+                    else {
+                        foreach (var itemModifications in itemCarModels.Children)
+                        {
+                            using (ExcelRange Rng = wsSheet1.Cells["A" + i])
+                            {
+                                Rng.Value = String.Format("Блок управления гидроусилителя {0} {1}", itemManufacture.Name, itemModifications.Name);
+                            }
+                            using (ExcelRange Rng = wsSheet1.Cells["B" + i])
+                            {
+                                Rng.Value = String.Format("https://bi-bi.com.ua/topcategoryid/622/{0}/{1}/group-250842/Рулевое-управление/261084/Блок-управления-гидроусилителя", itemManufacture.Name.ToLower().Replace(" ", "-"), itemModifications.Name.ToLower().Replace(" ", "-"));
+                            }
+                            i++;
+                        }
+                    }
+                }
+            }
+            wsSheet1.Cells[wsSheet1.Dimension.Address].AutoFitColumns();
+            ExcelPkg.SaveAs(new FileInfo("Блок управления гидроусилителя Автобуси.xlsx"));
+
+        }
+
         [Route("/")]
         [Route("/{topcategory?}/")]
         [Route("/{topcategory?}/{category?}")]
@@ -85,6 +146,8 @@ namespace WebApplication.Controllers
 
         public IActionResult Index(string kioskId)
         {
+
+            //CreateExcel();
             //IList<string> testingList = new List<string>() { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
             //var newTest = testingList.AsEnumerable().OrderBy(n => Guid.NewGuid()).Take(5);
             //HtmlWeb web = new HtmlWeb();
@@ -145,7 +208,7 @@ namespace WebApplication.Controllers
             {//legkovi-gruzovi-avtobusy use similar autoparts category = 620
                 _topCategoryId = "620";
             }
-            var treeMainCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == (String.IsNullOrEmpty(_topCategoryId) || _topCategoryId.Length>5 ? "620" : _topCategoryId)).FirstOrDefault().Children;
+            var treeMainCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == (String.IsNullOrEmpty(_topCategoryId) || _topCategoryId.Length > 5 ? "620" : _topCategoryId)).FirstOrDefault().Children;
 
 
 
@@ -491,9 +554,11 @@ namespace WebApplication.Controllers
                 treeViewModel.OfferSorting = OfferSortingEnum.Relevance;
                 treeViewModel.OfferState = isNew ? OfferStateEnum.New : OfferStateEnum.Used;
                 treeViewModel.ViewName = "_ProductsList";
-
+                treeViewModel.SelectedCategoryName = mainCategoryName;
+                treeViewModel.ScriptData = GetEcommerceScriptData(treeViewModel);
                 HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeViewModel));
                 ViewBag.TitleText = "Купить " + mainCategoryId + " " + carManufactureName + " " + carModel + " с разборки";
+
                 return treeViewModel;
             }
             foreach (var item in autoPartsSubCategories)
@@ -597,9 +662,11 @@ namespace WebApplication.Controllers
                 treeViewModel.OfferState = isNew ? OfferStateEnum.New : OfferStateEnum.Used;
                 treeViewModel.kioskId = tempKioskId;
                 treeViewModel.ViewName = "_ProductsList";
-
+                treeViewModel.SelectedCategoryName = subCategoryName;
+                treeViewModel.ScriptData = GetEcommerceScriptData(treeViewModel);
                 HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeViewModel));
                 ViewBag.TitleText = "Купить " + subCategoryName + " " + carManufactureName + " " + carModel + " с разборки";
+
                 return treeViewModel;
             }
             foreach (var item in autoPartsSubChildCategories)
@@ -693,7 +760,8 @@ namespace WebApplication.Controllers
                 treeViewModel.OfferSorting = OfferSortingEnum.Relevance;
                 treeViewModel.OfferState = isNew ? OfferStateEnum.New : OfferStateEnum.Used;
                 treeViewModel.kioskId = tempKioskId;
-
+                treeViewModel.SelectedCategoryName = subCategoryName;
+                treeViewModel.ScriptData = GetEcommerceScriptData(treeViewModel);
                 HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeViewModel));
 
                 return View("_ProductsList", treeViewModel);
@@ -819,6 +887,8 @@ namespace WebApplication.Controllers
                 FakeAllegroList = FakeListForPager(responceAllegro.Total),
                 OfferSorting = OfferSortingEnum.Relevance
             };
+            treeView.SelectedCategoryName = String.IsNullOrEmpty(subChildName) ? lastChildName : subChildName;
+            treeView.ScriptData = GetEcommerceScriptData(treeView);
             HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
             return View("_ProductsList", treeView);
         }
@@ -941,6 +1011,8 @@ namespace WebApplication.Controllers
                 OfferSorting = OfferSortingEnum.Relevance
             };
             ViewBag.TitleText = String.Format("Купить {0} {1} {2} с разборки", String.IsNullOrEmpty(lastChildName) ? subChildName : lastChildName, carManufactureName, carModel);
+            treeView.SelectedCategoryName = String.IsNullOrEmpty(lastChildName) ? subChildName : lastChildName;
+            treeView.ScriptData = GetEcommerceScriptData(treeView);
             HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
             return treeView;
         }
@@ -1002,6 +1074,8 @@ namespace WebApplication.Controllers
                 OfferState = isNew ? OfferStateEnum.New : OfferStateEnum.Used,
                 PageNumber = 1
             };
+            treeView.SelectedCategoryName = partNumber;
+            treeView.ScriptData = GetEcommerceScriptData(treeView);
             HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
             HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
             return View("_ProductsList", treeView);
@@ -1070,6 +1144,7 @@ namespace WebApplication.Controllers
                 ViewName = "_ProductsList"
             };
             ViewBag.TitleText = "Купить " + partNumber;
+            treeView.ScriptData = GetEcommerceScriptData(treeView);
             HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
             HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
             return treeView;
@@ -1198,6 +1273,7 @@ namespace WebApplication.Controllers
                     rightTree.SelectedTiresSizes.Height = tiresHeight;
                     rightTree.SelectedTiresSizes.RSize = tiresRSize;
                     rightTree.SelectedEngineValue = engineValue;
+                    rightTree.ScriptData = GetEcommerceScriptData(rightTree);
                     HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));
                     HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
                     return View("_ProductsList", rightTree);
@@ -1218,6 +1294,7 @@ namespace WebApplication.Controllers
                     rightTree.SelectedTiresSizes.Height = tiresHeight;
                     rightTree.SelectedTiresSizes.RSize = tiresRSize;
                     rightTree.SelectedEngineValue = engineValue;
+                    rightTree.ScriptData = GetEcommerceScriptData(rightTree);
                     HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegroNumberMode.Products));
                     HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
                     return View("_ProductsList", rightTree);
@@ -1240,10 +1317,12 @@ namespace WebApplication.Controllers
                     rightTree.SelectedTiresSizes.Height = tiresHeight;
                     rightTree.SelectedTiresSizes.RSize = tiresRSize;
                     rightTree.SelectedEngineValue = engineValue;
+                    rightTree.ScriptData = GetEcommerceScriptData(rightTree);
                     HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegroSubCategories.Products));
                     HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
                     return View("_ProductsList", rightTree);
             }
+            rightTree.ScriptData = GetEcommerceScriptData(rightTree);
             return View("_ProductsList", rightTree);
         }
         //=============DEFAULT ACTIONS ==============
@@ -1308,10 +1387,30 @@ namespace WebApplication.Controllers
                 Quantity = new TiresSizes().GetTiresCnt()
             };
             rightTree.EngineValues = new EngineValue().GetEngineValue();
+            rightTree.ViewName = "_ProductsList";
+            rightTree.ScriptData = GetEcommerceScriptData(rightTree);
             HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegroSubCategories.Products));
             HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(rightTree));
-            rightTree.ViewName = "_ProductsList";
             return View(rightTree);
+        }
+        public static string HtmlEncode(string value)
+        {
+            return value.Replace("&", "&amp;").Replace("<", "&lt;").Replace(">", "&gt;").Replace("\"", "&quot;").Replace("'", "&apos;");
+        }
+        public string GetEcommerceScriptData(RightTreeViewModel model)
+        {
+            string script = "";
+            foreach (var item in model.AllegroOfferList)
+            {
+                script = script + "{" + String.Format("'name': '{0}','id': '{1}','price': '{2}','category': '{3}', 'list': 'Search Results'", item.Name["pl"], item.SourceId, item.FinalPrice, model.SelectedCategoryName) + "},\n";
+            }
+            if (!String.IsNullOrEmpty(script))
+            {
+                return script.Remove(script.Length - 2);
+            }
+            return script;
+
+
         }
     }
 }

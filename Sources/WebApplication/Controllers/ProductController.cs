@@ -93,7 +93,7 @@ namespace WebApplication.Controllers
             string payProducts = String.Format("№ замовлення {0}\n Оплата за товар:\n", response.data);
             foreach (var item in tempCartProducts)
             {
-                payProducts += String.Format("{0} ({1} шт) - {2}{3}", item.name["ru"], item.quantity, item.finalPrice, item.priceCurrencyCode) + "\n";
+                payProducts += String.Format("{0} ({1} шт) - {2}{3}", item.name["pl"], item.quantity, item.finalPrice, item.priceCurrencyCode) + "\n";
             }
 
             OrderPaymentSettings privat24Settings = new OrderPaymentSettings(_paymentPublicKey, "3", "pay", ordered.TotalPrice.ToString(), "UAH", payProducts, response.data, "uk", "privat24", "https://api.ek4car.com/payment/callback");
@@ -217,14 +217,30 @@ namespace WebApplication.Controllers
                 new CartWidgetController().CartWidget();
             }
             HttpContext.Session.SetString("cartList", JsonSerializer.Serialize(cartList123));
-            return View("CartViewInner", cartList123);
+            string script = "";
+
+            foreach (var item in cartList123)
+            {
+                script = script + "{" + String.Format("'name': '{0}','id': '{1}','price': '{2}','quantity': 1", item.Product.Name["pl"], item.Product.SourceId, item.Product.FinalPrice) + "},\n";
+            }
+            if (!String.IsNullOrEmpty(script))
+            {
+                script = script.Remove(script.Length - 2);
+            }
+            CartProductModel cartModel = new CartProductModel()
+            {
+                Products = cartList123,
+                ScriptData = script
+            };
+            return View("CartViewInner", cartModel);
 
 
         }
 
         public ActionResult CartView(string selectedProductId = null)
         {
-            if (this.RouteData.Values["topcategory"]!=null)
+            string script = "";
+            if (this.RouteData.Values["topcategory"] != null)
             {
                 selectedProductId = (string)this.RouteData.Values["topcategory"];
             }
@@ -242,7 +258,8 @@ namespace WebApplication.Controllers
             {
                 tempAllPrice += item.Product.Price * item.Quantity;
             }
-
+            ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
+                rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName);
 
             HttpContext.Session.SetString("cartWidgetPrice", tempAllPrice.ToString());
             ViewData["CartWidgetPrice"] = tempAllPrice;
@@ -251,11 +268,37 @@ namespace WebApplication.Controllers
 
             if (cartProducts.Select(x => x.Product.SourceId).Contains(selectedProductId))
             {
-                return View(GetCartProducts());
+                foreach (var item in GetCartProducts())
+                {
+                    script = script + "{" + String.Format("'name': '{0}','id': '{1}','price': '{2}','quantity': 1", item.Product.Name["pl"], item.Product.SourceId, item.Product.FinalPrice) + "},\n";
+                }
+                if (!String.IsNullOrEmpty(script))
+                {
+                    script = script.Remove(script.Length - 2);
+                }
+                CartProductModel cartModel1 = new CartProductModel()
+                {
+                    Products = GetCartProducts(),
+                    ScriptData = script
+                };
+                return View(cartModel1);
             }
             if (String.IsNullOrEmpty(selectedProductId) && String.IsNullOrEmpty(rightTree.PartNumberValue))
             {
-                return View(GetCartProducts());
+                foreach (var item in GetCartProducts())
+                {
+                    script = script + "{" + String.Format("'name': '{0}','id': '{1}','price': '{2}','quantity': 1", item.Product.Name["pl"], item.Product.SourceId, item.Product.FinalPrice) + "},\n";
+                }
+                if (!String.IsNullOrEmpty(script))
+                {
+                    script = script.Remove(script.Length - 2);
+                }
+                CartProductModel cartModel2 = new CartProductModel()
+                {
+                    Products = GetCartProducts(),
+                    ScriptData = script
+                };
+                return View(cartModel2);
             }
             //======================= START -- RETURN TO LIST PARAMS ----------- =================
             //String.Format("selectMainCategory('{0}', '{1}', '{2}', '{3}', '{4}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, tempKioskId)
@@ -290,7 +333,21 @@ namespace WebApplication.Controllers
             ViewData["CartWidgetPrice"] = totalPrice;
             CartWidgetController cartWidgetControl = new CartWidgetController();
             cartWidgetControl.CartWidget();
-            return View(cartList);
+
+            foreach (var item in cartList)
+            {
+                script = script + "{" + String.Format("'name': '{0}','id': '{1}','price': '{2}','quantity': 1", item.Product.Name["pl"], item.Product.SourceId, item.Product.FinalPrice) + "},\n";
+            }
+            if (!String.IsNullOrEmpty(script))
+            {
+                script = script.Remove(script.Length - 2);
+            }
+            CartProductModel cartModel = new CartProductModel()
+            {
+                Products = cartList,
+                ScriptData = script
+            };
+            return View(cartModel);
 
         }
 
@@ -388,6 +445,17 @@ namespace WebApplication.Controllers
                 Departments = string.IsNullOrEmpty(city) ? new WarehouseSearchItem[0] : GetAllNovaPoshtaCityDepts(city).Result,
                 CartProducts = cartProducts
             };
+            string script = "";
+
+            foreach (var item in GetCartProducts())
+            {
+                script = script + "{" + String.Format("'name': '{0}','id': '{1}','price': '{2}','quantity': 1", item.Product.Name["pl"], item.Product.SourceId, item.Product.FinalPrice) + "},\n";
+            }
+            if (!String.IsNullOrEmpty(script))
+            {
+                script = script.Remove(script.Length - 2);
+            }
+            npView.ScriptData = script;
             return area == null && city == null ? (ActionResult)View(npView) : Json(npView);
         }
         public void ClearAllSessions()
@@ -520,6 +588,16 @@ namespace WebApplication.Controllers
         }
         public IActionResult Success()
         {
+            string script = "";
+            foreach (var item in GetCartProducts())
+            {
+                script = script + "{" + String.Format("'name': '{0}','id': '{1}','price': '{2}','quantity': 1", item.Product.Name["pl"], item.Product.SourceId, item.Product.FinalPrice) + "},\n";
+            }
+            if (!String.IsNullOrEmpty(script))
+            {
+                script = script.Remove(script.Length - 2);
+            }
+            ViewBag.ScriptData = String.IsNullOrEmpty(script) ? "none" : script;
             return View();
         }
         public Offer GetProductInfo(string id)

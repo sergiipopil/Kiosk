@@ -1,7 +1,10 @@
-﻿@model IList<WebApplication.Classes.CartProduct>
+﻿@model WebApplication.Classes.CartProductModel
 @{
     Layout = null;
 }
+<script>
+        
+</script>
 <table id="tblCartViewInnder" style="min-width:100%;">
     <tr>
         <td style="vertical-align:top;padding-right:4%;min-height: 100%; height:100%;" class="leftCartColumn">
@@ -9,13 +12,13 @@
                 <span style="color:white;font-size:30px;" class="cartTitle">У Вас в корзине</span>
                 <div style="padding:50px 0px;" class="cartProductsPadding">
 
-                    @if (Model != null)
+                    @if (Model != null && Model.Products != null)
                     {
-                    @foreach (var item in @Model)
+                    @foreach (var item in @Model.Products)
                         {
                     <div style="padding:15px 10px;">
                         <div class="inline-block"><img src="~/images/CartWidgetEmpty.png"></div>
-                        <div class="inline-block" onclick="deleteProduct('@item.Product.SourceId')">
+                        <div class="inline-block" onclick="deleteProduct('@item.Product.Name["pl"]', '@item.Product.SourceId', '@item.Product.FinalPrice')">
                             <button class="btnDeleteCartItem">
                                 <img src="~/images/Cart/Delete.png" />
                             </button>
@@ -50,14 +53,16 @@
             </div>
             
             <div style="background:#DCDEFF;">
-                @if (Model == null || Model.Count == 0)
+
+                @if (Model.Products == null || Model.Products.Count == 0)
                 {<div id="emptyCart" style="width: 100%; font-size: 30px; text-align: center; padding: 30% 30% 0 30%; font-weight: bold; color: #504593;"> Корзина пустая</div> }
                 else
                 {
-                @Html.Partial("_CartListItem", Model)
+                <div class="warningText">Внимание! В цену на товар уже включены: доставка, страховка и таможенная пошлина</div>
+                @Html.Partial("_CartListItem", Model.Products)
                 }
-           
-                @if (Model.Count > 0)
+
+                @if (Model.Products.Count > 0)
                 {
                 <table style="width:100%;margin-top:30px;text-align:center;" class="divCartControlButtons">
                     <tr>

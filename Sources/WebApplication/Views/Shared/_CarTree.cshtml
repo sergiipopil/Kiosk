@@ -40,7 +40,7 @@
 @if (@Model.ManufacturerSelected == null)
 {
     <h1 class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
-        Выберите марку
+        <span class="notranslate">Выберите марку</span>
     </h1>
     <div class="treeMainBlock">
         @foreach (var item in Model.ManufacturerList)
@@ -51,7 +51,7 @@
                         @*onclick="selectManufacturer('@item.Name', '@Model.kioskId', '@Model.TopCategoryId')"*@
                         <img src="@String.Format("/images/Catalog/Model_Logo/{0}.webp", item.Name)" alt="@item.Name" class="manufactureImage" />
                     </div>
-                    <div class="manufactureTextModels">@item.Name</div>
+                    <div class="manufactureTextModels"><span class="notranslate">@item.Name</span></div>
                 </a>
             </div>
         }
@@ -63,22 +63,23 @@
         <div onclick="back('@Model.TopCategoryId')" class="btnBackModelPage">
             <span>Назад</span>
         </div>
-        <div style="display:inline-block;">Выберите модель</div>
+        <div style="display:inline-block;"><span class="notranslate">Выберите модель</span></div>
     </div>
     <div style="padding: 10px 0px 10px 20px;">
         @foreach (var item in Model.ModelsList)
         {
             <div style="display:inline-block;vertical-align:middle;">
                 <a href="/topcategory/@Model.TopCategoryId/@Model.ManufacturerSelected.Replace(" ", "-")/@item.ToString().Replace(" ", "-")">
-                    <div class="parentDiv" style="display:grid;">@*onclick="selectCarModel('@Model.ManufacturerSelected', '@item')"*@
-                        <div class="divCarModelsBlock">
-                            <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, item)" class="modelImage" />
-                        </div><div class="manufactureText">
-                            <span>@item</span>
-                        </div>
+                    <div class="parentDiv" style="display:grid;">
+                        @*onclick="selectCarModel('@Model.ManufacturerSelected', '@item')"*@
+                    <div class="divCarModelsBlock">
+                        <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, item)" class="modelImage" />
+                    </div><div class="manufactureText">
+                        <span class="notranslate">@item</span>
                     </div>
-                </a>
-            </div>
-        }
+                </div>
+            </a>
+        </div>
+    }
     </div>
 }

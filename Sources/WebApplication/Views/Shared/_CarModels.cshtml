@@ -12,10 +12,10 @@
     <div style="display:inline-block;">
         @if (!Model.IsModificationList)
         {
-            <h1 class="controlHeader">Купить запчасти @Model.ManufacturerSelected @Model.ModelSelected @Model.ModificationSelected</h1>}
+            <h1 class="controlHeader"><span class="notranslate">Купить запчасти @Model.ManufacturerSelected @Model.ModelSelected @Model.ModificationSelected</span></h1>}
         else
         {
-            <h1 class="controlHeader">Купить запчасти @Model.ManufacturerSelected @Model.ModelSelected @Model.ModificationSelected</h1>
+            <h1 class="controlHeader"><span class="notranslate">Купить запчасти @Model.ManufacturerSelected @Model.ModelSelected @Model.ModificationSelected</span></h1>
         }
     </div>
 </div>
@@ -34,7 +34,7 @@
                                 <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
                             </div>
                             <div class="manufactureText">
-                                <span>@item.Name</span>
+                                <span class="notranslate">@item.Name</span>
                             </div>
                         </div>
                     </a>
@@ -49,7 +49,7 @@
                                 <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
                             </div>
                             <div class="manufactureText">
-                                <span>@item.Name</span>
+                                <span class="notranslate">@item.Name</span>
                             </div>
                         </div>
                     </a>
@@ -64,7 +64,7 @@
                         <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
                     </div>
                     <div class="manufactureText">
-                        <span>@item.DisplayName</span>
+                        <span class="notranslate">@item.DisplayName</span>
                     </div>
                 </div>
             </a>

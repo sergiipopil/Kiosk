@@ -1,28 +1,34 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Thank you";
 }
 <html>
 <head>
-    <!-- Google Tag Manager -->
     <script>
-    (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NWTLZ5F');</script>
-    <!-- End Google Tag Manager -->
+        window.dataLayer = window.dataLayer || [];
+        dataLayer.push({
+            'ecommerce': {
+                'currencyCode': 'UAH',
+                'purchase': {
+                    'actionField': {
+                        'id': 'TID1',
+                        'affiliation': 'Online Store',
+                        'revenue': '91.4',
+                        'tax': '9.4',
+                        'shipping': '35',
+                    },
+                    'products': [@Html.Raw(@ViewBag.ScriptData)]
+                }
+            },
+            'event': 'gtm-ee-event',
+            'gtm-ee-event-category': 'Enhanced Ecommerce',
+            'gtm-ee-event-action': 'Purchase',
+            'gtm-ee-event-non-interaction': 'False',
+        });
+    </script>
 
 </head>
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NWTLZ5F"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
 
     <div style="text-align:center;width:100%;color:white;padding-top:10%;">
         <div style="display:inline-block;vertical-align:middle;"><img src="~/images/success.png" style="max-height:130px;" /></div>

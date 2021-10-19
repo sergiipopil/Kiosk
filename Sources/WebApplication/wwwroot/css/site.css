@@ -63,10 +63,38 @@ for details on configuring this project to bundle and minify static web assets. 
         border-right: 1px solid #c3c4c7;
         display: inline-block;
     }
+.goog-te-banner-frame {
+    display:none !important;
+    height:0px !important;
+    top:1000px !important;
+}
+.filterDes {
+    box-shadow: 0px 0px 5px;
+    display: inline-block;
+    z-index: 999;
+    bottom: 10%;
+    position: fixed;
+    background: white;
+    padding: 3px 5px;
+    border-radius: 10px;
+    right: 2%;
+    cursor: pointer;
+}
+.cartWidgetMenu {
+    padding: 100px 0px 100px 0px;
+    text-align: center;
+    color: #848ac2;
+}
 .footerSmallItem {
     cursor: pointer;
     text-decoration: underline;
     font-size: 18px;
+}
+.warningText {
+    text-align: center;
+    padding: 10px 0px 0px 0px;
+    color: #ff5a00;
+    font-weight: 500;
 }
 .filterIcon {
     width:35px;
@@ -112,7 +140,7 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 .btn-group > .btn:first-child {
-    min-height: 50px !important;
+    min-height: 70px !important;
     font-size: 18px !important;
 }
 .bootstrap-select.btn-group .dropdown-menu li a span.text, .bootstrap-select.btn-group .dropdown-toggle .filter-option {
@@ -221,7 +249,7 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 .sitePhone {
     color: #ff5200;
-    font-size: 2em;
+    font-size: 2em !important;
 }
 .columnNanufacture {
     color:white;
@@ -309,6 +337,8 @@ body {
 ul.pagination li {
     padding: 0px 8px;
     font-size: 20px;
+    background: transparent;
+    color: red;
 }
 
 .pagination {
@@ -584,8 +614,33 @@ html {
     left: 5%;
 }
 @media only screen and (max-width: 700px) {
+    .emptyCartImg {
+        width:40px;    }
+    .modal-dialog {
+        max-width: 95% !important;
+        width: 95% !important;
+    }
+    #divLeftMenu {
+        max-width: 100% !important;
+        width: 100% !important;
+        position: absolute;
+        top: 60px;
+        z-index: 999999;
+        padding: 20px 0px !important;
+        background: white;
+        box-shadow: 0px 0px 10px;
+    }.cartWidgetMenu {
+        padding: 100px 0px 100px 0px;
+        text-align: center;
+        color: #848ac2;
+    }
+    .cartWidgetMenu {
+        padding: 10px;
+        text-align: center;
+        color: #848ac2;
+    }
     .treeMainCategory, .treeSubCategory, .treeSubChildCategory, .treeLastCategory {
-        width:100%;
+        width: 100%;
     }
     .filterIcon {
         width:20px;
@@ -601,7 +656,7 @@ html {
         height: 30px;
     }
     .sitePhone, .controlHeader {
-        font-size: 1rem;
+        font-size: 1rem !important;
     }
     .filterTd {
         width:25% !important;
@@ -1225,7 +1280,7 @@ html {
         border: 1px solid #c1c1c1;
         border-left: 4px solid blue;
         min-height: 220px;
-        max-height: 220px;
+        max-height: 320px;
     }
         .divProductListCard:hover {
             background: #f1f1f1;

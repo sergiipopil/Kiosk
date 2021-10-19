@@ -7,7 +7,7 @@
     <div onclick="selectCarModel('@Model.ManufacturerSelected', '@Model.ModelSelected', null, '@Model.kioskId', '@Model.TopCategoryId')" class="btnBackModelPage">
         <span>Назад</span>
     </div>
-    <div style="display:inline-block;"><h1 class="controlHeader">@Model.MainCategoryName @Model.ManufacturerSelected @Model.ModelSelected</h1></div>
+    <div style="display:inline-block;"><h1 class="controlHeader"><span class="notranslate">@Model.MainCategoryName @Model.ManufacturerSelected @Model.ModelSelected</span></h1></div>
 </div>
 <div style="padding: 10px 0px 10px 20px;">
     @if(@Model.ManufacturerSelected!=null){
@@ -21,7 +21,7 @@
                     <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
                 </div>
                 <div class="manufactureText">
-                    <span>@item.Name.FirstOrDefault().Value</span>
+                    <span class="notranslate">@item.Name.FirstOrDefault().Value</span>
                 </div>
             </div>
         </a>
@@ -39,7 +39,7 @@
                     <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
                 </div>
                 <div class="manufactureText">
-                    <span>@item.Name.FirstOrDefault().Value</span>
+                    <span class="notranslate">@item.Name.FirstOrDefault().Value</span>
                 </div>
             </div>
         </a>

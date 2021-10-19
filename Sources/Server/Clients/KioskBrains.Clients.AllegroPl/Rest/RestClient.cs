@@ -413,15 +413,16 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
             var action = "/offers/listing";
             var response = await GetAsync<Models.SearchOffersResponse>(action, parameters, cancellationToken);
-            
-            if (response.Items != null && categoryId=="250847") {
+
+            if (response.Items != null && categoryId == "250847")
+            {
                 foreach (var item in response.Items.Regular)
                 {
                     foreach (var itemSub in rulevoe)
                     {
                         item.Name = item.Name.ToLower().Replace(itemSub.ToLower(), "рулевая рейка");
                     }
-                    
+
                 }
             }
             if (response.Items == null)
@@ -471,6 +472,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             public decimal? seller_rating { get; set; }
             public Specifications specifications { get; set; }
             public IEnumerable<ImagesParser> images { get; set; }
+            public IEnumerable<CategoryParser> category_path { get; set; }
             public Description description { get; set; }
             //public object compatibility { get; set; }
         }
@@ -480,6 +482,13 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             public string thumbnail { get; set; }
             public string embeded { get; set; }
             public string alt { get; set; }
+
+        }
+        public class CategoryParser
+        {
+            public string id { get; set; }
+            public string name { get; set; }
+            public string url { get; set; }
 
         }
         private async Task<DetailParserData> GetAsyncDetails(string id)
@@ -512,16 +521,19 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             try
             {
                 var res = GetAsyncDetails(id).Result;
-                
+
                 List<OfferParameter> listParameters = new List<OfferParameter>();
 
                 foreach (var item in res.specifications.Parametry)
                 {
-                    listParameters.Add(new OfferParameter()
+                    if (item.Key != "Faktura")
                     {
-                        Name = new MultiLanguageString() { [Languages.PolishCode] = item.Key },
-                        Value = new MultiLanguageString() { [Languages.PolishCode] = item.Value.ToString() }
-                    });
+                        listParameters.Add(new OfferParameter()
+                        {
+                            Name = new MultiLanguageString() { [Languages.PolishCode] = item.Key },
+                            Value = new MultiLanguageString() { [Languages.PolishCode] = item.Value.ToString() }
+                        });
+                    }
                 }
                 var temp = res.description.sections.Select(x => x.items).ToList();
                 var resTemp = "";
@@ -560,6 +572,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
                 return new Offer()
                 {
+                    CategoryId = res.category_path.Count() > 0 ? res.category_path.Last().id : "",
                     Name = new MultiLanguageString()
                     {
                         [Languages.PolishCode] = res.title

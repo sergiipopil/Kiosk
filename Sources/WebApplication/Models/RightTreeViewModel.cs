@@ -13,6 +13,8 @@ namespace WebApplication.Models
 {
     public class RightTreeViewModel
     {
+        public string SelectedCategoryName { get; set; }
+        public string ScriptData { get; set; }
         public IList<string> AdvertCities {
             get {
                 return EkCategoryHelper.GetAdvertCities();

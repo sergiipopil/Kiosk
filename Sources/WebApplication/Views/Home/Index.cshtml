@@ -7,18 +7,7 @@
 
 <html>
 <head>
-    <!-- Google Tag Manager -->
-    <script>
-    (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-NWTLZ5F');</script>
-    <!-- End Google Tag Manager -->
-
+   
     <link href="~/css/site.css" rel="stylesheet" />
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
     <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1" />
@@ -295,7 +284,7 @@
                 if (model != null && model != "") {
 
                     $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDivBreadCrumbs" onclick="selectCarModel('${manufacture}', '${model}', null, '${kioskId}', '${topcategoryid}')" style="display:grid;">
-                <div class="breadcrumbsStyle1"><img src="/images/Catalog/CarModel/${manufacture}/${modification}.png" class="modelImageBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${modification}</span>
+                <div class="breadcrumbsStyle1"><img src="/images/Catalog/CarModel/${manufacture}/${modification}.png" class="modelImageBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="notranslate" style="color:black;">${modification}</span>
                             </div></div>`);
                 }
             }
@@ -303,28 +292,28 @@
                 if (model != null && model != "") {
 
                     $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDivBreadCrumbs" onclick="selectCarModel('${manufacture}', '${model}', null, '${kioskId}', '${topcategoryid}')" style="display:grid;">
-                <div class="breadcrumbsStyle1"><img src="/images/Catalog/CarModel/${manufacture}/${model}.png" class="modelImageBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${model}</span>
+                <div class="breadcrumbsStyle1"><img src="/images/Catalog/CarModel/${manufacture}/${model}.png" class="modelImageBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="notranslate" style="color:black;">${model}</span>
                             </div></div>`);
                 }
             }
             if (mainCategoryName != null) {
                 $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsMainCategory" class="parentDivBreadCrumbs" onclick="selectMainCategory('${manufacture}', '${model}', '${mainCategoryId}', '${mainCategoryName}', '${kioskId}', '${topcategoryid}')" style="display:grid;">
-                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${mainCategoryId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${mainCategoryName}</span>
+                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${mainCategoryId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="notranslate" style="color:black;">${mainCategoryName}</span>
                             </div></div>`);
             }
             if (subCategoryName != null) {
                 $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsSubCategory" class="parentDivBreadCrumbs" onclick="selectSubMainCategory('${manufacture}', '${model}', '${mainCategoryId}', '${mainCategoryName}', '${subCategoryId}', '${subCategoryName}', '${kioskId}', '${topcategoryid}')" style="display:grid;">
-                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${subCategoryId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${subCategoryName}</span>
+                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${subCategoryId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="notranslate" style="color:black;">${subCategoryName}</span>
                             </div></div>`);
             }
             if (subChildName != null) {
                 $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsSubChildCategory" class="parentDivBreadCrumbs" style="display:grid;">
-                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${subChildId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${subChildName}</span>
+                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${subChildId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="notranslate" style="color:black;">${subChildName}</span>
                             </div></div>`);
             }
             if (lastChildName != null) {
                 $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsSubChildCategory" class="parentDivBreadCrumbs" style="display:grid;">
-                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${lastChildId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span style="color:black;">${lastChildName}</span>
+                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${lastChildId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="notranslate" style="color:black;">${lastChildName}</span>
                             </div></div>`);
             }
         }
@@ -545,8 +534,19 @@
         });
         return false;
         }
+        function addToCart(productId, productName, productPrice) {
+            ga('ec:addProduct', {
+                'id': productId,
+                'name': productName,
+                'price': productPrice,
+                'quantity': 1
+            });
+            ga('ec:setAction', 'add');
+            ga('send', 'event', 'UX', 'click', 'add to cart');     // Send data using an event.
+        }
 
-        function goToCart(selectedProductId, kioskId) {
+        function goToCart(selectedProductId, selectedProductName, selectedProductPrice, kioskId) {
+            addToCart(selectedProductId, selectedProductName, selectedProductPrice)
             window.open('/Product/CartView/' + selectedProductId, "_self");
         }
         function showMainView(topCategoryId) {
@@ -566,13 +566,7 @@
     </script>
 
 </head>
-<body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NWTLZ5F"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
+<body>    
 
     <table style="min-height: 100%;height:100%;;min-width:100%;">
         <tr>
@@ -596,7 +590,7 @@
 
                 @*START BREADCRUMBS BLOCK*@
                 <div id="divBreadcrumbs" style="display:none;text-align:center;">
-                    <div class="breadcrumbTitle">Вы выбрали:</div>
+                    <div class="breadcrumbTitle"><span class="notranslate">Вы выбрали:</span></div>
                     <div id="divBreadcrumbsItems" style="margin:0% 30%;">
                     </div>
                 </div>
