@@ -23,7 +23,7 @@
     @if (@Model.ManufacturerSelected != null)
     {
         @foreach (var item in Model.ProductCategoryList)
-        {
+        {            
             <div style="display:inline-block;vertical-align:middle;" class="@String.Format("{0}", @item.CategoryId=="GROUP-49236" ? "disabledBlock" : "")">
                 @*<a href="/topcategory/@Model.TopCategoryId/@Model.ManufacturerSelected.Replace(" ", "-")/@Model.ModelSelected.Replace(" ", "-")/@item.CategoryId/@item.Name.FirstOrDefault().Value.Replace(" ", "-")">*@
                     <div class="parentDivAutoParts" style="display:grid;" onclick="selectMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId', '@Model.TopCategoryId')">

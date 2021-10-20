@@ -10,38 +10,40 @@
     <div style="display:inline-block;"><h1 class="controlHeader"><span class="notranslate">@Model.MainCategoryName @Model.ManufacturerSelected @Model.ModelSelected</span></h1></div>
 </div>
 <div style="padding: 10px 0px 10px 20px;">
-    @if(@Model.ManufacturerSelected!=null){
-    @foreach (var item in Model.ProductCategoryList)
+    @if (@Model.ManufacturerSelected != null)
     {
-    <div style="display:inline-block;vertical-align:middle;">
-        @*<a href="/topcategory/@Model.TopCategoryId/@Model.ManufacturerSelected.Replace(" ", "-")/@Model.ModelSelected.Replace(" ", "-")/@Model.MainCategoryId/@Model.MainCategoryName/@item.CategoryId/@item.Name.FirstOrDefault().Value.Replace(" ", "-")">*@
-            <div class="parentDivAutoParts" style="display:grid;" onclick="selectSubMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId', '@Model.TopCategoryId')">
-                <div class="divCarModelsBlock">
-                    <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
+        @foreach (var item in Model.ProductCategoryList)
+        {            
+            <div style="display:inline-block;vertical-align:middle;">
+                @*<a href="/topcategory/@Model.TopCategoryId/@Model.ManufacturerSelected.Replace(" ", "-")/@Model.ModelSelected.Replace(" ", "-")/@Model.MainCategoryId/@Model.MainCategoryName/@item.CategoryId/@item.Name.FirstOrDefault().Value.Replace(" ", "-")">*@
+                <div class="parentDivAutoParts" style="display:grid;" onclick="selectSubMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId', '@Model.TopCategoryId')">
+                    <div class="divCarModelsBlock">
+                        <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
+                    </div>
+                    <div class="manufactureText">
+                        <span class="notranslate">@item.Name.FirstOrDefault().Value</span>
+                    </div>
                 </div>
-                <div class="manufactureText">
-                    <span class="notranslate">@item.Name.FirstOrDefault().Value</span>
-                </div>
+                @*</a>*@
             </div>
-        @*</a>*@
-    </div>
-}
+        }
     }
-    else{
-    @foreach (var item in Model.ProductCategoryList)
+    else
     {
-    <div style="display:inline-block;vertical-align:middle;">
-        @*<a href="/topcategory/@Model.TopCategoryId/@Model.MainCategoryId/@Model.MainCategoryName/@item.CategoryId/@item.Name.FirstOrDefault().Value.Replace(" ", "-")">*@
-            <div class="parentDivAutoParts" style="display:grid;" onclick="selectSubMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId', '@Model.TopCategoryId')">
-                <div class="divCarModelsBlock">
-                    <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
+        @foreach (var item in Model.ProductCategoryList)
+        {            
+            <div style="display:inline-block;vertical-align:middle;">
+                @*<a href="/topcategory/@Model.TopCategoryId/@Model.MainCategoryId/@Model.MainCategoryName/@item.CategoryId/@item.Name.FirstOrDefault().Value.Replace(" ", "-")">*@
+                <div class="parentDivAutoParts" style="display:grid;" onclick="selectSubMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@Model.MainCategoryId', '@Model.MainCategoryName', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId', '@Model.TopCategoryId')">
+                    <div class="divCarModelsBlock">
+                        <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", item.CategoryId)" class="modelImageAutoParts" />
+                    </div>
+                    <div class="manufactureText">
+                        <span class="notranslate">@item.Name.FirstOrDefault().Value</span>
+                    </div>
                 </div>
-                <div class="manufactureText">
-                    <span class="notranslate">@item.Name.FirstOrDefault().Value</span>
-                </div>
+                @*</a>*@
             </div>
-        @*</a>*@
-    </div>
-}
+        }
     }
 </div>

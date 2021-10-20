@@ -582,7 +582,7 @@
                     </div>
                     <div>
                         <div class="inputControlBlock">
-                            <div style="display:inline-block;vertical-align:middle;width:85%;">@Html.TextBoxFor(m => m.PartNumberValue, new { @placeholder = "Введите № детали или наименование", @id = "inputPartValue", @class = "inputPart", @onkeydown = "if (event.keyCode == 13) {{submit()}}" })</div>
+                            <div style="display:inline-block;vertical-align:middle;width:85%;">@Html.TextBoxFor(m => m.PartNumberValue, new { @placeholder = "Введите номер детали", @id = "inputPartValue", @class = "inputPart", @onkeydown = "if (event.keyCode == 13) {{submit()}}" })</div>
                             <div class="loopBtn" onclick="submit()"><img class="loopImgPadding" src="~/images/Catalog/InputLoupe.png"></div>
                         </div>
                     </div>
@@ -710,7 +710,7 @@
             </tr>*@
         <tr>
             <td colspan="2" style="background: #504593; border-top: 1px solid #dcdeff;padding:20px;">
-                <div style="color: white;word-break:break-word;padding:30px 10px 0px 10px;white-space:pre-line;">
+                <div style="color: white;word-break:break-word;padding:30px 10px 0px 10px;white-space:pre-line;" class="notranslate">
                     Европейские авторазборки в интернет магазине <a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> - помогают автовладельцам, решить многие проблемы в кратчайшие сроки!
 
                     Европейская сеть авторазборок, с быстрым поиском запчастей в Украине!
@@ -733,9 +733,9 @@
                     Гарантийный срок установки 21 день
                     Посетителям и клиентам интернет магазина <a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a>  желаем хорошего настроения и меньше поломок любимого автомобиля!
                 </div>
-                <div style="text-align: center; font-size: 24px; padding: 20px 0px;color:white;">Работаем по всей Украине</div>
-                <div style="color: white; text-align: center; font-size: 16px; padding: 10px; border-bottom: 1px solid white; border-top: 1px solid white;"><a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> Авторазборка Шрот Купить Запчасти б/у новые легковые грузовые бусы мотоциклы Шины Диски Инструменты Оборудование для СТО Мото Аксессуары</div>
-                <div style="text-align:left;">
+                <div style="text-align: center; font-size: 24px; padding: 20px 0px;color:white;" class="notranslate">Работаем по всей Украине</div>
+                <div style="color: white; text-align: center; font-size: 16px; padding: 10px; border-bottom: 1px solid white; border-top: 1px solid white;" class="notranslate"><a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> Авторазборка Шрот Купить Запчасти б/у новые легковые грузовые бусы мотоциклы Шины Диски Инструменты Оборудование для СТО Мото Аксессуары</div>
+                <div style="text-align:left;" class="notranslate">
                     @foreach (var item in @Model.AdvertCities)
                     {
                         <div class="advertCities">
@@ -747,7 +747,7 @@
                 <div class="divAllParts">
                     @foreach (var cat in Model.ProductCategoryList)
                     {
-                        <a href="/Models/ManufactureModelView/@cat.CategoryId/@cat.Name["ru"]" class="treeMainCategory" id="@String.Format("divMainCat{0}", cat.CategoryId)">@cat.Name["ru"]</a>
+                        <a href="/Models/ManufactureModelView/@cat.CategoryId/@cat.Name["ru"]" class="treeMainCategory" id="@String.Format("divMainCat{0}", cat.CategoryId)"><span class="notranslate">@cat.Name["ru"]</span></a>
                         @if (@cat.Children != null)
                         {
                             <div style="padding:0 5%;">
@@ -755,7 +755,7 @@
                                 {
                                     @if (@subCat.Name["ru"] != "Сборные детали" && @subCat.Name["ru"] != "Другое" && @subCat.Name["ru"] != "Другие")
                                     {
-                                        <a href="/Models/ManufactureModelView/@subCat.CategoryId/@subCat.Name["ru"]" class="treeSubCategory" id="@String.Format("divSubCat{0}", subCat.CategoryId)">@subCat.Name["ru"]</a>
+                                        <a href="/Models/ManufactureModelView/@subCat.CategoryId/@subCat.Name["ru"]" class="treeSubCategory" id="@String.Format("divSubCat{0}", subCat.CategoryId)"><span class="notranslate">@subCat.Name["ru"]</span></a>
                                     }
                                     @if (@subCat.Children != null)
                                     {
@@ -763,7 +763,7 @@
                                         {
                                             @if (subchildCat.Name["ru"] != "Сборные детали" && subchildCat.Name["ru"] != "Другое" && subchildCat.Name["ru"] != "Другие")
                                             {
-                                                <a href="/Models/ManufactureModelView/@subchildCat.CategoryId/@subchildCat.Name["ru"]" class="treeSubCategory" id="topSubchild">@subchildCat.Name["ru"]</a>
+                                                <a href="/Models/ManufactureModelView/@subchildCat.CategoryId/@subchildCat.Name["ru"]" class="treeSubCategory" id="topSubchild"><span class="notranslate">@subchildCat.Name["ru"]</span></a>
                                             }
                                             @if (@subchildCat.Children != null)
                                             {
@@ -771,7 +771,7 @@
                                                 {
                                                     @if (lastCat.Name["ru"] != "Сборные детали" && lastCat.Name["ru"] != "Другое" && lastCat.Name["ru"] != "Другие")
                                                     {
-                                                        <a href="/Models/ManufactureModelView/@lastCat.CategoryId/@lastCat.Name["ru"]" class="treeSubCategory" id="lastId">@lastCat.Name["ru"]</a>
+                                                        <a href="/Models/ManufactureModelView/@lastCat.CategoryId/@lastCat.Name["ru"]" class="treeSubCategory" id="lastId"><span class="notranslate">@lastCat.Name["ru"]</span></a>
                                                     }
                                                 }
                                             }
@@ -788,7 +788,7 @@
                     <div class="footerMainBlock" onclick="showHidePopularNumbers()">Популярные номера</div>
                     @foreach (var item in @Model.PartNumbersRandom)
                     {
-                        <a href="/search/@item.ToString()" target="_self" class="partNumbersRandom" id="divPartNumbersItem">@item.ToString()</a>
+                        <a href="/search/@item.ToString()" target="_self" class="partNumbersRandom" id="divPartNumbersItem"><span class="notranslate">@item.ToString()</span></a>
                     }
                 </div>
             </td>

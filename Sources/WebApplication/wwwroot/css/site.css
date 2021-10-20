@@ -1422,6 +1422,7 @@ html {
         vertical-align: middle;
         width: 50px;
         text-align:center;
+        cursor:pointer;
     }
 
     .inputControlBlock {
