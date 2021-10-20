@@ -142,7 +142,10 @@ for details on configuring this project to bundle and minify static web assets. 
     vertical-align: middle;
     width: 0;
 }
-
+.productTitle:hover {
+    color: #ff5a00;
+    text-decoration: underline;
+}
 .btn-group > .btn:first-child {
     min-height: 70px !important;
     font-size: 18px !important;

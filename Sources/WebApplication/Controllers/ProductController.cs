@@ -258,9 +258,21 @@ namespace WebApplication.Controllers
             {
                 tempAllPrice += item.Product.Price * item.Quantity;
             }
-            ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
-                rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName);
-
+            if (!String.IsNullOrEmpty(rightTree.SubCategoryId))
+            {
+                ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected.Replace(" ", "-"), rightTree.ModelSelected.Replace(" ", "-"), rightTree.MainCategoryId,
+                rightTree.MainCategoryName.Replace(" ", "-"), rightTree.SubCategoryId, rightTree.SubCategoryName.Replace(" ", "-"));
+            }
+            if (!String.IsNullOrEmpty(rightTree.SubChildCategoryId))
+            {
+                ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected.Replace(" ","-"), rightTree.ModelSelected.Replace(" ", "-"), rightTree.MainCategoryId,
+                rightTree.MainCategoryName.Replace(" ", "-"), rightTree.SubCategoryId, rightTree.SubCategoryName.Replace(" ", "-"), rightTree.SubChildCategoryId, rightTree.SubChildCategoryName.Replace(" ", "-"));
+            }
+            if (!String.IsNullOrEmpty(rightTree.LastChildId)) {
+                ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected.Replace(" ", "-"), rightTree.ModelSelected.Replace(" ", "-"), rightTree.MainCategoryId,
+                rightTree.MainCategoryName.Replace(" ", "-"), rightTree.SubCategoryId, rightTree.SubCategoryName.Replace(" ", "-"), rightTree.SubChildCategoryId, rightTree.SubChildCategoryName.Replace(" ", "-"), rightTree.LastChildId, rightTree.LastChildName.Replace(" ", "-"));
+            }
+            
             HttpContext.Session.SetString("cartWidgetPrice", tempAllPrice.ToString());
             ViewData["CartWidgetPrice"] = tempAllPrice;
             CartWidgetController cartWidget = new CartWidgetController();
@@ -302,8 +314,8 @@ namespace WebApplication.Controllers
             }
             //======================= START -- RETURN TO LIST PARAMS ----------- =================
             //String.Format("selectMainCategory('{0}', '{1}', '{2}', '{3}', '{4}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, tempKioskId)
-            ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
-                rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName);
+            //ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected, rightTree.ModelSelected, rightTree.MainCategoryId,
+            //    rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName);
 
             if (!String.IsNullOrEmpty(rightTree.PartNumberValue))
             {

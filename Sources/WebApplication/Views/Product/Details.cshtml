@@ -97,7 +97,7 @@
             </div>
             <!--DESCRIPTION BLOCK-->
             <div id="infoBlock" class="detailBlock" style="width:50%;">
-                <h1 class="titleBlock" itemprop="name"><span class="notranslate">@Model.Title</span></h1>
+                <h1 class="titleBlock" itemprop="name"><span>@Model.Title</span></h1>
                 <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
                     <meta itemprop="worstRating" content="1" />
                     <meta itemprop="ratingValue" content="4,9" />
@@ -114,7 +114,7 @@
 
                     <div id="divInnerDetails">
                         <div style="display:inline-block;vertical-align:middle;">
-                            <h3 class="descriptionBlock" onclick="showTransDesc()" style="cursor:pointer">Описание - <a data-google-lang="ru" class="language__img" style="text-decoration:underline;font-size:24px;cursor:pointer;">Перевести</a></h3>
+                            <h3 class="descriptionBlock" style="cursor:pointer">Описание</h3>
                         </div>                        
                         @Html.Partial("_InnerDetails", @Model)
                     </div>
