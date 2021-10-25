@@ -176,7 +176,7 @@ for details on configuring this project to bundle and minify static web assets. 
         font-size: 0px;
         display: inline-block;
         border: 0px;
-        color: white;
+        color: black;
         padding: 0px;
         margin: 0px;
         box-shadow: 0px;
@@ -765,6 +765,7 @@ html {
     .leftIndexPanel, .rightIndexPanel {
         width: 100% !important;
         display: block;
+        height:auto !important;
     }
 
     #divLeftMenu {
@@ -809,6 +810,7 @@ html {
     .footer {
         background: #23274d;
         position: inherit;
+        padding-top:20px;
         bottom: 0;
         width: 100%;
         white-space: initial;
@@ -1596,6 +1598,7 @@ input {
     width: 33%;
     min-width: 33%;
     color: white;
+    height:100vh;
     font-size: 40px;
     background: #504593;
     vertical-align: top;

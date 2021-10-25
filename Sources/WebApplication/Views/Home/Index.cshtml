@@ -7,7 +7,7 @@
 
 <html>
 <head>
-   
+
     <link href="~/css/site.css" rel="stylesheet" />
     <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
     <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1" />
@@ -568,7 +568,7 @@
             success: function (data) {
                 window.history.replaceState(null, null, ("/topcategoryid/" + topCategoryId).toLowerCase());
                 $('#divCarManufactures').empty();
-                $('#divCarManufactures').html(data);                
+                $('#divCarManufactures').html(data);
                 if (topCategoryId == '18554' || topCategoryId == '99193') {
                     $("#divSearchByPartNumber").hide();
                     $("#divSelectTopCategory").hide();
@@ -580,12 +580,13 @@
     </script>
 
 </head>
-<body>    
+<body>
 
     <table style="min-height: 100%;height:100%;;min-width:100%;">
         <tr>
             @*LEFT PANEL*@
             <td class="leftIndexPanel">
+                <marquee behavior="scroll" direction="left" scrollamount="12" style="font-size:20px;color:#ff5a00;"><span class="notranslate">Получи скидку 4% при самостоятельном заказе!</span></marquee>
                 <div id="divSearchByPartNumber">
                     <img src="~/images/Catalog/LoupeBackground1.png" style="margin-top:25%" id="imgLoopBack" />
                     @*FIND DETAIL BY INPUT SEARCH*@
@@ -621,41 +622,41 @@
                     <div class="divSelectTopCategoryBlock">
                         <div class="inline-block">
                             @*<a href="/topcategory/620">*@
-                                <div class="topCategoryDiv selected" style="display:grid;" id="divTopCategory_620" onclick="showMainView('620')">
-                                    @*onclick="showMainView('620')"*@
-                                    <div style="text-align:center;">
-                                        <img src="~/images/Catalog/Categories/New/Europe_CarTruckParts.png" alt="Легковые и микроавтобусы" class="TopCategoryImage" />
-                                    </div>
-                                    <div class="manufactureTextTop">
-                                        <span>Легковые и микроавтобусы</span>
-                                    </div>
+                            <div class="topCategoryDiv selected" style="display:grid;" id="divTopCategory_620" onclick="showMainView('620')">
+                                @*onclick="showMainView('620')"*@
+                                <div style="text-align:center;">
+                                    <img src="~/images/Catalog/Categories/New/Europe_CarTruckParts.png" alt="Легковые и микроавтобусы" class="TopCategoryImage" />
                                 </div>
+                                <div class="manufactureTextTop">
+                                    <span>Легковые и микроавтобусы</span>
+                                </div>
+                            </div>
                             @*</a>*@
                         </div>
                         <div class="inline-block">
                             @*<a href="/topcategory/621">*@
-                                <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_621" onclick="showMainView('621')">
-                                    @*onclick="showMainView('621')"*@
-                                    <div style="text-align:center;">
-                                        <img src="~/images/Catalog/Categories/New/Europe_TruckParts.png" alt="Грузовые" class="TopCategoryImage" />
-                                    </div>
-                                    <div class="manufactureTextTop">
-                                        <span>Грузовые</span>
-                                    </div>
+                            <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_621" onclick="showMainView('621')">
+                                @*onclick="showMainView('621')"*@
+                                <div style="text-align:center;">
+                                    <img src="~/images/Catalog/Categories/New/Europe_TruckParts.png" alt="Грузовые" class="TopCategoryImage" />
                                 </div>
+                                <div class="manufactureTextTop">
+                                    <span>Грузовые</span>
+                                </div>
+                            </div>
                             @*</a>*@
                         </div>
                         <div class="inline-block">
                             @*<a href="/topcategory/622">*@
-                                <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_622" onclick="showMainView('622')">
-                                    @*onclick="showMainView('622')"*@
-                                    <div style="text-align:center;">
-                                        <img src="~/images/Catalog/Categories/New/Europe_BusParts.png" alt="Автобусы" class="TopCategoryImage" />
-                                    </div>
-                                    <div class="manufactureTextTop">
-                                        <span>Автобусы</span>
-                                    </div>
+                            <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_622" onclick="showMainView('622')">
+                                @*onclick="showMainView('622')"*@
+                                <div style="text-align:center;">
+                                    <img src="~/images/Catalog/Categories/New/Europe_BusParts.png" alt="Автобусы" class="TopCategoryImage" />
                                 </div>
+                                <div class="manufactureTextTop">
+                                    <span>Автобусы</span>
+                                </div>
+                            </div>
                             @*</a>*@
                         </div>
                         <div class="inline-block">
@@ -670,41 +671,41 @@
                         </div>
                         <div class="inline-block">
                             @*<a id="hrefMoto" href="/topcategory/156">*@
-                                <div class="topCategoryDiv" style="display:grid;" onclick="showMainView('156')" id="divTopCategory_156">
-                                    @**@
-                                    <div style="text-align:center;">
-                                        <img src="~/images/Catalog/Categories/New/CarType_Moto.png" alt="Мото и аксессуары" class="TopCategoryImage" />
-                                    </div>
-                                    <div class="manufactureTextTop">
-                                        <span>Мото и аксессуары</span>
-                                    </div>
+                            <div class="topCategoryDiv" style="display:grid;" onclick="showMainView('156')" id="divTopCategory_156">
+                                @**@
+                                <div style="text-align:center;">
+                                    <img src="~/images/Catalog/Categories/New/CarType_Moto.png" alt="Мото и аксессуары" class="TopCategoryImage" />
                                 </div>
+                                <div class="manufactureTextTop">
+                                    <span>Мото и аксессуары</span>
+                                </div>
+                            </div>
                             @*</a>*@
                         </div>
                         <div class="inline-block">
                             @*<a href="/topcategory/99193">*@
-                                <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_99193" onclick="showMainView('99193')">
-                                    @*onclick="showMainView('99193')"*@
-                                    <div style="text-align:center;">
-                                        <img src="~/images/Catalog/Categories/New/Europe_TiresAndRims.png" alt="Шины и диски" class="TopCategoryImage" />
-                                    </div>
-                                    <div class="manufactureTextTop">
-                                        <span>Шины и диски</span>
-                                    </div>
+                            <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_99193" onclick="showMainView('99193')">
+                                @*onclick="showMainView('99193')"*@
+                                <div style="text-align:center;">
+                                    <img src="~/images/Catalog/Categories/New/Europe_TiresAndRims.png" alt="Шины и диски" class="TopCategoryImage" />
                                 </div>
+                                <div class="manufactureTextTop">
+                                    <span>Шины и диски</span>
+                                </div>
+                            </div>
                             @*</a>*@
                         </div>
                         <div class="inline-block">
                             @*<a href="/topcategory/18554">*@
-                                <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_18554" onclick="showMainView('18554')">
-                                    @*onclick="showMainView('18554')"*@
-                                    <div style="text-align:center;">
-                                        <img src="~/images/Catalog/Categories/New/Europe_Tools.png" alt="Инструменты и оборудование" class="TopCategoryImage" />
-                                    </div>
-                                    <div class="manufactureTextTop">
-                                        <span>Инструменты и оборудование</span>
-                                    </div>
+                            <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_18554" onclick="showMainView('18554')">
+                                @*onclick="showMainView('18554')"*@
+                                <div style="text-align:center;">
+                                    <img src="~/images/Catalog/Categories/New/Europe_Tools.png" alt="Инструменты и оборудование" class="TopCategoryImage" />
                                 </div>
+                                <div class="manufactureTextTop">
+                                    <span>Инструменты и оборудование</span>
+                                </div>
+                            </div>
                             @*</a>*@
                         </div>
                     </div>
@@ -723,42 +724,54 @@
                 </td>
             </tr>*@
         <tr>
-            <td colspan="2" style="background: #504593; border-top: 1px solid #dcdeff;padding:20px;">
-                <div style="color: white;word-break:break-word;padding:30px 10px 0px 10px;white-space:pre-line;" class="notranslate">
-                    Европейские авторазборки в интернет магазине <a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> - помогают автовладельцам, решить многие проблемы в кратчайшие сроки!
+            <td colspan="2" style="background: white; border-top: 1px solid #dcdeff;padding:20px;">
+                @*background: #504593;*@
+                <div style="color: black;padding:0px 10px 0px 10px;" class="notranslate">
+                    <div>
+                        <img src="~/images/Index/123.jpg" style="float: left; margin: 7px 25px 7px 0;" width="50%" />
+                        <div style="line-height: 30px; text-align: justify;">
+                            Европейские авторазборки в интернет магазине <a style="color:black;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> - помогают автовладельцам, решить многие проблемы в кратчайшие сроки!
 
-                    Европейская сеть авторазборок, с быстрым поиском запчастей в Украине!
+                            Европейская сеть авторазборок, с быстрым поиском запчастей в Украине!
 
-                    Купить авто запчасти 30 000 000 + новые и бывшие в употреблении б/у и восстановленные, в интернет магазине <a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a>.
-                    Торговая платформа <a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> с удобным интерфейсом, предлагает владельцам автотранспорта, подобрать запчасти на любой вид транспорта,
-                    в одном окне на: легковые, автобусы, грузовые, спецтехнику, сельхозтехнику, строительную технику, мотоциклы, велосипеды, мопеды, квадроциклы, шины, диски, аксессуары, масла, аккумуляторы, авто химия, оборудование для СТО и многое другое.
-                    Наши предложения зависят не только от спроса, но и от качества обслуживания.
-
-
-                    МЫ ПРЕДЛАГАЕМ
-                    Более 2 тыс.поставщиков из Литвы, Польши, Германии, Голландии, Франции, Бельгии, Америки, Канады, Кореи, и др.
-                    Профессиональная помощь в подборе
-                    Предоставляем характеристики и техническое описание авто деталей
-                    Прилагаем фото авто деталей
-                    Доставка из Европы в Украину от 2 до 5 дней
-                    Доставка по Украине от 3 часов
-                    Доставка на почтовые отделения + адресная
-                    Возврат замена товара согласно закону Украины
-                    Гарантийный срок установки 21 день
-                    Посетителям и клиентам интернет магазина <a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a>  желаем хорошего настроения и меньше поломок любимого автомобиля!
+                            Купить авто запчасти 30 000 000 + новые и бывшие в употреблении б/у и восстановленные, в интернет магазине <a style="color:black;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a>.
+                            Торговая платформа <a style="color:black;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> с удобным интерфейсом, предлагает владельцам автотранспорта, подобрать запчасти на любой вид транспорта,
+                            в одном окне на: легковые, автобусы, грузовые, спецтехнику, сельхозтехнику, строительную технику, мотоциклы, велосипеды, мопеды, квадроциклы, шины, диски, аксессуары, масла, аккумуляторы, авто химия, оборудование для СТО и многое другое.
+                            Наши предложения зависят не только от спроса, но и от качества обслуживания.
+                        </div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <div style="padding-top:20px;">
+                        <img src="~/images/Index/razborka2.jpg" style="float: right; margin: 7px 7px 7px 25px;" width="50%" />
+                        <div style="line-height: 30px; text-align: justify;">
+                            МЫ ПРЕДЛАГАЕМ
+                            Более 2 тыс.поставщиков из Литвы, Польши, Германии, Голландии, Франции, Бельгии, Америки, Канады, Кореи, и др.
+                            Профессиональная помощь в подборе
+                            Предоставляем характеристики и техническое описание авто деталей
+                            Прилагаем фото авто деталей
+                            Доставка из Европы в Украину от 2 до 5 дней
+                            Доставка по Украине от 3 часов
+                            Доставка на почтовые отделения + адресная
+                            Возврат замена товара согласно закону Украины
+                            Гарантийный срок установки 21 день
+                            Посетителям и клиентам интернет магазина <a style="color: black; text-decoration: underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a>  желаем хорошего настроения и меньше поломок любимого автомобиля!
+                        </div>
+                    </div>
                 </div>
-                <div style="text-align: center; font-size: 24px; padding: 20px 0px;color:white;" class="notranslate">Работаем по всей Украине</div>
+                <div style="clear:both;"></div>
+                <div style="text-align: center; font-size: 24px; padding: 20px 0px;color:black;" class="notranslate">Работаем по всей Украине</div>
+                <img src="~/images/Index/allUK.jpg" width="50%" style="float: left; margin: 7px 7px 7px 0;" />
                 <div style="text-align:left;" class="notranslate">
                     @foreach (var item in @Model.AdvertCities)
                     {
-                        <div class="advertCities">
+                        <div class="advertCities" style="color:black !important;">
                             @item.ToString()
                         </div>
                     }
                 </div>
-                <div style="color: white; text-align: center; font-size: 16px; padding: 10px; border-bottom: 1px solid white; border-top: 1px solid white;text-transform:lowercase;" class="notranslate"><a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> Авторазборка Шрот Купить Запчасти б/у новые легковые грузовые бусы мотоциклы Шины Диски Инструменты Оборудование для СТО Мото Аксессуары</div>
-                <div onclick="showHideAutoParts()" class="footerMainBlock">Авторазборка все запчасти</div>
-                <div class="divAllParts">
+                <div style="color: black; text-align: center; font-size: 16px; padding: 10px; border-bottom: 1px solid white; border-top: 1px solid white;text-transform:lowercase;" class="notranslate"><a style="color:black;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> Авторазборка Шрот Купить Запчасти б/у новые легковые грузовые бусы мотоциклы Шины Диски Инструменты Оборудование для СТО Мото Аксессуары</div>
+                <div onclick="showHideAutoParts()" class="footerMainBlock" style="color:black !important;">Авторазборка все запчасти</div>
+                <div class="divAllParts" style="color:black !important;">
                     @foreach (var cat in Model.ProductCategoryList)
                     {
                         <a href="/Models/ManufactureModelView/@cat.CategoryId/@cat.Name["ru"]" class="treeMainCategory" id="@String.Format("divMainCat{0}", cat.CategoryId)"><span class="notranslate">@cat.Name["ru"]</span></a>
@@ -769,7 +782,7 @@
                                 {
                                     @if (@subCat.Name["ru"] != "Сборные детали" && @subCat.Name["ru"] != "Другое" && @subCat.Name["ru"] != "Другие")
                                     {
-                                        <a href="/Models/ManufactureModelView/@subCat.CategoryId/@subCat.Name["ru"]" class="treeSubCategory" id="@String.Format("divSubCat{0}", subCat.CategoryId)"><span class="notranslate">@subCat.Name["ru"]</span></a>
+                                        <a href="/Models/ManufactureModelView/@subCat.CategoryId/@subCat.Name["ru"]" style="color:black !important;" class="treeSubCategory" id="@String.Format("divSubCat{0}", subCat.CategoryId)"><span class="notranslate">@subCat.Name["ru"]</span></a>
                                     }
                                     @if (@subCat.Children != null)
                                     {
@@ -777,7 +790,7 @@
                                         {
                                             @if (subchildCat.Name["ru"] != "Сборные детали" && subchildCat.Name["ru"] != "Другое" && subchildCat.Name["ru"] != "Другие")
                                             {
-                                                <a href="/Models/ManufactureModelView/@subchildCat.CategoryId/@subchildCat.Name["ru"]" class="treeSubCategory" id="topSubchild"><span class="notranslate">@subchildCat.Name["ru"]</span></a>
+                                                <a href="/Models/ManufactureModelView/@subchildCat.CategoryId/@subchildCat.Name["ru"]" style="color:black !important;" class="treeSubCategory" id="topSubchild"><span class="notranslate">@subchildCat.Name["ru"]</span></a>
                                             }
                                             @if (@subchildCat.Children != null)
                                             {
@@ -785,7 +798,7 @@
                                                 {
                                                     @if (lastCat.Name["ru"] != "Сборные детали" && lastCat.Name["ru"] != "Другое" && lastCat.Name["ru"] != "Другие")
                                                     {
-                                                        <a href="/Models/ManufactureModelView/@lastCat.CategoryId/@lastCat.Name["ru"]" class="treeSubCategory" id="lastId"><span class="notranslate">@lastCat.Name["ru"]</span></a>
+                                                        <a href="/Models/ManufactureModelView/@lastCat.CategoryId/@lastCat.Name["ru"]" style="color:black !important;" class="treeSubCategory" id="lastId"><span class="notranslate">@lastCat.Name["ru"]</span></a>
                                                     }
                                                 }
                                             }
@@ -798,8 +811,8 @@
                     }
                 </div>
 
-                <div style="color:white;">
-                    <div class="footerMainBlock" onclick="showHidePopularNumbers()">Популярные номера</div>
+                <div style="color:black;">
+                    <div class="footerMainBlock" style="color:black !important;" onclick="showHidePopularNumbers()">Популярные номера</div>
                     @foreach (var item in @Model.PartNumbersRandom)
                     {
                         <a href="/search/@item.ToString()" target="_self" class="partNumbersRandom" id="divPartNumbersItem"><span class="notranslate">@item.ToString()</span></a>
