@@ -356,7 +356,10 @@
                 else {
                     $('#divBreadcrumbs').hide();
                     $('#divSearchByPartNumber').show();
-                    $('#divSelectTopCategory').show();
+                        $('#divSelectTopCategory').show();
+                        if (topcategoryid == '18554' || topcategoryid == '99193') {
+                            showMainView(topcategoryid);
+                        }
                 }
             }
         });
@@ -524,9 +527,16 @@
                     $('#divSearchByPartNumber').show();
                     $('#divSelectTopCategory').show();
                     $('div[id*="divTopCategory_"]').removeClass("selected");
-                    $('#divTopCategory_620').addClass("selected");
+                    $('#divTopCategory_' + topcategoryid).addClass("selected");
                 }
                 document.title = carManufactureName;
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#divBreadcrumbs').hide();
+                $('#divSearchByPartNumber').show();
+                $('#divSelectTopCategory').show();
+                $('div[id*="divTopCategory_"]').removeClass("selected");
+                $('#divTopCategory_' + topcategoryid).addClass("selected");
             }
             @*error: function (jqXHR, textStatus, errorThrown) {
                 window.location = '@Url.Action("Error", "Home")';
@@ -558,7 +568,11 @@
             success: function (data) {
                 window.history.replaceState(null, null, ("/topcategoryid/" + topCategoryId).toLowerCase());
                 $('#divCarManufactures').empty();
-                $('#divCarManufactures').html(data);
+                $('#divCarManufactures').html(data);                
+                if (topCategoryId == '18554' || topCategoryId == '99193') {
+                    $("#divSearchByPartNumber").hide();
+                    $("#divSelectTopCategory").hide();
+                }
             }
         });
         }
@@ -606,8 +620,8 @@
                     <div class="mainBlockTitle">Выберите раздел</div>
                     <div class="divSelectTopCategoryBlock">
                         <div class="inline-block">
-                            <a href="/topcategory/620">
-                                <div class="topCategoryDiv selected" style="display:grid;" id="divTopCategory_620">
+                            @*<a href="/topcategory/620">*@
+                                <div class="topCategoryDiv selected" style="display:grid;" id="divTopCategory_620" onclick="showMainView('620')">
                                     @*onclick="showMainView('620')"*@
                                     <div style="text-align:center;">
                                         <img src="~/images/Catalog/Categories/New/Europe_CarTruckParts.png" alt="Легковые и микроавтобусы" class="TopCategoryImage" />
@@ -616,11 +630,11 @@
                                         <span>Легковые и микроавтобусы</span>
                                     </div>
                                 </div>
-                            </a>
+                            @*</a>*@
                         </div>
                         <div class="inline-block">
-                            <a href="/topcategory/621">
-                                <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_621">
+                            @*<a href="/topcategory/621">*@
+                                <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_621" onclick="showMainView('621')">
                                     @*onclick="showMainView('621')"*@
                                     <div style="text-align:center;">
                                         <img src="~/images/Catalog/Categories/New/Europe_TruckParts.png" alt="Грузовые" class="TopCategoryImage" />
@@ -629,11 +643,11 @@
                                         <span>Грузовые</span>
                                     </div>
                                 </div>
-                            </a>
+                            @*</a>*@
                         </div>
                         <div class="inline-block">
-                            <a href="/topcategory/622">
-                                <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_622">
+                            @*<a href="/topcategory/622">*@
+                                <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_622" onclick="showMainView('622')">
                                     @*onclick="showMainView('622')"*@
                                     <div style="text-align:center;">
                                         <img src="~/images/Catalog/Categories/New/Europe_BusParts.png" alt="Автобусы" class="TopCategoryImage" />
@@ -642,7 +656,7 @@
                                         <span>Автобусы</span>
                                     </div>
                                 </div>
-                            </a>
+                            @*</a>*@
                         </div>
                         <div class="inline-block">
                             <div class="topCategoryDiv" style="display:grid;cursor:not-allowed !important;" id="divTopCategory_99022" @*onclick="showMainView('99022')"*@>
@@ -656,8 +670,8 @@
                         </div>
                         <div class="inline-block">
                             @*<a id="hrefMoto" href="/topcategory/156">*@
-                                <div class="topCategoryDiv" style="display:grid;cursor:not-allowed !important;" id="divTopCategory_156">
-                                    @*onclick="showMainView('156')"*@
+                                <div class="topCategoryDiv" style="display:grid;" onclick="showMainView('156')" id="divTopCategory_156">
+                                    @**@
                                     <div style="text-align:center;">
                                         <img src="~/images/Catalog/Categories/New/CarType_Moto.png" alt="Мото и аксессуары" class="TopCategoryImage" />
                                     </div>
@@ -668,8 +682,8 @@
                             @*</a>*@
                         </div>
                         <div class="inline-block">
-                            <a href="/topcategory/99193">
-                                <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_99193">
+                            @*<a href="/topcategory/99193">*@
+                                <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_99193" onclick="showMainView('99193')">
                                     @*onclick="showMainView('99193')"*@
                                     <div style="text-align:center;">
                                         <img src="~/images/Catalog/Categories/New/Europe_TiresAndRims.png" alt="Шины и диски" class="TopCategoryImage" />
@@ -678,11 +692,11 @@
                                         <span>Шины и диски</span>
                                     </div>
                                 </div>
-                            </a>
+                            @*</a>*@
                         </div>
                         <div class="inline-block">
-                            <a href="/topcategory/18554">
-                                <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_18554">
+                            @*<a href="/topcategory/18554">*@
+                                <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_18554" onclick="showMainView('18554')">
                                     @*onclick="showMainView('18554')"*@
                                     <div style="text-align:center;">
                                         <img src="~/images/Catalog/Categories/New/Europe_Tools.png" alt="Инструменты и оборудование" class="TopCategoryImage" />
@@ -691,7 +705,7 @@
                                         <span>Инструменты и оборудование</span>
                                     </div>
                                 </div>
-                            </a>
+                            @*</a>*@
                         </div>
                     </div>
                 </div>
@@ -734,7 +748,6 @@
                     Посетителям и клиентам интернет магазина <a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a>  желаем хорошего настроения и меньше поломок любимого автомобиля!
                 </div>
                 <div style="text-align: center; font-size: 24px; padding: 20px 0px;color:white;" class="notranslate">Работаем по всей Украине</div>
-                <div style="color: white; text-align: center; font-size: 16px; padding: 10px; border-bottom: 1px solid white; border-top: 1px solid white;" class="notranslate"><a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> Авторазборка Шрот Купить Запчасти б/у новые легковые грузовые бусы мотоциклы Шины Диски Инструменты Оборудование для СТО Мото Аксессуары</div>
                 <div style="text-align:left;" class="notranslate">
                     @foreach (var item in @Model.AdvertCities)
                     {
@@ -743,6 +756,7 @@
                         </div>
                     }
                 </div>
+                <div style="color: white; text-align: center; font-size: 16px; padding: 10px; border-bottom: 1px solid white; border-top: 1px solid white;text-transform:lowercase;" class="notranslate"><a style="color:white;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> Авторазборка Шрот Купить Запчасти б/у новые легковые грузовые бусы мотоциклы Шины Диски Инструменты Оборудование для СТО Мото Аксессуары</div>
                 <div onclick="showHideAutoParts()" class="footerMainBlock">Авторазборка все запчасти</div>
                 <div class="divAllParts">
                     @foreach (var cat in Model.ProductCategoryList)

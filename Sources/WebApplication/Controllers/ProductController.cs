@@ -258,17 +258,22 @@ namespace WebApplication.Controllers
             {
                 tempAllPrice += item.Product.Price * item.Quantity;
             }
-            if (!String.IsNullOrEmpty(rightTree.SubCategoryId))
+            if (String.IsNullOrEmpty(rightTree.ManufacturerSelected))
+            {
+                ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}", rightTree.ReallyTopCategoryId, rightTree.MainCategoryId,
+                rightTree.MainCategoryName.Replace(" ", "-"), rightTree.SubCategoryId, rightTree.SubCategoryName.Replace(" ", "-"));
+            }
+            if (!String.IsNullOrEmpty(rightTree.SubCategoryId) && !String.IsNullOrEmpty(rightTree.ManufacturerSelected))
             {
                 ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected.Replace(" ", "-"), rightTree.ModelSelected.Replace(" ", "-"), rightTree.MainCategoryId,
                 rightTree.MainCategoryName.Replace(" ", "-"), rightTree.SubCategoryId, rightTree.SubCategoryName.Replace(" ", "-"));
             }
-            if (!String.IsNullOrEmpty(rightTree.SubChildCategoryId))
+            if (!String.IsNullOrEmpty(rightTree.SubChildCategoryId) && !String.IsNullOrEmpty(rightTree.ManufacturerSelected))
             {
                 ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected.Replace(" ","-"), rightTree.ModelSelected.Replace(" ", "-"), rightTree.MainCategoryId,
                 rightTree.MainCategoryName.Replace(" ", "-"), rightTree.SubCategoryId, rightTree.SubCategoryName.Replace(" ", "-"), rightTree.SubChildCategoryId, rightTree.SubChildCategoryName.Replace(" ", "-"));
             }
-            if (!String.IsNullOrEmpty(rightTree.LastChildId)) {
+            if (!String.IsNullOrEmpty(rightTree.LastChildId) && !String.IsNullOrEmpty(rightTree.ManufacturerSelected)) {
                 ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}/{8}/{9}/{10}", rightTree.ReallyTopCategoryId, rightTree.ManufacturerSelected.Replace(" ", "-"), rightTree.ModelSelected.Replace(" ", "-"), rightTree.MainCategoryId,
                 rightTree.MainCategoryName.Replace(" ", "-"), rightTree.SubCategoryId, rightTree.SubCategoryName.Replace(" ", "-"), rightTree.SubChildCategoryId, rightTree.SubChildCategoryName.Replace(" ", "-"), rightTree.LastChildId, rightTree.LastChildName.Replace(" ", "-"));
             }
@@ -521,7 +526,7 @@ namespace WebApplication.Controllers
                 }
                 if (rightTree.ManufacturerSelected == null && rightTree.SubChildCategoryId != null)
                 {
-                    ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}", rightTree.ReallyTopCategoryId, rightTree.MainCategoryId,
+                    ViewData["Params"] = String.Format("https://bi-bi.com.ua/topcategoryid/{0}/{1}/{2}/{3}/{4}/{5}/{6}", rightTree.TopCategoryId, rightTree.MainCategoryId,
                             rightTree.MainCategoryName, rightTree.SubCategoryId, rightTree.SubCategoryName, rightTree.SubChildCategoryId, rightTree.SubChildCategoryName);
                 }
             }

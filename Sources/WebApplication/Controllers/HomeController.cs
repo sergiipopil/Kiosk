@@ -184,7 +184,7 @@ namespace WebApplication.Controllers
             option.Expires = DateTime.Now.AddMonths(1);
 
 
-            Response.Cookies.Append("kioskId", "777", option);
+            Response.Cookies.Append("kioskId", String.IsNullOrEmpty(kioskId) ? "116" : kioskId, option);
 
             HttpContext.Session.Remove("topCategoryId");
             if (kioskId == null)
@@ -341,6 +341,12 @@ namespace WebApplication.Controllers
             if (topCategoryId == "99193" || topCategoryId == "18554")
             {
                 var tempC = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == topCategoryId).FirstOrDefault().Children;
+                foreach (var item in tempC)
+                {
+                    if (item.Children != null && !item.CategoryId.Contains("GROUP")) {
+                        item.CategoryId = "GROUP-" + item.CategoryId;
+                    }
+                }
                 string topCategoryName = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == topCategoryId).FirstOrDefault().Name["ru"];
                 return View("_AutoPartsTree", new RightTreeViewModel() { ProductCategoryList = tempC, TopCategoryName = topCategoryName, TopCategoryId = topCategoryId, ReallyTopCategoryId = (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId")) });
             }
@@ -353,6 +359,9 @@ namespace WebApplication.Controllers
 
         public IActionResult SelectManufactureAndModel(string carmanufacture, string topcategoryid)
         {
+            if (String.IsNullOrEmpty(carmanufacture)) {
+                return ShowMainView(topcategoryid);
+            }
             carmanufacture = carmanufacture.ToLower().Contains("mercedes") ? carmanufacture.Replace(" ", "-") : carmanufacture;
             TitleController titleController = new TitleController();
             titleController.GetTitleSite();
@@ -879,6 +888,7 @@ namespace WebApplication.Controllers
                 },
                 EngineValues = new EngineValue().GetEngineValue(),
                 SelectedEngineValue = null,
+                TopCategoryId= topcategoryid,
                 ReallyTopCategoryId = HttpContext.Session.GetString("topCategoryId") == "621" ? "621" : (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId")),
                 OfferState = isNew ? OfferStateEnum.New : OfferStateEnum.Used,
                 FunctionReturnFromProducts = String.Format("selectSubMainCategory('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, tempKioskId, topcategoryid),
