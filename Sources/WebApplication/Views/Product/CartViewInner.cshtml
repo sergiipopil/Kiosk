@@ -9,7 +9,7 @@
     <tr>
         <td style="vertical-align:top;padding-right:4%;min-height: 100%; height:100%;" class="leftCartColumn">
             <div style="background:#514593;width:100%;text-align:center;padding:60px 0px;min-height: 100%; height:100%;" class="cartBlockMain">
-                <span style="color:white;font-size:30px;" class="cartTitle">У Вас в корзине</span>
+                <span style="color:white;font-size:30px;" class="cartTitle"><span class="notranslate">У Вас в корзине</span></span>
                 <div style="padding:50px 0px;" class="cartProductsPadding">
 
                     @if (Model != null && Model.Products != null)
@@ -25,7 +25,7 @@
                         </div>
                         <div class="inline-block">
                             <label style="font-size:21px;color:white;" class="cartTitle">
-                                @item.Product.Name.Last().Value (@item.Product.FinalPrice UAH.)
+                                <span class="notranslate">@item.Product.Name.Last().Value (@item.Product.FinalPrice UAH.)</span>
                             </label>
                         </div>
 
@@ -35,12 +35,12 @@
                 </div>
                 <div style="background:#635aa0;height:1px;width:100%;margin-top:15px;"></div>
                 <div style="color:white;">
-                    <label id="mainCartTotalPrice" style="font-size:68px;">
+                    <label id="mainCartTotalPrice" style="font-size:68px;" class="notranslate">
                         @if (@ViewData["CartWidgetPrice"] == null)
                         {<span>0</span> }
                         else
                         {@ViewData["CartWidgetPrice"]}
-                    </label><label class="cartCurrency" style="font-size:39px;"> UAH</label>
+                    </label><label class="cartCurrency" style="font-size:39px;"> <span class="notranslate">UAH</span></label>
                 </div>
 
             </div>
@@ -48,17 +48,17 @@
         <td class="rightIndexPanel" style="width:60%;">
             <div class="mainBlockTitle" style="background: #EEEFFF;">
                 <a href="@ViewData["Params"]" style="color: white;display:block; padding: 0px 10px; font-weight: normal; cursor:pointer; border-radius: 10px; font-size: 23px; width:100px; text-transform: capitalize; background: #ff5a00;" class="cartBackBtn">
-                    <span>Назад</span>
+                    <span class="notranslate">Назад</span>
                 </a>
             </div>
             
             <div style="background:#DCDEFF;">
 
                 @if (Model.Products == null || Model.Products.Count == 0)
-                {<div id="emptyCart" style="width: 100%; font-size: 30px; text-align: center; padding: 30% 30% 0 30%; font-weight: bold; color: #504593;"> Корзина пустая</div> }
+                {<div id="emptyCart" style="width: 100%; font-size: 30px; text-align: center; padding: 30% 30% 0 30%; font-weight: bold; color: #504593;" class="notranslate"> Корзина пустая</div> }
                 else
                 {
-                <div class="warningText">Внимание! В цену на товар уже включены: доставка, страховка и таможенная пошлина</div>
+            <div class="warningText"><span class="notranslate">Внимание! В отличии от других сайтов у нас нету скрытых доплат. Вы видите конечную цену!</span></div>
                 @Html.Partial("_CartListItem", Model.Products)
                 }
 
@@ -70,7 +70,7 @@
                             <div id="continueBtn" class="inline-block" style="width:100%;">
                                 <div onclick="backToMainPage()">
                                     <button class="btnBuyNewCart">
-                                        <span>Продолжить покупки</span>
+                                        <span class="notranslate">Продолжить покупки</span>
                                     </button>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                             <div id="buyBtn" class="inline-block" style="width:100%;">
                                 <form action="@Url.Action("Delivery")">
                                     <button class="btnBuyNewCartOrder">
-                                        <span>Оформить заказ</span>
+                                        <span class="notranslate">Оформить заказ</span>
                                     </button>
                                 </form>
                             </div>
@@ -92,17 +92,17 @@
                     <tr>
                         <td>
                             <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="GarantedPayItem">
-                                <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/GarantedPay.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><div>Безопасная покупка</div></div>
+                                <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/GarantedPay.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><div class="notranslate">Безопасная покупка</div></div>
                             </button>
                         </td>
                         <td>
                             <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="dostavka100Item">
-                                <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/dostavka100.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;">Бесплатная доставка до 30кг</div>
+                                <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/dostavka100.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><span class="notranslate">Бесплатная доставка до 30кг</span></div>
                             </button>
                         </td>
                         <td>
                             <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="User100Item">
-                                <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/User100.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><div>Защита потребителя</div></div>
+                                <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/User100.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><div class="notranslate">Защита потребителя</div></div>
                             </button>
                         </td>
                     </tr>

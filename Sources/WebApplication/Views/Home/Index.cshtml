@@ -592,7 +592,7 @@
                     @*FIND DETAIL BY INPUT SEARCH*@
                     <div class="inputSearchTopText">
                         <div class="inputInsideBlock">
-                            <span>Найдите деталь по </span><span class="inputSearchBottomText">номеру запчасти</span>
+                            <span class="notranslate">Найдите деталь по </span><span class="inputSearchBottomText"><span class="notranslate">номеру запчасти</span></span>
                         </div>
                     </div>
                     <div>
@@ -618,7 +618,7 @@
             <td class="rightIndexPanel">
                 @*SELECT TOP CATEGORY PANEL*@
                 <div id="divSelectTopCategory">
-                    <div class="mainBlockTitle">Выберите раздел</div>
+                    <div class="mainBlockTitle"><span class="notranslate">Выберите раздел</span></div>
                     <div class="divSelectTopCategoryBlock">
                         <div class="inline-block">
                             @*<a href="/topcategory/620">*@
@@ -628,7 +628,7 @@
                                     <img src="~/images/Catalog/Categories/New/Europe_CarTruckParts.png" alt="Легковые и микроавтобусы" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span>Легковые и микроавтобусы</span>
+                                    <span class="notranslate">Легковые и микроавтобусы</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -641,7 +641,7 @@
                                     <img src="~/images/Catalog/Categories/New/Europe_TruckParts.png" alt="Грузовые" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span>Грузовые</span>
+                                    <span class="notranslate">Грузовые</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -654,7 +654,7 @@
                                     <img src="~/images/Catalog/Categories/New/Europe_BusParts.png" alt="Автобусы" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span>Автобусы</span>
+                                    <span class="notranslate">Автобусы</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -665,19 +665,20 @@
                                     <img src="~/images/Catalog/Categories/New/CarType_Special.png" alt="Спецтехника" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span>Спецтехника</span>
+                                    <span class="notranslate">Спецтехника</span>
                                 </div>
                             </div>
                         </div>
                         <div class="inline-block">
                             @*<a id="hrefMoto" href="/topcategory/156">*@
-                            <div class="topCategoryDiv" style="display:grid;" onclick="showMainView('156')" id="divTopCategory_156">
-                                @**@
+                            <div class="topCategoryDiv" style="display:grid;cursor:not-allowed !important;" id="divTopCategory_156">
+                                @*onclick="showMainView('156')"*@
+                                
                                 <div style="text-align:center;">
                                     <img src="~/images/Catalog/Categories/New/CarType_Moto.png" alt="Мото и аксессуары" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span>Мото и аксессуары</span>
+                                    <span class="notranslate">Мото и аксессуары</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -690,7 +691,7 @@
                                     <img src="~/images/Catalog/Categories/New/Europe_TiresAndRims.png" alt="Шины и диски" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span>Шины и диски</span>
+                                    <span class="notranslate">Шины и диски</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -703,7 +704,7 @@
                                     <img src="~/images/Catalog/Categories/New/Europe_Tools.png" alt="Инструменты и оборудование" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span>Инструменты и оборудование</span>
+                                    <span class="notranslate">Инструменты и оборудование</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -770,7 +771,7 @@
                     }
                 </div>
                 <div style="color: black; text-align: center; font-size: 16px; padding: 10px; border-bottom: 1px solid white; border-top: 1px solid white;text-transform:lowercase;" class="notranslate"><a style="color:black;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> Авторазборка Шрот Купить Запчасти б/у новые легковые грузовые бусы мотоциклы Шины Диски Инструменты Оборудование для СТО Мото Аксессуары</div>
-                <div onclick="showHideAutoParts()" class="footerMainBlock" style="color:black !important;">Авторазборка все запчасти</div>
+                <div onclick="showHideAutoParts()" class="footerMainBlock" style="color:black !important;"><span class="notranslate">Авторазборка все запчасти</span></div>
                 <div class="divAllParts" style="color:black !important;">
                     @foreach (var cat in Model.ProductCategoryList)
                     {
@@ -812,7 +813,7 @@
                 </div>
 
                 <div style="color:black;">
-                    <div class="footerMainBlock" style="color:black !important;" onclick="showHidePopularNumbers()">Популярные номера</div>
+                    <div class="footerMainBlock" style="color:black !important;" onclick="showHidePopularNumbers()"><span>Популярные номера</span></div>
                     @foreach (var item in @Model.PartNumbersRandom)
                     {
                         <a href="/search/@item.ToString()" target="_self" class="partNumbersRandom" id="divPartNumbersItem"><span class="notranslate">@item.ToString()</span></a>

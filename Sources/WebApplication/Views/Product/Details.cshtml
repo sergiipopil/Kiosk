@@ -75,7 +75,7 @@
 
     <div class="mainBlockTitle" style="background: #EEEFFF;">
         <div onclick="backToProductList()" style="color: white; padding: 0px 10px; font-weight: normal; border-radius: 10px; cursor:pointer; font-size: 23px; width:100px; text-transform: capitalize; background: #ff5a00;" class="cartBackBtn">
-            <span>Назад</span>
+            <span class="notranslate">Назад</span>
         </div>
     </div>
 
@@ -113,7 +113,7 @@
                         <div class="descriptionBlock"><span class="notranslate">@item</span></div>}
 
                     <div id="divInnerDetails">
-                        <div style="display:inline-block;vertical-align:middle;">
+                        <div style="display:inline-block;vertical-align:middle;" class="notranslate">
                             <h3 class="descriptionBlock" style="cursor:pointer">Описание</h3>
                         </div>                        
                         @Html.Partial("_InnerDetails", @Model)
@@ -124,17 +124,17 @@
 
 
             <div id="controlBlock" class="detailBlock" style="width: 20%; padding: 20px; text-align: left; border: 1px solid #c3c4d7; background: white; box-shadow: 0px 0px 10px wheat;">
-                <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="notranslate">
                     <div id="priceProduct">
-                        <div style="color: #ff5a00;font-weight:bold;">
-                            <span id="spnPrice" style="font-size:34px;" itemprop="price" content="@Model.Price">@Model.Price</span>
-                            <span style="font-size:18px;" itemprop="priceCurrency" content="UAH"> UAH</span>
-                            <span itemprop="availability" href="https://schema.org/InStock" style="display: block; font-weight: normal;font-size:14px;">Доступное количество: @Model.AvailableQuantity</span>
+                        <div style="color: #ff5a00;font-weight:bold;" class="notranslate">
+                            <span id="spnPrice" style="font-size:34px;" itemprop="price" content="@Model.Price" class="notranslate">@Model.Price</span>
+                            <span style="font-size:18px;" itemprop="priceCurrency" content="UAH" class="notranslate"> UAH</span>
+                            <span itemprop="availability" href="https://schema.org/InStock" style="display: block; font-weight: normal;font-size:14px;" class="notranslate">Доступное количество: @Model.AvailableQuantity</span>
                             <span id="priceDeliveryComment" style="color:#6c7096;font-size:14px;display:block;font-weight:normal;">Проверенный продавец</span>
                             <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;margin-bottom:0px;">Быстрая доставка</p>
                             <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">Гарантия 21 день</p>
                         </div>
-                        <div class="warningText">Внимание! В цену на товар уже включены: доставка, страховка и таможенная пошлина</div>
+                        <div class="warningText">Внимание! В отличии от других сайтов у нас нету скрытых доплат. Вы видите конечную цену!</div>
                         <div onclick="goToCart('@Model.Id', '@Model.Title', '@Model.Price', '@Model.kioskId')" style="padding:20px 0px 0px 0px;" class="divGoToCart">
                             <button class="btnBuyList">
                                 <span class="btnBuyListSpan" style="font-size:23px;">Купить</span>
