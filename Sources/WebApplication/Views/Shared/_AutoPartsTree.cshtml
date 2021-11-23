@@ -42,8 +42,8 @@
         @foreach (var item in Model.ProductCategoryList)
         {
             <div style="display:inline-block;vertical-align:middle;">
-                <a href="/topcategory/@Model.TopCategoryId/@item.CategoryId/@item.Name.FirstOrDefault().Value.Replace(" ", "-")">
-                    <div class="parentDivAutoParts" style="display:grid;">
+                @*<a href="/topcategory/@Model.TopCategoryId/@item.CategoryId/@item.Name.FirstOrDefault().Value.Replace(" ", "-")">*@
+                    <div class="parentDivAutoParts" style="display:grid;" onclick="selectMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@item.CategoryId', '@item.Name.FirstOrDefault().Value.Replace(" ", "-")', '@Model.kioskId', '@Model.TopCategoryId')">
                         @*onclick="selectMainCategory('@Model.ManufacturerSelected', '@Model.ModelSelected', '@item.CategoryId', '@item.Name.FirstOrDefault().Value', '@Model.kioskId', '@Model.TopCategoryId')"*@
                         <div class="divCarModelsBlock">
                             <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", Model.ReallyTopCategoryId=="621" && @item.CategoryId=="GROUP-4094"? "Truck/" +  item.CategoryId : item.CategoryId)" class="modelImageAutoParts" />
@@ -52,7 +52,7 @@
                             <span class="notranslate">@item.Name.FirstOrDefault().Value</span>
                         </div>
                     </div>
-                </a>
+                @*</a>*@
             </div>
         }
     }

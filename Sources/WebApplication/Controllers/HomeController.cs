@@ -338,7 +338,7 @@ namespace WebApplication.Controllers
         {
             _topCategoryCarType = new EkSiteFactory().GetCarTypeEnum(topCategoryId);
             HttpContext.Session.SetString("topCategoryId", topCategoryId == null ? "620" : topCategoryId);
-            if (topCategoryId == "99193" || topCategoryId == "18554")
+            if (topCategoryId == "99193" || topCategoryId == "18554" || topCategoryId == "156")
             {
                 var tempC = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == topCategoryId).FirstOrDefault().Children;
                 foreach (var item in tempC)
@@ -1017,6 +1017,7 @@ namespace WebApplication.Controllers
                 FunctionReturnFromProducts = String.Format("selectSubMainCategory('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, tempKioskId, topcategoryid),
                 AllegroOfferList = responceAllegro.Products,
                 ControllerName = "ShowProductList",
+                TopCategoryId = topcategoryid,
                 FakeAllegroList = FakeListForPager(responceAllegro.Total),
                 OfferSorting = OfferSortingEnum.Relevance
             };
@@ -1257,6 +1258,25 @@ namespace WebApplication.Controllers
         //================= METHOD FILTERING LIST PRODUCTS =======================
         public IActionResult FilteredList(string state, string sorting, int page, string position, string isorigin, string enginetype, string transmissionType, string tiresQuantity, string tiresWidth, string tiresHeight, string tiresRSize, string engineValue)
         {
+            if (engineValue == "undefined") {
+                engineValue = null;
+            }
+            if (tiresQuantity == "undefined")
+            {
+                tiresQuantity = null;
+            }
+            if (tiresWidth == "undefined")
+            {
+                tiresWidth = null;
+            }
+            if (tiresHeight == "undefined")
+            {
+                tiresHeight = null;
+            }
+            if (tiresRSize == "undefined")
+            {
+                tiresRSize = null;
+            }
             page = page == 0 ? 1 : page;
             var rightTreeViewModelString = HttpContext.Session.GetString("rightTreeViewModel");
             RightTreeViewModel rightTree = JsonSerializer.Deserialize<RightTreeViewModel>(rightTreeViewModelString);
