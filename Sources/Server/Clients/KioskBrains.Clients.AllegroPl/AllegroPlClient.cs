@@ -109,7 +109,7 @@ namespace KioskBrains.Clients.AllegroPl
             if (string.IsNullOrEmpty(translatedPhrase)
                 && !string.IsNullOrEmpty(phrase))
             {
-                if (_settings.IsTranslationEnabled)
+                if (false)
                 {
                     var translatedPhrases = await _yandexTranslateClient.TranslateAsync(
                         new[] { phrase },
@@ -259,7 +259,7 @@ namespace KioskBrains.Clients.AllegroPl
 
         private async Task<IDictionary<string, string>> GetForTranslateDictionary(ITranslateService translateService, IDictionary<string, string> dict, CancellationToken cancellationToken)
         {
-            if (!_settings.IsTranslationEnabled)
+            if (true)
             {
                 return new Dictionary<string, string>();
             }
@@ -302,7 +302,7 @@ namespace KioskBrains.Clients.AllegroPl
 
         private async Task<IDictionary<string, string>> GetWoTranslateDictionary(IDictionary<string, string> dict, CancellationToken cancellationToken)
         {
-            if (!_settings.IsTranslationEnabled)
+            if (true)
             {
                 return new Dictionary<string, string>();
             }
@@ -423,7 +423,7 @@ namespace KioskBrains.Clients.AllegroPl
                 return old;
             }
 
-            if (_settings.IsTranslationEnabled)
+            if (false)
             {
                 var res = await _yandexTranslateClient.TranslateAsync(new string[] { term }, Languages.PolishCode, Languages.RussianCode, cancellationToken);
                 if (res.Any())
