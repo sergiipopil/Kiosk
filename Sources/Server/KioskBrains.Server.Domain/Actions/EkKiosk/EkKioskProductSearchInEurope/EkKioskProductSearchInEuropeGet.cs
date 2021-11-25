@@ -108,15 +108,15 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk.EkKioskProductSearchInEurope
                 cancellationToken);
             try
             {
-                await _allegroPlClient.ApplyTranslations(_translateService, searchOffersResponse.Offers, request.Term, request.TranslatedTerm, cancellationToken);
+               // await _allegroPlClient.ApplyTranslations(_translateService, searchOffersResponse.Offers, request.Term, request.TranslatedTerm, cancellationToken);
             }
 
             catch { }
 
             EkProduct[] products;
             if (searchOffersResponse.Offers?.Length > 0)
-            { 
-                var exchangeRate = await GetExchangeRateAsync();
+            {
+                var exchangeRate = 6;//await GetExchangeRateAsync();
 
                 products = searchOffersResponse.Offers
                     .Select(x => EkConvertHelper.EkAllegroPlOfferToProduct(x, exchangeRate))
