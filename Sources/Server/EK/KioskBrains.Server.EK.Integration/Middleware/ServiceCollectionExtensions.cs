@@ -46,7 +46,7 @@ namespace KioskBrains.Server.EK.Integration.Middleware
             services.Configure<ElitUaClientSettings>(configuration.GetSection("ElitUaClientSettings"));
             services.AddScoped<ElitUaClient>();
             //services.Configure<YandexTranslateClientSettings>(configuration.GetSection("YandexTranslateClientSettings"));
-            services.AddSingleton<YandexTranslateClient>();
+            //services.AddSingleton<YandexTranslateClient>();
             services.Configure<AllegroPlClientSettings>(configuration.GetSection("AllegroPlClientSettings"));
             services.AddSingleton<ITranslateService, TranslateService>();
 

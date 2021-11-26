@@ -68,47 +68,47 @@ namespace KioskBrains.Clients.YandexTranslate
             var now = DateTime.Now;
 
             
-            if (!IsAuthSessionExpired(now))
-            {
-                return;
-            }
+            //if (!IsAuthSessionExpired(now))
+            //{
+            //    return;
+            //}
 
-            lock (_authRequestLocker)
-            {
-                if (_isAuthRequestInProgress)
-                {
-                    if (_accessToken == null)
-                    {
-                        // possible for parallel requests after app started
-                        throw new AllegroPlRequestException("Auth session is being initialized...");
-                    }
+            //lock (_authRequestLocker)
+            //{
+            //    if (_isAuthRequestInProgress)
+            //    {
+            //        if (_accessToken == null)
+            //        {
+            //            // possible for parallel requests after app started
+            //            throw new AllegroPlRequestException("Auth session is being initialized...");
+            //        }
 
-                    // AccessTokenDuration is much lower than actual one, so old access token can be used even while new one is requested
-                    return;
-                }
+            //        // AccessTokenDuration is much lower than actual one, so old access token can be used even while new one is requested
+            //        return;
+            //    }
 
-                _isAuthRequestInProgress = true;
-            }
+            //    _isAuthRequestInProgress = true;
+            //}
 
             try
             {
                 string responseBody;
                 try
                 {
-                    using (var httpClient = new HttpClient())
-                    {
-                        httpClient.DefaultRequestHeaders.Clear();
-                        //httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_settings.ApiKey}");
-                        var httpResponse = await httpClient.PostAsync(
-                            "https://iam.api.cloud.yandex.net/iam/v1/tokens",
-                            new StringContent($"{{ \"yandexPassportOauthToken\":\"{ _settings.ApiKey }\" }}", Encoding.UTF8, "application/json"),
-                                                    cancellationToken);
-                        responseBody = await httpResponse.Content.ReadAsStringAsync();
-                        if (!httpResponse.IsSuccessStatusCode)
-                        {
-                            throw new AllegroPlRequestException($"Request to auth yandex API failed, response code {(int)httpResponse.StatusCode}, body: {responseBody}");
-                        }
-                    }
+                    //using (var httpClient = new HttpClient())
+                    //{
+                    //    httpClient.DefaultRequestHeaders.Clear();
+                    //    //httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_settings.ApiKey}");
+                    //    var httpResponse = await httpClient.PostAsync(
+                    //        "https://iam.api.cloud.yandex.net/iam/v1/tokens",
+                    //        new StringContent($"{{ \"yandexPassportOauthToken\":\"{ _settings.ApiKey }\" }}", Encoding.UTF8, "application/json"),
+                    //                                cancellationToken);
+                    //    responseBody = await httpResponse.Content.ReadAsStringAsync();
+                    //    if (!httpResponse.IsSuccessStatusCode)
+                    //    {
+                    //        throw new AllegroPlRequestException($"Request to auth yandex API failed, response code {(int)httpResponse.StatusCode}, body: {responseBody}");
+                    //    }
+                    //}
                 }
                 catch (OperationCanceledException)
                 {
@@ -126,21 +126,21 @@ namespace KioskBrains.Clients.YandexTranslate
                 string accessToken;
                 try
                 {
-                    const string AccessTokenProperty = "iamToken";
-                    var response = JsonConvert.DeserializeObject<JObject>(responseBody);
-                    accessToken = response[AccessTokenProperty].Value<string>();
-                    if (string.IsNullOrEmpty(accessToken))
-                    {
-                        throw new Exception($"'{AccessTokenProperty}' is null or empty.");
-                    }
+                    //const string AccessTokenProperty = "iamToken";
+                    //var response = null;//JsonConvert.DeserializeObject<JObject>(responseBody);
+                    //accessToken = response[AccessTokenProperty].Value<string>();
+                    //if (string.IsNullOrEmpty(accessToken))
+                    //{
+                    //    throw new Exception($"'{AccessTokenProperty}' is null or empty.");
+                    //}
                 }
                 catch (Exception ex)
                 {
                     throw new AllegroPlRequestException("Bad format of auth API response.", ex);
                 }
                 
-                _accessToken = accessToken;
-                _accessTokenTime = now;
+                //_accessToken = accessToken;
+                //_accessTokenTime = now;
             }
             finally
             {
@@ -160,23 +160,23 @@ namespace KioskBrains.Clients.YandexTranslate
             string toLanguageCode,
             CancellationToken cancellationToken)
         {
-            await EnsureAuthSessionAsync(cancellationToken);
-            if (texts == null
-                || texts.All(x => string.IsNullOrWhiteSpace(x)))
-            {
-                return texts;
-            }
+            //await EnsureAuthSessionAsync(cancellationToken);
+            //if (texts == null
+            //    || texts.All(x => string.IsNullOrWhiteSpace(x)))
+            //{
+            //    return texts;
+            //}
 
-            Assure.ArgumentNotNull(fromLanguageCode, nameof(fromLanguageCode));
-            Assure.ArgumentNotNull(toLanguageCode, nameof(toLanguageCode));
+            //Assure.ArgumentNotNull(fromLanguageCode, nameof(fromLanguageCode));
+            //Assure.ArgumentNotNull(toLanguageCode, nameof(toLanguageCode));
 
 
 
             string responseBody;
             try
             {
-                var apiKey = _settings.ApiKey;
-                var requestUrl = $"https://translate.api.cloud.yandex.net/translate/v2/translate";
+                //var apiKey = _settings.ApiKey;
+                //var requestUrl = $"https://translate.api.cloud.yandex.net/translate/v2/translate";
                 /*var httpContent = new FormUrlEncodedContent(new Dictionary<string, string>()
                 {
                     ["sourceLanguageCode"] = Languages.PolishCode,
@@ -186,24 +186,24 @@ namespace KioskBrains.Clients.YandexTranslate
                     ["texts"] = JsonConvert.SerializeObject(texts)    
                 });*/
 
-                var str = $"{{ \"sourceLanguageCode\":\"{ fromLanguageCode.ToLower() }\", \"targetLanguageCode\": \"{toLanguageCode.ToLower()}\", \"format\": \"PLAIN_TEXT\", \"folderId\": \"b1gr992001hh7bimbr42\", \"texts\": {JsonConvert.SerializeObject(texts)} }}";
-                var httpContent = new StringContent(str, Encoding.UTF8, "application/json");
+                //var str = $"{{ \"sourceLanguageCode\":\"{ fromLanguageCode.ToLower() }\", \"targetLanguageCode\": \"{toLanguageCode.ToLower()}\", \"format\": \"PLAIN_TEXT\", \"folderId\": \"b1gr992001hh7bimbr42\", \"texts\": {JsonConvert.SerializeObject(texts)} }}";
+                //var httpContent = new StringContent(str, Encoding.UTF8, "application/json");
 
-                using (var httpClient = new HttpClient())
-                {
-                    httpClient.DefaultRequestHeaders.Clear();
-                    //httpClient.DefaultRequestHeaders.Add("Accept", "*/*");
-                    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessToken}");
-                    var httpResponse = await httpClient.PostAsync(
-                        requestUrl,
-                        httpContent,
-                        cancellationToken);
-                    responseBody = await httpResponse.Content.ReadAsStringAsync();
-                    if (!httpResponse.IsSuccessStatusCode)
-                    {
-                        throw new YandexTranslateRequestException($"Request to API failed, response code {(int)httpResponse.StatusCode}, body: {responseBody}");
-                    }
-                }
+                //using (var httpClient = new HttpClient())
+                //{
+                //    httpClient.DefaultRequestHeaders.Clear();
+                //    //httpClient.DefaultRequestHeaders.Add("Accept", "*/*");
+                //    httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessToken}");
+                //    var httpResponse = await httpClient.PostAsync(
+                //        requestUrl,
+                //        httpContent,
+                //        cancellationToken);
+                //    responseBody = await httpResponse.Content.ReadAsStringAsync();
+                //    if (!httpResponse.IsSuccessStatusCode)
+                //    {
+                //        throw new YandexTranslateRequestException($"Request to API failed, response code {(int)httpResponse.StatusCode}, body: {responseBody}");
+                //    }
+                //}
             }
             catch (OperationCanceledException)
             {
@@ -216,31 +216,31 @@ namespace KioskBrains.Clients.YandexTranslate
             catch (Exception ex)
             {
                 return texts;
-                throw new YandexTranslateRequestException("Request to API failed, no response.", ex);
+                //throw new YandexTranslateRequestException("Request to API failed, no response.", ex);
             }
 
             JObject response;
             string[] res;
             try
             {
-                response = JsonConvert.DeserializeObject<JObject>(responseBody);
-                // todo: fix this in all clients - move out of try-catch
-                if (response == null)
-                {
-                    throw new YandexTranslateRequestException("API response is null.");
-                }
+                //response = JsonConvert.DeserializeObject<JObject>(responseBody);
+                //// todo: fix this in all clients - move out of try-catch
+                //if (response == null)
+                //{
+                //    throw new YandexTranslateRequestException("API response is null.");
+                //}
 
-                res = response["translations"].ToList().Select(x => x["text"].ToString()).ToArray();
+                //res = response["translations"].ToList().Select(x => x["text"].ToString()).ToArray();
             }
             catch (Exception ex)
             {
                 throw new YandexTranslateRequestException("Bad format of API response.", ex);
             }
 
-            if (res.Any())
-            {
-                return res;
-            }
+            //if (res.Any())
+            //{
+            //    return res;
+            //}
 
             throw new YandexTranslateRequestException("API response doesn't contain any text.");
 

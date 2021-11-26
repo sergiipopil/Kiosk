@@ -29,7 +29,7 @@ namespace KioskBrains.Clients.AllegroPl
         private readonly AllegroPlClientSettings _settings;
         // ReSharper restore PrivateFieldCanBeConvertedToLocalVariable
 
-        private readonly YandexTranslateClient _yandexTranslateClient;
+        //private readonly YandexTranslateClient _yandexTranslateClient;
 
         private readonly ILogger<AllegroPlClient> _logger;
 
@@ -40,13 +40,13 @@ namespace KioskBrains.Clients.AllegroPl
 
         public AllegroPlClient(
             IOptions<AllegroPlClientSettings> settings,
-            YandexTranslateClient yandexTranslateClient,
+            
             ILogger<AllegroPlClient> logger)
         {
             _settings = settings.Value;
             Assure.ArgumentNotNull(_settings, nameof(_settings));
 
-            _yandexTranslateClient = yandexTranslateClient;
+            //_yandexTranslateClient = yandexTranslateClient;
             _logger = logger;
 
             //_translateService = translateService;
@@ -392,10 +392,10 @@ namespace KioskBrains.Clients.AllegroPl
 
             
             var desc = data.Description[Languages.PolishCode].ToLower();
-            var yandexTranslated = await _yandexTranslateClient.TranslateAsync(new string[] { desc }, Languages.PolishCode.ToLower(), Languages.RussianCode.ToLower(), cancellationToken);
+            //var yandexTranslated = await _yandexTranslateClient.TranslateAsync(new string[] { desc }, Languages.PolishCode.ToLower(), Languages.RussianCode.ToLower(), cancellationToken);
 
             data.Description[Languages.RussianCode] = desc;
-            data.Description[Languages.RussianCode] = yandexTranslated.Any() ? yandexTranslated[0] : desc;
+            //data.Description[Languages.RussianCode] = yandexTranslated.Any() ? yandexTranslated[0] : desc;
         }
 
         private string GetSafeValFromDictionary(IDictionary<string, string> dict1, IDictionary<string, string> dict2, string val)
@@ -426,7 +426,7 @@ namespace KioskBrains.Clients.AllegroPl
 
             if (false)
             {
-                var res = await _yandexTranslateClient.TranslateAsync(new string[] { term }, Languages.PolishCode, Languages.RussianCode, cancellationToken);
+                //var res = await _yandexTranslateClient.TranslateAsync(new string[] { term }, Languages.PolishCode, Languages.RussianCode, cancellationToken);
                 if (res.Any())
                 {
                     return res[0];
