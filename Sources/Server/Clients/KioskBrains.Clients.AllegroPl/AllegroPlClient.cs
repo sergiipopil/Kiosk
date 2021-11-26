@@ -109,19 +109,20 @@ namespace KioskBrains.Clients.AllegroPl
             if (string.IsNullOrEmpty(translatedPhrase)
                 && !string.IsNullOrEmpty(phrase))
             {
-                if (false)
-                {
-                    var translatedPhrases = await _yandexTranslateClient.TranslateAsync(
-                        new[] { phrase },
-                        Languages.RussianCode,
-                        Languages.PolishCode,
-                        cancellationToken);
-                    translatedPhrase = translatedPhrases[0];
-                }
-                else
-                {
-                    translatedPhrase = phrase;
-                }
+                //if (false)
+                //{
+                //    var translatedPhrases = await _yandexTranslateClient.TranslateAsync(
+                //        new[] { phrase },
+                //        Languages.RussianCode,
+                //        Languages.PolishCode,
+                //        cancellationToken);
+                //    translatedPhrase = translatedPhrases[0];
+                //}
+                //else
+                //{
+                    
+                //}
+                translatedPhrase = phrase;
             }
 
             // search for offers
@@ -266,7 +267,7 @@ namespace KioskBrains.Clients.AllegroPl
 
             var translatedTexts = dict.Select(x => x.Key).ToList();
 
-            var forYandex = _valuesToTranslate.Where(x => !translatedTexts.Contains(x.ToLower())).ToArray();
+            //var forYandex = _valuesToTranslate.Where(x => !translatedTexts.Contains(x.ToLower())).ToArray();
 
 
             /*if (forYandex.Any())
@@ -284,19 +285,19 @@ namespace KioskBrains.Clients.AllegroPl
                 }
             }*/
 
-            var yandexTranslated = await _yandexTranslateClient.TranslateAsync(forYandex, Languages.PolishCode.ToLower(), Languages.RussianCode.ToLower(), cancellationToken);
+            //var yandexTranslated = await _yandexTranslateClient.TranslateAsync(forYandex, Languages.PolishCode.ToLower(), Languages.RussianCode.ToLower(), cancellationToken);
 
 
             var yandexDict = new Dictionary<string, string>();
 
-            if (forYandex.Count() == yandexTranslated.Count())
-                for (var i = 0; i < forYandex.Count(); i++)
-                {
-                    if (!yandexDict.ContainsKey(forYandex[i].ToLower()))
-                    {
-                        yandexDict.Add(forYandex[i].ToLower(), yandexTranslated[i].ToLower());
-                    }
-                }
+            //if (forYandex.Count() == yandexTranslated.Count())
+            //    for (var i = 0; i < forYandex.Count(); i++)
+            //    {
+            //        if (!yandexDict.ContainsKey(forYandex[i].ToLower()))
+            //        {
+            //            yandexDict.Add(forYandex[i].ToLower(), yandexTranslated[i].ToLower());
+            //        }
+            //    }
             return yandexDict;
         }
 
