@@ -146,7 +146,6 @@ namespace WebApplication.Controllers
 
         public IActionResult Index(string kioskId)
         {
-
             //CreateExcel();
             //IList<string> testingList = new List<string>() { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
             //var newTest = testingList.AsEnumerable().OrderBy(n => Guid.NewGuid()).Take(5);
