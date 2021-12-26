@@ -427,10 +427,10 @@ namespace KioskBrains.Clients.AllegroPl
             if (false)
             {
                 //var res = await _yandexTranslateClient.TranslateAsync(new string[] { term }, Languages.PolishCode, Languages.RussianCode, cancellationToken);
-                if (res.Any())
-                {
-                    return res[0];
-                }
+                //if (res.Any())
+                //{
+                //    return res[0];
+                //}
             }
 
             return term;
