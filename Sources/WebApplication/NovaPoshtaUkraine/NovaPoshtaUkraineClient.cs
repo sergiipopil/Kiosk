@@ -27,7 +27,7 @@ namespace WebApplication.NovaPoshtaUkraine
         #endregion
 
         // TODO: accept from server (expiration period - 1 year)
-        private const string ApiKey = "376986cb6801ed635b06e3bae756dba8";
+        private const string ApiKey = "bbb9726dbe32c5ee665e1d63192e880a";
 
         private const string ApiUrl = "https://api.novaposhta.ua";
 
