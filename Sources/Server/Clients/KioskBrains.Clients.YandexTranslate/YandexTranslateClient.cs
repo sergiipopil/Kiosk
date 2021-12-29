@@ -38,7 +38,7 @@ namespace KioskBrains.Clients.YandexTranslate
     public class YandexTranslateClient
     {
         // ReSharper disable PrivateFieldCanBeConvertedToLocalVariable
-        //private readonly YandexTranslateClientSettings _settings;
+        private readonly YandexTranslateClientSettings _settings;
         // ReSharper restore PrivateFieldCanBeConvertedToLocalVariable
         private string _accessToken;
         private static readonly TimeSpan AccessTokenDuration = TimeSpan.FromHours(6);
@@ -49,12 +49,12 @@ namespace KioskBrains.Clients.YandexTranslate
        
         private DateTime? _accessTokenTime;
 
-        //public YandexTranslateClient(IOptions<YandexTranslateClientSettings> settings)
-        //{
-        //    _settings = settings.Value;
-        //    Assure.ArgumentNotNull(_settings, nameof(_settings));
-           
-        //}
+        public YandexTranslateClient(IOptions<YandexTranslateClientSettings> settings)
+        {
+            _settings = settings.Value;
+            Assure.ArgumentNotNull(_settings, nameof(_settings));
+
+        }
 
         private bool IsAuthSessionExpired(DateTime now)
         {
