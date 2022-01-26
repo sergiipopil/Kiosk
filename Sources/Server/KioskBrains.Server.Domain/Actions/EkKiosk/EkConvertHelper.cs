@@ -180,7 +180,7 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk
                 var D_Price = product.DeliveryPrice < 10 ? (decimal)35 : product.DeliveryPrice;
                 var M_Markup = GetC_Markup(product, isSpecialEngineTransmissionProduct);
                 var T_Taxes = GetB_Taxes(product, isSpecialEngineTransmissionProduct);
-                var R_Rate = (decimal)6.59;//exchangeRate;
+                var R_Rate = exchangeRate;
 
                 //var ExtraRate = CalculatePrice(P_Price, state, product.CategoryId, (P_Price + D_Price) * R_Rate); //P_Price < 200 ? (decimal)1.55 : (decimal)1.3;
 
