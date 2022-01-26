@@ -392,10 +392,10 @@ namespace KioskBrains.Clients.AllegroPl
 
             
             var desc = data.Description[Languages.PolishCode].ToLower();
-            var yandexTranslated = await _yandexTranslateClient.TranslateAsync(new string[] { desc }, Languages.PolishCode.ToLower(), Languages.RussianCode.ToLower(), cancellationToken);
+            //var yandexTranslated = await _yandexTranslateClient.TranslateAsync(new string[] { desc }, Languages.PolishCode.ToLower(), Languages.RussianCode.ToLower(), cancellationToken);
 
             data.Description[Languages.RussianCode] = desc;
-            data.Description[Languages.RussianCode] = yandexTranslated.Any() ? yandexTranslated[0] : desc;
+            //data.Description[Languages.RussianCode] = yandexTranslated.Any() ? yandexTranslated[0] : desc;
         }
 
         private string GetSafeValFromDictionary(IDictionary<string, string> dict1, IDictionary<string, string> dict2, string val)
