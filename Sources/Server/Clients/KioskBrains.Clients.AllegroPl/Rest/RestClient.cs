@@ -372,7 +372,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
 
                 var descMultiNew = new MultiLanguageString()
                 {
-                    [Languages.PolishCode] = res.description.sections[0].items.Where(x => x.type == "TEXT").FirstOrDefault().content
+                    [Languages.PolishCode] = res.description.sections.Where(x => x.items.FirstOrDefault().type == "TEXT").FirstOrDefault().items.FirstOrDefault().content
                 };
 
                 OfferImage[] imagePathesNew = res.images.Select(x => new OfferImage() { Url = x.original }).ToArray();
