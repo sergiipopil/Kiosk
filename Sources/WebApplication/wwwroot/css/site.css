@@ -801,7 +801,7 @@ html {
     .topCategoryDiv {
         /*width: 75px !important;
         height: 85px !important;*/
-        width: 39px !important;
+        width: 47px !important;
         height: 50px !important;
         background: #E9EAFF;
         display: grid !important;
@@ -856,6 +856,7 @@ html {
         font-size: 14px;
         vertical-align: top;
         text-align: center;
+        padding-bottom:10px;
     }
 
     .inputInsideBlock {
@@ -869,7 +870,8 @@ html {
     }
 
     .inputControlBlock {
-        margin: -30px 15px 10px 15px;
+        margin: 0px 15px 15px 25px;
+        background: white;
     }
     
     .loopBtn {
@@ -898,17 +900,18 @@ html {
     }
 
     .inputPart {
-        font-size: 13px;
-        height: 20px;
+        font-size: 21px;
+        height: 44px;
         width: 100%;
-        padding-left:15px;
+        padding-bottom: 30px;
+        padding-left: 15px;
     }
     .loopBtn {
-        display:none;
+        padding-bottom:8px;
     }
-    .loopImgPadding {
+    /*.loopImgPadding {
         display: none;
-    }
+    }*/
 
     .manufactureText {
         text-align: center;
@@ -1100,8 +1103,8 @@ html {
     }
     .divInputPartFilter {
         display: inline-block;
-        vertical-align: middle;
-        width: 80%;
+        vertical-align: sub;
+        width: 87%;
     }
     .btnBuyNewCartOrder {
         width: 100% !important;

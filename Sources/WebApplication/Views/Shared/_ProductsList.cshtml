@@ -101,15 +101,8 @@
             $("#selectedTransmissionType").text(controlTransmissionType);
         }
         
-        //var inputPartFilter = document.getElementById("inputPartValueFilter");
-        //inputPartFilter.addEventListener("keyup", function (event) {
-        //    // Number 13 is the "Enter" key on the keyboard
-        //    if (event.keyCode === 13) {
-        //        // Cancel the default action, if needed
-        //        //event.preventDefault();
-        //        // Trigger the button element with a click
-        //        submitInputFilter($('#inputPartValueFilter').val());
-        //    }
+        //$(document).ready(function () {
+        //    $(".language__img")[0].click();
         //});
     </script>
     <style>
@@ -348,7 +341,7 @@
             
             <div id="ucManualSearch" style="padding:10px 10px 0px 10px;border-top:2px solid rgb(220 222 255);margin-top:10px;">
                 <div style="border: 1px solid #DCDEFF;border-radius:3px; padding: 0px 0px 0px 15px; margin: 10px 0px;white-space:nowrap;">
-                    <div class="divInputPartFilter">@Html.TextBoxFor(m => m.PartNumberValue, new { @placeholder = "Поиск по номеру детали", @id = "inputPartValueFilter", @style = "height:35px", @class = "inputPartFilter", @onkeydown = "if (event.keyCode == 13) {{submitInputFilter($('#inputPartValueFilter').val())}}" })</div>
+                    <div class="divInputPartFilter">@Html.TextBoxFor(m => m.PartNumberValue, new { @placeholder = "Поиск по номеру детали", @id = "inputPartValueFilter", @style = "height:44px", @class = "inputPartFilter", @onkeydown = "if (event.keyCode == 13) {{submitInputFilter($('#inputPartValueFilter').val())}}" })</div>
                     <div class="loopBtn" onclick="@String.Format("submitInputFilter($('#inputPartValueFilter').val())")"><img class="loopImgPaddingFilter" style="width:25px;" src="~/images/Catalog/InputLoupe.png"></div>
                 </div>
             </div>
@@ -600,7 +593,7 @@ else
         <div style="display:inline-block;vertical-align:middle;padding-left:10px;" class="language">
                 <img src="/images/rus.png" width="30" alt="ru" style="display:inline-block;vertical-align:middle;" data-google-lang="ru" class="language__img">
             </div>*@
-    <a data-google-lang="ru" class="language__img" style="text-decoration:underline;cursor:pointer;">Перевести</a>
+    <a data-google-lang="ru" class="language__img" style="text-decoration:underline;cursor:pointer;visibility:hidden;">Перевести</a>
 </div>
 @foreach (var item in Model.AllegroOfferList)
 {

@@ -585,8 +585,7 @@
     <table style="min-height: 100%;height:100%;;min-width:100%;">
         <tr>
             @*LEFT PANEL*@
-            <td class="leftIndexPanel">
-                <marquee behavior="scroll" direction="left" scrollamount="12" style="font-size:20px;color:#ff5a00;"><span class="notranslate">Получи скидку 4% при самостоятельном заказе!</span></marquee>
+            <td class="leftIndexPanel">                
                 <div id="divSearchByPartNumber">
                     <img src="~/images/Catalog/LoupeBackground1.png" style="margin-top:25%" id="imgLoopBack" />
                     @*FIND DETAIL BY INPUT SEARCH*@
@@ -597,8 +596,10 @@
                     </div>
                     <div>
                         <div class="inputControlBlock">
-                            <div style="display:inline-block;vertical-align:middle;width:85%;">@Html.TextBoxFor(m => m.PartNumberValue, new { @placeholder = "Введите номер детали", @id = "inputPartValue", @class = "inputPart", @onkeydown = "if (event.keyCode == 13) {{submit()}}" })</div>
-                            <div class="loopBtn" onclick="submit()"><img class="loopImgPadding" src="~/images/Catalog/InputLoupe.png"></div>
+                            <div>
+                                <div style="display:inline-block;vertical-align:middle;width:85%;">@Html.TextBoxFor(m => m.PartNumberValue, new { @placeholder = "Введите номер детали", @id = "inputPartValue", @class = "inputPart", @onkeydown = "if (event.keyCode == 13) {{submit()}}" })</div>
+                                <div class="loopBtn" onclick="submit()"><img class="loopImgPadding" src="~/images/Catalog/InputLoupe.png"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
