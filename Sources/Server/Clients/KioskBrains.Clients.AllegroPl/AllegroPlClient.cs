@@ -330,6 +330,7 @@ namespace KioskBrains.Clients.AllegroPl
             {
                 //Dictionary<string, string> tempDic = new Dictionary<string, string>();
                 var dict = await translateService.GetDictionary(_valuesToTranslate);
+                //var dictNames = await translateService.GetNamesDictionary();
                 //var names = await translateService.GetNamesDictionary();
                 //foreach (var item in names)
                 //{
@@ -357,7 +358,29 @@ namespace KioskBrains.Clients.AllegroPl
 
                 foreach (var o in offers)
                 {
-                    o.Name[Languages.RussianCode] = GetSafeValFromDictionary(dict, yandexDict, o.Name[Languages.PolishCode]);
+                    if (o.CategoryId == "255119")
+                    {
+                        if (o.Name[Languages.PolishCode].ToLower().Contains("lampa"))
+                        {
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("lampa", "фонарь");
+                        }
+                        if (o.Name[Languages.PolishCode].ToLower().Contains("lampy"))
+                        {
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("lampy", "фонари");
+                        }
+                    }
+                    if (o.CategoryId == "255099")
+                    {
+                        if (o.Name[Languages.PolishCode].ToLower().Contains("lampa"))
+                        {
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("lampa", "фара");
+                        }
+                        if (o.Name[Languages.PolishCode].ToLower().Contains("lampy"))
+                        {
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("lampy", "фары");
+                        }
+                    }
+                    o.Name[Languages.RussianCode] = GetSafeValFromDictionary(dict, yandexDict, o.Name[Languages.PolishCode], translateService);
                 }
             }
             catch (Exception er)
@@ -399,17 +422,17 @@ namespace KioskBrains.Clients.AllegroPl
                 data.State = RestClient.StatesByNames.ContainsKey(state.Value[Languages.PolishCode].ToLower()) ? RestClient.StatesByNames[state.Value[Languages.PolishCode].ToLower()] : OfferStateEnum.New;
             }
 
-            data.Name[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, data.Name[Languages.PolishCode]);
+            data.Name[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, data.Name[Languages.PolishCode], translateService);
 
             foreach (var p in data.Parameters)
             {
-                p.Name[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, p.Name[Languages.PolishCode]);
-                p.Value[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, p.Value[Languages.PolishCode]);
+                p.Name[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, p.Name[Languages.PolishCode], translateService);
+                p.Value[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, p.Value[Languages.PolishCode], translateService);
             }
-
+            data.Description[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, data.Description[Languages.PolishCode], translateService);
         }
 
-        private string GetSafeValFromDictionary(IDictionary<string, string> dict1, IDictionary<string, string> dict2, string val)
+        private string GetSafeValFromDictionary(IDictionary<string, string> dict1, IDictionary<string, string> dict2, string val, ITranslateService translateService = null)
         {
             if (dict1.ContainsKey(val.ToLower()))
             {
@@ -419,7 +442,29 @@ namespace KioskBrains.Clients.AllegroPl
             {
                 return dict2[val.ToLower()];
             }
-            return _valuesToTranslate.FirstOrDefault(x => x.ToLower() == val) ?? val;
+            var resWords = val.Split().Select(x => x.ToLower());
+            IList<string> resReturn = new List<string>();
+            var resVal = translateService.GetDictionaryNameTemp(val.ToLower().Split()).Result;
+
+            if (resVal.Count > 0)
+            {
+                foreach (var itemDic in resWords)
+                {
+                    if (resVal.ContainsKey(itemDic))
+                    {
+                        resReturn.Add(resVal.Where(x => x.Key == itemDic).FirstOrDefault().Value);
+                    }
+                    else
+                    {
+                        resReturn.Add(itemDic);
+                    }
+                }
+            }
+            else
+            {
+                return val;
+            }
+            return string.Join(" ", resReturn);
         }
 
         public async Task<string> GetTranslation(ITranslateService service, string term, CancellationToken cancellationToken)

@@ -61,13 +61,19 @@
         }
     </style>
     <script type="text/javascript">
-        $(document).ready(function () {
+        $(document).ready(function () {            
+           
             $("#divAboutUs").click(function () {
                 $("#aboutInfo").toggle("slow", function () {
                     // Animation complete.
                 });
             });
         });
+        function TestScroll() {
+            $('ul.pagination li').on("click", function () {
+            $(window).scrollTop(0);
+        });
+        }
         function showFooterItem(itemName) {
             //infoFranchise  infoCooperate  infoBrands  infoAbout
             if (itemName == "#infoFranchise") {

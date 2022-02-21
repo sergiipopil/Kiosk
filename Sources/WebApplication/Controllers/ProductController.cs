@@ -532,11 +532,11 @@ namespace WebApplication.Controllers
             }
             Offer offer = GetProductInfo(id);
             var tempRus = "";
-            if (isTransDesc)
+            if (false)
             {
                 tempRus = GetDescTransl(offer);
             }
-            offer.Description[Languages.RussianCode] = tempRus;
+            //offer.Description[Languages.RussianCode] = tempRus;
             var exchangeRate = GetExchangeRateAsync().Result;
             EkProduct ekProduct = EkConvertHelper.EkAllegroPlOfferToProduct(offer, exchangeRate);
 
@@ -550,7 +550,7 @@ namespace WebApplication.Controllers
             {
                 Id = id,
                 Title = offer.Name[Languages.RussianCode],
-                Description = offer.Description[Languages.PolishCode],
+                Description = offer.Description[Languages.RussianCode],
                 Images = offer.Images,
                 Parameters = parameters,
                 Price = ekProduct.Price.ToString(),

@@ -1224,6 +1224,7 @@ namespace WebApplication.Controllers
             }
             try
             {
+                await _allegroPlClient.ApplyTranslations(_translateService, searchOffersResponse.Offers, String.Format("{0} {1}", carManufactureName, carModel), null, System.Threading.CancellationToken.None);
                 //if (selectedCategoryId != "250847")
                 //{
                 //    await _allegroPlClient.ApplyTranslations(_translateService, searchOffersResponse.Offers, String.Format("{0} {1}", carManufactureName, carModel), null, System.Threading.CancellationToken.None);
