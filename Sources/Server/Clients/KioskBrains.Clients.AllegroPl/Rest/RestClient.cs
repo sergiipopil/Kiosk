@@ -370,9 +370,20 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     });
                 }
 
+                var sections = res.description.sections;
+                var blockSections = sections.Select(x => x.items);
+                string polishDesc="";
+                foreach (var itemBlock in blockSections) {
+                    var textBlock = itemBlock.Where(x=>x.type=="TEXT");
+                    if (textBlock.Count() > 0) {
+                        polishDesc = textBlock.FirstOrDefault().content;
+                        break;
+                    }
+                }
+
                 var descMultiNew = new MultiLanguageString()
                 {
-                    [Languages.PolishCode] = res.description.sections.Where(x => x.items.FirstOrDefault().type == "TEXT").FirstOrDefault().items.FirstOrDefault().content
+                    [Languages.PolishCode] = polishDesc
                 };
 
                 OfferImage[] imagePathesNew = res.images.Select(x => new OfferImage() { Url = x.original }).ToArray();

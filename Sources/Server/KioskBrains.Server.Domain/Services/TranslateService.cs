@@ -89,7 +89,14 @@ namespace KioskBrains.Server.Domain.Services
             var translations =  await _readOnlyRepository.Get<TranslateItem>(filter: x => x.IsUsedForParameter.HasValue && x.IsUsedForParameter.Value);
             return translations.ToDictionary(x => x.Id, x => x.TextRu);
         }
+        public async Task<IDictionary<string, string>> GetDictionaryNameTemp(IEnumerable<string> values)
+        {
+            var texts = values.Select(x => x.ToLower()).ToList();
 
+            var translations = await _readOnlyRepository.Get<TranslateItem>(filter: x => texts.Contains(x.Id) && x.IsUsedForName == true);
+            var tempTranslations = translations.ToDictionary(x => x.Id, x => x.TextRu);
+            return tempTranslations;
+        }
         public async Task<string> GetTranslatedText(string text)
         {
             var task = _readOnlyRepository.GetById<TranslateItem>(text);
