@@ -116,7 +116,7 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk.EkKioskProductSearchInEurope
             EkProduct[] products;
             if (searchOffersResponse.Offers?.Length > 0)
             {
-                var exchangeRate = 6;//await GetExchangeRateAsync();
+                var exchangeRate = await GetExchangeRateAsync();
 
                 products = searchOffersResponse.Offers
                     .Select(x => EkConvertHelper.EkAllegroPlOfferToProduct(x, exchangeRate))
