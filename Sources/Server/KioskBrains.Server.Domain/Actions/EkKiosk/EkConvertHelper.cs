@@ -129,6 +129,9 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk
                     state = EkProductStateEnum.New;
                     break;
             }
+            if (state == EkProductStateEnum.Unknown) {
+                state = EkProductStateEnum.Used;
+            }
 
             decimal deliveryPrice;
             if (offer.DeliveryOptions?.Length > 0)

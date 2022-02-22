@@ -59,7 +59,7 @@ namespace KioskBrains.Clients.AllegroPl
 
         #region Search
 
-        private const int MaxPageSize = 10;
+        private const int MaxPageSize = 40;
         private const int MaxDescriptionLength = 250;
 
         public async Task<IList<string>> GetCategoriesByFullModelName(string modelName, CancellationToken cancellationToken)
@@ -103,7 +103,9 @@ namespace KioskBrains.Clients.AllegroPl
             {
                 throw new NotSupportedException($"Max '{MaxPageSize}' page size is supported.");
             }
-
+            if (state == OfferStateEnum.All) { 
+                state = OfferStateEnum.Used;
+            }
             _valuesToTranslate = new HashSet<string>();
             var arPhrase = new[] { phrase };
             if (string.IsNullOrEmpty(translatedPhrase)
@@ -138,7 +140,7 @@ namespace KioskBrains.Clients.AllegroPl
                 apiOffers.AddRange(apiResponse.Items.Regular);
             }
 
-            if (apiOffers.Count > MaxPageSize)
+            if (apiResponse.TotalCount > MaxPageSize)
             {
                 apiOffers = apiOffers
                     .Take(MaxPageSize)

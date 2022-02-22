@@ -231,7 +231,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     tempSSS.Add(offerItem);
                 }
                 responceOld.Items = new Models.SearchOffersResponseItems() { Regular = tempSSS.ToArray() };
-
+                responceOld.TotalCount = Convert.ToInt32(parserResponce.totalCount);
 
                 return responceOld;
             }
@@ -338,9 +338,10 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     throw new ArgumentOutOfRangeException(nameof(sorting), sorting, null);
             }
             parameters["sort"] = sortingValue;
-            parameters["page"] = (offset / 10).ToString();
+            parameters["page"] = ((offset / 40)+1).ToString();
             parameters["api_key"] = "Umthudpx8FCs9ks6rBpB";
             parameters["method"] = "search";
+
 
             var action = "/offers/listing";
             var response = await GetAsync<Models.SearchOffersResponse>(action, parameters, cancellationToken);
