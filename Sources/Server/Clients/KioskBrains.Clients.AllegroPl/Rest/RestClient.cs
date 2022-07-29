@@ -169,7 +169,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             }
             try
             {
-                var uriBuilder = new UriBuilder($"http://95.111.250.32/allegro/parser.php");
+                var uriBuilder = new UriBuilder($"http://38.242.150.247/allegro/parser.php");
                 if (queryParameters?.Count > 0)
                 {
                     uriBuilder.Query = string.Join(
@@ -238,7 +238,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                                     client.DefaultRequestHeaders.Clear();
                                     client.DefaultRequestHeaders.Add("Authorization", $"Bearer {_accessToken}");
                                     client.DefaultRequestHeaders.Add("Accept", "application/vnd.allegro.public.v1+json");
-                                    var httpResponseDetail = await client.GetAsync("http://95.111.250.32/allegro/parser.php?api_key=Umthudpx8FCs9ks6rBpB&method=details&product_id=" + item.id, cancellationToken);
+                                    var httpResponseDetail = await client.GetAsync("http://38.242.150.247/allegro/parser.php?api_key=Ah4Yg2nzA6kQ3EmPvUA7bN&method=details&product_id=" + item.id, cancellationToken);
                                     responseBodyDetail = await httpResponseDetail.Content.ReadAsStringAsync();
                                     if (!httpResponseDetail.IsSuccessStatusCode)
                                     {
@@ -260,10 +260,13 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                         {
                             Id = queryParameters["category"]
                         };
-                        offerItem.Delivery = new Models.OfferDelivery()
+                        if (item.price_with_delivery != null)
                         {
-                            LowestPrice = new Models.OfferPrice() { Amount = Convert.ToDecimal(item.price_with_delivery.Replace('.', ',')) - Convert.ToDecimal(item.price.Replace('.', ',')) }
-                        };
+                            offerItem.Delivery = new Models.OfferDelivery()
+                            {
+                                LowestPrice = new Models.OfferPrice() { Amount = Convert.ToDecimal(item.price_with_delivery.Replace('.', ',')) - Convert.ToDecimal(item.price.Replace('.', ',')) }
+                            };
+                        }
                         offerItem.Images = new OfferImage[] { new OfferImage { Url = item.mainImage } };
 
                         tempSSS.Add(offerItem);
@@ -356,7 +359,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             {
                 parameters.Add("price_from", "100");
             }
-
+            parameters.Add("language", "uk-UA");
             if (isBody)
             {
                 parameters.Add("price_from", "400");
@@ -408,7 +411,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             }
             parameters["sort"] = sortingValue;
             parameters["page"] = (offset / 40).ToString();
-            parameters["api_key"] = "Umthudpx8FCs9ks6rBpB";
+            parameters["api_key"] = "Ah4Yg2nzA6kQ3EmPvUA7bN";
             parameters["method"] = "search";
 
             var action = "/offers/listing";
@@ -501,7 +504,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
                 using (var client = new HttpClient(httpClientHandler))
                 {
-                    var httpResponse = await client.GetAsync("http://95.111.250.32/allegro/parser.php?api_key=Umthudpx8FCs9ks6rBpB&method=details&product_id=" + id, CancellationToken.None);
+                    var httpResponse = await client.GetAsync("http://38.242.150.247/allegro/parser.php?api_key=Ah4Yg2nzA6kQ3EmPvUA7bN&method=details&language=uk-UA&product_id=" + id, CancellationToken.None);
                     responseBody = await httpResponse.Content.ReadAsStringAsync(); //httpResponse.Result;
                 }
             }

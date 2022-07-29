@@ -14,7 +14,7 @@
     </div>
     @foreach (var item in Model)
     {
-<div class="warningText"><span class="notranslate">Внимание! В отличии от других сайтов у нас нету скрытых доплат. Вы видите конечную цену!</span></div>
+<div class="warningText"><span class="notranslate">Увага! На відміну від інших сайтів, у нас немає прихованих доплат. Ви бачите кінцеву ціну!</span></div>
         <div class="divProductListCard">
             <div class="row">
                 <div class="col-lg-3">
@@ -50,12 +50,12 @@
                         <div style="color: #ff5a00;font-weight:bold;">
                             <span class="divProductPrice" style="font-size:32px;"><span class="notranslate">@item.Product.FinalPrice</span></span>
                             <span class="divProductCurrency" style="font-size:18px;"><span class="notranslate">@item.Product.PriceCurrencyCode</span></span>
-                            <span id="priceDeliveryComment" style="color:#ff5a00;font-size:16px;font-weight:700;display:block;" class="notranslate">всё включено в цену</span>
-                            <span id="priceDeliveryComment" style="color:#6c7096;font-size:14px;display:block;font-weight:normal;" class="notranslate">Проверенный продавец</span>
-                            <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;margin-bottom:0px;" class="notranslate">быстрая доставка</p>
-                            <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;" class="notranslate">Гарантия 21 день</p>
+                            <span id="priceDeliveryComment" style="color:#ff5a00;font-size:16px;font-weight:700;display:block;" class="notranslate">все включено у ціну</span>
+                            <span id="priceDeliveryComment" style="color:#6c7096;font-size:14px;display:block;font-weight:normal;" class="notranslate">Перевірений продавець</span>
+                            <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;margin-bottom:0px;" class="notranslate">швидка доставка</p>
+                            <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;" class="notranslate">Гарантія 21 день</p>
                         </div>
-                        <div style="color: #ff5a00; text-align: center;" class="notranslate">Безопасная покупка</div>
+                        <div style="color: #ff5a00; text-align: center;" class="notranslate">Безпечна покупка</div>
                         @*<div style="padding:4px 0px;">
                                 <span>
                                     <input type="number" id="@item.Product.SourceId" value="@item.Quantity" class="cartQuantity" />
@@ -78,7 +78,7 @@
 
     <div style="text-align:center;color:white;">
         <label id="mainCartTotalPrice" style="font-size:22px;font-weight:normal;" class="notranslate">
-            Общая сумма:
+            Загальна сума:
             @if (@ViewData["CartWidgetPrice"] == null)
             {<span>0</span> }
             else
@@ -89,17 +89,17 @@
         <tr>
             <td style="background:white;">
                 <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="GarantedPayItem">
-                    <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/GarantedPay.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><div class="notranslate">Безопасная покупка</div></div>
+                    <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/GarantedPay.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><div class="notranslate">Безпечна покупка</div></div>
                 </button>
             </td>
             <td style="background:white;">
                 <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="dostavka100Item">
-                    <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/dostavka100.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><span class="notranslate">Бесплатная доставка до 30кг</span></div>
+                    <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/dostavka100.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><span class="notranslate">Безкоштовна доставка до 30кг</span></div>
                 </button>
             </td>
             <td style="background:white;">
                 <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="User100Item">
-                    <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/User100.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><div class="notranslate">Защита потребителя</div></div>
+                    <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/User100.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><div class="notranslate">Захист споживача</div></div>
                 </button>
             </td>
         </tr>

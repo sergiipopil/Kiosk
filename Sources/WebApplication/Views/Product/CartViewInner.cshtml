@@ -9,7 +9,7 @@
     <tr>
         <td style="vertical-align:top;padding-right:4%;min-height: 100%; height:100%;" class="leftCartColumn">
             <div style="background:#514593;width:100%;text-align:center;padding:60px 0px;min-height: 100%; height:100%;" class="cartBlockMain">
-                <span style="color:white;font-size:30px;" class="cartTitle"><span class="notranslate">У Вас в корзине</span></span>
+                <span style="color:white;font-size:30px;" class="cartTitle"><span class="notranslate">У Вас в корзині</span></span>
                 <div style="padding:50px 0px;" class="cartProductsPadding">
 
                     @if (Model != null && Model.Products != null)
@@ -55,10 +55,10 @@
             <div style="background:#DCDEFF;">
 
                 @if (Model.Products == null || Model.Products.Count == 0)
-                {<div id="emptyCart" style="width: 100%; font-size: 30px; text-align: center; padding: 30% 30% 0 30%; font-weight: bold; color: #504593;" class="notranslate"> Корзина пустая</div> }
+                {<div id="emptyCart" style="width: 100%; font-size: 30px; text-align: center; padding: 30% 30% 0 30%; font-weight: bold; color: #504593;" class="notranslate"> Корзина пуста</div> }
                 else
                 {
-            <div class="warningText"><span class="notranslate">Внимание! В отличии от других сайтов у нас нету скрытых доплат. Вы видите конечную цену!</span></div>
+            <div class="warningText"><span class="notranslate">Увага! На відміну від інших сайтів, у нас немає прихованих доплат. Ви бачите кінцеву ціну!</span></div>
                 @Html.Partial("_CartListItem", Model.Products)
                 }
 
@@ -70,7 +70,7 @@
                             <div id="continueBtn" class="inline-block" style="width:100%;">
                                 <div onclick="backToMainPage()">
                                     <button class="btnBuyNewCart">
-                                        <span class="notranslate">Продолжить покупки</span>
+                                        <span class="notranslate">Продовжити покупки</span>
                                     </button>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                             <div id="buyBtn" class="inline-block" style="width:100%;">
                                 <form action="@Url.Action("Delivery")">
                                     <button class="btnBuyNewCartOrder">
-                                        <span class="notranslate">Оформить заказ</span>
+                                        <span class="notranslate">Оформити замовлення</span>
                                     </button>
                                 </form>
                             </div>
@@ -92,17 +92,17 @@
                     <tr>
                         <td>
                             <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="GarantedPayItem">
-                                <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/GarantedPay.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><div class="notranslate">Безопасная покупка</div></div>
+                                <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/GarantedPay.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><div class="notranslate">Безпечна покупка</div></div>
                             </button>
                         </td>
                         <td>
                             <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="dostavka100Item">
-                                <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/dostavka100.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><span class="notranslate">Бесплатная доставка до 30кг</span></div>
+                                <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/dostavka100.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><span class="notranslate">Безкоштовна доставка до 30кг</span></div>
                             </button>
                         </td>
                         <td>
                             <button id='open' class="simpleBtn" data-toggle="modal" data-target="#showmodal_PopUp" data-menuitem="User100Item">
-                                <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/User100.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><div class="notranslate">Защита потребителя</div></div>
+                                <div class="menuItemPic" style="max-width: 100%; width: 100%; display: block;text-align:center;"><img src="~/images/OrderAdvert/User100.png" style="max-height:100px;" /></div><div class="inline-block" style="color:#080c31;text-align:center;padding-left:10px;"><div class="notranslate">Захист споживача</div></div>
                             </button>
                         </td>
                     </tr>

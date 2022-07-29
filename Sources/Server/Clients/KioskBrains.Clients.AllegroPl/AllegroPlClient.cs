@@ -363,10 +363,19 @@ namespace KioskBrains.Clients.AllegroPl
                         if (o.Name[Languages.PolishCode].ToLower().Contains("lampa"))
                         {
                             o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("lampa", "фонарь");
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("tył tylna", "задний");
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("tylne", "задний");
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("tylna", "задний");
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("tył", "задний");
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("lewa", "левый");
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("prawa", "правый");
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("prawy", "правый");
                         }
                         if (o.Name[Languages.PolishCode].ToLower().Contains("lampy"))
                         {
-                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("lampy", "фонари");
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("lampy", "фонари"); 
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("tył", "задние");
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("tyl", "задниe");
                         }
                     }
                     if (o.CategoryId == "255099")
@@ -374,6 +383,10 @@ namespace KioskBrains.Clients.AllegroPl
                         if (o.Name[Languages.PolishCode].ToLower().Contains("lampa"))
                         {
                             o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("lampa", "фара");
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("lewa", "левая");
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("lewy", "левая");
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("prawa", "правая");
+                            o.Name[Languages.PolishCode] = o.Name[Languages.PolishCode].ToLower().Replace("prawy", "правая");
                         }
                         if (o.Name[Languages.PolishCode].ToLower().Contains("lampy"))
                         {
@@ -421,13 +434,82 @@ namespace KioskBrains.Clients.AllegroPl
             {
                 data.State = RestClient.StatesByNames.ContainsKey(state.Value[Languages.PolishCode].ToLower()) ? RestClient.StatesByNames[state.Value[Languages.PolishCode].ToLower()] : OfferStateEnum.New;
             }
-
+            if (data.CategoryId == "255119")
+            {
+                if (data.Name[Languages.PolishCode].ToLower().Contains("lampa"))
+                {
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("lampa", "фонарь");
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("tył tylna", "задний");
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("tylne", "задний");
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("tylna", "задний");
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("tył", "задний");
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("lewa", "левый");
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("prawa", "правый");
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("prawy", "правый");
+                }
+                if (data.Name[Languages.PolishCode].ToLower().Contains("lampy"))
+                {
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("lampy", "фонари");
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("tył", "задние");
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("tyl", "задниe");
+                }
+            }
+            if (data.CategoryId == "255099")
+            {
+                if (data.Name[Languages.PolishCode].ToLower().Contains("lampa"))
+                {
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("lampa", "фара");
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("lewa", "левая");
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("lewy", "левая");
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("prawa", "правая");
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("prawy", "правая");
+                }
+                if (data.Name[Languages.PolishCode].ToLower().Contains("lampy"))
+                {
+                    data.Name[Languages.PolishCode] = data.Name[Languages.PolishCode].ToLower().Replace("lampy", "фары");
+                }
+            }
             data.Name[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, data.Name[Languages.PolishCode], translateService);
 
             foreach (var p in data.Parameters)
             {
                 p.Name[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, p.Name[Languages.PolishCode], translateService);
                 p.Value[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, p.Value[Languages.PolishCode], translateService);
+            }
+            if (data.CategoryId == "255119")
+            {
+                if (data.Description[Languages.PolishCode].ToLower().Contains("lampa"))
+                {
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("lampa", "фонарь");
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("tył tylna", "задний");
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("tylne", "задний");
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("tylna", "задний");
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("tył", "задний");
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("lewa", "левый");
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("prawa", "правый");
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("prawy", "правый");
+                }
+                if (data.Name[Languages.PolishCode].ToLower().Contains("lampy"))
+                {
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("lampy", "фонари");
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("tył", "задние");
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("tyl", "задниe");
+                }
+            }
+            if (data.CategoryId == "255099")
+            {
+                if (data.Description[Languages.PolishCode].ToLower().Contains("lampa"))
+                {
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("lampa", "фара");
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("lewa", "левая");
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("lewy", "левая");
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("prawa", "правая");
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("prawy", "правая");
+                }
+                if (data.Description[Languages.PolishCode].ToLower().Contains("lampy"))
+                {
+                    data.Description[Languages.PolishCode] = data.Description[Languages.PolishCode].ToLower().Replace("lampy", "фары");
+                }
             }
             data.Description[Languages.RussianCode] = GetSafeValFromDictionary(dict, woTranslateDict, data.Description[Languages.PolishCode], translateService);
         }

@@ -14,7 +14,7 @@
                 <div onclick="ReturnToDelivery()" class="btnBackModelPage">
                     <span class="notranslate">Назад</span>
                 </div>
-                <div style="display:inline-block;" class="notranslate">Выберите способ оплаты</div>
+                <div style="display:inline-block;" class="notranslate">Оберіть спосіб оплати</div>
             </div>
             <div class="col-4" style="background:#504593;min-height: 100vh;" id="divLeftOrderColumn">
                 <div class="row" id="divCssGarantedPay">
@@ -23,10 +23,10 @@
                     </div>
                     <div class="col-8" style="color:white;">
                         <div style="font-size: 34px;" class="garantedPayText">
-                            <span class="notranslate">Гарантированный платеж</span>
+                            <span class="notranslate">Гарантований платіж</span>
                         </div>
                         <div style="font-size: 34px;" class="garantedPayText">
-                            <span class="notranslate">Безопасная покупка</span>
+                            <span class="notranslate">Безпечна покупка</span>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                         <img src="~/images/OrderAdvert/dostavka100.png" style="width:inherit;" class="picGarantedPay" />
                     </div>
                     <div class="col" style="color:white;">
-                        <span style="font-size:34px;" class="garantedPayText"><span class="notranslate">Бесплатная доставка до 30кг</span></span>
+                        <span style="font-size:34px;" class="garantedPayText"><span class="notranslate">Безкоштовна доставка до 30кг</span></span>
                     </div>
                 </div>
                 <div class="row" id="divCssUserDefend">
@@ -45,8 +45,9 @@
                     <div class="col" style="color:white;">
                         <div style="font-size:34px;" class="garantedPayText">
                             <span class="notranslate">
-                                Защита потребителя
-                                Гарантия на товар</span>
+                                Захист споживача
+                                Гарантія товару
+                            </span>
 </div>
                     </div>
                 </div>
@@ -80,7 +81,7 @@
                                 <form id="formTerminalPrivat" method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8" class="notranslate">
                                     <input type="hidden" name="data" value="@Model.cashData.Data" />
                                     <input type="hidden" name="signature" value="@Model.cashData.Signature" />
-                                    <input type="submit" value="Оплата в терминале ПриватБанка" style="background:white;" class="paymentTextDesign" />
+                                    <input type="submit" value="Оплата в терміналі ПриватБанка" style="background:white;" class="paymentTextDesign" />
                                 </form>
                             </div>
                         </div>

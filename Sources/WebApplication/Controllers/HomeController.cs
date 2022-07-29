@@ -212,7 +212,7 @@ namespace WebApplication.Controllers
 
 
 
-            ViewBag.TitleText = "Авторазборка Шрот Купить Запчасти Б/у и Новые";
+            ViewBag.TitleText = "Авторозбірка Шрот Купити Запчастини Б/у і Нові";
             if (RouteData.Values["category"] != null && (RouteData.Values["category"].ToString() == "99193" || RouteData.Values["category"].ToString() == "18554"))
             {
                 var tempC = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == RouteData.Values["category"].ToString()).FirstOrDefault().Children;
@@ -248,7 +248,7 @@ namespace WebApplication.Controllers
             if (RouteData.Values["carmanufacture"] != null && RouteData.Values["carmodel"] == null)
             {
                 var carManufactureName = RouteData.Values["carmanufacture"].ToString().ToUpper().Contains("MERCEDES") ? RouteData.Values["carmanufacture"].ToString().ToUpper() : RouteData.Values["carmanufacture"].ToString().ToUpper().Replace("-", " ");
-                ViewBag.TitleText = "Авторазборка Шрот Купить Запчасти Б/У и Новые " + carManufactureName;
+                ViewBag.TitleText = "Авторозбірка Шрот Купити Запчастини Б/У і Нові " + carManufactureName;
                 var modelTree = carTree.Where(x => x.Name == carManufactureName).Select(y => y.CarModels).FirstOrDefault();
                 var modelDescription = carTree.Where(x => x.Name == carManufactureName).Select(y => y.description).FirstOrDefault();
                 return View(new RightTreeViewModel() { ViewName = "_CarModels", ProductCategoryList = treeMainCategories, ModelDescription = modelDescription, ManufacturerSelected = carManufactureName, ModelsList = modelTree, TopCategoryId = HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"), kioskId = "116" });
@@ -404,7 +404,7 @@ namespace WebApplication.Controllers
             var modelTree = carTree.Where(x => x.Name == carManufactureName).Select(y => y.CarModels).FirstOrDefault().Where(x => x.Name == carModel);
 
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
-            ViewBag.TitleText = "Авторазборка Шрот Купить Запчасти Б/У и Новые " + carManufactureName + " " + carModel;
+            ViewBag.TitleText = "Авторозбірка Шрот Купити Запчастини Б/У і Нові " + carManufactureName + " " + carModel;
             return new RightTreeViewModel() { ViewName = "_CarModels", ManufacturerSelected = carManufactureName, ModelSelected = carModel, ModelsList = modelTree.Select(x => x.Children).FirstOrDefault(), IsModificationList = true, TopCategoryId = topcategoryid, kioskId = tempKioskId };
         }
         public RightTreeViewModel GetCategoryAutoParts(string carManufactureName, string carModel, string modification, string topcategoryid)
@@ -429,7 +429,7 @@ namespace WebApplication.Controllers
             {
                 reallyTopCategory = "621";
             }
-            ViewBag.TitleText = "Авторазборка Шрот Купить Запчасти Б/У и Новые " + carManufactureName + " " + carModel;
+            ViewBag.TitleText = "Авторозбірка Шрот Купити Запчастини Б/У і Нові " + carManufactureName + " " + carModel;
             return new RightTreeViewModel() { ViewName = "_AutoPartsTree", ProductCategoryList = autoParts, ManufacturerSelected = carManufactureName, ModelSelected = String.IsNullOrEmpty(modification) || modification == "null" || modification == "NULL" ? carModel : modification, kioskId = tempKioskId, ReallyTopCategoryId = reallyTopCategory, TopCategoryId = topcategoryid };
         }
         //====================METHOD TO SHOW PRODUCTS CATEGORIES ======================================
@@ -565,7 +565,7 @@ namespace WebApplication.Controllers
                 treeViewModel.SelectedCategoryName = mainCategoryName;
                 treeViewModel.ScriptData = GetEcommerceScriptData(treeViewModel);
                 HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeViewModel));
-                ViewBag.TitleText = "Купить " + mainCategoryId + " " + carManufactureName + " " + carModel + " с разборки";
+                ViewBag.TitleText = "Купити " + mainCategoryId + " " + carManufactureName + " " + carModel + " з розборки";
 
                 return treeViewModel;
             }
@@ -589,7 +589,7 @@ namespace WebApplication.Controllers
                 TopCategoryId = topcategoryid,
                 ReallyTopCategoryId = HttpContext.Session.GetString("topCategoryId") == "621" ? "621" : (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"))
             };
-            ViewBag.TitleText = "Купить " + mainCategoryName + " " + carManufactureName + " " + carModel + " с разборки";
+            ViewBag.TitleText = "Купити " + mainCategoryName + " " + carManufactureName + " " + carModel + " з розборки";
             return treeView;
         }
         public List<string> FakeListForPager(long quantity)
@@ -673,7 +673,7 @@ namespace WebApplication.Controllers
                 treeViewModel.SelectedCategoryName = subCategoryName;
                 treeViewModel.ScriptData = GetEcommerceScriptData(treeViewModel);
                 HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeViewModel));
-                ViewBag.TitleText = "Купить " + subCategoryName + " " + carManufactureName + " " + carModel + " с разборки";
+                ViewBag.TitleText = "Купити " + subCategoryName + " " + carManufactureName + " " + carModel + " з розборки";
 
                 return treeViewModel;
             }
@@ -698,7 +698,7 @@ namespace WebApplication.Controllers
                 ViewName = "_AutoPartsSubChildsTree",
                 ReallyTopCategoryId = HttpContext.Session.GetString("topCategoryId") == "621" ? "621" : (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"))
             };
-            ViewBag.TitleText = "Купить " + subCategoryName + " " + carManufactureName + " " + carModel + " с разборки";
+            ViewBag.TitleText = "Купити " + subCategoryName + " " + carManufactureName + " " + carModel + " з розборки";
             return treeView;
 
         }
@@ -968,7 +968,7 @@ namespace WebApplication.Controllers
                     ViewName = "AutoPartsLastTreeItems",
                     ReallyTopCategoryId = HttpContext.Session.GetString("topCategoryId") == "621" ? "621" : (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId"))
                 };
-                ViewBag.TitleText = String.Format("Купить {0} {1} {2} с разборки", subCategoryName, carManufactureName, carModel);
+                ViewBag.TitleText = String.Format("Купити {0} {1} {2} з розборки", subCategoryName, carManufactureName, carModel);
                 return treeViewLast;
             }
             var responceAllegro = GetAllegroProducts(carManufactureName, carModel, String.IsNullOrEmpty(lastChildId) ? subChildId : lastChildId, null, OfferStateEnum.Used, OfferSortingEnum.Relevance, 1, "", "", "", "", "", "", "", "").Result;
@@ -1020,7 +1020,7 @@ namespace WebApplication.Controllers
                 FakeAllegroList = FakeListForPager(responceAllegro.Total),
                 OfferSorting = OfferSortingEnum.Relevance
             };
-            ViewBag.TitleText = String.Format("Купить {0} {1} {2} с разборки", String.IsNullOrEmpty(lastChildName) ? subChildName : lastChildName, carManufactureName, carModel);
+            ViewBag.TitleText = String.Format("Купити {0} {1} {2} з розборки", String.IsNullOrEmpty(lastChildName) ? subChildName : lastChildName, carManufactureName, carModel);
             treeView.SelectedCategoryName = String.IsNullOrEmpty(lastChildName) ? subChildName : lastChildName;
             treeView.ScriptData = GetEcommerceScriptData(treeView);
             HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
@@ -1153,7 +1153,7 @@ namespace WebApplication.Controllers
                 PageNumber = 1,
                 ViewName = "_ProductsList"
             };
-            ViewBag.TitleText = "Купить " + partNumber;
+            ViewBag.TitleText = "Купити " + partNumber;
             treeView.ScriptData = GetEcommerceScriptData(treeView);
             HttpContext.Session.SetString("rightTreeViewModel", JsonSerializer.Serialize(treeView));
             HttpContext.Session.SetString("productList", JsonSerializer.Serialize(responceAllegro.Products));

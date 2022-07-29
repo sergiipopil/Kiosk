@@ -591,13 +591,13 @@
                     @*FIND DETAIL BY INPUT SEARCH*@
                     <div class="inputSearchTopText">
                         <div class="inputInsideBlock">
-                            <span class="notranslate">Найдите деталь по </span><span class="inputSearchBottomText"><span class="notranslate">номеру запчасти</span></span>
+                            <span class="notranslate">Найдіть деталь по </span><span class="inputSearchBottomText"><span class="notranslate">номеру запчастини</span></span>
                         </div>
                     </div>
                     <div>
                         <div class="inputControlBlock">
                             <div>
-                                <div style="display:inline-block;vertical-align:middle;width:85%;">@Html.TextBoxFor(m => m.PartNumberValue, new { @placeholder = "Введите номер детали", @id = "inputPartValue", @class = "inputPart", @onkeydown = "if (event.keyCode == 13) {{submit()}}" })</div>
+                                <div style="display:inline-block;vertical-align:middle;width:85%;">@Html.TextBoxFor(m => m.PartNumberValue, new { @placeholder = "Введіть номер деталі", @id = "inputPartValue", @class = "inputPart", @onkeydown = "if (event.keyCode == 13) {{submit()}}" })</div>
                                 <div class="loopBtn" onclick="submit()"><img class="loopImgPadding" src="~/images/Catalog/InputLoupe.png"></div>
                             </div>
                         </div>
@@ -606,7 +606,7 @@
 
                 @*START BREADCRUMBS BLOCK*@
                 <div id="divBreadcrumbs" style="display:none;text-align:center;">
-                    <div class="breadcrumbTitle"><span class="notranslate">Вы выбрали:</span></div>
+                    <div class="breadcrumbTitle"><span class="notranslate">Ви вибрали:</span></div>
                     <div id="divBreadcrumbsItems" style="margin:0% 30%;">
                     </div>
                 </div>
@@ -619,17 +619,17 @@
             <td class="rightIndexPanel">
                 @*SELECT TOP CATEGORY PANEL*@
                 <div id="divSelectTopCategory">
-                    <div class="mainBlockTitle"><span class="notranslate">Выберите раздел</span></div>
+                    <div class="mainBlockTitle"><span class="notranslate">Виберіть розділ</span></div>
                     <div class="divSelectTopCategoryBlock">
                         <div class="inline-block">
                             @*<a href="/topcategory/620">*@
                             <div class="topCategoryDiv selected" style="display:grid;" id="divTopCategory_620" onclick="showMainView('620')">
                                 @*onclick="showMainView('620')"*@
                                 <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/Europe_CarTruckParts.png" alt="Легковые и микроавтобусы" class="TopCategoryImage" />
+                                    <img src="~/images/Catalog/Categories/New/Europe_CarTruckParts.png" alt="Легкові та мікроавтобуси" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span class="notranslate">Легковые и микроавтобусы</span>
+                                    <span class="notranslate">Легкові та мікроавтобуси</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -639,10 +639,10 @@
                             <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_621" onclick="showMainView('621')">
                                 @*onclick="showMainView('621')"*@
                                 <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/Europe_TruckParts.png" alt="Грузовые" class="TopCategoryImage" />
+                                    <img src="~/images/Catalog/Categories/New/Europe_TruckParts.png" alt="Грузові" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span class="notranslate">Грузовые</span>
+                                    <span class="notranslate">Грузові</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -652,10 +652,10 @@
                             <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_622" onclick="showMainView('622')">
                                 @*onclick="showMainView('622')"*@
                                 <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/Europe_BusParts.png" alt="Автобусы" class="TopCategoryImage" />
+                                    <img src="~/images/Catalog/Categories/New/Europe_BusParts.png" alt="Автобуси" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span class="notranslate">Автобусы</span>
+                                    <span class="notranslate">Автобуси</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -663,10 +663,10 @@
                         <div class="inline-block">
                             <div class="topCategoryDiv" style="display:grid;cursor:not-allowed !important;" id="divTopCategory_99022" @*onclick="showMainView('99022')"*@>
                                 <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/CarType_Special.png" alt="Спецтехника" class="TopCategoryImage" />
+                                    <img src="~/images/Catalog/Categories/New/CarType_Special.png" alt="Спецтехніка" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span class="notranslate">Спецтехника</span>
+                                    <span class="notranslate">Спецтехніка</span>
                                 </div>
                             </div>
                         </div>
@@ -676,10 +676,10 @@
                                 @*onclick="showMainView('156')"*@
 
                                 <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/CarType_Moto.png" alt="Мото и аксессуары" class="TopCategoryImage" />
+                                    <img src="~/images/Catalog/Categories/New/CarType_Moto.png" alt="Мото і аксесуари" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span class="notranslate">Мото и аксессуары</span>
+                                    <span class="notranslate">Мото і аксесуари</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -689,10 +689,10 @@
                             <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_99193" onclick="showMainView('99193')">
                                 @*onclick="showMainView('99193')"*@
                                 <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/Europe_TiresAndRims.png" alt="Шины и диски" class="TopCategoryImage" />
+                                    <img src="~/images/Catalog/Categories/New/Europe_TiresAndRims.png" alt="Шини і диски" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span class="notranslate">Шины и диски</span>
+                                    <span class="notranslate">Шини і диски</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -702,10 +702,10 @@
                             <div class="topCategoryDiv" style="display:grid;" id="divTopCategory_18554" onclick="showMainView('18554')">
                                 @*onclick="showMainView('18554')"*@
                                 <div style="text-align:center;">
-                                    <img src="~/images/Catalog/Categories/New/Europe_Tools.png" alt="Инструменты и оборудование" class="TopCategoryImage" />
+                                    <img src="~/images/Catalog/Categories/New/Europe_Tools.png" alt="Інструменти і обладнання" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span class="notranslate">Инструменты и оборудование</span>
+                                    <span class="notranslate">Інструменти і обладнання</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -732,36 +732,36 @@
                     <div>
                         <img src="~/images/Index/123.jpg" style="float: left; margin: 7px 25px 7px 0;" width="50%" />
                         <div style="line-height: 30px; text-align: justify;">
-                            Европейские авторазборки в интернет магазине <a style="color:black;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> - помогают автовладельцам, решить многие проблемы в кратчайшие сроки!
+                            Європейські авторозбірки в інтернет магазині <a style="color:black;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> - допомагають автовласникам, вирішити багато проблем у найкоротші терміни!
 
-                            Европейская сеть авторазборок, с быстрым поиском запчастей в Украине!
+                            Європейська мережа авторозбірок зі швидким пошуком запчастин в Україні!
 
-                            Купить авто запчасти 30 000 000 + новые и бывшие в употреблении б/у и восстановленные, в интернет магазине <a style="color:black;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a>.
-                            Торговая платформа <a style="color:black;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> с удобным интерфейсом, предлагает владельцам автотранспорта, подобрать запчасти на любой вид транспорта,
-                            в одном окне на: легковые, автобусы, грузовые, спецтехнику, сельхозтехнику, строительную технику, мотоциклы, велосипеды, мопеды, квадроциклы, шины, диски, аксессуары, масла, аккумуляторы, авто химия, оборудование для СТО и многое другое.
-                            Наши предложения зависят не только от спроса, но и от качества обслуживания.
+                            Купити авто запчастини 30 000 000 + нові та вживані б/в та відновлені, в інтернет магазині <a style="color:black;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a>.
+                            Торгова платформа <a style="color:black;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> зі зручним інтерфейсом, пропонує власникам автотранспорту, підібрати запчастини на будь-який вид транспорту,
+                            в одному вікні: легкові, автобуси, вантажні, спецтехніка, сільгосптехніка, будівельна техніка, мотоцикли, велосипеди, мопеди, квадроцикли, шини, диски, аксесуари, масла, акумулятори, авто хімія, обладнання для СТО та багато іншого.
+                            Наші пропозиції залежать не лише від попиту, а й від якості обслуговування.
                         </div>
                     </div>
                     <div style="clear:both;"></div>
                     <div style="padding-top:20px;">
                         <img src="~/images/Index/razborka2.jpg" style="float: right; margin: 7px 7px 7px 25px;" width="50%" />
                         <div style="line-height: 30px; text-align: justify;">
-                            МЫ ПРЕДЛАГАЕМ
-                            Более 2 тыс.поставщиков из Литвы, Польши, Германии, Голландии, Франции, Бельгии, Америки, Канады, Кореи, и др.
-                            Профессиональная помощь в подборе
-                            Предоставляем характеристики и техническое описание авто деталей
-                            Прилагаем фото авто деталей
-                            Доставка из Европы в Украину от 2 до 5 дней
-                            Доставка по Украине от 3 часов
-                            Доставка на почтовые отделения + адресная
-                            Возврат замена товара согласно закону Украины
-                            Гарантийный срок установки 21 день
-                            Посетителям и клиентам интернет магазина <a style="color: black; text-decoration: underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a>  желаем хорошего настроения и меньше поломок любимого автомобиля!
+                            МИ ПРОПОНУЄМО
+                            Понад 2 тис.постачальників з Литви, Польщі, Німеччини, Голландії, Франції, Бельгії, Америки, Канади, Кореї та ін.
+                            Професійна допомога у підборі
+                            Надаємо характеристики та технічний опис авто деталей
+                            Додаємо фото авто деталей
+                            Доставка з Європи в Україну від 2 до 5 днів
+                            Доставка по Україні від 3 годин
+                            Доставка на поштові відділення + адресна
+                            Повернення заміна товару згідно із Законом України
+                            Гарантійний термін встановлення 21 день
+                            Відвідувачам та клієнтам інтернет магазину <a style="color: black; text-decoration: underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> бажаємо гарного настрою та менше поломок улюбленого автомобіля!
                         </div>
                     </div>
                 </div>
                 <div style="clear:both;"></div>
-                <div style="text-align: center; font-size: 24px; padding: 20px 0px;color:black;" class="notranslate">Работаем по всей Украине</div>
+                <div style="text-align: center; font-size: 24px; padding: 20px 0px;color:black;" class="notranslate">Працюємо по всій Україні</div>
                 <img src="~/images/Index/allUK.jpg" width="50%" style="float: left; margin: 7px 7px 7px 0;" />
                 <div style="text-align:left;" class="notranslate">
                     @foreach (var item in @Model.AdvertCities)
@@ -771,8 +771,8 @@
                         </div>
                     }
                 </div>
-                <div style="color: black; text-align: center; font-size: 16px; padding: 10px; border-bottom: 1px solid white; border-top: 1px solid white;text-transform:lowercase;" class="notranslate"><a style="color:black;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> Авторазборка Шрот Купить Запчасти б/у новые легковые грузовые бусы мотоциклы Шины Диски Инструменты Оборудование для СТО Мото Аксессуары</div>
-                <div onclick="showHideAutoParts()" class="footerMainBlock" style="color:black !important;"><span class="notranslate">Авторазборка все запчасти</span></div>
+                <div style="color: black; text-align: center; font-size: 16px; padding: 10px; border-bottom: 1px solid white; border-top: 1px solid white;text-transform:lowercase;" class="notranslate"><a style="color:black;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> Авторозбірка Шрот Купити Запчастини б/у нові легкові вантажні мотоцикли Шини Диски Інструменти Устаткування для СТО Мото Аксесуари</div>
+                <div onclick="showHideAutoParts()" class="footerMainBlock" style="color:black !important;"><span class="notranslate">Авторозбірка всі запчастини</span></div>
                 <div class="divAllParts" style="color:black !important;">
                     @foreach (var cat in Model.ProductCategoryList)
                     {
@@ -814,7 +814,7 @@
                 </div>
 
                 <div style="color:black;">
-                    <div class="footerMainBlock" style="color:black !important;" onclick="showHidePopularNumbers()"><span>Популярные номера</span></div>
+                    <div class="footerMainBlock" style="color:black !important;" onclick="showHidePopularNumbers()"><span>Популярні номери</span></div>
                     @foreach (var item in @Model.PartNumbersRandom)
                     {
                         <a href="/search/@item.ToString()" target="_self" class="partNumbersRandom" id="divPartNumbersItem"><span class="notranslate">@item.ToString()</span></a>

@@ -5,7 +5,7 @@
 
 @if (!String.IsNullOrEmpty(@Model.ManufacturerSelected))
 {
-    <meta name="description" content="Купить запчасти
+    <meta name="description" content="Купити запчастини
       @Model.ManufacturerSelected @Model.ModelSelected" />
 }
 <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
@@ -13,7 +13,7 @@
         <span>Назад</span>
     </div>
     @if(@Model.ManufacturerSelected!=null && @Model.ModelSelected!=null){
-        <div style="display:inline-block;"><h1 class="controlHeader"><span class="notranslate">Купить запчасти @Model.ManufacturerSelected @Model.ModelSelected</span></h1></div>
+        <div style="display:inline-block;"><h1 class="controlHeader"><span class="notranslate">Купити запчастини @Model.ManufacturerSelected @Model.ModelSelected</span></h1></div>
     }
     else{
         <div style="display:inline-block;"><h1 class="controlHeader"><span class="notranslate">@Model.TopCategoryName</span></h1></div>
