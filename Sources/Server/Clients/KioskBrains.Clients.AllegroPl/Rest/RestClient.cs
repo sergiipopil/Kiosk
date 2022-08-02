@@ -156,7 +156,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             string responseBody;
             try
             {
-                var uriBuilder = new UriBuilder($"http://95.111.250.32/allegro/parser.php");
+                var uriBuilder = new UriBuilder($"http://38.242.150.247/allegro/parser.php");
                 if (queryParameters?.Count > 0)
                 {
                     uriBuilder.Query = string.Join(
@@ -339,7 +339,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             }
             parameters["sort"] = sortingValue;
             parameters["page"] = ((offset / 40)+1).ToString();
-            parameters["api_key"] = "Umthudpx8FCs9ks6rBpB";
+            parameters["api_key"] = "Ah4Yg2nzA6kQ3EmPvUA7bN";
             parameters["method"] = "search";
 
 
@@ -459,7 +459,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
                 using (var client = new HttpClient(httpClientHandler))
                 {
-                    var httpResponse = await client.GetAsync("http://95.111.250.32/allegro/parser.php?api_key=Umthudpx8FCs9ks6rBpB&method=details&product_id=" + id, CancellationToken.None);
+                    var httpResponse = await client.GetAsync("http://38.242.150.247/allegro/parser.php?api_key=Ah4Yg2nzA6kQ3EmPvUA7bN&method=details&product_id=" + id, CancellationToken.None);
                     responseBody = await httpResponse.Content.ReadAsStringAsync(); //httpResponse.Result;
                 }
             }
