@@ -24,7 +24,7 @@
                     <StackPanel Orientation="Horizontal"
                                 Height="51">
                         <controls:RightContentHeaderBackButton Click="BackButton_OnClick" />
-                        <TextBlock Text="Ввод номера телефона"
+                        <TextBlock Text="Ввід номера телефона"
                                    Style="{StaticResource RightContentHeaderStyle}" />
                     </StackPanel>
 
@@ -60,8 +60,8 @@
 
                 <TextBlock Style="{StaticResource CheckoutCallToActionStyle}"
                            Margin="0 42 0 0">
-                    <Run Text="Введите Ваш" />
-                    <Run Text="номер телефона"
+                    <Run Text="Введіть Ваш" />
+                    <Run Text="номер телефону"
                          FontFamily="{StaticResource PlayBoldFontFamily}" />
                 </TextBlock>
 
@@ -71,11 +71,11 @@
                            Foreground="#716bab"
                            TextAlignment="Center"
                            Margin="0 26 0 0">
-                    <Run Text="Номер телефона будет использован для связи с Вами." />
+                    <Run Text="Номер телефона буде використаний для звязку з нами." />
                     <LineBreak />
-                    <Run Text="Также на данный номер будут отправлятся СМС-сообщения," />
+                    <Run Text="Також на даний номер будуть відправлятися СМС-повідомлення," />
                     <LineBreak />
-                    <Run Text="со статусом оплаты и доставки." />
+                    <Run Text="зі статусом оплати і доставки." />
                 </TextBlock>
 
                 <controls:ValueInput x:Name="PhoneNumberValueInput"
@@ -90,7 +90,7 @@
                     <Button Content="Назад"
                             Style="{StaticResource CheckoutBackButtonStyle}"
                             Click="BackButton_OnClick" />
-                    <Button Content="Дальше"
+                    <Button Content="Далі"
                             Style="{StaticResource CheckoutNextButtonStyle}"
                             Margin="93 0 0 0"
                             Click="NextButton_OnClick" />
@@ -107,8 +107,8 @@
 
                     <TextBlock Style="{StaticResource CheckoutCallToActionStyle}"
                                Margin="0 42 0 0">
-                        <Run Text="Введите" />
-                        <Run Text="код из СМС"
+                        <Run Text="Введіть" />
+                        <Run Text="код з СМС"
                              FontFamily="{StaticResource PlayBoldFontFamily}" />
                     </TextBlock>
 
@@ -118,12 +118,12 @@
                                Foreground="#716bab"
                                TextAlignment="Center"
                                Margin="0 26 0 0">
-                        <Run Text="На указанный Вами номер был выслан СМС с кодом." />
+                        <Run Text="На вказаний Вами номер було відправлено СМС з кодом." />
                         <LineBreak />
-                        <Run Text="Введите" />
+                        <Run Text="Введіть" />
                         <Run Text="6 цифр"
                              FontFamily="{StaticResource UbuntuBoldFontFamily}" />
-                        <Run Text="из полученного СМС ниже." />
+                        <Run Text="з отриманого СМС нижче." />
                         <LineBreak />
                         <Run Text="" />
                     </TextBlock>
@@ -141,7 +141,7 @@
                                 Margin="0 0 93 0"
                                 Style="{StaticResource CheckoutBackButtonStyle}"
                                 Click="BackButton_OnClick" />
-                        <Button Content="Дальше"
+                        <Button Content="Далі"
                                 Style="{StaticResource CheckoutNextButtonStyle}"
                                 Click="NextButton_OnClick" />
                     </StackPanel>

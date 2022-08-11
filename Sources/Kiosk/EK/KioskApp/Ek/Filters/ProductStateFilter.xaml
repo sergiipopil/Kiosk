@@ -10,7 +10,7 @@
              d:DesignWidth="400">
 
     <StackPanel Orientation="Horizontal">
-        <TextBlock Text="СОСТОЯНИЕ"
+        <TextBlock Text="СТАН"
                    Style="{StaticResource FilterLabelStyle}"
                    VerticalAlignment="Center" />
 

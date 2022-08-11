@@ -10,7 +10,7 @@
              d:DesignWidth="400">
 
     <StackPanel Orientation="Horizontal">
-        <TextBlock Text="СОРТИРОВКА"
+        <TextBlock Text="СОРТУВАННЯ"
                    Style="{StaticResource FilterLabelStyle}"
                    VerticalAlignment="Center" />
 

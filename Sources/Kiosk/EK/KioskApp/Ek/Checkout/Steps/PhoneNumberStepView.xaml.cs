@@ -92,7 +92,7 @@ namespace KioskApp.Ek.Checkout.Steps
                     if (Data.PhoneNumber == null
                         || Data.PhoneNumber.Length != PhoneNumberInput.ValidPhoneNumberLength)
                     {
-                        PhoneNumberValueInput.ShowError("Введите номер телефона");
+                        PhoneNumberValueInput.ShowError("Введіть номер телефону");
                         return;
                     }
 
@@ -111,13 +111,13 @@ namespace KioskApp.Ek.Checkout.Steps
                     if (Data.VerificationCode == null
                         || Data.VerificationCode.Length != 6)
                     {
-                        VerificationCodeValueInput.ShowError("Введите 6 цифр кода");
+                        VerificationCodeValueInput.ShowError("Введіть 6 цифр кода");
                         return;
                     }
 
                     if (Data.VerificationCode != _lastReceivedVerificationCode)
                     {
-                        VerificationCodeValueInput.ShowError("Код не совпадает");
+                        VerificationCodeValueInput.ShowError("Код не співпадає");
                         return;
                     }
 

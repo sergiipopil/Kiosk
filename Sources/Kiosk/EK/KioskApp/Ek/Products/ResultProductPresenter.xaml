@@ -53,16 +53,16 @@
                     <StackPanel Grid.Row="1"
                                 Margin="0 23 0 0"
                                 Orientation="Horizontal">
-                        <products:ProductKeyFeaturePresenter Label="состояние"
+                        <products:ProductKeyFeaturePresenter Label="стан"
                                                              Visibility="{x:Bind Product.ProductionYear, Mode=OneWay, Converter={StaticResource IsStringNotEmptyToVisibilityConverter}}"
                                                              Value="{x:Bind Product.StateString, Mode=OneWay}"
                                                              MinWidth="119" />
-                        <products:ProductKeyFeaturePresenter Label="год"
+                        <products:ProductKeyFeaturePresenter Label="рік"
                                                              Value="{x:Bind Product.ProductionYear, Mode=OneWay}"
                                                              Visibility="{x:Bind Product.ProductionYear, Mode=OneWay, Converter={StaticResource IsStringNotEmptyToVisibilityConverter}}"
                                                              StartSeparator="True"
                                                              MinWidth="114" />
-                        <products:ProductKeyFeaturePresenter Label="номер детали"
+                        <products:ProductKeyFeaturePresenter Label="номер деталі"
                                                              Value="{x:Bind Product.PartNumber, Mode=OneWay}"
                                                              Visibility="{x:Bind Product.PartNumber, Mode=OneWay, Converter={StaticResource IsStringNotEmptyToVisibilityConverter}}"
                                                              StartSeparator="True" />
@@ -79,7 +79,7 @@
                                 Margin="0 10 0 -10"
                                 Padding="0 0 0 10"
                                 HorizontalAlignment="Center">
-                        <TextBlock Text="ПОДРОБНЕЙ"
+                        <TextBlock Text="ДЕТАЛЬНІШЕ"
                                    Foreground="#8e92bc"
                                    FontFamily="{StaticResource UbuntuBoldFontFamily}"
                                    FontSize="14"
@@ -137,7 +137,7 @@
                                 <Image Source="/Themes/Assets/Images/Buttons/Buy.png"
                                        Stretch="None"
                                        VerticalAlignment="Center" />
-                                <TextBlock Text="Купить"
+                                <TextBlock Text="Купити"
                                            Margin="10 0 0 0"
                                            VerticalAlignment="Center" />
                             </StackPanel>
@@ -149,7 +149,7 @@
                 <!--not available-->
                 <Grid Grid.Column="3"
                       Visibility="{x:Bind Product.IsNotAvailable, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <TextBlock Text="НЕТ В НАЛИЧИИ"
+                    <TextBlock Text="НЕМА В НАЯВНОСТІ"
                                FontFamily="{StaticResource UbuntuMediumFontFamily}"
                                FontSize="16"
                                Foreground="#8994d9"

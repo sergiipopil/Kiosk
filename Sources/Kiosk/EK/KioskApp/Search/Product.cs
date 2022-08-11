@@ -27,7 +27,7 @@ namespace KioskApp.Search
             Price = ekProduct.Price;
             PriceString = Price.ToAmountStringWithSpaces();
             PriceComment = ekProduct.Source == EkProductSourceEnum.AllegroPl
-                ? "с учетом доставки\nдоставка 1-7 дней"
+                ? "з врахуванням доставки\nдоставка 1-7 днів"
                 : "доставка 1-3 дня";
 
             SetStateString(ekProduct.State);            

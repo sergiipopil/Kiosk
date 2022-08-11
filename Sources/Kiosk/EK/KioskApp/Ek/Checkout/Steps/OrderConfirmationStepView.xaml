@@ -21,7 +21,7 @@
                 <StackPanel Orientation="Horizontal"
                             Height="51">
                     <controls:RightContentHeaderBackButton Command="{x:Bind WizardBackCommand, Mode=OneWay}" />
-                    <TextBlock Text="Подтверждение заказа"
+                    <TextBlock Text="Підтвердження замовлення"
                                Style="{StaticResource RightContentHeaderStyle}" />
                 </StackPanel>
 
@@ -35,26 +35,26 @@
                        FontFamily="{StaticResource PlayFontFamily}"
                        FontSize="40"
                        HorizontalAlignment="Center">
-                <Run Text="Подтвердите" />
-                <Run Text="согласие с условиями"
+                <Run Text="Підтвердіть" />
+                <Run Text="згоду з умовами"
                      FontFamily="{StaticResource PlayBoldFontFamily}" />
             </TextBlock>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         Margin="0 45 0 47">
-                <TextBlock Text="Я согласен с"
+                <TextBlock Text="Я згідний з"
                            FontFamily="{StaticResource UbuntuMediumFontFamily}"
                            FontSize="22"
                            VerticalAlignment="Center"
                            Margin="10 0 0 0" />
-                <Button Content="условиями пользовательского соглашения"
+                <Button Content="умовами користувальницької угоди"
                         Style="{StaticResource LinkButtonStyle}"
                         FontFamily="{StaticResource UbuntuMediumFontFamily}"
                         FontSize="22"
                         Margin="-6 0 0 0"
                         Click="TermsButton_OnClick" />
             </StackPanel>
-            <Button Content="Подтверждаю"
+            <Button Content="Підтверджую"
                     Style="{StaticResource BlueButtonStyle}"
                     HorizontalAlignment="Center"
                     HorizontalContentAlignment="Center"

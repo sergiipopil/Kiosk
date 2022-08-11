@@ -22,7 +22,7 @@
                                             VerticalAlignment="Center"
                                             Margin="0 0 8 0" />
                 <TextBlock Grid.Column="1"
-                           Text="продолжить покупки"
+                           Text="продовжити покупки"
                            TextWrapping="WrapWholeWords"
                            VerticalAlignment="Center" />
             </Grid>

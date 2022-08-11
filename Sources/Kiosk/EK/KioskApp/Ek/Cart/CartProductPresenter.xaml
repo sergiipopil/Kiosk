@@ -45,15 +45,15 @@
 
                     <StackPanel Margin="0 23 0 0"
                                 Orientation="Horizontal">
-                        <products:ProductKeyFeaturePresenter Label="состояние"
+                        <products:ProductKeyFeaturePresenter Label="стан"
                                                              Value="{x:Bind Product.StateString, Mode=OneWay}"
                                                              MinWidth="119" />
-                        <products:ProductKeyFeaturePresenter Label="год"
+                        <products:ProductKeyFeaturePresenter Label="рік"
                                                              Value="{x:Bind Product.ProductionYear, Mode=OneWay}"
                                                              Visibility="{x:Bind Product.ProductionYear, Mode=OneWay, Converter={StaticResource IsStringNotEmptyToVisibilityConverter}}"
                                                              StartSeparator="True"
                                                              MinWidth="114" />
-                        <products:ProductKeyFeaturePresenter Label="номер детали"
+                        <products:ProductKeyFeaturePresenter Label="номер деталі"
                                                              Value="{x:Bind Product.PartNumber, Mode=OneWay}"
                                                              Visibility="{x:Bind Product.PartNumber, Mode=OneWay, Converter={StaticResource IsStringNotEmptyToVisibilityConverter}}"
                                                              StartSeparator="True" />
@@ -103,7 +103,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Margin="0 20 0 20">
-                        <TextBlock Text="количество"
+                        <TextBlock Text="кількість"
                                    Foreground="#411f0c"
                                    FontFamily="{StaticResource UbuntuFontFamily}"
                                    FontSize="14"
@@ -140,7 +140,7 @@
                                 <Image Source="/Themes/Assets/Images/Buttons/Delete.png"
                                        Stretch="None"
                                        VerticalAlignment="Center" />
-                                <TextBlock Text="удалить"
+                                <TextBlock Text="видалити"
                                            Margin="8 0 0 3"
                                            VerticalAlignment="Center" />
                             </StackPanel>

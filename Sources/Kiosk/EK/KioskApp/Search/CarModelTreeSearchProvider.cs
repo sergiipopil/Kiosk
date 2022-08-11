@@ -220,7 +220,7 @@ namespace KioskApp.Search
                 switch (category.Type)
                 {
                     case CategoryTypeEnum.CarGroup:
-                        SearchTitle = "ВЫБЕРИТЕ МАРКУ АВТОМОБИЛЯ";
+                        SearchTitle = "ВИБЕРІТЬ МАРКУ АВТОМОБІЛЯ";
                         // it's more efficient to run through all values
                         SearchState = SearchStateEnum.Results;
                         OnManufacturerSelected(this, new EkCarModel() { Path = String.Join(" - ", orderedBreadcrumbs.Select(x => x.Name), true)});
@@ -230,7 +230,7 @@ namespace KioskApp.Search
                             .ToArray();
                         break;
                     case CategoryTypeEnum.CarManufacturer:                        
-                        SearchTitle = "ВЫБЕРИТЕ МОДЕЛЬ";
+                        SearchTitle = "ВИБЕРІТЬ МОДЕЛЬ";
                         //add categoryName for model pics
                         SearchState = SearchStateEnum.Results;
                          Categories = category.CarManufacturer?.CarModels
@@ -240,7 +240,7 @@ namespace KioskApp.Search
                         OnManufacturerSelected(this, new EkCarModel() { SelectedManufactureURL= $"/Themes/Assets/Images/Catalog/Model_Logo/{category.CarManufacturer.Name}.png", Path = String.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)), ManufacturerName = "Selected" });
                         break;
                     case CategoryTypeEnum.CarModel:
-                        SearchTitle = "ВЫБЕРИТЕ МОДИФИКАЦИЮ";
+                        SearchTitle = "ВИБЕРІТЬ МОДИФІКАЦІЮ";
                         //OnTopCategorySelected("628");                        
                         OnModelSelected(this, new EkCarModel() { SelectedModelURL = $"/Themes/Assets/Images/Catalog/CarModel/{EkSettingsHelper.GetModelManufacturerNameByModelId(_selectedModelId.ToString())}/{category.Name}.png", Id = this._selectedModelId.Value,  ManufacturerId = this._selectedManufacturerId.Value, CarType = _carType.Value, Path = String.Join(" - ", orderedBreadcrumbs.Select(x => x.Name)) });
                         //UpdateModifications();

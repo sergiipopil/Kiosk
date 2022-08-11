@@ -12,7 +12,7 @@ namespace KioskApp.Ek.Checkout.Steps.Payment
             switch (paymentMethod)
             {
                 case PaymentMethodEnum.CreditCard:
-                    name = "Картой\nVisa/MasterCard";
+                    name = "Картою\nVisa/MasterCard";
                     break;
 
                 case PaymentMethodEnum.Privat24:
@@ -20,15 +20,15 @@ namespace KioskApp.Ek.Checkout.Steps.Payment
                     break;
 
                 case PaymentMethodEnum.CashInTerminal:
-                    name = "Наличными в терминале\nПриватБанка";
+                    name = "Готівкою в терміналі\nПриватБанка";
                     break;
 
                 case PaymentMethodEnum.CashInBank:
-                    name = "Наличными в банке";
+                    name = "Готівкою в банку";
                     break;
 
                 case PaymentMethodEnum.WireTransfer:
-                    name = "Безналичный платеж\n(юр. лица)";
+                    name = "Безготівковий платіж\n(юр. особи)";
                     break;
 
                 default:

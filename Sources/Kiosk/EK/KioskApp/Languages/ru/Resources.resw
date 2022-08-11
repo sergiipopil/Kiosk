@@ -118,90 +118,90 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="InitialLeftView_FindBy_Line1" xml:space="preserve">
-    <value>Найдите деталь</value>
+    <value>Знайдіть деталь</value>
   </data>
   <data name="InitialLeftView_FindBy_Line2_1" xml:space="preserve">
     <value>по</value>
   </data>
   <data name="InitialLeftView_FindBy_Line2_2" xml:space="preserve">
-    <value>названию, номеру</value>
+    <value>назві, номеру</value>
   </data>
   <data name="InitialLeftView_FindBy_Line3_1" xml:space="preserve">
-    <value>или</value>
+    <value>або</value>
   </data>
   <data name="InitialLeftView_FindBy_Line3_2" xml:space="preserve">
     <value>vin-коду</value>
   </data>
   <data name="InactivityConfirmationModal_ConfirmButtonText" xml:space="preserve">
-    <value>Да</value>
+    <value>Так</value>
   </data>
   <data name="InactivityConfirmationModal_Question" xml:space="preserve">
-    <value>Вы еще здесь?</value>
+    <value>Ви ще тут?</value>
   </data>
   <data name="Main_MainLink" xml:space="preserve">
-    <value>На главную</value>
+    <value>На головну</value>
   </data>
   <data name="Main_NextUser" xml:space="preserve">
-    <value>Следующий клиент</value>
+    <value>Наступний клієнт</value>
   </data>
   <data name="SearchByNameLeftView_SearchInputInstruction" xml:space="preserve">
-    <value>Введите название автозапчасти и марку автомобиля</value>
+    <value>Введіть назву автозапчастини і марку автомобіля</value>
   </data>
   <data name="SearchFilterPlaceholder_FindBy_Name1" xml:space="preserve">
-    <value>Найти по</value>
+    <value>Знайти по</value>
   </data>
   <data name="SearchFilterPlaceholder_FindBy_Name2" xml:space="preserve">
-    <value>названию</value>
+    <value>назві</value>
   </data>
   <data name="SearchFilterPlaceholder_FindBy_PartNumber1" xml:space="preserve">
-    <value>Найти по</value>
+    <value>Знайти по</value>
   </data>
   <data name="SearchFilterPlaceholder_FindBy_PartNumber2" xml:space="preserve">
     <value>номеру</value>
   </data>
   <data name="SearchFilterPlaceholder_FindBy_VinCode1" xml:space="preserve">
-    <value>Найти по</value>
+    <value>Знайти по</value>
   </data>
   <data name="SearchFilterPlaceholder_FindBy_VinCode2" xml:space="preserve">
     <value>vin-коду</value>
   </data>
   <data name="SearchTypeLink_SearchByCategory" xml:space="preserve">
-    <value>Искать по категории</value>
+    <value>Шукати по категорії</value>
   </data>
   <data name="SearchTypeLink_SearchByName" xml:space="preserve">
-    <value>Искать по названию</value>
+    <value>Шукати по назві</value>
   </data>
   <data name="SearchTypeLink_SearchByPartNumber" xml:space="preserve">
-    <value>Искать по номеру детали</value>
+    <value>Шукати по номеру деталі</value>
   </data>
   <data name="SearchTypeLink_SearchByVinCode" xml:space="preserve">
-    <value>Искать по vin-коду</value>
+    <value>Шукати по vin-коду</value>
   </data>
   <data name="SearchFilterPlaceholder_FindBy_NameOrCode1" xml:space="preserve">
-    <value>Найти по</value>
+    <value>Знайти по</value>
   </data>
   <data name="SearchFilterPlaceholder_FindBy_NameOrCode2" xml:space="preserve">
-    <value>названию или номеру</value>
+    <value>назві або номеру</value>
   </data>
   <data name="EuropeInitialLeftView_FindBy_Line1" xml:space="preserve">
-    <value>Найдите деталь</value>
+    <value>Знайдіть деталь</value>
   </data>
   <data name="EuropeInitialLeftView_FindBy_Line2_1" xml:space="preserve">
     <value>по</value>
   </data>
   <data name="EuropeInitialLeftView_FindBy_Line2_2" xml:space="preserve">
-    <value>названию</value>
+    <value>назві</value>
   </data>
   <data name="EuropeInitialLeftView_FindBy_Line3_1" xml:space="preserve">
-    <value>или</value>
+    <value>або</value>
   </data>
   <data name="EuropeInitialLeftView_FindBy_Line3_2" xml:space="preserve">
     <value>номеру</value>
   </data>
   <data name="EuropeSearchLeftView_SearchInputInstruction" xml:space="preserve">
-    <value>Введите название автозапчасти и марку автомобиля или номер детали</value>
+    <value>Введіть назву автозапчастини і марку автомобіля або номер деталі</value>
   </data>
   <data name="VirtualKeyboard_SearchKey_Text" xml:space="preserve">
-    <value>ПОИСК</value>
+    <value>ПОШУК</value>
   </data>
 </root>

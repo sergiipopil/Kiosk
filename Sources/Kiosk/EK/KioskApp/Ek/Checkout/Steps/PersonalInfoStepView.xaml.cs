@@ -29,7 +29,7 @@ namespace KioskApp.Ek.Checkout.Steps
         {
             if (string.IsNullOrEmpty(Data.FullName))
             {
-                ValueInput.ShowError("Введите имя и фамилию");
+                ValueInput.ShowError("Введіть ім`я і прізвище");
                 return;
             }
 
@@ -37,7 +37,7 @@ namespace KioskApp.Ek.Checkout.Steps
             var fullNameParts = Data.FullName.Split(' ', StringSplitOptions.RemoveEmptyEntries);
             if (fullNameParts.Length < 2)
             {
-                ValueInput.ShowError("Должно состоять из 2-ух слов (имя и фамилия)");
+                ValueInput.ShowError("Має містити 2 слова (ім`я і прізвище)");
                 return;
             }
 

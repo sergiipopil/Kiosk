@@ -19,7 +19,7 @@
                        Foreground="#6c7096"
                        FontFamily="{StaticResource UbuntuFontFamily}"
                        LineHeight="20" />            
-            <TextBlock Text="Полное описание..."
+            <TextBlock Text="Повний опис..."
                        Visibility="{x:Bind Product.Parameters, Mode=OneWay, Converter={StaticResource IsStringNotEmptyToVisibilityConverter}}"
                        Foreground="#5258cd"
                        FontFamily="{StaticResource UbuntuFontFamily}"

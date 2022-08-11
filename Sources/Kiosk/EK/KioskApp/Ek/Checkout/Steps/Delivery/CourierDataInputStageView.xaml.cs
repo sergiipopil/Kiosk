@@ -133,7 +133,7 @@ namespace KioskApp.Ek.Checkout.Steps.Delivery
                 case CourierDataInputEnum.City:
                     if (string.IsNullOrWhiteSpace(Data.Address.City))
                     {
-                        CityValueInput.ShowError("Введите город");
+                        CityValueInput.ShowError("Введіть місто");
                         return;
                     }
 
@@ -143,7 +143,7 @@ namespace KioskApp.Ek.Checkout.Steps.Delivery
                 case CourierDataInputEnum.AddressLine1:
                     if (string.IsNullOrWhiteSpace(Data.Address.AddressLine1))
                     {
-                        AddressLine1ValueInput.ShowError("Введите адрес");
+                        AddressLine1ValueInput.ShowError("Введіть місто");
                         return;
                     }
 

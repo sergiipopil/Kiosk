@@ -62,20 +62,20 @@
                             Margin="0 0 0 28"
                             Visibility="{x:Bind Context.HideMenuCounter.IsTrue, Mode=OneWay, Converter={StaticResource BooleanToVisibilityReversedConverter}}">
                     <controls:MenuPointControl Icon="/Themes/Assets/Images/Menu/ServiceStations.png"
-                                               Label="Услуги СТО"
+                                               Label="Послуги СТО"
                                                ButtonStyle="{StaticResource MenuPointButton3Style}"
                                                MenuPointClicked="Soon_OnMenuPointClicked" />
                     <controls:MenuPointControl Icon="/Themes/Assets/Images/Menu/Map.png"
-                                               Label="Карта терминалов"
+                                               Label="Карта терміналів"
                                                ButtonStyle="{StaticResource MenuPointButton3Style}"
                                                MenuPointClicked="Soon_OnMenuPointClicked" />
                     <controls:MenuPointControl Icon="/Themes/Assets/Images/Menu/Instructions.png"
-                                               Label="Инструкции"
+                                               Label="Інструкції"
                                                ButtonStyle="{StaticResource MenuPointButton2Style}"
                                                MenuPointClicked="Soon_OnMenuPointClicked" />
                     <controls:MenuPointSeparator />
                     <controls:MenuPointControl Icon="/Themes/Assets/Images/Menu/Warranty.png"
-                                               Label="Гарантия"
+                                               Label="Гарантія"
                                                ButtonStyle="{StaticResource MenuPointButton2Style}"
                                                MenuPointClicked="Warranty_OnMenuPointClicked" />
                     <controls:MenuPointSeparator />
@@ -84,7 +84,7 @@
                                                ButtonStyle="{StaticResource MenuPointButton2Style}" />
                     <controls:MenuPointSeparator />
                     <controls:MenuPointControl Icon="/Themes/Assets/Images/Menu/Return.png"
-                                               Label="Возврат"
+                                               Label="Повернення"
                                                ButtonStyle="{StaticResource MenuPointButton2Style}"
                                                MenuPointClicked="Return_OnMenuPointClicked" />
                     <controls:MenuPointSeparator />

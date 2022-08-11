@@ -23,7 +23,7 @@
 
             <StackPanel Margin="88 91 88 0">
 
-                <TextBlock Text="У Вас в корзине"
+                <TextBlock Text="У Вас в корзині"
                            HorizontalAlignment="Center"
                            Foreground="White"
                            FontFamily="{StaticResource UbuntuFontFamily}"
@@ -41,7 +41,7 @@
                                FontFamily="{StaticResource UbuntuMediumFontFamily}"
                                FontSize="18">
                         <Run Text="{x:Bind Cart.TotalQuantity, Mode=OneWay}" />
-                        <Run Text="товаров" />
+                        <Run Text="товарів" />
                     </TextBlock>
                 </StackPanel>
 
@@ -70,7 +70,7 @@
 
                 <promoCode:PromoCodePresenter PromoCode="{x:Bind Cart.PromoCode, Mode=TwoWay}" />
 
-                <TextBlock Text="Вы можете"
+                <TextBlock Text="Ви можете"
                            Foreground="White"
                            FontFamily="{StaticResource UbuntuFontFamily}"
                            FontSize="30"
@@ -87,13 +87,13 @@
                             <Image Source="/Themes/Assets/Images/Buttons/Checkout.png"
                                    Stretch="None"
                                    VerticalAlignment="Center" />
-                            <TextBlock Text="Оформить заказ"
+                            <TextBlock Text="Оформити замовлення"
                                        VerticalAlignment="Center"
                                        Margin="5 0 0 0" />
                         </StackPanel>
                     </Button>
 
-                    <TextBlock Text="или"
+                    <TextBlock Text="або"
                                Foreground="#acb8ff"
                                FontFamily="{StaticResource UbuntuLightFontFamily}"
                                FontSize="18"
@@ -102,7 +102,7 @@
 
                     <Button Style="{StaticResource WhiteOutlineButtonStyle}"
                             Command="{x:Bind EkContext.ContinueShoppingCommand, Mode=OneWay}">
-                        <TextBlock Text="Продолжить покупки" />
+                        <TextBlock Text="Продовжити покупки" />
                     </Button>
 
                 </StackPanel>
@@ -125,7 +125,7 @@
                 <controls:RightContentHeaderPanel Height="51">
                     <StackPanel Orientation="Horizontal">
                         <controls:RightContentHeaderBackButton Command="{x:Bind EkContext.ContinueShoppingCommand, Mode=OneWay}" />
-                        <TextBlock Text="Товары в корзине"
+                        <TextBlock Text="Товари в корзині"
                                    Style="{StaticResource RightContentHeaderStyle}" />
                     </StackPanel>
                 </controls:RightContentHeaderPanel>
@@ -153,7 +153,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Top"
                                 Padding="0 30 0 30">
-                        <Button Content="Продолжить покупки"
+                        <Button Content="Продовжити покупки"
                                 Margin="0 0 93 0"
                                 Style="{StaticResource CheckoutBackButtonStyle}"
                                 MinWidth="350"
@@ -167,7 +167,7 @@
                                 <Image Source="/Themes/Assets/Images/Buttons/Checkout.png"
                                        Stretch="None"
                                        VerticalAlignment="Center" />
-                                <TextBlock Text="Оформить заказ"
+                                <TextBlock Text="Оформити замовлення"
                                            VerticalAlignment="Center"
                                            Margin="5 0 0 0" />
                             </StackPanel>

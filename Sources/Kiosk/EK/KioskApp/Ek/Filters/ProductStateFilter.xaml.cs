@@ -12,12 +12,12 @@ namespace KioskApp.Ek.Filters
                 {
                     new FilterOptionItem()
                         {
-                            Name = "все",
+                            Name = "всі",
                             Value = null,
                         },
                     new FilterOptionItem()
                         {
-                            Name = "новое",
+                            Name = "нове",
                             Value = EkProductStateEnum.New,
                         },
                     new FilterOptionItem()
@@ -27,7 +27,7 @@ namespace KioskApp.Ek.Filters
                         },
                     new FilterOptionItem()
                         {
-                            Name = "восст.",
+                            Name = "віднов.",
                             Value = EkProductStateEnum.Recovered,
                         },
                 };

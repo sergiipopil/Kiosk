@@ -16,18 +16,18 @@ namespace KioskApp.Ek.Filters
             {
                 new FilterOptionItem()
                     {
-                        Name = "обычная",
+                        Name = "звичайне",
                         Value = EkProductSearchSortingEnum.Default,
                     },
                 new FilterOptionItem()
                     {
-                        Name = "цена",
+                        Name = "ціна",
                         Value = EkProductSearchSortingEnum.PriceAscending,
                         IconGlyph = "\xF0AD",
                     },
                 new FilterOptionItem()
                     {
-                        Name = "цена",
+                        Name = "ціна",
                         Value = EkProductSearchSortingEnum.PriceDescending,
                         IconGlyph = "\xF0AE",
                     },

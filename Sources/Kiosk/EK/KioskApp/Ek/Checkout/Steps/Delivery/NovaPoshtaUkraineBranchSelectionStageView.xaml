@@ -31,7 +31,7 @@
                 <StackPanel Orientation="Horizontal"
                             Height="51">
                     <controls:RightContentHeaderBackButton Command="{x:Bind BackCommand, Mode=OneWay}" />
-                    <TextBlock Text="Выберите отделение Новой Почты"
+                    <TextBlock Text="Виберіть відділення Нової Пошти"
                                Style="{StaticResource RightContentHeaderStyle}" />
                 </StackPanel>
 
@@ -133,8 +133,8 @@
                 </ListView>
 
                 <catalog:SearchStatePresenter SearchState="{x:Bind SearchProvider.SearchState, Mode=OneWay}"
-                                              TermName="номер отделения, город или улицу"
-                                              WithAnotherTermPhrase="с другим номером, городом или улицей"
+                                              TermName="номер відділення, місто або вулицю"
+                                              WithAnotherTermPhrase="з іншим номером, містом або вулицею"
                                               RetryOnErrorCommand="{x:Bind SearchProvider.RetryOnErrorCommand, Mode=OneWay}"
                                               ShowAnotherSections="False"
                                               IsManualSearchRun="False" />

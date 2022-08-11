@@ -30,7 +30,7 @@
                        FontFamily="{StaticResource PlayFontFamily}"
                        FontSize="60"
                        Margin="40 37 0 0">
-                <Run Text="Найдите деталь" />
+                <Run Text="Знайдіть деталь" />
                 <LineBreak />
                 <Run Text="по" />
                 <Run Text="номеру"
@@ -46,8 +46,8 @@
                             Value="32 0 88 30" />
                 </Style>
             </StackPanel.Resources>
-            <catalog:SearchFilterPlaceholder PlaceholderText1="Найти по"
-                                             PlaceholderText2="номеру детали"
+            <catalog:SearchFilterPlaceholder PlaceholderText1="Знайти по"
+                                             PlaceholderText2="номеру деталі"
                                              PointerPressed="SearchFilterPlaceholder_OnPointerPressed">
                 <catalog:SearchFilterPlaceholder.Tag>
                     <autoParts:SearchTypeEnum>ByName</autoParts:SearchTypeEnum>

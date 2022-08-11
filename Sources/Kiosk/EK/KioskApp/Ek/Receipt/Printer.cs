@@ -80,7 +80,7 @@ namespace KioskApp.Ek.Receipt
             switch (receiptData.DeliveryInfo?.Type)
             {
                 case EkDeliveryTypeEnum.DeliveryServiceStore:
-                    deliveryTypeString = "Самовывоз из Новой Почты";
+                    deliveryTypeString = "Самовивіз з Нової Пошти";
                     deliveryAddressParts = new[]
                         {
                             receiptData.DeliveryInfo?.Address?.City,
@@ -90,7 +90,7 @@ namespace KioskApp.Ek.Receipt
                     break;
                 default:
                 case EkDeliveryTypeEnum.Courier:
-                    deliveryTypeString = "Курьер";
+                    deliveryTypeString = "Курьєр";
                     deliveryAddressParts = new[]
                         {
                             receiptData.DeliveryInfo?.Address?.City,
@@ -114,25 +114,25 @@ namespace KioskApp.Ek.Receipt
                 }
             }
 
-            var message = $@"{EscP.INIT}{EscP.SET_LEFT_MARGIN}{EscP.ALIGN_LEFT}{EscP.SET_B_MODE}{EscP.SET_BOLD}Номер терминала: {EscP.CLEAR_BOLD}{kioskAppSettings.KioskId}
-{EscP.SET_BOLD}Адрес терминала: {EscP.CLEAR_BOLD}{kioskAddressString}
-{EscP.SET_BOLD}Дата: {EscP.CLEAR_BOLD}{now:dd.MM.yyyy} {EscP.SET_BOLD}Время: {EscP.CLEAR_BOLD}{now:HH:mm:ss}
-{EscP.SET_BOLD}Номер операции: {EscP.CLEAR_BOLD}{receiptData.ReceiptNumber}
+            var message = $@"{EscP.INIT}{EscP.SET_LEFT_MARGIN}{EscP.ALIGN_LEFT}{EscP.SET_B_MODE}{EscP.SET_BOLD}Номер термінала: {EscP.CLEAR_BOLD}{kioskAppSettings.KioskId}
+{EscP.SET_BOLD}Адреса терміналу: {EscP.CLEAR_BOLD}{kioskAddressString}
+{EscP.SET_BOLD}Дата: {EscP.CLEAR_BOLD}{now:dd.MM.yyyy} {EscP.SET_BOLD}Час: {EscP.CLEAR_BOLD}{now:HH:mm:ss}
+{EscP.SET_BOLD}Номер операції: {EscP.CLEAR_BOLD}{receiptData.ReceiptNumber}
 
-{EscP.SET_A_MODE}{EscP.ALIGN_CENTER}{EscP.SET_BOLD}ЗАКАЗ ТОВАРОВ/УСЛУГ{EscP.CLEAR_BOLD}{EscP.SET_B_MODE}
-{productsStringBuilder}{EscP.ALIGN_LEFT}{EscP.SET_BOLD}ИТОГО: {EscP.CLEAR_BOLD}{EscP.ALIGN_RIGHT}{receiptData.TotalPrice.ToAmountString(false)} {receiptData.TotalPriceCurrencyCode}
+{EscP.SET_A_MODE}{EscP.ALIGN_CENTER}{EscP.SET_BOLD}ЗАМОВЛЕННЯ ТОВАРІВ/ПОСЛУГ{EscP.CLEAR_BOLD}{EscP.SET_B_MODE}
+{productsStringBuilder}{EscP.ALIGN_LEFT}{EscP.SET_BOLD}ЗАГАЛОМ: {EscP.CLEAR_BOLD}{EscP.ALIGN_RIGHT}{receiptData.TotalPrice.ToAmountString(false)} {receiptData.TotalPriceCurrencyCode}
 
-{EscP.ALIGN_LEFT}{EscP.SET_BOLD}Заказчик: {EscP.CLEAR_BOLD}{receiptData.CustomerInfo?.FullName}
+{EscP.ALIGN_LEFT}{EscP.SET_BOLD}Замовник: {EscP.CLEAR_BOLD}{receiptData.CustomerInfo?.FullName}
 {EscP.SET_BOLD}Телефон: {EscP.CLEAR_BOLD}{receiptData.CustomerInfo?.Phone}
 {EscP.SET_BOLD}Доставка: {EscP.CLEAR_BOLD}{deliveryTypeString}
 {EscP.SET_BOLD}Адрес: {EscP.CLEAR_BOLD}{deliveryAddressString}
 
-{EscP.SET_A_MODE}{EscP.ALIGN_CENTER}{EscP.SET_BOLD}ИНСТРУКЦИЯ{EscP.CLEAR_BOLD}{EscP.SET_B_MODE}
-{EscP.ALIGN_LEFT}1. В течении 1 минуты Вы получите СМС с инструкциями по оплате.
-2. Выберите и оплатите заказ удобным способом оплаты.
-3. Следите за статусом заказа и доставки с помощью СМС.
+{EscP.SET_A_MODE}{EscP.ALIGN_CENTER}{EscP.SET_BOLD}ІНСТРУКЦІЯ{EscP.CLEAR_BOLD}{EscP.SET_B_MODE}
+{EscP.ALIGN_LEFT}1. Протягом 1 хвилини Ви отримаєте СМС з інструкціями по оплаті.
+2. Виберіть і оплатіть замовлення зручним способом оплати.
+3. Слідкуйте за статусом замовлення і доставки з допомогою СМС.
 
-{EscP.SET_A_MODE}{EscP.ALIGN_CENTER}{EscP.SET_BOLD}ИЛИ ОПЛАТИТЕ В БАНКЕ ПО РЕКВИЗИТАМ{EscP.CLEAR_BOLD}{EscP.SET_B_MODE}
+{EscP.SET_A_MODE}{EscP.ALIGN_CENTER}{EscP.SET_BOLD}АБО ОПЛАТІТЬ В БАНКУ ПО РЕКВІЗИТАМ{EscP.CLEAR_BOLD}{EscP.SET_B_MODE}
 {EscP.ALIGN_LEFT}ФОП ""Дубина Л. В.""
 14000, Чернігівська обл., м. Чернігів,
 вул. Проспект Перемоги, 90/78

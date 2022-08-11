@@ -22,7 +22,7 @@
                 <StackPanel Orientation="Horizontal"
                             Height="51">
                     <controls:RightContentHeaderBackButton Command="{x:Bind WizardBackCommand, Mode=OneWay}" />
-                    <TextBlock Text="Ввод персональных данных"
+                    <TextBlock Text="Ввід персональних даних"
                                Style="{StaticResource RightContentHeaderStyle}" />
                 </StackPanel>
 
@@ -36,7 +36,7 @@
 
                     <StackPanel HorizontalAlignment="Center">
                         <checkout:CheckoutValuePresenter Value="{x:Bind Data.FullName, Mode=OneWay}"
-                                                         Label="Имя и фамилия"
+                                                         Label="Ім`я та прізвище"
                                                          Margin="0 33 0 78" />
                     </StackPanel>
 
@@ -56,8 +56,8 @@
 
             <TextBlock Style="{StaticResource CheckoutCallToActionStyle}"
                        Margin="0 42 0 0">
-                <Run Text="Введите" />
-                <Run Text="имя и фамилию"
+                <Run Text="Введіть" />
+                <Run Text="ім`я та прізвище"
                      FontFamily="{StaticResource PlayBoldFontFamily}" />
             </TextBlock>
 
@@ -74,7 +74,7 @@
                         Margin="0 0 93 0"
                         Style="{StaticResource CheckoutBackButtonStyle}"
                         Command="{x:Bind WizardBackCommand, Mode=OneWay}" />
-                <Button Content="Дальше"
+                <Button Content="Далі"
                         Style="{StaticResource CheckoutNextButtonStyle}"
                         Click="NextButton_OnClick" />
             </StackPanel>

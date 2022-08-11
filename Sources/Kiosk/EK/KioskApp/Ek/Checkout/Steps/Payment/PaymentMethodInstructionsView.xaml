@@ -40,7 +40,7 @@
                         <controls:RightContentHeaderBackButton Command="{x:Bind BackCommand, Mode=OneWay}"
                                                                Visibility="{x:Bind IsConfirmed, Mode=OneWay, Converter={StaticResource BooleanToVisibilityReversedConverter}}" />
                         <TextBlock Grid.Column="1"
-                                   Text="Способ оплаты"
+                                   Text="Спосіб оплати"
                                    Style="{StaticResource RightContentHeaderStyle}" />
                     </Grid>
 
@@ -58,8 +58,8 @@
                                Foreground="#3b328d"
                                FontSize="40"
                                HorizontalAlignment="Center">
-                        <Run Text="Выберите способ" />
-                        <Run Text="оплаты"
+                        <Run Text="Виберіть спосіб" />
+                        <Run Text="оплати"
                              FontFamily="{StaticResource PlayBoldFontFamily}" />
                     </TextBlock>
                     <StackPanel Width="858"
@@ -145,7 +145,7 @@
 
                             <!--confirmation/'take receipt' notification-->
                             <Grid VerticalAlignment="Bottom">
-                                <Button Content="Подтверждаю"
+                                <Button Content="Підтверджую"
                                         Visibility="{x:Bind IsConfirmed, Mode=OneWay, Converter={StaticResource BooleanToVisibilityReversedConverter}}"
                                         Style="{StaticResource BlueButtonStyle}"
                                         HorizontalAlignment="Center"
@@ -155,7 +155,7 @@
                                         Height="51"
                                         Margin="0 0 0 67"
                                         Click="ConfirmButton_OnClick" />
-                                <TextBlock Text="Не забудьте забрать чек!"
+                                <TextBlock Text="Не забудьте забрати чек!"
                                            Visibility="{x:Bind IsConfirmed, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                                            HorizontalAlignment="Center"
                                            FontFamily="{StaticResource PlayFontFamily}"

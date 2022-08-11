@@ -76,22 +76,22 @@ namespace KioskApp.Ek.Checkout
                 switch (wizardItem.Step)
                 {
                     case CheckoutStepEnum.PersonalInfo:
-                        wizardItem.Name = "Имя и фамилия";
+                        wizardItem.Name = "Ім`я та прізвище";
                         break;
                     case CheckoutStepEnum.PhoneNumber:
                         wizardItem.Name = "Номер телефона";
                         break;
                     case CheckoutStepEnum.DeliveryInfo:
-                        wizardItem.Name = "Способ доставки";
+                        wizardItem.Name = "Спосіб доставки";
                         break;
                     case CheckoutStepEnum.OrderConfirmation:
-                        wizardItem.Name = "Подтверждение";
+                        wizardItem.Name = "Підтвердження";
                         break;
                     case CheckoutStepEnum.PaymentInfo:
-                        wizardItem.Name = "Способ оплаты";
+                        wizardItem.Name = "Спосіб оплати";
                         break;
                     case CheckoutStepEnum.ReceiptPrinting:
-                        wizardItem.Name = "Заказ оформлен!";
+                        wizardItem.Name = "Замовлення оформлене!";
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -277,7 +277,7 @@ namespace KioskApp.Ek.Checkout
                     break;
 
                 case CheckoutStepEnum.OrderConfirmation:
-                    SetWizardStepValue(CheckoutStepEnum.OrderConfirmation, "Подтверждено");
+                    SetWizardStepValue(CheckoutStepEnum.OrderConfirmation, "Підтверджено");
                     GotoStep(CheckoutStepEnum.PaymentInfo);
                     break;
 

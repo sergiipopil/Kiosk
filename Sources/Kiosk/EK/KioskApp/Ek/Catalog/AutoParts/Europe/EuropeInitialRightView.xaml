@@ -22,7 +22,7 @@
                        Foreground="#F97008"
                        FontWeight="Bold"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center" Text="ВЫБЕРИТЕ РАЗДЕЛ">
+                       HorizontalAlignment="Center" Text="ВИБЕРІТЬ РОЗДІЛ">
             </TextBlock>
         </Grid>
 
@@ -32,37 +32,37 @@
                                        VerticalAlignment="Top"
                                        HorizontalSpacing="6">
 
-                <categories:TopCategoryPresenter Title="Легковые и микроавтобусы" x:Name="categoryAutoParts" IsActive="True"
+                <categories:TopCategoryPresenter Title="Легкові і мікроавтобуси" x:Name="categoryAutoParts" IsActive="True"
                                                  Icon="/Themes/Assets/Images/Catalog/Categories/New/Europe_CarTruckParts.png"
                                                  Click="TopCategoryPresenter_OnClick"
                                                  Tag="620"/>
 
-                <categories:TopCategoryPresenter Title="Грузовые" x:Name="categoryTruckModels"
+                <categories:TopCategoryPresenter Title="Грузові" x:Name="categoryTruckModels"
                                                  Icon="/Themes/Assets/Images/Catalog/Categories/New/Europe_TruckParts.png"
                                                  Click="TopCategoryPresenter_OnClick"
                                                  Tag="621"/>
 
-                <categories:TopCategoryPresenter Title="Автобусы" x:Name="categoryBusModels"
+                <categories:TopCategoryPresenter Title="Автобуси" x:Name="categoryBusModels"
                                                  Icon="/Themes/Assets/Images/Catalog/Categories/New/Europe_BusParts.png"
                                                  Click="TopCategoryPresenter_OnClick"
                                                  Tag="622"/>
 
-                <categories:TopCategoryPresenter Title="Спецтехника" x:Name="categorySpecialCar"
+                <categories:TopCategoryPresenter Title="Спецтехніка" x:Name="categorySpecialCar"
                                                  Icon="/Themes/Assets/Images/Catalog/Categories/New/CarType_Special.png"
                                                  Tag="99022"
                                                  Click="TopCategoryPresenter_OnClick" />
 
-                <categories:TopCategoryPresenter Title="Мотоциклы" x:Name="categoryMoto"
+                <categories:TopCategoryPresenter Title="Мотоцикли" x:Name="categoryMoto"
                                                  Icon="/Themes/Assets/Images/Catalog/Categories/New/CarType_Moto.png"
                                                  Tag="156"
                                                  Click="TopCategoryPresenter_OnClick" />
 
-                <categories:TopCategoryPresenter Title="Шины и диски" TitleMargin="20" x:Name="categoryDisks"
+                <categories:TopCategoryPresenter Title="Шини і диски" TitleMargin="20" x:Name="categoryDisks"
                                                  Icon="/Themes/Assets/Images/Catalog/Categories/New/Europe_TiresAndRims.png"
                                                  Tag="99193"
                                                  Click="TopCategoryPresenter_OnClick" />
 
-                <categories:TopCategoryPresenter Title="Инструменты и оборудование" x:Name="categorySTO"
+                <categories:TopCategoryPresenter Title="Інструменти і обладнання" x:Name="categorySTO"
                                                  Icon="/Themes/Assets/Images/Catalog/Categories/New/Europe_Tools.png"
                                                  Tag="18554"
                                                  Click="TopCategoryPresenter_OnClick" />

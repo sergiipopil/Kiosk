@@ -22,7 +22,7 @@
                 <StackPanel Orientation="Horizontal"
                             Height="51">
                     <controls:RightContentHeaderBackButton Click="BackButton_OnClick" />
-                    <TextBlock Text="Ввод адреса доставки"
+                    <TextBlock Text="Ввід адреси доставки"
                                Style="{StaticResource RightContentHeaderStyle}" />
                 </StackPanel>
                 <Rectangle Style="{StaticResource RightContentHeaderSeparatorStyle}" />
@@ -35,10 +35,10 @@
 
                     <StackPanel HorizontalAlignment="Center">
                         <checkout:CheckoutValuePresenter Value="{x:Bind Data.Address.City, Mode=OneWay}"
-                                                         Label="Город (населенный пункт)"
+                                                         Label="Місто (населений пункт)"
                                                          Margin="0 33 0 0" />
                         <checkout:CheckoutValuePresenter Value="{x:Bind Data.Address.AddressLine1, Mode=OneWay}"
-                                                         Label="Адрес (улица, дом, квартира)"
+                                                         Label="Адреса (вулиця, будинок, квартира)"
                                                          Margin="0 17 0 58" />
                     </StackPanel>
 
@@ -60,8 +60,8 @@
 
                 <TextBlock Style="{StaticResource CheckoutCallToActionStyle}"
                            Margin="0 42 0 0">
-                    <Run Text="Введите Ваш" />
-                    <Run Text="город или населенный пункт"
+                    <Run Text="Введіть Ваше" />
+                    <Run Text="місто або населений пункт"
                          FontFamily="{StaticResource PlayBoldFontFamily}" />
                 </TextBlock>
 
@@ -78,7 +78,7 @@
                             Margin="0 0 93 0"
                             Style="{StaticResource CheckoutBackButtonStyle}"
                             Click="BackButton_OnClick" />
-                    <Button Content="Дальше"
+                    <Button Content="Далі"
                             Style="{StaticResource CheckoutNextButtonStyle}"
                             Click="NextButton_OnClick" />
                 </StackPanel>
@@ -90,8 +90,8 @@
 
                 <TextBlock Style="{StaticResource CheckoutCallToActionStyle}"
                            Margin="0 42 0 0">
-                    <Run Text="Введите Ваш" />
-                    <Run Text="адрес (улица, дом, квартира и т.п.)"
+                    <Run Text="Введіть Вашу" />
+                    <Run Text="адресу (вулиця, будинок, квартира і т.д.)"
                          FontFamily="{StaticResource PlayBoldFontFamily}" />
                 </TextBlock>
 
@@ -108,7 +108,7 @@
                             Margin="0 0 93 0"
                             Style="{StaticResource CheckoutBackButtonStyle}"
                             Click="BackButton_OnClick" />
-                    <Button Content="Дальше"
+                    <Button Content="Далі"
                             Style="{StaticResource CheckoutNextButtonStyle}"
                             Click="NextButton_OnClick" />
                 </StackPanel>

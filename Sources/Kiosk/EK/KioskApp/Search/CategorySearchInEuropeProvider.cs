@@ -25,7 +25,7 @@ namespace KioskApp.Search
             Action onBackToRoot)
         {
             _onBackToRoot = onBackToRoot;
-            SearchTitle = "ВЫБЕРЕТЕ ГРУППУ";
+            SearchTitle = "ВИБЕРІТЬ ГРУПУ";
 
 
 

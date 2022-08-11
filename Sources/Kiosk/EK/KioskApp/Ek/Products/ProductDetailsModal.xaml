@@ -80,15 +80,15 @@
                 <StackPanel Grid.Row="1"
                             Margin="0 23 0 0"
                             Orientation="Horizontal">
-                    <products:ProductKeyFeaturePresenter Label="состояние"
+                    <products:ProductKeyFeaturePresenter Label="стан"
                                                          Value="{x:Bind Product.StateString, Mode=OneWay}"
                                                          MinWidth="119" />
-                    <products:ProductKeyFeaturePresenter Label="год"
+                    <products:ProductKeyFeaturePresenter Label="рік"
                                                          Value="{x:Bind Product.ProductionYear, Mode=OneWay}"
                                                          Visibility="{x:Bind Product.ProductionYear, Mode=OneWay, Converter={StaticResource IsStringNotEmptyToVisibilityConverter}}"
                                                          StartSeparator="True"
                                                          MinWidth="114" />
-                    <products:ProductKeyFeaturePresenter Label="номер детали"
+                    <products:ProductKeyFeaturePresenter Label="номер деталі"
                                                          Value="{x:Bind Product.PartNumber, Mode=OneWay}"
                                                          Visibility="{x:Bind Product.PartNumber, Mode=OneWay, Converter={StaticResource IsStringNotEmptyToVisibilityConverter}}"
                                                          StartSeparator="True" />
@@ -142,13 +142,13 @@
                         <Image Source="/Themes/Assets/Images/Buttons/Buy.png"
                                Stretch="None"
                                VerticalAlignment="Center" />
-                        <TextBlock Text="Купить"
+                        <TextBlock Text="Купити"
                                    Margin="10 0 0 0"
                                    VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
 
-                <Button Content="Продолжить покупки"
+                <Button Content="Продовжити покупки"
                         Margin="0 30 0 0"
                         Style="{StaticResource CheckoutBackButtonStyle}"
                         Height="51"

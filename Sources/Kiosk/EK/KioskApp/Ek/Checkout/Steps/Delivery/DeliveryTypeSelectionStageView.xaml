@@ -22,7 +22,7 @@
                 <StackPanel Orientation="Horizontal"
                             Height="51">
                     <controls:RightContentHeaderBackButton Command="{x:Bind BackCommand, Mode=OneWay}" />
-                    <TextBlock Text="Выбор способа доставки"
+                    <TextBlock Text="Вибір способу доставки"
                                Style="{StaticResource RightContentHeaderStyle}" />
                 </StackPanel>
 
@@ -36,7 +36,7 @@
                         Margin="0 195 0 0">
                 <TextBlock Style="{StaticResource CheckoutCallToActionStyle}"
                            Margin="0 42 0 0">
-                    <Run Text="Выберите способ" />
+                    <Run Text="Виберіть спосіб" />
                     <Run Text="доставки"
                          FontFamily="{StaticResource PlayBoldFontFamily}" />
                 </TextBlock>
@@ -44,15 +44,15 @@
                             Margin="0 63 0 0"
                             HorizontalAlignment="Center">
                     <delivery:DeliveryTypeOptionPresenter DeliveryType="DeliveryServiceStore"
-                                                          Text1="Самовывоз из отделения"
-                                                          Text2="Новой Почты"
+                                                          Text1="Самовивіз з відділення"
+                                                          Text2="Нової Пошти"
                                                           Icon="/Themes/Assets/Images/Checkout/Delivery/NovaPoshtaUkraine.png"
                                                           VerticalAlignment="Top"
                                                           Selected="DeliveryTypeOptionPresenter_OnSelected" />
 
                     <delivery:DeliveryTypeOptionPresenter DeliveryType="Courier"
-                                                          Text1="Доставка курьером"
-                                                          Text2="по Вашему адресу"
+                                                          Text1="Доставка курьєром"
+                                                          Text2="за Вашою адресою"
                                                           Icon="/Themes/Assets/Images/Checkout/Delivery/Courier.png"
                                                           VerticalAlignment="Top"
                                                           Selected="DeliveryTypeOptionPresenter_OnSelected" />

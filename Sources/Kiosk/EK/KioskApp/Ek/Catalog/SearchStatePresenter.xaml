@@ -22,17 +22,17 @@
             <Grid Visibility="{x:Bind TermIsRequired, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <TextBlock Visibility="{x:Bind IsManualSearchRun, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Style="{StaticResource SearchStateMessageStyle}">
-                    <Run Text="Введите" />
+                    <Run Text="Введіть" />
                     <Run Text="{x:Bind TermName, Mode=OneWay}"
                          Foreground="#383e91" />
                     <LineBreak />
-                    <Run Text="и нажмите кнопку" />
-                    <Run Text="поиск"
+                    <Run Text="і нажміть кнопку" />
+                    <Run Text="пошук"
                          Foreground="#383e91" /><Run Text="." />
                 </TextBlock>
                 <TextBlock Visibility="{x:Bind IsManualSearchRun, Mode=OneWay, Converter={StaticResource BooleanToVisibilityReversedConverter}}"
                            Style="{StaticResource SearchStateMessageStyle}">
-                    <Run Text="Введите" />
+                    <Run Text="Введіть" />
                     <Run Text="{x:Bind TermName, Mode=OneWay}"
                          Foreground="#383e91" /><Run Text="." />
                 </TextBlock>
@@ -41,25 +41,25 @@
             <Grid Visibility="{x:Bind NoResults, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <TextBlock Visibility="{x:Bind ShowAnotherSections, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                            Style="{StaticResource SearchStateMessageStyle}">
-                    <Run Text="Ничего" />
-                    <Run Text="не найдено"
+                    <Run Text="Нічого" />
+                    <Run Text="не знайдено"
                          Foreground="#383e91" /><Run Text="." />
                     <LineBreak />
-                    <Run Text="Повторите поиск" />
+                    <Run Text="Повторіть пошук" />
                     <Run Text="{x:Bind WithAnotherTermPhrase, Mode=OneWay}"
                          Foreground="#383e91" />
                     <LineBreak />
-                    <Run Text="или попробуйте найти в" />
-                    <Run Text="другом разделе"
+                    <Run Text="або спробуйте найти в" />
+                    <Run Text="другому розділі"
                          Foreground="#383e91" /><Run Text="." />
                 </TextBlock>
                 <TextBlock Visibility="{x:Bind ShowAnotherSections, Mode=OneWay, Converter={StaticResource BooleanToVisibilityReversedConverter}}"
                            Style="{StaticResource SearchStateMessageStyle}">
-                    <Run Text="Ничего" />
-                    <Run Text="не найдено"
+                    <Run Text="Нічого" />
+                    <Run Text="не знайдено"
                          Foreground="#383e91" /><Run Text="." />
                     <LineBreak />
-                    <Run Text="Повторите поиск" />
+                    <Run Text="Повторіть пошук" />
                     <Run Text="{x:Bind WithAnotherTermPhrase, Mode=OneWay}"
                          Foreground="#383e91" /><Run Text="." />
                 </TextBlock>
@@ -68,10 +68,10 @@
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Visibility="{x:Bind Error, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TextBlock Text="Ошибка!"
+                <TextBlock Text="Помилка!"
                            Style="{StaticResource SearchStateMessageStyle}"
                            Foreground="#383e91" />
-                <Button Content="Повторить"
+                <Button Content="Повторити"
                         Style="{StaticResource OrangeButtonStyle}"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
@@ -84,7 +84,7 @@
         </Grid>
 
         <controls:LoadingControl Visibility="{x:Bind Searching, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                 Text="Поиск..."
+                                 Text="Пошук..."
                                  Size="Large"
                                  ShowOverlay="False" />
 

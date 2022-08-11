@@ -82,7 +82,7 @@ namespace KioskApp.Ek.Catalog.AutoParts.Europe
         {
             ThreadHelper.EnsureUiThread();
             //fix Sergii
-            SearchInputInstruction = "Введите номер детали";
+            SearchInputInstruction = "Введіть номер деталі";
         }
 
         private void OnLanguageChanged(object sender, Language e)

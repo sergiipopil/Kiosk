@@ -23,7 +23,7 @@
             <StackPanel>
 
                 <StackPanel Margin="88 17 88 0">
-                    <TextBlock Text="Оформление заказа"
+                    <TextBlock Text="Оформлення замовлення"
                                HorizontalAlignment="Center"
                                Foreground="White"
                                FontFamily="{StaticResource UbuntuFontFamily}"
@@ -45,7 +45,7 @@
                                    FontFamily="{StaticResource UbuntuMediumFontFamily}"
                                    FontSize="18">
                             <Run  />
-                            <Run Text="товаров" />
+                            <Run Text="товарів" />
                         </TextBlock>
                     </StackPanel>
 
@@ -75,11 +75,11 @@
                                TextAlignment="Center"
                                LineHeight="26"
                                Margin="0 28 0 0">
-                        <Run Text="Оформите заказ всего за 5 простых шагов!" />
+                        <Run Text="Оформіть замовлення всього за 5 простих кроків!" />
                         <LineBreak />
-                        <Run Text="Заполните данные, подтвердите номер телефона," />
+                        <Run Text="Заповніть дані, підтвердіть номер телефона," />
                         <LineBreak />
-                        <Run Text="выберите способ доставки и оплаты." />
+                        <Run Text="виберіть спосіб доставки і оплати." />
                     </TextBlock>
                 </StackPanel>
 

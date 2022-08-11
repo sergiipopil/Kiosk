@@ -17,7 +17,7 @@
                        FontFamily="{StaticResource PlayFontFamily}"
                        FontSize="40"
                        Margin="0 0 0 10">
-                <Run Text="Вы выбрали:" />
+                <Run Text="Ви вибрали:" />
             </TextBlock>
             <Grid Background="White" HorizontalAlignment="Center" Padding="5" Margin="5" MinWidth="200" MaxWidth="200" x:Name="blockManufacture">
                
