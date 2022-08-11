@@ -210,7 +210,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                     if (item.price.Contains(".")) { 
                         item.price = item.price.Substring(0, item.price.LastIndexOf("."));
                     }
-                    if (item.price_with_delivery.Contains("."))
+                    if (item.price_with_delivery != null && item.price_with_delivery.Contains("."))
                     {
                         item.price_with_delivery = item.price_with_delivery.Substring(0, item.price_with_delivery.LastIndexOf("."));
                     }
@@ -341,6 +341,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             parameters["page"] = ((offset / 40)+1).ToString();
             parameters["api_key"] = "Ah4Yg2nzA6kQ3EmPvUA7bN";
             parameters["method"] = "search";
+            parameters["language"] = "uk-UA";
 
 
             var action = "/offers/listing";
@@ -455,11 +456,10 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             DetailParserData parserResponce;
             using (var httpClientHandler = new HttpClientHandler())
             {
-
                 httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
                 using (var client = new HttpClient(httpClientHandler))
                 {
-                    var httpResponse = await client.GetAsync("http://38.242.150.247/allegro/parser.php?api_key=Ah4Yg2nzA6kQ3EmPvUA7bN&method=details&product_id=" + id, CancellationToken.None);
+                    var httpResponse = await client.GetAsync("http://38.242.150.247/allegro/parser.php?api_key=Ah4Yg2nzA6kQ3EmPvUA7bN&method=details&language=uk-UA&product_id=" + id, CancellationToken.None);
                     responseBody = await httpResponse.Content.ReadAsStringAsync(); //httpResponse.Result;
                 }
             }
@@ -493,7 +493,6 @@ namespace KioskBrains.Clients.AllegroPl.Rest
         public class Description
         {
             public IList<Sections> sections { get; set; }
-
         }
         public class DetailParserData
         {

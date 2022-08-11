@@ -165,7 +165,7 @@
                                          BlurRadius="7">
             <Grid Background="#eeefff"
                   Height="120">
-                <Button Content="Закрыть"
+                <Button Content="Закрити"
                         Style="{StaticResource BlueButtonStyle}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
