@@ -17,7 +17,7 @@
             <RowDefinition Height="164" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Вы еще здесь?"
+        <TextBlock Text="Ви ще тут?"
                    HorizontalAlignment="Center"
                    Foreground="#383e91"
                    FontFamily="{StaticResource PlayFontFamily}"

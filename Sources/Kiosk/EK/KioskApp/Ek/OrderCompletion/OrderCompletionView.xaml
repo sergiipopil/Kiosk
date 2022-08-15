@@ -19,7 +19,7 @@
         <controls:LeftContentPanel>
 
             <StackPanel Margin="88 157 88 0">
-                <TextBlock Text="Ваш заказ оформлен!"
+                <TextBlock Text="Ваше замовлення оформлене!"
                            HorizontalAlignment="Center"
                            Foreground="White"
                            FontFamily="{StaticResource UbuntuFontFamily}"
@@ -29,7 +29,7 @@
                            Height="1"
                            Margin="0 18 0 0" />
 
-                <TextBlock Text="Заберите Ваш чек!"
+                <TextBlock Text="Заберіть Ваш чек!"
                            Foreground="#d2cdf6"
                            FontFamily="{StaticResource UbuntuFontFamily}"
                            FontSize="18"
