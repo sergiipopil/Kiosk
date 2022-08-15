@@ -34,7 +34,7 @@
                                    FontSize="18"
                                    FontFamily="{StaticResource UbuntuBoldFontFamily}">
                             <Run Text="{x:Bind EkContext.EkProcess.Cart.TotalQuantity, Mode=OneWay}" />
-                            <Run Text="товаров" />
+                            <Run Text="товарів" />
                         </TextBlock>
                     </StackPanel>
 
@@ -48,7 +48,7 @@
 
                         <StackPanel Margin="0 0 0 16">
 
-                            <Button Content="Показать товары"
+                            <Button Content="Показати товари"
                                     Style="{StaticResource LinkButtonStyle}"
                                     HorizontalAlignment="Center"
                                     Command="{x:Bind EkContext.GoToCartCommand, Mode=OneWay}" />
@@ -76,7 +76,7 @@
                                     <Image Source="/Themes/Assets/Images/Buttons/Checkout.png"
                                            Stretch="None"
                                            VerticalAlignment="Center" />
-                                    <TextBlock Text="Оформить"
+                                    <TextBlock Text="Оформити"
                                                VerticalAlignment="Center"
                                                Margin="5 0 0 0" />
                                 </StackPanel>

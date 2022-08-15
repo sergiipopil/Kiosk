@@ -26,17 +26,17 @@ namespace KioskApp.Ek.Info
                         switch (infoModalType)
                         {
                             case InfoModalTypeEnum.Warranty:
-                                infoModal.TitlePart1 = "Условия";
-                                infoModal.TitlePart2 = "гарантии";
+                                infoModal.TitlePart1 = "Умови";
+                                infoModal.TitlePart2 = "гарантії";
                                 infoModal.InfoBlocks = _warrantyBlocks;
                                 break;
                             case InfoModalTypeEnum.Return:
-                                infoModal.TitlePart1 = "Условия";
-                                infoModal.TitlePart2 = "возврата";
+                                infoModal.TitlePart1 = "Умови";
+                                infoModal.TitlePart2 = "повернення";
                                 infoModal.InfoBlocks = _returnBlocks;
                                 break;
                             case InfoModalTypeEnum.UserAgreement:
-                                infoModal.TitlePart1 = "Пользовательское соглашение";
+                                infoModal.TitlePart1 = "Згода користувача";
                                 infoModal.InfoBlocks = _userAgreementBlocks;
                                 break;
                         }

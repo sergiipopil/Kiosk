@@ -32,9 +32,9 @@
                            LineHeight="24"
                            Foreground="#6b7bd0"
                            VerticalAlignment="Center">
-                    <Run Text="Данный раздел временно недоступен." />
+                    <Run Text="Цей розділ тимчасово недоступний." />
                     <LineBreak />
-                    <Run Text="Работа восстановится в ближайшее время." />
+                    <Run Text="Робота відновиться в найближчий час." />
                 </TextBlock>
             </Grid>
         </toolkitControls:DropShadowPanel>

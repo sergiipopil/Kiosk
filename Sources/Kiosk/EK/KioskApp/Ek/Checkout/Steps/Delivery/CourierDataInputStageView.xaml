@@ -91,7 +91,7 @@
                 <TextBlock Style="{StaticResource CheckoutCallToActionStyle}"
                            Margin="0 42 0 0">
                     <Run Text="Введіть Вашу" />
-                    <Run Text="адресу (вулиця, будинок, квартира і т.д.)"
+                    <Run Text="адресу(вулиця, будинок, квартира)"
                          FontFamily="{StaticResource PlayBoldFontFamily}" />
                 </TextBlock>
 

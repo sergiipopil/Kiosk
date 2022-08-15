@@ -53,7 +53,7 @@
                 <payment:PaymentMethodInstructionsView SelectedPaymentMethod="{x:Bind SelectedPaymentMethodInfo, Mode=OneWay}"
                                                        IsConfirmed="True" />
 
-                <Button Content="Следующий клиент"
+                <Button Content="Натсупний клієнт"
                         Style="{StaticResource OrangeButtonStyle}"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
