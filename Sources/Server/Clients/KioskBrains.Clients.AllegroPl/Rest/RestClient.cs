@@ -341,7 +341,6 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             parameters["page"] = ((offset / 40)+1).ToString();
             parameters["api_key"] = "Ah4Yg2nzA6kQ3EmPvUA7bN";
             parameters["method"] = "search";
-            parameters["language"] = "uk-UA";
 
 
             var action = "/offers/listing";
@@ -459,7 +458,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
                 using (var client = new HttpClient(httpClientHandler))
                 {
-                    var httpResponse = await client.GetAsync("http://38.242.150.247/allegro/parser.php?api_key=Ah4Yg2nzA6kQ3EmPvUA7bN&method=details&language=uk-UA&product_id=" + id, CancellationToken.None);
+                    var httpResponse = await client.GetAsync("http://38.242.150.247/allegro/parser.php?api_key=Ah4Yg2nzA6kQ3EmPvUA7bN&method=details&product_id=" + id, CancellationToken.None);
                     responseBody = await httpResponse.Content.ReadAsStringAsync(); //httpResponse.Result;
                 }
             }
