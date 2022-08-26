@@ -390,7 +390,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                         break;
                 }
 
-                parameters["status"] = stateFilterValue;
+                parameters["status"] = "używane";//stateFilterValue;
             }
 
             string sortingValue;

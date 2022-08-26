@@ -208,7 +208,7 @@ namespace WebApplication.Controllers
                 _topCategoryId = "620";
             }
             var treeMainCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == (String.IsNullOrEmpty(_topCategoryId) || _topCategoryId.Length > 5 ? "620" : _topCategoryId)).FirstOrDefault().Children;
-
+            
 
 
 

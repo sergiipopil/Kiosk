@@ -782,7 +782,7 @@
                             <div style="padding:0 5%;">
                                 @foreach (var subCat in @cat.Children)
                                 {
-                                    @if (@subCat.Name["ru"] != "Сборные детали" && @subCat.Name["ru"] != "Другое" && @subCat.Name["ru"] != "Другие")
+                                    @if (@subCat.Name["ru"] != "Збірні деталі" && @subCat.Name["ru"] != "Інше" && @subCat.Name["ru"] != "Інші")
                                     {
                                         <a href="/Models/ManufactureModelView/@subCat.CategoryId/@subCat.Name["ru"]" style="color:black !important;" class="treeSubCategory" id="@String.Format("divSubCat{0}", subCat.CategoryId)"><span class="notranslate">@subCat.Name["ru"]</span></a>
                                     }
@@ -790,7 +790,7 @@
                                     {
                                         @foreach (var subchildCat in @subCat.Children)
                                         {
-                                            @if (subchildCat.Name["ru"] != "Сборные детали" && subchildCat.Name["ru"] != "Другое" && subchildCat.Name["ru"] != "Другие")
+                                            @if (subchildCat.Name["ru"] != "Збірні деталі" && subchildCat.Name["ru"] != "Інше" && subchildCat.Name["ru"] != "Інші")
                                             {
                                                 <a href="/Models/ManufactureModelView/@subchildCat.CategoryId/@subchildCat.Name["ru"]" style="color:black !important;" class="treeSubCategory" id="topSubchild"><span class="notranslate">@subchildCat.Name["ru"]</span></a>
                                             }
@@ -798,7 +798,7 @@
                                             {
                                                 @foreach (var lastCat in @subchildCat.Children)
                                                 {
-                                                    @if (lastCat.Name["ru"] != "Сборные детали" && lastCat.Name["ru"] != "Другое" && lastCat.Name["ru"] != "Другие")
+                                                    @if (lastCat.Name["ru"] != "Збірні деталі" && lastCat.Name["ru"] != "Інше" && lastCat.Name["ru"] != "Інші")
                                                     {
                                                         <a href="/Models/ManufactureModelView/@lastCat.CategoryId/@lastCat.Name["ru"]" style="color:black !important;" class="treeSubCategory" id="lastId"><span class="notranslate">@lastCat.Name["ru"]</span></a>
                                                     }
