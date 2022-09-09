@@ -68,7 +68,7 @@
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Visibility="{x:Bind Error, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TextBlock Text="Помилка!"
+                <TextBlock Text="Даний товар відсутній на складах!"
                            Style="{StaticResource SearchStateMessageStyle}"
                            Foreground="#383e91" />
                 <Button Content="Повторити"
