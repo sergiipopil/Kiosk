@@ -167,6 +167,7 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk
 
             var isSpecialEngineTransmissionProduct = IsSpecialEngineTransmissionProduct(product);
 
+            
             if (isSpecialEngineTransmissionProduct
                 && product.State == EkProductStateEnum.Broken)
             {
@@ -178,15 +179,16 @@ namespace KioskBrains.Server.Domain.Actions.EkKiosk
             {
                 var P_Price = product.BasePrice;
                 var D_Price = product.DeliveryPrice < 10 ? (decimal)35 : product.DeliveryPrice;
+                D_Price = D_Price + 100;
                 var M_Markup = GetC_Markup(product, isSpecialEngineTransmissionProduct);
                 var T_Taxes = GetB_Taxes(product, isSpecialEngineTransmissionProduct);
                 var R_Rate = exchangeRate;
 
                 //var ExtraRate = CalculatePrice(P_Price, state, product.CategoryId, (P_Price + D_Price) * R_Rate); //P_Price < 200 ? (decimal)1.55 : (decimal)1.3;
 
-                var priceStart = (P_Price + D_Price) * R_Rate * (decimal)1.25;//(P_Price + D_Price) * (1 + T_Taxes) * (1 + M_Markup) * R_Rate * ExtraRate;
-                var calculatedPrice = CalculatePrice(P_Price, state, product.CategoryId, P_Price + D_Price);
-                var finalPrice = (calculatedPrice) * R_Rate;
+                var priceStart = (P_Price + D_Price) * (decimal)1.15;//(P_Price + D_Price) * (1 + T_Taxes) * (1 + M_Markup) * R_Rate * ExtraRate;
+                //var calculatedPrice = CalculatePrice(P_Price, state, product.CategoryId, P_Price + D_Price);
+                var finalPrice = priceStart * R_Rate;
                 product.Price = product.FinalPrice = RoundPrice(finalPrice);
                 product.PriceCurrencyCode = "UAH";
                 product.PriceCalculationInfo = $"Formula=((P+D)+M%+T%)*R*ER, P={P_Price}, D={D_Price}, M={M_Markup:P}, T={T_Taxes:P}, R={R_Rate}, Category={(isSpecialEngineTransmissionProduct ? "Engine/Transmission" : "Regular")}";

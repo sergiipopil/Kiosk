@@ -299,6 +299,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             public string availableQuantity { get; set; }
             public string price { get; set; }
             public string price_with_delivery { get; set; }
+            public DeliveryOptions delivery_options { get; set; }
             public string currency { get; set; }
             public string seller_id { get; set; }
             public string seller_rating { get; set; }
@@ -323,6 +324,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             public string title { get; set; }
             public string price { get; set; }
             public string price_with_delivery { get; set; }
+            public DeliveryOptions delivery_options { get; set; }
             public string mainThumbnail { get; set; }
             public string mainImage { get; set; }
 
@@ -444,6 +446,33 @@ namespace KioskBrains.Clients.AllegroPl.Rest
         {
             public Dictionary<string, object> Parametry { get; set; }
         }
+        public class DeliveryOptions
+        {
+            [JsonProperty("Na adres")]
+            public NaAdres NaAdres { get; set; }
+
+            [JsonProperty("Na adres za pobraniem")]
+            public NaAdresZaPobraniem ZaPobraniem { get; set; }
+        }
+
+        public class NaAdres
+        {
+            [JsonProperty("Paczka pocztowa ekonomiczna, Paczka48")]
+            public DetailsDelivery OptionDelivery { get; set; }
+        }
+
+        public class NaAdresZaPobraniem
+        {
+            [JsonProperty("Paczka pocztowa ekonomiczna pobranie, Paczka48")]
+            public DetailsDelivery OptionDelivery { get; set; }
+        }
+
+        public class DetailsDelivery
+        {
+            public int price { get; set; }
+            public string time { get; set; }
+        }
+        
         public class Items
         {
             public string type { get; set; }
@@ -468,6 +497,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             public string title { get; set; }
             public bool active { get; set; }
             public int availableQuantity { get; set; }
+            public DeliveryOptions delivery_options { get; set; }
             public string price { get; set; }
             public string price_with_delivery { get; set; }
             public string currency { get; set; }

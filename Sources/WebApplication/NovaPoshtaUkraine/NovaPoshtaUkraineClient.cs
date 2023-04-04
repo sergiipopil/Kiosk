@@ -17,9 +17,9 @@ namespace WebApplication.NovaPoshtaUkraine
 
         public static NovaPoshtaUkraineClient Current { get; } = new NovaPoshtaUkraineClient();
         public static List<WarehouseSearchItem> NovaPoshtaCities = new List<WarehouseSearchItem>();
-        //public string pathToNPCities = @"c:\temp\novaPoshtaCities.json";
+        public string pathToNPCities = @"c:\temp\novaPoshtaCities.json";
         
-        public string pathToNPCities = @"D:\Domains\bi-bi.com.ua\httpdocs\wwwroot\novaPoshtaCities.json";
+        //public string pathToNPCities = @"D:\Domains\bi-bi.com.ua\httpdocs\wwwroot\novaPoshtaCities.json";
         public NovaPoshtaUkraineClient()
         {
         }

@@ -132,12 +132,12 @@
                         <div style="color: #ff5a00;font-weight:bold;" class="notranslate">
                             <span id="spnPrice" style="font-size:34px;" itemprop="price" content="@Model.Price" class="notranslate">@Model.Price</span>
                             <span style="font-size:18px;" itemprop="priceCurrency" content="UAH" class="notranslate"> UAH</span>
-                            <span itemprop="availability" href="https://schema.org/InStock" style="display: block; font-weight: normal;font-size:14px;" class="notranslate">Доступное количество: @Model.AvailableQuantity</span>
+                            <span itemprop="availability" href="https://schema.org/InStock" style="display: block; font-weight: normal;font-size:14px;" class="notranslate">Доступна кількість: @Model.AvailableQuantity</span>
                             <span id="priceDeliveryComment" style="color:#6c7096;font-size:14px;display:block;font-weight:normal;">Перевірений продавець</span>
                             <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;margin-bottom:0px;">Швидка доставка</p>
                             <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">Гарантія 21 день</p>
                         </div>
-                        <div class="warningText">Увага! На відміну від інших сайтів, у нас немає прихованих доплат. Ви бачите кінцеву ціну!</div>
+                        <div class="warningText">Вартість доставки залежить від Вашого регіону!</div>
                         <div onclick="goToCart('@Model.Id', '@Model.Title', '@Model.Price', '@Model.kioskId')" style="padding:20px 0px 0px 0px;" class="divGoToCart">
                             <button class="btnBuyList">
                                 <span class="btnBuyListSpan" style="font-size:23px;">Купити</span>

@@ -23,8 +23,8 @@ namespace KioskBrains.Server.EK.Common.Helpers
         }
         public static IList<string> GetRandomParts()
         {
-            //IList<string> testingList = System.IO.File.ReadAllText(@"c:\temp\partNumbers.txt").Split(";").ToList();
-            IList<string> testingList = System.IO.File.ReadAllText(@"D:\Domains\bi-bi.com.ua\httpdocs\wwwroot\partNumbers.txt").Split(";").ToList();
+            IList<string> testingList = System.IO.File.ReadAllText(@"c:\temp\partNumbers.txt").Split(";").ToList();
+            //IList<string> testingList = System.IO.File.ReadAllText(@"D:\Domains\bi-bi.com.ua\httpdocs\wwwroot\partNumbers.txt").Split(";").ToList();
             return testingList.AsEnumerable().OrderBy(n => Guid.NewGuid()).Take(100).ToList();
         }
         private static readonly EkProductCategory[] _europeCategories;
