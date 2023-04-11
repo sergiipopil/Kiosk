@@ -156,7 +156,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
             string responseBody;
             try
             {
-                var uriBuilder = new UriBuilder($"http://38.242.150.247/allegro/parser.php");
+                var uriBuilder = new UriBuilder($"http://138.242.150.247/allegro/parser.php");
                 if (queryParameters?.Count > 0)
                 {
                     uriBuilder.Query = string.Join(
@@ -458,7 +458,7 @@ namespace KioskBrains.Clients.AllegroPl.Rest
                 httpClientHandler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => { return true; };
                 using (var client = new HttpClient(httpClientHandler))
                 {
-                    var httpResponse = await client.GetAsync("http://38.242.150.247/allegro/parser.php?api_key=Ah4Yg2nzA6kQ3EmPvUA7bN&method=details&product_id=" + id, CancellationToken.None);
+                    var httpResponse = await client.GetAsync("http://138.242.150.247/allegro/parser.php?api_key=Ah4Yg2nzA6kQ3EmPvUA7bN&method=details&product_id=" + id, CancellationToken.None);
                     responseBody = await httpResponse.Content.ReadAsStringAsync(); //httpResponse.Result;
                 }
             }
