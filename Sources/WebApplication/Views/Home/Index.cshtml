@@ -9,7 +9,7 @@
 <head>
 
     <link href="~/css/site.css" rel="stylesheet" />
-    <script src="https://yastatic.net/jquery/3.3.1/jquery.min.js"></script>
+    
     <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1" />
 
     <style>
@@ -284,7 +284,7 @@
                 if (model != null && model != "") {
 
                     $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDivBreadCrumbs" onclick="selectCarModel('${manufacture}', '${model}', null, '${kioskId}', '${topcategoryid}')" style="display:grid;">
-                <div class="breadcrumbsStyle1"><img src="/images/Catalog/CarModel/${manufacture}/${modification}.png" class="modelImageBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="notranslate" style="color:black;">${modification}</span>
+                <div class="breadcrumbsStyle1"><img src="/images/Catalog/CarModel/${manufacture}/${modification}.png" class="modelImageBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="langtrans" style="color:black;">${modification}</span>
                             </div></div>`);
                 }
             }
@@ -292,28 +292,28 @@
                 if (model != null && model != "") {
 
                     $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsModel" class="parentDivBreadCrumbs" onclick="selectCarModel('${manufacture}', '${model}', null, '${kioskId}', '${topcategoryid}')" style="display:grid;">
-                <div class="breadcrumbsStyle1"><img src="/images/Catalog/CarModel/${manufacture}/${model}.png" class="modelImageBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="notranslate" style="color:black;">${model}</span>
+                <div class="breadcrumbsStyle1"><img src="/images/Catalog/CarModel/${manufacture}/${model}.png" class="modelImageBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="langtrans" style="color:black;">${model}</span>
                             </div></div>`);
                 }
             }
             if (mainCategoryName != null) {
                 $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsMainCategory" class="parentDivBreadCrumbs" onclick="selectMainCategory('${manufacture}', '${model}', '${mainCategoryId}', '${mainCategoryName}', '${kioskId}', '${topcategoryid}')" style="display:grid;">
-                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${mainCategoryId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="notranslate" style="color:black;">${mainCategoryName}</span>
+                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${mainCategoryId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="langtrans" style="color:black;">${mainCategoryName}</span>
                             </div></div>`);
             }
             if (subCategoryName != null) {
                 $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsSubCategory" class="parentDivBreadCrumbs" onclick="selectSubMainCategory('${manufacture}', '${model}', '${mainCategoryId}', '${mainCategoryName}', '${subCategoryId}', '${subCategoryName}', '${kioskId}', '${topcategoryid}')" style="display:grid;">
-                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${subCategoryId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="notranslate" style="color:black;">${subCategoryName}</span>
+                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${subCategoryId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="langtrans" style="color:black;">${subCategoryName}</span>
                             </div></div>`);
             }
             if (subChildName != null) {
                 $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsSubChildCategory" class="parentDivBreadCrumbs" style="display:grid;">
-                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${subChildId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="notranslate" style="color:black;">${subChildName}</span>
+                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${subChildId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="langtrans" style="color:black;">${subChildName}</span>
                             </div></div>`);
             }
             if (lastChildName != null) {
                 $('#divBreadcrumbsItems').append(`<div id="divBreadcrumbsSubChildCategory" class="parentDivBreadCrumbs" style="display:grid;">
-                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${lastChildId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="notranslate" style="color:black;">${lastChildName}</span>
+                <div class="breadcrumbsStyle2"><img src="/images/Catalog/AutoParts/${lastChildId}.png" class="manufactureImageCategoryBreadcrumbs" /></div><div class="manufactureTextBreadcrumbs"><span class="langtrans" style="color:black;">${lastChildName}</span>
                             </div></div>`);
             }
         }
@@ -591,7 +591,7 @@
                     @*FIND DETAIL BY INPUT SEARCH*@
                     <div class="inputSearchTopText">
                         <div class="inputInsideBlock">
-                            <span class="notranslate">Найдіть деталь по </span><span class="inputSearchBottomText"><span class="notranslate">номеру запчастини</span></span>
+                            <span class="langtrans">Найдіть деталь по </span><span class="inputSearchBottomText"><span class="langtrans">номеру запчастини</span></span>
                         </div>
                     </div>
                     <div>
@@ -606,7 +606,7 @@
 
                 @*START BREADCRUMBS BLOCK*@
                 <div id="divBreadcrumbs" style="display:none;text-align:center;">
-                    <div class="breadcrumbTitle"><span class="notranslate">Ви вибрали:</span></div>
+                    <div class="breadcrumbTitle"><span class="langtrans">Ви вибрали:</span></div>
                     <div id="divBreadcrumbsItems" style="margin:0% 30%;">
                     </div>
                 </div>
@@ -619,7 +619,7 @@
             <td class="rightIndexPanel">
                 @*SELECT TOP CATEGORY PANEL*@
                 <div id="divSelectTopCategory">
-                    <div class="mainBlockTitle"><span class="notranslate">Виберіть розділ</span></div>
+                    <div class="mainBlockTitle"><span class="langtrans">Виберіть розділ</span></div>
                     <div class="divSelectTopCategoryBlock">
                         <div class="inline-block">
                             @*<a href="/topcategory/620">*@
@@ -629,7 +629,7 @@
                                     <img src="~/images/Catalog/Categories/New/Europe_CarTruckParts.png" alt="Легкові та мікроавтобуси" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span class="notranslate">Легкові та мікроавтобуси</span>
+                                    <span class="langtrans">Легкові та мікроавтобуси</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -642,7 +642,7 @@
                                     <img src="~/images/Catalog/Categories/New/Europe_TruckParts.png" alt="Грузові" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span class="notranslate">Грузові</span>
+                                    <span class="langtrans">Грузові</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -655,7 +655,7 @@
                                     <img src="~/images/Catalog/Categories/New/Europe_BusParts.png" alt="Автобуси" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span class="notranslate">Автобуси</span>
+                                    <span class="langtrans">Автобуси</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -666,7 +666,7 @@
                                     <img src="~/images/Catalog/Categories/New/CarType_Special.png" alt="Спецтехніка" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span class="notranslate">Спецтехніка</span>
+                                    <span class="langtrans">Спецтехніка</span>
                                 </div>
                             </div>
                         </div>
@@ -679,7 +679,7 @@
                                     <img src="~/images/Catalog/Categories/New/CarType_Moto.png" alt="Мото і аксесуари" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span class="notranslate">Мото і аксесуари</span>
+                                    <span class="langtrans">Мото і аксесуари</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -692,7 +692,7 @@
                                     <img src="~/images/Catalog/Categories/New/Europe_TiresAndRims.png" alt="Шини і диски" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span class="notranslate">Шини і диски</span>
+                                    <span class="langtrans">Шини і диски</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -705,7 +705,7 @@
                                     <img src="~/images/Catalog/Categories/New/Europe_Tools.png" alt="Інструменти і обладнання" class="TopCategoryImage" />
                                 </div>
                                 <div class="manufactureTextTop">
-                                    <span class="notranslate">Інструменти і обладнання</span>
+                                    <span class="langtrans">Інструменти і обладнання</span>
                                 </div>
                             </div>
                             @*</a>*@
@@ -728,7 +728,7 @@
         <tr>
             <td colspan="2" style="background: white; border-top: 1px solid #dcdeff;padding:20px;">
                 @*background: #504593;*@
-                <div style="color: black;padding:0px 10px 0px 10px;" class="notranslate">
+                <div style="color: black;padding:0px 10px 0px 10px;" class="langtrans">
                     <div>
                         <img src="~/images/Index/123.jpg" style="float: left; margin: 7px 25px 7px 0;" width="50%" />
                         <div style="line-height: 30px; text-align: justify;">
@@ -761,9 +761,9 @@
                     </div>
                 </div>
                 <div style="clear:both;"></div>
-                <div style="text-align: center; font-size: 24px; padding: 20px 0px;color:black;" class="notranslate">Працюємо по всій Україні</div>
+                <div style="text-align: center; font-size: 24px; padding: 20px 0px;color:black;" class="langtrans">Працюємо по всій Україні</div>
                 <img src="~/images/Index/allUK.jpg" width="50%" style="float: left; margin: 7px 7px 7px 0;" />
-                <div style="text-align:left;" class="notranslate">
+                <div style="text-align:left;" class="langtrans">
                     @foreach (var item in @Model.AdvertCities)
                     {
                         <div class="advertCities" style="color:black !important;">
@@ -771,12 +771,12 @@
                         </div>
                     }
                 </div>
-                <div style="color: black; text-align: center; font-size: 16px; padding: 10px; border-bottom: 1px solid white; border-top: 1px solid white;text-transform:lowercase;" class="notranslate"><a style="color:black;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> Авторозбірка Шрот Купити Запчастини б/у нові легкові вантажні мотоцикли Шини Диски Інструменти Устаткування для СТО Мото Аксесуари</div>
-                <div onclick="showHideAutoParts()" class="footerMainBlock" style="color:black !important;"><span class="notranslate">Авторозбірка всі запчастини</span></div>
+                <div style="color: black; text-align: center; font-size: 16px; padding: 10px; border-bottom: 1px solid white; border-top: 1px solid white;text-transform:lowercase;" class="langtrans"><a style="color:black;text-decoration:underline;" href="https://www.bi-bi.com.ua">https://www.bi-bi.com.ua</a> Авторозбірка Шрот Купити Запчастини б/у нові легкові вантажні мотоцикли Шини Диски Інструменти Устаткування для СТО Мото Аксесуари</div>
+                <div onclick="showHideAutoParts()" class="footerMainBlock" style="color:black !important;"><span class="langtrans">Авторозбірка всі запчастини</span></div>
                 <div class="divAllParts" style="color:black !important;">
                     @foreach (var cat in Model.ProductCategoryList)
                     {
-                        <a href="/Models/ManufactureModelView/@cat.CategoryId/@cat.Name["ru"]" class="treeMainCategory" id="@String.Format("divMainCat{0}", cat.CategoryId)"><span class="notranslate">@cat.Name["ru"]</span></a>
+                        <a href="/Models/ManufactureModelView/@cat.CategoryId/@cat.Name["ru"]" class="treeMainCategory" id="@String.Format("divMainCat{0}", cat.CategoryId)"><span class="langtrans">@cat.Name["ru"]</span></a>
                         @if (@cat.Children != null)
                         {
                             <div style="padding:0 5%;">
@@ -784,7 +784,7 @@
                                 {
                                     @if (@subCat.Name["ru"] != "Збірні деталі" && @subCat.Name["ru"] != "Інше" && @subCat.Name["ru"] != "Інші")
                                     {
-                                        <a href="/Models/ManufactureModelView/@subCat.CategoryId/@subCat.Name["ru"]" style="color:black !important;" class="treeSubCategory" id="@String.Format("divSubCat{0}", subCat.CategoryId)"><span class="notranslate">@subCat.Name["ru"]</span></a>
+                                        <a href="/Models/ManufactureModelView/@subCat.CategoryId/@subCat.Name["ru"]" style="color:black !important;" class="treeSubCategory" id="@String.Format("divSubCat{0}", subCat.CategoryId)"><span class="langtrans">@subCat.Name["ru"]</span></a>
                                     }
                                     @if (@subCat.Children != null)
                                     {
@@ -792,7 +792,7 @@
                                         {
                                             @if (subchildCat.Name["ru"] != "Збірні деталі" && subchildCat.Name["ru"] != "Інше" && subchildCat.Name["ru"] != "Інші")
                                             {
-                                                <a href="/Models/ManufactureModelView/@subchildCat.CategoryId/@subchildCat.Name["ru"]" style="color:black !important;" class="treeSubCategory" id="topSubchild"><span class="notranslate">@subchildCat.Name["ru"]</span></a>
+                                                <a href="/Models/ManufactureModelView/@subchildCat.CategoryId/@subchildCat.Name["ru"]" style="color:black !important;" class="treeSubCategory" id="topSubchild"><span class="langtrans">@subchildCat.Name["ru"]</span></a>
                                             }
                                             @if (@subchildCat.Children != null)
                                             {
@@ -800,7 +800,7 @@
                                                 {
                                                     @if (lastCat.Name["ru"] != "Збірні деталі" && lastCat.Name["ru"] != "Інше" && lastCat.Name["ru"] != "Інші")
                                                     {
-                                                        <a href="/Models/ManufactureModelView/@lastCat.CategoryId/@lastCat.Name["ru"]" style="color:black !important;" class="treeSubCategory" id="lastId"><span class="notranslate">@lastCat.Name["ru"]</span></a>
+                                                        <a href="/Models/ManufactureModelView/@lastCat.CategoryId/@lastCat.Name["ru"]" style="color:black !important;" class="treeSubCategory" id="lastId"><span class="langtrans">@lastCat.Name["ru"]</span></a>
                                                     }
                                                 }
                                             }
@@ -817,7 +817,7 @@
                     <div class="footerMainBlock" style="color:black !important;" onclick="showHidePopularNumbers()"><span>Популярні номери</span></div>
                     @foreach (var item in @Model.PartNumbersRandom)
                     {
-                        <a href="/search/@item.ToString()" target="_self" class="partNumbersRandom" id="divPartNumbersItem"><span class="notranslate">@item.ToString()</span></a>
+                        <a href="/search/@item.ToString()" target="_self" class="partNumbersRandom" id="divPartNumbersItem"><span class="langtrans">@item.ToString()</span></a>
                     }
                 </div>
             </td>

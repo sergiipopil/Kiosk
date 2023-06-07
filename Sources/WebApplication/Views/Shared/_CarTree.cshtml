@@ -40,7 +40,7 @@
 @if (@Model.ManufacturerSelected == null)
 {
     <h1 class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
-        <span class="notranslate">Виберіть марку</span>
+        <span class="langtrans">Виберіть марку</span>
     </h1>
     <div class="treeMainBlock">
         @foreach (var item in Model.ManufacturerList)
@@ -50,7 +50,7 @@
                     <div class="parentDivManufacturer" onclick="selectManufacturer('@item.Name', '@Model.kioskId', '@Model.TopCategoryId')">                        
                         <img src="@String.Format("/images/Catalog/Model_Logo/{0}.webp", item.Name)" alt="@item.Name" class="manufactureImage" />
                     </div>
-                    <div class="manufactureTextModels"><span class="notranslate">@item.Name</span></div>
+                    <div class="manufactureTextModels"><span class="langtrans">@item.Name</span></div>
                 @*</a>*@
             </div>
         }
@@ -62,7 +62,7 @@
         <div onclick="back('@Model.TopCategoryId')" class="btnBackModelPage">
             <span>Назад</span>
         </div>
-        <div style="display:inline-block;"><span class="notranslate">Виберіть модель</span></div>
+        <div style="display:inline-block;"><span class="langtrans">Виберіть модель</span></div>
     </div>
     <div style="padding: 10px 10px 10px 10px;text-align:center;">
         @foreach (var item in Model.ModelsList)
@@ -74,7 +74,7 @@
                     <div class="divCarModelsBlock">
                         <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, item)" class="modelImage" />
                     </div><div class="manufactureText">
-                        <span class="notranslate">@item</span>
+                        <span class="langtrans">@item</span>
                     </div>
                 </div>
             </a>

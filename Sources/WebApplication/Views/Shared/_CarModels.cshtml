@@ -12,10 +12,10 @@
     <div style="display:inline-block;">
         @if (!Model.IsModificationList)
         {
-            <h1 class="controlHeader"><span class="notranslate">Купити запчастини @Model.ManufacturerSelected @Model.ModelSelected @Model.ModificationSelected</span></h1>}
+            <h1 class="controlHeader"><span class="langtrans">Купити запчастини @Model.ManufacturerSelected @Model.ModelSelected @Model.ModificationSelected</span></h1>}
         else
         {
-            <h1 class="controlHeader"><span class="notranslate">Купити запчастини @Model.ManufacturerSelected @Model.ModelSelected @Model.ModificationSelected</span></h1>
+            <h1 class="controlHeader"><span class="langtrans">Купити запчастини @Model.ManufacturerSelected @Model.ModelSelected @Model.ModificationSelected</span></h1>
         }
     </div>
 </div>
@@ -33,7 +33,7 @@
                                 <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
                             </div>
                             <div class="manufactureText">
-                                <span class="notranslate">@item.Name</span>
+                                <span class="langtrans">@item.Name</span>
                             </div>
                         </div>
                     @*</a>*@
@@ -46,7 +46,7 @@
                                 <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
                             </div>
                             <div class="manufactureText">
-                                <span class="notranslate">@item.Name</span>
+                                <span class="langtrans">@item.Name</span>
                             </div>
                         </div>
                     @*</a>*@
@@ -60,7 +60,7 @@
                         <img src="@String.Format("/images/Catalog/CarModel/{0}/{1}.png", Model.ManufacturerSelected, @item.Name)" class="modelImage" />
                     </div>
                     <div class="manufactureText">
-                        <span class="notranslate">@item.DisplayName</span>
+                        <span class="langtrans">@item.DisplayName</span>
                     </div>
                 </div>
             @*</a>*@

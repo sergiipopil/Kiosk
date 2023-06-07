@@ -136,30 +136,30 @@
 
 <div class="mainBlockTitle" id="divTreeTitle" style="background: #EEEFFF;">
     <div onclick="@Model.FunctionReturnFromProducts" class="btnBackModelPage">
-        <span class="notranslate">Назад</span>
+        <span class="langtrans">Назад</span>
     </div>
     @if (String.IsNullOrEmpty(@Model.SubChildCategoryName))
     {
         @if (!String.IsNullOrEmpty(Model.PartNumberValue))
         {
-            <div style="display:inline-block;"><h1 class="controlHeader"><span class="notranslate">@Model.PartNumberValue</span></h1></div>
+            <div style="display:inline-block;"><h1 class="controlHeader"><span class="langtrans">@Model.PartNumberValue</span></h1></div>
         }
         else
         {
-            <div style="display:inline-block;"><h1 class="controlHeader"><span class="notranslate">@Model.SubCategoryName @Model.ManufacturerSelected @Model.ModelSelected</span></h1></div>
+            <div style="display:inline-block;"><h1 class="controlHeader"><span class="langtrans">@Model.SubCategoryName @Model.ManufacturerSelected @Model.ModelSelected</span></h1></div>
         }
     }
     else
     {
-        <div style="display:inline-block;"><h1 class="controlHeader"><span class="notranslate">@Model.SubChildCategoryName @Model.ManufacturerSelected @Model.ModelSelected</span></h1></div>
+        <div style="display:inline-block;"><h1 class="controlHeader"><span class="langtrans">@Model.SubChildCategoryName @Model.ManufacturerSelected @Model.ModelSelected</span></h1></div>
     }
     <div onclick="switchFilter()" class="filterDes">
-        <img src="~/images/FiltrOrange.png" class="filterIcon" /> <span style="text-transform:capitalize;" class="filterText"><span class="notranslate">Фільтр</span></span>
+        <img src="~/images/FiltrOrange.png" class="filterIcon" /> <span style="text-transform:capitalize;" class="filterText"><span class="langtrans">Фільтр</span></span>
     </div>
 </div>
 
 <div class="divProductHeadFilter" style="line-height: 26px; font-size: 14px;">
-    <div class="notranslate">
+    <div class="langtrans">
         <div class="tp-caption rev-btn rev-hiddenicon  rs-hover-ready rev-mre-btn" style="background:#DCDEFF;padding: 10px 20px;border-radius:5px;cursor:pointer;" onclick="showme('ucOfferState', 'Стан', 'clickyState');" href="javascript:;" id="clickyState">Стан <i style="float: right !important; padding-top: 7px !important;" class="fa fa-arrow-down"></i></div>
         <div id="ucOfferState" style="display:none;padding:10px;box-shadow:0px 0px 5px rgb(220 222 255);">
             <div>
@@ -359,16 +359,16 @@
                         @if (@Model.FilterName == "placeLR")
                         {
                             <tr style="display:none;">
-                                <td class="filterItemPlacementLR_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'LEWY_PRAWE', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType','@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Ліва+Права</span></td>
+                                <td class="filterItemPlacementLR_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'LEWY_PRAWE', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType','@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Ліва+Права</span></td>
                             </tr>
                             <tr style="display:none;">
-                                <td class="filterItemPlacementL_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'LEWY', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Ліва</span></td>
+                                <td class="filterItemPlacementL_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'LEWY', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Ліва</span></td>
                             </tr>
                             <tr style="display:none;">
-                                <td class="filterItemPlacementR_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'PRAWE', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Права</span></td>
+                                <td class="filterItemPlacementR_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'PRAWE', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Права</span></td>
                             </tr>
                             <tr>
-                                <td class="notranslate">
+                                <td class="langtrans">
                                     @Html.DropDownListFor(Model => Model.OfferSortingPlacement, new SelectList(new List<SelectListItem> { new SelectListItem { Text = "Левая+Правая", Value = "LEWY_PRAWE" }, new SelectListItem { Text = "Левая", Value = "LEWY" }, new SelectListItem { Text = "Правая", Value = "PRAWE" } }, "Value", "Text"), " - Сторона установки - ", new { @id = "cbPlaceLR", @style = "color: black;width:100%;margin-top: 10px !important; height: 35px !important; font-size: 14px !important;border:1px solid #ff6b05;", @class = "form-control" })
                                 </td>
                             </tr>
@@ -376,13 +376,13 @@
                         @if (@Model.FilterName == "placeFB")
                         {
                             <tr style="display:none;">
-                                <td class="filterItemPlacementF_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'przód', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Передня</span></td>
+                                <td class="filterItemPlacementF_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'przód', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Передня</span></td>
                             </tr>
                             <tr style="display:none;">
-                                <td class="filterItemPlacementB_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'tył', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Задня</span></td>
+                                <td class="filterItemPlacementB_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'tył', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Задня</span></td>
                             </tr>
                             <tr style="display:none;">
-                                <td class="notranslate">
+                                <td class="langtrans">
                                     @Html.DropDownListFor(Model => Model.OfferSortingPlacement, new SelectList(new List<SelectListItem> { new SelectListItem { Text = "Передня", Value = "przód" }, new SelectListItem { Text = "Задня", Value = "tył" } }, "Value", "Text"), " - Сторона установки - ", new { @id = "cbPlaceFB", @style = "color: black;width:100%;margin-top: 10px !important; height: 35px !important; font-size: 14px !important;border:1px solid #ff6b05;", @class = "form-control" })
                                 </td>
                             </tr>
@@ -390,19 +390,19 @@
                         @if (@Model.FilterName == "placeAll")
                         {
                             <tr style="display:none;">
-                                <td class="filterItemPlacementLF_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'lewy_przód', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Ліва передня</span></td>
+                                <td class="filterItemPlacementLF_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'lewy_przód', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Ліва передня</span></td>
                             </tr>
                             <tr style="display:none;">
-                                <td class="filterItemPlacementLB_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'lewy_tył', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Ліва задня</span></td>
+                                <td class="filterItemPlacementLB_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'lewy_tył', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Ліва задня</span></td>
                             </tr>
                             <tr style="display:none;">
-                                <td class="filterItemPlacementRF_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'prawy_przód', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Права передня</span></td>
+                                <td class="filterItemPlacementRF_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'prawy_przód', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Права передня</span></td>
                             </tr>
                             <tr style="display:none;">
-                                <td class="filterItemPlacementRB_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'prawy_tył', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Права задня</span></td>
+                                <td class="filterItemPlacementRB_@Model.OfferSortingPlacement" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', 'prawy_tył', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Права задня</span></td>
                             </tr>
                             <tr>
-                                <td class="notranslate">
+                                <td class="langtrans">
                                     @Html.DropDownListFor(Model => Model.OfferSortingPlacement, new SelectList(new List<SelectListItem> { new SelectListItem { Text = "Ліва передня", Value = "lewy_przód" }, new SelectListItem { Text = "Ліва задня", Value = "lewy_tył" }, new SelectListItem { Text = "Права передня", Value = "prawy_przód" }, new SelectListItem { Text = "Права задня", Value = "prawy_tył" } }, "Value", "Text"), " - Сторона установки - ", new { @id = "cbPlaceAll", @style = "color: black;width:100%;margin-top: 10px !important; height: 35px !important; font-size: 14px !important;border:1px solid #ff6b05;", @class = "form-control" })
                                 </td>
                             </tr>
@@ -415,14 +415,14 @@
                     @if ((Model.ControllerName == "PartNumberInput" && Model.MainCategoryId == null) || (Model.MainCategoryId != null && !Model.MainCategoryId.Contains("257708") && !Model.MainCategoryId.Contains("257713") && !Model.MainCategoryId.Contains("257687") && !Model.MainCategoryId.Contains("257624")))
                     {
                         <tr style="display:none;">
-                            <td class="filterItemNewState_@Model.OfferState" onclick="FilteredList('New', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Нові</span></td>
+                            <td class="filterItemNewState_@Model.OfferState" onclick="FilteredList('New', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Нові</span></td>
                         </tr>
                     }
                     <tr style="display:none;">
-                        <td class="filterItemUsedState_@Model.OfferState" onclick="FilteredList('Used', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Б/у</span></td>
+                        <td class="filterItemUsedState_@Model.OfferState" onclick="FilteredList('Used', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Б/у</span></td>
                     </tr>
                     <tr>
-                        <td class="notranslate">
+                        <td class="langtrans">
                             @Html.DropDownListFor(Model => Model.OfferState, new SelectList(new List<SelectListItem> { new SelectListItem { Text = "Нові", Value = "New" }, new SelectListItem { Text = "Б/у", Value = "Used" } }, "Value", "Text"), " - Стан - ", new { @id = "cbOfferState", @style = "color: black;width:100%;margin-top: 10px !important; height: 35px !important; font-size: 14px !important;border:1px solid #ff6b05;", @class = "form-control" })
                         </td>
                     </tr>
@@ -433,13 +433,13 @@
             <td class="filterTd" style="display:none;">
                 <table style="width:100%;text-align:center;">
                     <tr style="display:none;">
-                        <td class="filterItemDescSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceDesc', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Дороще</span></td>
+                        <td class="filterItemDescSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceDesc', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Дороще</span></td>
                     </tr>
                     <tr style="display:none;">
-                        <td class="filterItemAscSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceAsc', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Дешевше</span></td>
+                        <td class="filterItemAscSorting_@Model.OfferSorting" onclick="FilteredList('@Model.OfferState', 'PriceAsc', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Дешевше</span></td>
                     </tr>
                     <tr>
-                        <td class="notranslate">
+                        <td class="langtrans">
                             @Html.DropDownListFor(Model => Model.OfferSorting, new SelectList(new List<SelectListItem> { new SelectListItem { Text = "Дороще", Value = "PriceDesc" }, new SelectListItem { Text = "Дешевше", Value = "PriceAsc" } }, "Value", "Text"), " - Цена - ", new { @id = "cbOfferPrice", @style = "color: black;width:100%;margin-top: 10px !important; height: 35px !important; font-size: 14px !important;border:1px solid #ff6b05;", @class = "form-control" })
                         </td>
                     </tr>
@@ -456,13 +456,13 @@
                     <table style="width:100%;text-align:center;">
                         @*<tr><td style="padding-bottom: 10px; text-align: center;font-weight:600;">Тип запчасти</td></tr>*@
                         <tr style="display:none;">
-                            <td class="filterItemOrigin_@Model.OfferSortingIsOrigin" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', 'oryginał', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width','@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Оригінал</span></td>
+                            <td class="filterItemOrigin_@Model.OfferSortingIsOrigin" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', 'oryginał', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width','@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Оригінал</span></td>
                         </tr>
                         <tr style="display:none;">
-                            <td class="filterItemFake_@Model.OfferSortingIsOrigin" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', 'zamiennik', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Замінник</span></td>
+                            <td class="filterItemFake_@Model.OfferSortingIsOrigin" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', 'zamiennik', '@Model.OfferSortingEngineType', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Замінник</span></td>
                         </tr>
                         <tr>
-                            <td class="notranslate">
+                            <td class="langtrans">
                                 @Html.DropDownListFor(Model => Model.OfferSortingIsOrigin, new SelectList(new List<SelectListItem> { new SelectListItem { Text = "Оригінал", Value = "oryginał" }, new SelectListItem { Text = "Замінник", Value = "zamiennik" } }, "Value", "Text"), " - Тип запчасти - ", new { @id = "cbDetailType", @style = "color: black;width:100%;margin-top: 10px !important; height: 35px !important; font-size: 14px !important;border:1px solid #ff6b05;", @class = "form-control" })
                             </td>
                         </tr>
@@ -479,16 +479,16 @@
                         <table style="width:100%;text-align:center;">
                             @*<tr><td style="padding-bottom:10px;text-align:center;font-weight:600;">Тип топлива</td></tr>*@
                             <tr style="display:none;">
-                                <td class="filterItemEngineBenzyn_@Model.OfferSortingEngineType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', 'benzynowy', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Бензин</span></td>
+                                <td class="filterItemEngineBenzyn_@Model.OfferSortingEngineType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', 'benzynowy', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Бензин</span></td>
                             </tr>
                             <tr style="display:none;">
-                                <td class="filterItemEngineDiesel_@Model.OfferSortingEngineType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', 'diesel', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Дизель</span></td>
+                                <td class="filterItemEngineDiesel_@Model.OfferSortingEngineType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', 'diesel', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Дизель</span></td>
                             </tr>
                             <tr style="display:none;">
-                                <td class="filterItemEngineElektryczne_@Model.OfferSortingEngineType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', 'elektryczne', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">Електро</span></td>
+                                <td class="filterItemEngineElektryczne_@Model.OfferSortingEngineType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', 'elektryczne', '@Model.OfferSortingTransmissionType', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">Електро</span></td>
                             </tr>
                             <tr>
-                                <td class="notranslate">
+                                <td class="langtrans">
                                     @Html.DropDownListFor(Model => Model.OfferSortingEngineType, new SelectList(new List<SelectListItem> { new SelectListItem { Text = "Бензин", Value = "benzynowy" }, new SelectListItem { Text = "Дизель", Value = "diesel" }, new SelectListItem { Text = "Електро", Value = "elektryczne" } }, "Value", "Text"), " - Тип двигуна - ", new { @id = "cbEngineType", @style = "color: black;width:100%;margin-top: 10px !important; height: 35px !important; font-size: 14px !important;border:1px solid #ff6b05;", @class = "form-control" })
                                 </td>
                             </tr>
@@ -501,13 +501,13 @@
                         <table style="width:100%;text-align:center;">
                             @*<tr><td style="padding-bottom:10px;text-align:center;font-weight:600;">Тип топлива</td></tr>*@
                             <tr style="display:none;">
-                                <td class="filterItemTransmissionAutomatyczna_@Model.OfferSortingTransmissionType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', 'Automatyczna', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">АКПП</span></td>
+                                <td class="filterItemTransmissionAutomatyczna_@Model.OfferSortingTransmissionType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', 'Automatyczna', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">АКПП</span></td>
                             </tr>
                             <tr style="display:none;">
-                                <td class="filterItemTransmissionManualna_@Model.OfferSortingTransmissionType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', 'Manualna', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="notranslate">КПП</span></td>
+                                <td class="filterItemTransmissionManualna_@Model.OfferSortingTransmissionType" onclick="FilteredList('@Model.OfferState', '@Model.OfferSorting', '@Model.PageNumber', '@Model.OfferSortingPlacement', '@Model.OfferSortingIsOrigin', '@Model.OfferSortingEngineType', 'Manualna', '@Model.SelectedTiresSizes.Quantity', '@Model.SelectedTiresSizes.Width', '@Model.SelectedTiresSizes.Height', '@Model.SelectedTiresSizes.RSize', '@Model.SelectedEngineValue')"><span class="langtrans">КПП</span></td>
                             </tr>
                             <tr>
-                                <td class="notranslate">
+                                <td class="langtrans">
                                     @Html.DropDownListFor(Model => Model.OfferSortingTransmissionType, new SelectList(new List<SelectListItem> { new SelectListItem { Text = "АКПП", Value = "Automatyczna" }, new SelectListItem { Text = "КПП", Value = "Manualna" } }, "Value", "Text"), " - Тип коробки - ", new { @id = "cbTransmissionType", @style = "color: black;width:100%;margin-top: 10px !important; height: 35px !important; font-size: 14px !important;border:1px solid #ff6b05;", @class = "form-control" })
                                 </td>
                             </tr>
@@ -519,7 +519,7 @@
                     <td class="filterTd">
                         <table style="width:100%;text-align:center;">
                             <tr>
-                                <td class="notranslate">
+                                <td class="langtrans">
                                     @Html.DropDownListFor(Model => Model.SelectedEngineValue, new SelectList(Model.EngineValues), "Обьєм двигуна", new { @id = "cbEngineValue", @style = "color: black;width:100%;margin-top: 10px !important; height: 35px !important; font-size: 16px !important;border:1px solid #ff6b05;", @class = "form-control", @onchange = @String.Format("FilteredList('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', {11})", @Model.OfferState, @Model.OfferSorting, @Model.PageNumber, @Model.OfferSortingPlacement, @Model.OfferSortingIsOrigin, @Model.OfferSortingEngineType, @Model.OfferSortingTransmissionType, @Model.SelectedTiresSizes.Quantity, @Model.SelectedTiresSizes.Width, @Model.SelectedTiresSizes.Height, @Model.SelectedTiresSizes.RSize, @String.Format("$('#cbEngineValue').val()")) })
                                 </td>
                             </tr>
@@ -577,7 +577,7 @@
 @if (@Model.AllegroOfferList.Count() == 0)
 {
     <div class="noProducts">
-        <span class="notranslate">
+        <span class="langtrans">
             Нічого не знайдено.
             Повторіть пошук з іншими значеннями або
             попробуйте в іншому розділі
@@ -586,7 +586,7 @@
 }
 else
 {
-    <div class="warningText"><span class="notranslate">Вартість доставки залежить від Вашого регіону!</span></div>
+    <div class="warningText"><span class="langtrans">Вартість доставки залежить від Вашого регіону!</span></div>
 }
 <div style="text-align: center; padding: 7px 0px 0px 0px; color: grey;">
     @*<div style="display:inline-block;vertical-align:middle;">Для перевода кликните на флажок</div>
@@ -634,20 +634,20 @@ else
                 <div class="col-lg-3">
                     <div class="inline-blockPrice" style="border-left: 1px solid #c3c4c5;padding-left:20px;">
                         <div style="color: #ff5a00;font-weight:bold;">
-                            <span class="divProductPrice" style="font-size:34px;"><span class="notranslate">@item.Price</span></span>
-                            <span class="divProductCurrency" style="font-size:18px;"><span class="notranslate">@item.PriceCurrencyCode</span></span>
-                            <span id="priceDeliveryComment" class="notranslate" style="color:#6c7096;font-size:14px;display:block;font-weight:normal;">Перевірений продавець</span>
-                            <p id="priceComment" class="notranslate" style="color:#6c7096;font-size:14px;font-weight:normal;margin-bottom:0px;">Швидка доставка</p>
-                            <p id="priceComment" class="notranslate" style="color:#6c7096;font-size:14px;font-weight:normal;">Гарантія 21 день</p>
+                            <span class="divProductPrice" style="font-size:34px;"><span class="langtrans">@item.Price</span></span>
+                            <span class="divProductCurrency" style="font-size:18px;"><span class="langtrans">@item.PriceCurrencyCode</span></span>
+                            <span id="priceDeliveryComment" class="langtrans" style="color:#6c7096;font-size:14px;display:block;font-weight:normal;">Перевірений продавець</span>
+                            <p id="priceComment" class="langtrans" style="color:#6c7096;font-size:14px;font-weight:normal;margin-bottom:0px;">Швидка доставка</p>
+                            <p id="priceComment" class="langtrans" style="color:#6c7096;font-size:14px;font-weight:normal;">Гарантія 21 день</p>
                         </div>
 
                         <div onclick="goToCart('@item.SourceId','@item.Name.Last().Value','@item.Price', '@Model.kioskId')">
                             <button class="btnBuyList">
                                 <img src="~/images/Buy.png" />
-                                <span class="notranslate">Купити</span>
+                                <span class="langtrans">Купити</span>
                             </button>
                         </div>
-                        <div style="color: #ff5a00; text-align: center;" class="notranslate">Безпечна покупка</div>
+                        <div style="color: #ff5a00; text-align: center;" class="langtrans">Безпечна покупка</div>
                     </div>
                 </div>
             </div>

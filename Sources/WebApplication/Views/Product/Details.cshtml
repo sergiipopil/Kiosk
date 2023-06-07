@@ -75,7 +75,7 @@
 
     <div class="mainBlockTitle" style="background: #EEEFFF;">
         <div onclick="backToProductList()" style="color: white; padding: 0px 10px; font-weight: normal; border-radius: 10px; cursor:pointer; font-size: 23px; width:100px; text-transform: capitalize; background: #ff5a00;" class="cartBackBtn">
-            <span class="notranslate">Назад</span>
+            <span class="langtrans">Назад</span>
         </div>
     </div>
 
@@ -108,15 +108,15 @@
                     <img style=" display: inline-block; vertical-align: middle;width:25px;" src="~/images/star.png" /><span style=" display: inline-block; vertical-align: middle; padding-left: 10px;">Рейтинг продавця: @Model.SellerRating</span>
                 </div>
                 <div itemprop="description">
-                    <div style="display:inline-block;vertical-align:middle;" class="notranslate">
+                    <div style="display:inline-block;vertical-align:middle;" class="langtrans">
                         <h3 class="descriptionBlock" style="cursor:pointer">Параметри</h3>
                     </div>
                     @foreach (var item in Model.Parameters)
                     {
-                        <div class="descriptionBlock"><span class="notranslate">@item</span></div>}
+                        <div class="descriptionBlock"><span class="langtrans">@item</span></div>}
 
                     <div id="divInnerDetails">
-                        <div style="display:inline-block;vertical-align:middle;" class="notranslate">
+                        <div style="display:inline-block;vertical-align:middle;" class="langtrans">
                             <h3 class="descriptionBlock" style="cursor:pointer">Опис</h3>
                         </div>
                         @Html.Partial("_InnerDetails", @Model)
@@ -127,12 +127,12 @@
 
 
             <div id="controlBlock" class="detailBlock" style="width: 20%; padding: 20px; text-align: left; border: 1px solid #c3c4d7; background: white; box-shadow: 0px 0px 10px wheat;">
-                <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="notranslate">
+                <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="langtrans">
                     <div id="priceProduct">
-                        <div style="color: #ff5a00;font-weight:bold;" class="notranslate">
-                            <span id="spnPrice" style="font-size:34px;" itemprop="price" content="@Model.Price" class="notranslate">@Model.Price</span>
-                            <span style="font-size:18px;" itemprop="priceCurrency" content="UAH" class="notranslate"> UAH</span>
-                            <span itemprop="availability" href="https://schema.org/InStock" style="display: block; font-weight: normal;font-size:14px;" class="notranslate">Доступна кількість: @Model.AvailableQuantity</span>
+                        <div style="color: #ff5a00;font-weight:bold;" class="langtrans">
+                            <span id="spnPrice" style="font-size:34px;" itemprop="price" content="@Model.Price" class="langtrans">@Model.Price</span>
+                            <span style="font-size:18px;" itemprop="priceCurrency" content="UAH" class="langtrans"> UAH</span>
+                            <span itemprop="availability" href="https://schema.org/InStock" style="display: block; font-weight: normal;font-size:14px;" class="langtrans">Доступна кількість: @Model.AvailableQuantity</span>
                             <span id="priceDeliveryComment" style="color:#6c7096;font-size:14px;display:block;font-weight:normal;">Перевірений продавець</span>
                             <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;margin-bottom:0px;">Швидка доставка</p>
                             <p id="priceComment" style="color:#6c7096;font-size:14px;font-weight:normal;">Гарантія 21 день</p>

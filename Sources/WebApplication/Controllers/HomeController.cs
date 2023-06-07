@@ -106,7 +106,8 @@ namespace WebApplication.Controllers
                         }
                         i++;
                     }
-                    else {
+                    else
+                    {
                         foreach (var itemModifications in itemCarModels.Children)
                         {
                             using (ExcelRange Rng = wsSheet1.Cells["A" + i])
@@ -208,7 +209,7 @@ namespace WebApplication.Controllers
                 _topCategoryId = "620";
             }
             var treeMainCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == (String.IsNullOrEmpty(_topCategoryId) || _topCategoryId.Length > 5 ? "620" : _topCategoryId)).FirstOrDefault().Children;
-            
+
 
 
 
@@ -342,7 +343,8 @@ namespace WebApplication.Controllers
                 var tempC = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == topCategoryId).FirstOrDefault().Children;
                 foreach (var item in tempC)
                 {
-                    if (item.Children != null && !item.CategoryId.Contains("GROUP")) {
+                    if (item.Children != null && !item.CategoryId.Contains("GROUP"))
+                    {
                         item.CategoryId = "GROUP-" + item.CategoryId;
                     }
                 }
@@ -358,7 +360,8 @@ namespace WebApplication.Controllers
 
         public IActionResult SelectManufactureAndModel(string carmanufacture, string topcategoryid)
         {
-            if (String.IsNullOrEmpty(carmanufacture)) {
+            if (String.IsNullOrEmpty(carmanufacture))
+            {
                 return ShowMainView(topcategoryid);
             }
             carmanufacture = carmanufacture.ToLower().Contains("mercedes") ? carmanufacture.Replace(" ", "-") : carmanufacture;
@@ -818,8 +821,11 @@ namespace WebApplication.Controllers
             subChildName = FirstCharToUpper(subChildName);
             lastChildName = FirstCharToUpper(lastChildName);
             var autoPartsSubChildCategories = EkCategoryHelper.GetEuropeCategories().Where(x => x.CategoryId == categoryTop).FirstOrDefault().Children.Where(x => x.CategoryId == mainCategoryId).Select(x => x.Children).FirstOrDefault();
-            autoPartsSubChildCategories = autoPartsSubChildCategories.Where(x => x.CategoryId == subCategoryId).Select(x => x.Children).FirstOrDefault();
-            var tempCat = autoPartsSubChildCategories.Where(x => x.CategoryId == subChildId).Select(x => x.Children).FirstOrDefault();
+            if (autoPartsSubChildCategories != null)
+            {
+                autoPartsSubChildCategories = autoPartsSubChildCategories.Where(x => x.CategoryId == subCategoryId).Select(x => x.Children).FirstOrDefault();
+            }
+            var tempCat = autoPartsSubChildCategories == null ? null : autoPartsSubChildCategories.Where(x => x.CategoryId == subChildId).Select(x => x.Children).FirstOrDefault();
             string tempKioskId = String.IsNullOrEmpty(HttpContext.Session.GetString("kioskId")) ? "116" : HttpContext.Session.GetString("kioskId");
 
             if (tempCat != null && lastChildId == null)
@@ -887,7 +893,7 @@ namespace WebApplication.Controllers
                 },
                 EngineValues = new EngineValue().GetEngineValue(),
                 SelectedEngineValue = null,
-                TopCategoryId= topcategoryid,
+                TopCategoryId = topcategoryid,
                 ReallyTopCategoryId = HttpContext.Session.GetString("topCategoryId") == "621" ? "621" : (HttpContext.Session.GetString("topCategoryId") == null ? "620" : HttpContext.Session.GetString("topCategoryId")),
                 OfferState = isNew ? OfferStateEnum.New : OfferStateEnum.Used,
                 FunctionReturnFromProducts = String.Format("selectSubMainCategory('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}')", carManufactureName, carModel, mainCategoryId, mainCategoryName, subCategoryId, subCategoryName, tempKioskId, topcategoryid),
@@ -1258,7 +1264,8 @@ namespace WebApplication.Controllers
         //================= METHOD FILTERING LIST PRODUCTS =======================
         public IActionResult FilteredList(string state, string sorting, int page, string position, string isorigin, string enginetype, string transmissionType, string tiresQuantity, string tiresWidth, string tiresHeight, string tiresRSize, string engineValue)
         {
-            if (engineValue == "undefined") {
+            if (engineValue == "undefined")
+            {
                 engineValue = null;
             }
             if (tiresQuantity == "undefined")

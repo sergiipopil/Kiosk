@@ -14,11 +14,11 @@
     </div>
     @if (@Model.ManufacturerSelected != null && @Model.ModelSelected != null)
     {
-        <div style="display:inline-block;"><h1 class="controlHeader"><span class="notranslate">Купити запчастини @Model.ManufacturerSelected @Model.ModelSelected</span></h1></div>
+        <div style="display:inline-block;"><h1 class="controlHeader"><span class="langtrans">Купити запчастини @Model.ManufacturerSelected @Model.ModelSelected</span></h1></div>
     }
     else
     {
-        <div style="display:inline-block;"><h1 class="controlHeader"><span class="notranslate">@Model.TopCategoryName</span></h1></div>
+        <div style="display:inline-block;"><h1 class="controlHeader"><span class="langtrans">@Model.TopCategoryName</span></h1></div>
     }
 </div>
 <div style="padding: 10px 10px 10px 10px;text-align:center;">
@@ -35,7 +35,7 @@
                             <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", Model.ReallyTopCategoryId == "621" && @item.CategoryId == "GROUP-4094" ? "Truck/" + item.CategoryId : item.CategoryId)" class="modelImageAutoParts" />
                         </div>
                         <div class="manufactureText">
-                            <span class="notranslate">@item.Name.FirstOrDefault().Value</span>
+                            <span class="langtrans">@item.Name.FirstOrDefault().Value</span>
                         </div>
                     </div>
                     @*</a>*@
@@ -56,7 +56,7 @@
                             <img src="@String.Format("/images/Catalog/AutoParts/{0}.png", Model.ReallyTopCategoryId == "621" && @item.CategoryId == "GROUP-4094" ? "Truck/" + item.CategoryId : item.CategoryId)" class="modelImageAutoParts" />
                         </div>
                         <div class="manufactureText">
-                            <span class="notranslate">@item.Name.FirstOrDefault().Value</span>
+                            <span class="langtrans">@item.Name.FirstOrDefault().Value</span>
                         </div>
                     </div>
                     @*</a>*@
